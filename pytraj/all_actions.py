@@ -180,10 +180,12 @@ def closest_atom(top=None, frame=None, point=(0, 0, 0), mask=""):
 	Returns
 	-------
 	Index of atom closest to point in xyz coordinate space.
+
 	Notes
 	-----
 	Topology needs to contain atoms that match the atom mask passed in, and frame needs to have
 	xyz coordinates for all atoms. Point should be a tuple of length 3 with format (x, y, z)
+
 	Examples
 	--------
 	>>> import pytraj as pt
@@ -246,7 +248,14 @@ def count_in_voxel(traj=None, top=None, mask="", voxel_cntr=(0, 0, 0), voxel_siz
     
     Examples
     --------
-    >>> 
+    >>> tz2_traj = pt.datafiles.load_tz2()
+	>>> # center a voxel around atom 0's coordinates at frame 0
+	>>> xyz = tz2_traj[0].atom(0)
+	>>> # get the population of atoms in the voxel with length/width/height 3
+	>>> # centered around xyz at each frame
+	>>> pop = pt.count_in_voxel(tz2_traj[0:5], tz2_traj.top, "", xyz, 3)
+	>>> print([len(i) for i in pop])
+	[5, 0, 0, 0, 1]
     """
     lives_in_voxel = []
     population = top.atom_indices(mask)
