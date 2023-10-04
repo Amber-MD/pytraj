@@ -164,7 +164,7 @@ def pair_distance(p1, p2):
     return np.sqrt((x1 - x2)**2 + (y1 - y2)**2 + (z1 - z2)**2)
 
 @register_pmap
-def closest_atom(top=None, frame=None, point=(0, 0, 0), mask=""):
+def closest_atom(top, frame, point=(0, 0, 0), mask=""):
     """for a given xyz coordinate in a frame, find the closest atom
 
 	Parameters
