@@ -60,6 +60,7 @@ __all__ = [
     'dihedral',
     'distance',
 	'closest_atom',
+	'count_in_voxel',
     'distance_to_point',
     'distance_to_reference',
     'fiximagedbonds',
@@ -206,6 +207,61 @@ def closest_atom(top=None, frame=None, point=(0, 0, 0), mask=""):
             closest_idx = atm
 
     return closest_idx
+
+
+def in_voxel(voxel_cntr, xyz, delta):
+    return (xyz[0] >= voxel_cntr[0] - delta and xyz[0] <= voxel_cntr[0] +
+            delta) and (xyz[1] >= voxel_cntr[1] - delta
+                        and xyz[1] <= voxel_cntr[1] + delta) and (
+                            xyz[2] >= voxel_cntr[2] - delta
+                            and xyz[2] <= voxel_cntr[2] + delta)
+
+@register_pmap
+def count_in_voxel(traj=None, top=None, mask="", voxel_cntr=(0, 0, 0), voxel_size=5):
+    """for a voxel with center xyz and size voxel_size, find atoms that match a given mask
+    that are contained in that voxel over the course of a trajectory.
+
+    This analysis command is meant to be used with GIST analysis to estimate water residence time
+    for a given region. When running GIST on a trajectory, we get a list of voxels and their 
+    associated rotational/translational entropy. To analyze how long solvent molecules are
+    residing in various regions of the macromolecular surface, we can compute residence times
+    using the survival time correlation function. This can be done by plotting the number of 
+    solvent molecules that reside in the voxel at frame 1 and then plotting the decay in the 
+    number of those original solvent molecules as they diffuse out of the region and are 
+    replaced. This can provide insight into the behavior of solvent atoms closely interfacing 
+    with the macromolecule, since the dynamic behavior of these solvent atoms differs greatly 
+    from the bulk. Read more about residence time in 10.1021/jp020100m section 3.5
+    
+    Parameters
+    ---------
+    traj: Trajectory object
+    top: Topology object 
+    mask: Mask with atoms that exist in the topology file
+    voxel_cntr: xyz coordinates to define the center of the voxel
+    voxel_size: height/length/width of voxel
+
+    Returns
+    -------
+    List of lists, idx i contains list of atoms in the voxel at frame i
+    
+    Examples
+    --------
+    >>> 
+    """
+    lives_in_voxel = []
+    population = top.atom_indices(mask)
+    delta = voxel_size/2
+
+    for frame in traj:
+        frame_voxAtoms = []
+        for atm in population:
+            coord = frame.atom(atm)
+            if (in_voxel(voxel_cntr, coord, delta)):
+                frame_voxAtoms.append(atm)
+
+        lives_in_voxel.append(frame_voxAtoms)
+
+    return lives_in_voxel
 
 
 @register_pmap
