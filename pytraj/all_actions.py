@@ -200,7 +200,10 @@ def count_in_voxel(traj=None,
     
     Examples
     --------
-    >>> 
+    >>> j = pt.datafiles.load_tz2()
+    >>> xyz = tz2_traj[0].atom(0)
+    >>> pop = pt.count_in_voxel(tz2_traj[0:5], tz2_traj.top, "", xyz, 3)
+    >>> print([len(i) for i in pop])
     """
     lives_in_voxel = []
     population = top.atom_indices(mask)
@@ -216,6 +219,7 @@ def count_in_voxel(traj=None,
         lives_in_voxel.append(frame_voxAtoms)
 
     return lives_in_voxel
+
 
 @register_pmap
 def distance(traj=None,
