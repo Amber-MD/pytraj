@@ -169,12 +169,8 @@ def in_voxel(voxel_cntr, xyz, delta):
 
 
 @register_pmap
-def count_in_voxel(traj=None,
-                   top=None,
-                   mask="",
-                   voxel_cntr=(0, 0, 0),
-                   voxel_size=5):
-    """for a voxel with center xyz and size voxel_size, find atoms that match a given mask
+def count_in_voxel(traj=None, mask="", voxel_cntr=(0, 0, 0), voxel_size=5):
+    """For a voxel with center xyz and size voxel_size, find atoms that match a given mask
     that are contained in that voxel over the course of a trajectory.
 
     This analysis command is meant to be used with GIST analysis to estimate water residence time
@@ -190,8 +186,7 @@ def count_in_voxel(traj=None,
     
     Parameters
     ---------
-    traj: Trajectory object
-    top: Topology object 
+    traj: Trajectory object with a loaded topology object
     mask: Mask with atoms that exist in the topology file
     voxel_cntr: xyz coordinates to define the center of the voxel
     voxel_size: height/length/width of voxel
@@ -202,9 +197,6 @@ def count_in_voxel(traj=None,
     
     Examples
     --------
-    >>> # calculate the atoms in the vicinity of atom 0 throught the course of the trajectory
-    >>> j = pt.datafiles.load_tz2()
-    >>> xyz = tz2_traj[0].atom(0)
     >>> pop = pt.count_in_voxel(tz2_traj[0:5], tz2_traj.top, "", xyz, 3)
     >>> print([len(i) for i in pop])
 
@@ -230,7 +222,7 @@ def count_in_voxel(traj=None,
     """
 
     lives_in_voxel = []
-    population = top.atom_indices(mask)
+    population = traj.top.atom_indices(mask)
     delta = voxel_size / 2
 
     for frame in traj:
