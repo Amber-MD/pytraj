@@ -58,8 +58,8 @@ __all__ = [
     'crank',
     'diffusion',
     'dihedral',
-    'distance',
     'closest_atom',
+    'distance',
     'distance_to_point',
     'distance_to_reference',
     'fiximagedbonds',
@@ -163,8 +163,9 @@ def pair_distance(p1, p2):
     x2, y2, z2 = p2
     return np.sqrt((x1 - x2)**2 + (y1 - y2)**2 + (z1 - z2)**2)
 
+
 @register_pmap
-def closest_atom(top, frame, point=(0, 0, 0), mask=""):
+def closest_atom(top=None, frame=None, point=(0, 0, 0), mask=""):
     """for a given xyz coordinate in a frame, find the closest atom
 
     Parameters
@@ -196,14 +197,17 @@ def closest_atom(top, frame, point=(0, 0, 0), mask=""):
     """
 
     if (len(top.atom_indices(mask)) == 0):
-        raise ValueError("Please pass in a topology file with atoms that match the mask in it")
-    
+        raise ValueError(
+            "Please pass in a topology file with atoms that match the mask in it"
+        )
+
     closest_dist = None
     closest_idx = None
     atoms = top.atom_indices(mask)
     for atm in atoms:
         coord = frame.atom(atm)
-        if ((closest_dist is None) or (pair_distance(coord, point) < closest_dist)):
+        if ((closest_dist is None)
+                or (pair_distance(coord, point) < closest_dist)):
             closest_dist = pair_distance(coord, point)
             closest_idx = atm
 
