@@ -59,8 +59,6 @@ __all__ = [
     'diffusion',
     'dihedral',
     'distance',
-	'closest_atom',
-	'count_in_voxel',
     'distance_to_point',
     'distance_to_reference',
     'fiximagedbonds',
@@ -159,58 +157,7 @@ def _assert_mutable(trajiter):
             "This analysis does not support immutable object. Use `pytraj.Trajectory`"
         )
 
-def pair_distance(p1, p2):
-    x1, y1, z1 = p1
-    x2, y2, z2 = p2
-    return np.sqrt((x1 - x2)**2 + (y1 - y2)**2 + (z1 - z2)**2)
-
-@register_pmap
-def closest_atom(top=None, frame=None, point=(0, 0, 0), mask=""):
-    """for a given xyz coordinate in a frame, find the closest atom
-
-	Parameters
-	----------
-	top: Topology object
-	frame: Frame object
-	point: Tuple containing 3 elements, for x y and z coordinate of point.
-	Default point is the origin
-	mask: string containing atoms to find, in atom mask syntax. Default is empty string
-	which contains all the atoms
-	
-	Returns
-	-------
-	Index of atom closest to point in xyz coordinate space.
-
-	Notes
-	-----
-	Topology needs to contain atoms that match the atom mask passed in, and frame needs to have
-	xyz coordinates for all atoms. Point should be a tuple of length 3 with format (x, y, z)
-
-	Examples
-	--------
-	>>> import pytraj as pt
-	>>> # find closest atom to origin in a given trajectory
-	>>> traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
-	>>> frame = traj[0]
-	>>> pt.closest_atom(traj.top, traj[0], (0, 0, 0))
-	205	
-	"""
-
-    if (len(top.atom_indices(mask)) == 0):
-        raise ValueError("Please pass in a topology file with atoms that match the mask in it")
-    
-	closest_dist = None
-    closest_idx = None
-    atoms = top.atom_indices(mask)
-    for atm in atoms:
-        coord = frame.atom(atm)
-        if ((closest_dist is None) or (pair_distance(coord, point) < closest_dist)):
-            closest_dist = pair_distance(coord, point)
-            closest_idx = atm
-
-    return closest_idx
-
-
+# voxel center and xyz are tuples
 def in_voxel(voxel_cntr, xyz, delta):
     return (xyz[0] >= voxel_cntr[0] - delta and xyz[0] <= voxel_cntr[0] +
             delta) and (xyz[1] >= voxel_cntr[1] - delta
@@ -218,8 +165,13 @@ def in_voxel(voxel_cntr, xyz, delta):
                             xyz[2] >= voxel_cntr[2] - delta
                             and xyz[2] <= voxel_cntr[2] + delta)
 
+
 @register_pmap
-def count_in_voxel(traj=None, top=None, mask="", voxel_cntr=(0, 0, 0), voxel_size=5):
+def count_in_voxel(traj=None,
+                   top=None,
+                   mask="",
+                   voxel_cntr=(0, 0, 0),
+                   voxel_size=5):
     """for a voxel with center xyz and size voxel_size, find atoms that match a given mask
     that are contained in that voxel over the course of a trajectory.
 
@@ -248,18 +200,11 @@ def count_in_voxel(traj=None, top=None, mask="", voxel_cntr=(0, 0, 0), voxel_siz
     
     Examples
     --------
-    >>> tz2_traj = pt.datafiles.load_tz2()
-	>>> # center a voxel around atom 0's coordinates at frame 0
-	>>> xyz = tz2_traj[0].atom(0)
-	>>> # get the population of atoms in the voxel with length/width/height 3
-	>>> # centered around xyz at each frame
-	>>> pop = pt.count_in_voxel(tz2_traj[0:5], tz2_traj.top, "", xyz, 3)
-	>>> print([len(i) for i in pop])
-	[5, 0, 0, 0, 1]
+    >>> 
     """
     lives_in_voxel = []
     population = top.atom_indices(mask)
-    delta = voxel_size/2
+    delta = voxel_size / 2
 
     for frame in traj:
         frame_voxAtoms = []
@@ -271,7 +216,6 @@ def count_in_voxel(traj=None, top=None, mask="", voxel_cntr=(0, 0, 0), voxel_siz
         lives_in_voxel.append(frame_voxAtoms)
 
     return lives_in_voxel
-
 
 @register_pmap
 def distance(traj=None,
