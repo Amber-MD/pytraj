@@ -125,6 +125,7 @@ from .all_actions import center_of_mass
 from .all_actions import diffusion
 from .all_actions import dihedral
 from .all_actions import distance
+from .all_actions import closest_atom
 from .all_actions import distance_to_point
 from .all_actions import distance_to_reference
 from .all_actions import mindist

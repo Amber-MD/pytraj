@@ -58,6 +58,7 @@ __all__ = [
     'crank',
     'diffusion',
     'dihedral',
+    'closest_atom',
     'distance',
     'distance_to_point',
     'distance_to_reference',
@@ -156,6 +157,61 @@ def _assert_mutable(trajiter):
         raise ValueError(
             "This analysis does not support immutable object. Use `pytraj.Trajectory`"
         )
+
+def pair_distance(p1, p2):
+    x1, y1, z1 = p1
+    x2, y2, z2 = p2
+    return np.sqrt((x1 - x2)**2 + (y1 - y2)**2 + (z1 - z2)**2)
+
+
+@register_pmap
+def closest_atom(top=None, frame=None, point=(0, 0, 0), mask=""):
+    """for a given xyz coordinate in a frame, find the closest atom
+
+    Parameters
+    ----------
+    top: Topology object
+    frame: Frame object
+    point: Tuple containing 3 elements, for x y and z coordinate of point.
+    Default point is the origin
+    mask: string containing atoms to find, in atom mask syntax. Default is empty string
+    which contains all the atoms
+    
+    Returns
+    -------
+    Index of atom closest to point in xyz coordinate space.
+
+    Notes
+    -----
+    Topology needs to contain atoms that match the atom mask passed in, and frame needs to have
+    xyz coordinates for all atoms. Point should be a tuple of length 3 with format (x, y, z)
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> # find closest atom to origin in a given trajectory
+    >>> traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
+    >>> frame = traj[0]
+    >>> pt.closest_atom(traj.top, traj[0], (0, 0, 0))
+    205 
+    """
+
+    if (len(top.atom_indices(mask)) == 0):
+        raise ValueError(
+            "Please pass in a topology file with atoms that match the mask in it"
+        )
+
+    closest_dist = None
+    closest_idx = None
+    atoms = top.atom_indices(mask)
+    for atm in atoms:
+        coord = frame.atom(atm)
+        if ((closest_dist is None)
+                or (pair_distance(coord, point) < closest_dist)):
+            closest_dist = pair_distance(coord, point)
+            closest_idx = atm
+
+    return closest_idx
 
 
 @register_pmap
