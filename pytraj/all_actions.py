@@ -59,6 +59,7 @@ __all__ = [
     'diffusion',
     'dihedral',
     'closest_atom',
+    'count_in_voxel',
     'distance',
     'distance_to_point',
     'distance_to_reference',
@@ -157,6 +158,83 @@ def _assert_mutable(trajiter):
         raise ValueError(
             "This analysis does not support immutable object. Use `pytraj.Trajectory`"
         )
+
+# voxel center and xyz are tuples
+def in_voxel(voxel_cntr, xyz, delta):
+    return (xyz[0] >= voxel_cntr[0] - delta and xyz[0] <= voxel_cntr[0] +
+            delta) and (xyz[1] >= voxel_cntr[1] - delta
+                        and xyz[1] <= voxel_cntr[1] + delta) and (
+                            xyz[2] >= voxel_cntr[2] - delta
+                            and xyz[2] <= voxel_cntr[2] + delta)
+
+
+@register_pmap
+def count_in_voxel(traj=None, mask="", voxel_cntr=(0, 0, 0), voxel_size=5):
+    """For a voxel with center xyz and size voxel_size, find atoms that match a given mask
+    that are contained in that voxel over the course of a trajectory.
+
+    This analysis command is meant to be used with GIST analysis to estimate water residence time
+    for a given region. When running GIST on a trajectory, we get a list of voxels and their 
+    associated rotational/translational entropy. To analyze how long solvent molecules are
+    residing in various regions of the macromolecular surface, we can compute residence times
+    using the survival time correlation function. This can be done by plotting the number of 
+    solvent molecules that reside in the voxel at frame 1 and then plotting the decay in the 
+    number of those original solvent molecules as they diffuse out of the region and are 
+    replaced. This can provide insight into the behavior of solvent atoms closely interfacing 
+    with the macromolecule, since the dynamic behavior of these solvent atoms differs greatly 
+    from the bulk. Read more about residence time in 10.1021/jp020100m section 3.5
+    
+    Parameters
+    ---------
+    traj: Trajectory object with a loaded topology object
+    mask: Mask with atoms that exist in the topology file
+    voxel_cntr: xyz coordinates to define the center of the voxel
+    voxel_size: height/length/width of voxel
+
+    Returns
+    -------
+    List of lists, idx i contains list of atoms in the voxel at frame i
+    
+    Examples
+    --------
+    >>> pop = pt.count_in_voxel(tz2_traj[0:5], tz2_traj.top, "", xyz, 3)
+    >>> print([len(i) for i in pop])
+
+    >>> # calculate residence time for water molecules inside a GIST voxel of interest
+    >>> tz2_traj = pt.datafiles.load_tz2_ortho()
+    >>> wat_atoms = tz2_traj.top.select(":WAT")
+    >>> gist_voxel = (35.26, 38.23, 1.66)
+    >>> pop = pt.count_in_voxel(tz2_traj, tz2_traj.top, ":WAT@O", gist_voxel, 10)
+    >>> #
+    >>> # print water molecules in voxel at frame 0. 
+    >>> # For survival time correlation function,
+    >>> # plot the number of these particular beginning frame water atoms that remain in the voxel
+    >>> # throughout the course of the simulation (if the voxel is part of the bulk solvent, 
+    >>> # the function will decay very quickly, but if it is near the interface, then decay
+    >>> # will be slower as waters will stay in enthalpically favorable points).
+    >>> orig_frame_waters = set(pop[0])
+    >>> #
+    >>> # NOTE: Reader will need to modify this to also exclude waters that leave in an intermediate frame
+    >>> # but then return later. (e.g. water 250 is in frame 1, but not in frame 2, then back in frame 3
+    >>> # it does not count as a "surviving" water that has remained in the voxel.
+    >>> survival_decay = [len(orig_frame_waters.intersection(set(pop[i]))) for i in range(len(pop))]
+    >>> print(survival_decay)
+    """
+
+    lives_in_voxel = []
+    population = traj.top.atom_indices(mask)
+    delta = voxel_size / 2
+
+    for frame in traj:
+        frame_voxAtoms = []
+        for atm in population:
+            coord = frame.atom(atm)
+            if (in_voxel(voxel_cntr, coord, delta)):
+                frame_voxAtoms.append(atm)
+        lives_in_voxel.append(frame_voxAtoms)
+
+    return lives_in_voxel
+
 
 def pair_distance(p1, p2):
     x1, y1, z1 = p1
