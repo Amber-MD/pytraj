@@ -8,7 +8,7 @@ import numpy as np
 
 # tests to see if function can find an atom if we search with a coordinate
 # very close to the atom's xyz coordinates
-def search_for_atom(self):
+def test_search_for_atom():
     tz2_traj = pt.datafiles.load_tz2()
 
     # find coordinates of a given atom, make sure count_in_voxel finds
@@ -16,32 +16,32 @@ def search_for_atom(self):
     idx = 0
     frame = 0
     xyz = tz2_traj[frame].atom(idx)
-    pop = pt.count_in_voxel(tz2_traj, tz2_traj.top, "", xyz, 3)
+    pop = pt.count_in_voxel(tz2_traj, "", xyz, 3)
     assert (idx in pop[frame])
 
     idx = 3
     frame = 4
     xyz = tz2_traj[frame].atom(idx)
-    pop = pt.count_in_voxel(tz2_traj, tz2_traj.top, "", xyz, 3)
+    pop = pt.count_in_voxel(tz2_traj, "", xyz, 3)
     assert (idx in pop[frame])
 
 # tests to make sure function doesn't put an atom in the list if its
 # not in the voxel
-def voxel_doesnt_contain(self):
+def test_voxel_doesnt_contain():
     tz2_traj = pt.datafiles.load_tz2()
     idx = 0
     x, y, z = tz2_traj[0].atom(idx)
     size = 3
     voxel = (x + size, y + size, z + size)
-    pop = pt.count_in_voxel(tz2_traj, tz2_traj.top, "", voxel, size)
+    pop = pt.count_in_voxel(tz2_traj, "", voxel, size)
 
     assert (idx not in pop[0])
 
 # example gist analysis for voxel centered at (35.26, 38.23, 1.66) with edge length 10
-def gist_survival_ex(self):
+def test_gist_survival_ex():
     tz2_traj = pt.datafiles.load_tz2_ortho()
     wat_atoms = tz2_traj.top.select(":WAT")
-    pop = pt.count_in_voxel(tz2_traj, tz2_traj.top, ":WAT@O",
+    pop = pt.count_in_voxel(tz2_traj, ":WAT@O",
                             (35.26, 38.23, 1.66), 10)
     # print water molecules in voxel at frame 0.
     #
