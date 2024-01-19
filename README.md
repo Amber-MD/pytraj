@@ -1,6 +1,6 @@
 [Install](#install) | [Features](#features) | [How to get started?](#how-to-get-started) | [Visualization](#nglview-with-pytraj-in-jupyter-notebook)
 
-[![Python Package using Conda](https://github.com/Amber-MD/pytraj/actions/workflows/python-package-conda.yml/badge.svg)](https://github.com/Amber-MD/pytraj/actions/workflows/python-package-conda.yml)
+[![Build status](https://github.com/Amber-MD/pytraj/actions/workflows/python-package-conda.yml/badge.svg)](https://github.com/Amber-MD/pytraj/actions/workflows/python-package-conda.yml)
 [![Coverage Status](https://coveralls.io/repos/Amber-MD/pytraj/badge.svg?branch=master&service=github)](https://coveralls.io/github/Amber-MD/pytraj?branch=master)
 
 [![pytraj website](./examples/figures/pytraj.gif)](http://amber-md.github.io/pytraj/latest/index.html)
