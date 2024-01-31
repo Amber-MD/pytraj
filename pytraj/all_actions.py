@@ -1104,7 +1104,8 @@ def rdf(traj=None,
         center_solute=False,
         intramol=True,
         frame_indices=None,
-        top=None):
+        top=None,
+        raw_rdf=False):
     '''compute radial distribtion function. Doc was adapted lightly from cpptraj doc
 
     Returns
@@ -1131,7 +1132,9 @@ def rdf(traj=None,
         if True, calculate RDF from geometric center of atoms in solute_mask to all atoms in solvent_mask
     intramol : bool, default True, optional
         if False, ignore intra-molecular distances
-    frame_indices : array-like, default None, optional
+    frame_indices : array-like, default None, 
+    raw_rdf : bool, default False, optional
+        if True, return the raw (non-normalized) RDF values 
 
     Examples
     --------
@@ -1171,13 +1174,14 @@ def rdf(traj=None,
     center1_ = 'center1' if center_solvent else ''
     center2_ = 'center2' if center_solute else ''
     nointramol_ = 'nointramol' if not intramol else ''
+    raw_rdf_ = "rawrdf pytraj_tmp_output_raw.agr" if raw_rdf else ''
 
     # order does matters
     # the order between solventmask_ and solutemask_ is swapped compared
     # to cpptraj's doc (to get correct result)
     command = ' '.join(("pytraj_tmp_output.agr", spacing_, maximum_,
                         solventmask_, solutemask_, noimage_, density_, volume_,
-                        center1_, center2_, nointramol_))
+                        center1_, center2_, nointramol_, raw_rdf_))
 
     c_dslist, _ = do_action(traj, command, c_action.Action_Radial)
     # make a copy sine c_dslist[-1].values return view of its data
