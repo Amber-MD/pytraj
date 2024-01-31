@@ -1132,7 +1132,7 @@ def rdf(traj=None,
         if True, calculate RDF from geometric center of atoms in solute_mask to all atoms in solvent_mask
     intramol : bool, default True, optional
         if False, ignore intra-molecular distances
-    frame_indices : array-like, default None, 
+    frame_indices : array-like, default None, optional
     raw_rdf : bool, default False, optional
         if True, return the raw (non-normalized) RDF values 
 
