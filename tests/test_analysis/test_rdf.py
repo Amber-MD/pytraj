@@ -48,14 +48,6 @@ class TestRDF(unittest.TestCase):
                 bin_spacing=0.5,
                 maximum=10.0)
 
-data01raw = pt.rdf(
-                traj,
-                solvent_mask=':5@CD',
-                solute_mask=':WAT@O',
-                bin_spacing=0.5,
-                maximum=10.0,
-                rawrdf=True)
-
             data1 = pt.rdf(
                 traj,
                 solvent_mask=':5',
@@ -114,6 +106,14 @@ data01raw = pt.rdf(
                 maximum=10.0,
                 volume=True)
 
+            data8 = pt.rdf(
+                traj,
+                solvent_mask=':5@CD',
+                solute_mask=':WAT@O',
+                bin_spacing=0.5,
+                maximum=10.0,
+                raw_rdf=True)
+
             # do assertion
             aa_eq(data0[1], state.data[1], decimal=7)
             aa_eq(data1[1], state.data[2], decimal=7)
@@ -121,7 +121,7 @@ data01raw = pt.rdf(
             aa_eq(data3[1], state.data[4], decimal=7)
             aa_eq(data4[1], state.data[5], decimal=7)
             aa_eq(data7[1], state.data[8], decimal=7)
-            aa_eq(data01raw[1], state.data[9], decimal=7)
+            aa_eq(data8[1], state.data[10], decimal=7)
 
             # default solvent mask :WAT@O
             aa_eq(data01[1], state.data[1], decimal=7)
