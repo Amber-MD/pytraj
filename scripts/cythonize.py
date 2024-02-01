@@ -28,6 +28,7 @@ cython_directives = {
     'embedsignature': True,
     'boundscheck': False,
     'wraparound': False,
+    'language_level' : "3"
 }
 
 if DEBUG:
