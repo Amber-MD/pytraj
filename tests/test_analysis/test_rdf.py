@@ -25,6 +25,7 @@ class TestRDF(unittest.TestCase):
         radial radial.dat 0.5 10.0 :5@CD :WAT@O
         radial radial2.dat 0.25 10.0 :5@CD :WAT@O
         radial radial2.dat 0.25 10.0 :5@CD :WAT@O volume
+        radial RadialForRaw.agr 0.5 10.0 :5@CD :WAT@O rawrdf RadialRaw.agr
         '''
 
         state = pt.load_batch(traj, command)
@@ -46,6 +47,14 @@ class TestRDF(unittest.TestCase):
                 solute_mask=':WAT@O',
                 bin_spacing=0.5,
                 maximum=10.0)
+
+data01raw = pt.rdf(
+                traj,
+                solvent_mask=':5@CD',
+                solute_mask=':WAT@O',
+                bin_spacing=0.5,
+                maximum=10.0,
+                rawrdf=True)
 
             data1 = pt.rdf(
                 traj,
@@ -112,6 +121,7 @@ class TestRDF(unittest.TestCase):
             aa_eq(data3[1], state.data[4], decimal=7)
             aa_eq(data4[1], state.data[5], decimal=7)
             aa_eq(data7[1], state.data[8], decimal=7)
+            aa_eq(data01raw[1], state.data[9], decimal=7)
 
             # default solvent mask :WAT@O
             aa_eq(data01[1], state.data[1], decimal=7)
