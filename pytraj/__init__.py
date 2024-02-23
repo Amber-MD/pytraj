@@ -190,6 +190,7 @@ from .all_actions import xcorr
 from .all_actions import ti
 from .all_actions import lipidscd
 from .all_actions import xtalsymm
+from .all_actions import multipucker
 from .all_actions import hausdorff
 from .all_actions import permute_dihedrals
 

@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-from __future__ import print_function
 import unittest
 import pytraj as pt
 from utils import fn
@@ -16,24 +15,16 @@ pucker p3-cp :3@C1' :3@C2' :3@C3' :3@C4' :3@O4' cremer
 '''
 
 
-class TestPucker(unittest.TestCase):
-    '''TestPucker
-    '''
+def test_pucker():
+    traj = pt.iterload(fn('Test_NAstruct/adh026.3.pdb'))
+    state = pt.load_cpptraj_state(cm, traj)
+    state.run()
 
-    def test_pucker(self):
-        traj = pt.iterload(fn('Test_NAstruct/adh026.3.pdb'))
-        state = pt.load_cpptraj_state(cm, traj)
-        state.run()
+    data_altona = pt.pucker(traj, resrange=range(3))
+    data_cremer = pt.pucker(traj, resrange=range(3), method='cremer')
+    aa_eq(data_altona.values, state.data[1:4].values)
+    aa_eq(data_cremer.values, state.data[4:].values)
 
-        data_altona = pt.pucker(traj, resrange=range(3))
-        data_cremer = pt.pucker(traj, resrange=range(3), method='cremer')
-        aa_eq(data_altona.values, state.data[1:4].values)
-        aa_eq(data_cremer.values, state.data[4:].values)
-
-        # resrange=None
-        data_full_residues = pt.pucker(traj, resrange=None)
-        aa_eq(data_full_residues[:3].values, data_altona[:3].values)
-
-
-if __name__ == "__main__":
-    unittest.main()
+    # resrange=None
+    data_full_residues = pt.pucker(traj, resrange=None)
+    aa_eq(data_full_residues[:3].values, data_altona[:3].values)

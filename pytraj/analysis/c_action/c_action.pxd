@@ -972,3 +972,14 @@ cdef extern from "Action_XtalSymm.h":
 
 cdef class Action_XtalSymm(Action):
     cdef _Action_XtalSymm* thisptr
+
+
+cdef extern from "Action_MultiPucker.h":
+    cdef cppclass _Action_MultiPucker "Action_MultiPucker" (_Action) nogil:
+        _Action_MultiPucker()
+        _DispatchObject * Alloc()
+        void Help()
+
+
+cdef class Action_MultiPucker(Action):
+    cdef _Action_MultiPucker* thisptr
