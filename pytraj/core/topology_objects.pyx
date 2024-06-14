@@ -163,13 +163,13 @@ cdef class Residue:
 
     Examples
     --------
-    >>> Residue('ALA', resid=0, icode=0, chainID=0)
+    >>> Residue('ALA', resid=0, icode=0, chainID='')
     '''
 
-    def __cinit__(self, name='', int resid=0, icode=0, chainID=0):
+    def __cinit__(self, name='', int resid=0, icode=0, chainID=''):
         cdef NameType resname = NameType(name)
         cdef char icode_ = <int> icode
-        cdef char chainID_ = <int> chainID
+        cdef string chainID_ = chainID.encode()
         self.thisptr = new _Residue(resname.thisptr[0], <int> resid,
                                     icode_, chainID_)
 
