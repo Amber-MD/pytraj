@@ -41,6 +41,7 @@ jobs:
         export PATH=$HOME/bin:$PATH
     - name: Install conda packages
       run: |
+        conda update conda
         conda env update --file environment.yml --name base        
     - name: Install cpptraj
       run: |
