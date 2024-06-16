@@ -45,6 +45,8 @@ from .utils.get_common_objects import (
     super_dispatch,
 )
 
+from .core.c_core import CpptrajState, Command
+
 __all__ = [
     'acorr', 'align', 'align_principal_axis', 'analyze_modes', 'angle',
     'atomiccorr', 'atomicfluct', 'atom_map', 'autoimage', 'bfactors',
@@ -64,6 +66,18 @@ __all__ = [
     'transform', 'translate', 'velocityautocorr', 'vector', 'volmap', 'volume',
     'watershell', 'wavelet', 'xcorr', 'xtalsymm',
 ] # yapf: disable
+
+class DatasetType(Enum):
+    COORDS = 'coords'
+    REFERENCE = 'reference'
+    REFERENCE_FRAME = 'ref_frame'
+    TOPOLOGY = 'topology'
+    VECTOR = 'vector'
+    DOUBLE = 'double'
+    MODES = 'modes'
+    XYMESH = 'xymesh'
+    MATRIX3x3 = 'matrix3x3'
+
 
 
 def _assert_mutable(trajiter):
@@ -336,7 +350,7 @@ def _distance_to_ref_or_point(traj=None,
     if ref is not None:
         refname = 'myref'
         ref_top = ref.top or traj.top
-        action_datasets.add('reference', name=refname)
+        action_datasets.add(DatasetType.REFERENCE, name=refname)
         action_datasets[0].top = ref_top
         action_datasets[0].add_frame(ref)
     actlist = ActionList()
@@ -1582,7 +1596,7 @@ def center_of_geometry(traj=None,
 
     atom_mask_obj = top(mask)
     action_datasets = CpptrajDatasetList()
-    action_datasets.add("vector")
+    action_datasets.add(DatasetType.VECTOR)
 
     for frame in iterframe_master(traj):
         action_datasets[0].append(frame.center_of_geometry(atom_mask_obj))
@@ -1637,7 +1651,7 @@ def align(traj,
             reference_topology = traj.top
 
         action_datasets = CpptrajDatasetList()
-        action_datasets.add('reference', name=reference_name)
+        action_datasets.add(DatasetType.REFERENCE, name=reference_name)
         action_datasets[0].top = reference_topology
         action_datasets[0].add_frame(ref)
 
@@ -1793,12 +1807,12 @@ def native_contacts(traj=None,
                     frame_indices=None,
                     options='',
                     top=None):
-    """compute native contacts
+    """Compute native contacts.
 
     Parameters
     ----------
-    options : str, extra cpptraj command(s).
-
+    options : str
+        Extra cpptraj command(s).
 
     Examples
     --------
@@ -1815,25 +1829,25 @@ def native_contacts(traj=None,
     >>> data = pt.native_contacts(traj, mask=range(100), mask2=[200, 201], ref=ref, distance=8.0)
     """
     ref = get_reference(traj, ref)
-    act = c_action.Action_NativeContacts()
+    native_contacts_action = c_action.Action_NativeContacts()
     action_datasets = CpptrajDatasetList()
 
     if not isinstance(mask2, str):
         # [1, 3, 5] to "@1,3,5
         mask2 = array_to_cpptraj_atommask(mask2)
-    mask_ = ' '.join((mask, mask2))
+    mask_str = ' '.join((mask, mask2))
 
-    distance_ = 'distance %s' % str(distance)
-    noimage_ = "noimage" if not image else ""
-    includesolvent_ = "includesolvent" if include_solvent else ""
-    byres_ = "byresidue" if byres else ""
+    distance_str = f'distance {str(distance)}'
+    image_str = "noimage" if not image else ""
+    solvent_str = "includesolvent" if include_solvent else ""
+    byres_str = "byresidue" if byres else ""
 
-    command = " ".join(('ref myframe', mask_, distance_, noimage_,
-                         includesolvent_, byres_, options))
-    action_datasets.add('ref_frame', 'myframe')
+    command = " ".join(('ref myframe', mask_str, distance_str, image_str,
+                         solvent_str, byres_str, options))
+    action_datasets.add(DatasetType.REFERENCE_FRAME, 'myframe')
     action_datasets[0].top = top
     action_datasets[0].add_frame(ref)
-    act(command, traj, top=top, dslist=action_datasets)
+    native_contacts_action(command, traj, top=top, dslist=action_datasets)
     action_datasets._pop(0)
 
     return get_data_from_dtype(action_datasets, dtype=dtype)
@@ -1884,14 +1898,8 @@ def check_structure(traj,
     return get_data_from_dtype(action_datasets, dtype=dtype), c_stdout
 
 
-def timecorr(vec0,
-             vec1,
-             order=2,
-             tstep=1.,
-             tcorr=10000.,
-             norm=False,
-             dtype='ndarray'):
-    """compute time correlation.
+def compute_time_correlation(vec0, vec1, order=2, tstep=1., tcorr=10000., norm=False, dtype='ndarray'):
+    """Compute time correlation.
 
     Parameters
     ----------
@@ -1901,29 +1909,24 @@ def timecorr(vec0,
     tstep : float, default 1.
     tcorr : float, default 10000.
     norm : bool, default False
+    dtype : str, default 'ndarray'
     """
-    # TODO: doc. not yet assert to cpptraj's output
-    act = c_analysis.Analysis_Timecorr()
-
+    time_correlation_action = c_analysis.Analysis_Timecorr()
     action_datasets = CpptrajDatasetList()
 
-    action_datasets.add("vector", "_vec0")
-    action_datasets.add("vector", "_vec1")
+    action_datasets.add(DatasetType.VECTOR, "_vec0")
+    action_datasets.add(DatasetType.VECTOR, "_vec1")
     action_datasets[0].data = np.asarray(vec0).astype('f8')
     action_datasets[1].data = np.asarray(vec1).astype('f8')
 
-    order_ = "order " + str(order)
-    tstep_ = "tstep " + str(tstep)
-    tcorr_ = "tcorr " + str(tcorr)
-    norm_ = "norm" if norm else ""
-    command = " ".join(('vec1 _vec0 vec2 _vec1', order_, tstep_, tcorr_,
-                        norm_))
-    act(command, dslist=action_datasets)
+    command = f"vec1 _vec0 vec2 _vec1 order {order} tstep {tstep} tcorr {tcorr} {'norm' if norm else ''}"
+    time_correlation_action(command, dslist=action_datasets)
+
     return get_data_from_dtype(action_datasets[2:], dtype=dtype)
 
 
 @super_dispatch()
-def velocityautocorr(
+def velocity_autocorrelation(
         traj,
         mask='',
         maxlag=-1,
@@ -1933,9 +1936,8 @@ def velocityautocorr(
         usecoords=False,
         dtype='ndarray',
         top=None,
-        velocity_arr=None, ):
+        velocity_arr=None):
     """
-
     Parameters
     ----------
     traj : Trajectory-like
@@ -1973,20 +1975,14 @@ def velocityautocorr(
                 'provided velocity_arr must be 3D array-like, shape=(n_frames, n_atoms, 3)'
             )
 
-    act = c_action.Action_VelocityAutoCorr()
+    velocity_autocorrelation_action = c_action.Action_VelocityAutoCorr()
     action_datasets = CpptrajDatasetList()
 
-    maxlag_ = ' '.join(('maxlag', str(maxlag)))
-    tstep_ = ' '.join(('tstep', str(tstep)))
-    direct_ = 'direct' if direct else ''
-    norm_ = 'norm' if norm else ''
-    usecoords_ = 'usecoords' if usecoords else ''
-
-    command = ' '.join((maxlag_, tstep_, direct_, norm_, usecoords_))
+    command = f"maxlag {maxlag} tstep {tstep} {'direct' if direct else ''} {'norm' if norm else ''} {'usecoords' if usecoords else ''}"
     crdinfo = dict(has_velocity=True)
 
-    act.read_input(command, top, dslist=action_datasets)
-    act.setup(top, crdinfo=crdinfo)
+    velocity_autocorrelation_action.read_input(command, top, dslist=action_datasets)
+    velocity_autocorrelation_action.setup(top, crdinfo=crdinfo)
 
     frame_template = Frame()
 
@@ -2002,14 +1998,14 @@ def velocityautocorr(
             if usecoords and not frame.has_velocity():
                 raise ValueError(
                     "Frame must have velocity if specify 'usecoords'")
-            act.compute(frame)
+            velocity_autocorrelation_action.compute(frame)
         else:
             vel = velocity_arr[idx]
             frame_template.xyz[:] = frame.xyz[:]
             frame_template.velocity[:] = vel
-            act.compute(frame_template)
+            velocity_autocorrelation_action.compute(frame_template)
 
-    act.post_process()
+    velocity_autocorrelation_action.post_process()
 
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
@@ -2059,8 +2055,8 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     Same as `crank` in cpptraj
     """
     action_datasets = CpptrajDatasetList()
-    action_datasets.add("double", "d0")
-    action_datasets.add("double", "d1")
+    action_datasets.add(DatasetType.DOUBLE, "d0")
+    action_datasets.add(DatasetType.DOUBLE, "d1")
 
     action_datasets[0].data = np.asarray(data0)
     action_datasets[1].data = np.asarray(data1)
@@ -2134,25 +2130,20 @@ def pucker(traj=None,
     Dataset
     """
     topology = get_topology(traj, top)
-    if resrange is None:
-        resrange = range(topology.n_residues)
+    resrange = range(topology.n_residues) if resrange is None else resrange
 
-    range360 = "range360" if range360 else ""
-    geom = "geom" if not use_com else ""
-    amp = "amplitude" if amplitude else ""
-    offset = "offset " + str(offset) if offset else ""
-
-    dslist = CpptrajDatasetList()
+    action_datasets = CpptrajDatasetList()
 
     for res in resrange:
-        command = f":{res + 1}@" + " @".join(pucker_mask)
-        name = f"pucker_res{res + 1}"
-        command = f"{name} {command} {range360} {method} {geom} {amp} {offset}"
+        command = f"pucker_res{res + 1} :{res + 1}@" + " @".join(pucker_mask)
+        options = [range360, method, not use_com, amplitude, offset]
+        options_str = " ".join([str(opt) for opt in options if opt])
+        command += f" {options_str}"
 
         action = c_action.Action_Pucker()
-        action(command, traj, top=topology, dslist=dslist)
+        action(command, traj, top=topology, dslist=action_datasets)
 
-    return get_data_from_dtype(dslist, dtype)
+    return get_data_from_dtype(action_datasets, dtype)
 
 
 @super_dispatch()
@@ -2200,21 +2191,24 @@ def center(traj=None,
     --------
     pytraj.translate
     """
-    if not isinstance(center, str):
-        center = 'point ' + ' '.join(str(x) for x in center)
-    else:
-        if center.lower() not in ['box', 'origin']:
-            raise ValueError('center must be box or origin')
-    center_ = '' if center == 'box' else center
-    mass_ = 'mass' if mass else ''
-    command = ' '.join((mask, center_, mass_))
+    valid_centers = ['box', 'origin']
+
+    if isinstance(center, (list, tuple)):
+        center = 'point ' + ' '.join(map(str, center))
+    elif center.lower() not in valid_centers:
+        raise ValueError(f'center must be one of {valid_centers}')
+
+    center_option = '' if center == 'box' else center
+    mass_option = 'mass' if mass else ''
+    command = ' '.join((mask, center_option, mass_option))
 
     if isinstance(traj, TrajectoryIterator):
         return traj.center(command)
-    else:
-        act = c_action.Action_Center()
-        act(command, traj, top=top)
-        return traj
+
+    action_center = c_action.Action_Center()
+    action_center(command, traj, top=top)
+
+    return traj
 
 
 def rotate_dihedral(traj=None, mask="", top=None):
@@ -2289,18 +2283,16 @@ def replicate_cell(traj=None,
     >>> new_traj = pt.replicate_cell(traj, direction=['001', '0-10'])
     '''
     if isinstance(direction, str):
-        _direction = direction
+        formatted_direction = direction
     elif isinstance(direction, (list, tuple)):
-        # example: direction = ('001, '0-10')
-        _direction = 'dir ' + ' dir '.join(direction)
+        formatted_direction = 'dir ' + ' dir '.join(direction)
     else:
-        raise ValueError(
-            'only support ``direction`` as a string or list/tuple of strings')
-    command = ' '.join(('name tmp_cell', _direction, mask))
-    action_datasets, _ = do_action(traj, command, c_action.Action_ReplicateCell)
-    traj = Trajectory(xyz=action_datasets[0].xyz, top=action_datasets[0].top)
+        raise ValueError('direction must be a string or list/tuple of strings')
 
-    return traj
+    command = f'name tmp_cell {formatted_direction} {mask}'
+    action_datasets, _ = do_action(traj, command, c_action.Action_ReplicateCell)
+
+    return Trajectory(xyz=action_datasets[0].xyz, top=action_datasets[0].top)
 
 
 def set_dihedral(traj, resid=0, dihedral_type=None, deg=0, top=None):
@@ -2374,11 +2366,11 @@ def projection(traj,
     (2, 101)
     '''
 
-    act = c_action.Action_Projection()
+    projection_action = c_action.Action_Projection()
     action_datasets = CpptrajDatasetList()
 
     mode_name = 'my_modes'
-    action_datasets.add('modes', mode_name)
+    action_datasets.add(DatasetType.MODES, mode_name)
 
     is_reduced = False
     dataset_mode = action_datasets[-1]
@@ -2387,21 +2379,15 @@ def projection(traj,
                             eigenvalues, eigenvectors.flatten())
     dataset_mode.scalar_type = scalar_type
 
-    if average_coords is not None:
-        dataset_mode._allocate_avgcoords(3 * average_coords.shape[0])
-        dataset_mode._set_avg_frame(average_coords.flatten())
-    else:
+    if average_coords is None:
         frame = mean_structure(traj, mask)
         average_coords = frame.xyz
-        dataset_mode._allocate_avgcoords(3 * average_coords.shape[0])
-        dataset_mode._set_avg_frame(average_coords.flatten())
 
-    mask_ = mask
-    evecs_ = 'evecs {}'.format(mode_name)
-    beg_end_ = 'beg 1 end {}'.format(n_vectors)
+    dataset_mode._allocate_avgcoords(3 * average_coords.shape[0])
+    dataset_mode._set_avg_frame(average_coords.flatten())
 
-    command = ' '.join((evecs_, mask_, beg_end_))
-    act(command, traj, top=top, dslist=action_datasets)
+    command = f"evecs {mode_name} {mask} beg 1 end {n_vectors}"
+    projection_action(command, traj, top=top, dslist=action_datasets)
 
     action_datasets._pop(0)
 
@@ -2475,34 +2461,29 @@ def pca(traj,
     >>> # provide different mask for fitting
     >>> data = pt.pca(traj, mask='!@H=', fit=True, ref=0, ref_mask='@CA')
     '''
-    # TODO: move to another file
-    # NOTE: do not need to use super_dispatch here since we already use in projection
-    ref_mask_ = ref_mask if ref_mask is not None else mask
+    ref_mask = ref_mask if ref_mask is not None else mask
 
     if not isinstance(traj, (Trajectory, TrajectoryIterator)):
         raise ValueError('must be Trajectory-like')
 
     if fit:
         if ref is None:
-            traj.superpose(ref=0, mask=ref_mask_)
+            traj.superpose(ref=0, mask=ref_mask)
             avg = mean_structure(traj)
-            traj.superpose(ref=avg, mask=ref_mask_)
+            traj.superpose(ref=avg, mask=ref_mask)
             n_refs = 2
         else:
             ref = get_reference(traj, ref)
-            traj.superpose(ref=ref, mask=ref_mask_)
+            traj.superpose(ref=ref, mask=ref_mask)
             n_refs = 1
 
     avg2 = mean_structure(traj, mask=mask)
 
-    mat = matrix.covar(traj, mask)
-    if n_vecs < 0:
-        n_vecs = mat.shape[0]
-    else:
-        n_vecs = n_vecs
+    covariance_matrix = matrix.covar(traj, mask)
+    n_vecs = covariance_matrix.shape[0] if n_vecs < 0 else n_vecs
 
-    eigenvectors, eigenvalues = matrix.diagonalize(
-        mat, n_vecs=n_vecs, dtype='tuple')
+    eigenvectors, eigenvalues = matrix.diagonalize(covariance_matrix, n_vecs=n_vecs, dtype='tuple')
+
     projection_data = projection(
         traj,
         mask=mask,
@@ -2510,9 +2491,9 @@ def pca(traj,
         eigenvalues=eigenvalues,
         eigenvectors=eigenvectors,
         scalar_type='covar',
-        dtype=dtype)
+        dtype=dtype
+    )
 
-    # release added transformed commands for TrajectoryIterator
     if fit and hasattr(traj, '_transform_commands'):
         for _ in range(n_refs):
             traj._transform_commands.pop()
@@ -2520,6 +2501,7 @@ def pca(traj,
             traj._reset_transformation()
         else:
             traj._remove_transformations()
+
     return projection_data, (eigenvalues, eigenvectors)
 
 
@@ -2654,24 +2636,23 @@ def density(traj,
     >>> density_dict = func() # doctest: +SKIP
     """
 
-    density_type_set = {'number', 'mass', 'charge', 'electron'}
-    assert density_type.lower() in density_type_set, '{} must be in {}'.format(
-        density_type, density_type_set)
-
-    delta_ = 'delta {}'.format(delta)
+    assert density_type.lower() in {'number', 'mass', 'charge', 'electron'}, \
+        f'{density_type} must be one of number, mass, charge, electron'
 
     if isinstance(mask, str):
-        mask_ = '"' + mask + '"'
+        formatted_mask = f'"{mask}"'
     elif isinstance(mask, (list, tuple)):
-        mask_ = ' '.join(['"' + m + '"' for m in mask])
+        formatted_mask = ' '.join(f'"{m}"' for m in mask)
     else:
         raise ValueError("mask must be either string or list/tuple of string")
 
-    command = ' '.join((delta_, direction, density_type, mask_))
+    command = f'delta {delta} {direction} {density_type} {formatted_mask}'
     action_datasets, _ = do_action(traj, command, c_action.Action_Density)
+
     result = get_data_from_dtype(action_datasets, dtype=dtype)
     if isinstance(result, dict):
         result.update({direction: action_datasets[0]._coord(dim=0)})
+
     return result
 
 
@@ -2747,20 +2728,17 @@ def lowestcurve(data, points=10, step=0.2):
     -------
     2d array
     '''
-    points_ = 'points ' + str(points)
-    step_ = 'step ' + str(step)
-    label = 'mydata'
-    command = ' '.join((label, points_, step_))
+    command = f'mydata points {points} step {step}'
 
-    data = np.asarray(data)
+    data = np.asarray(data).T
 
     action_datasets = CpptrajDatasetList()
-    action_datasets.add('xymesh', label)
-    action_datasets[0]._append_from_array(data.T)
+    action_datasets.add(DatasetType.XYMESH, 'mydata')
+    action_datasets[0]._append_from_array(data)
 
-    act = c_analysis.Analysis_LowestCurve()
+    analysis_lowest_curve = c_analysis.Analysis_LowestCurve()
+    analysis_lowest_curve(command, dslist=action_datasets)
 
-    act(command, dslist=action_datasets)
     return np.array([action_datasets[-1]._xcrd(), np.array(action_datasets[-1].values)])
 
 
@@ -2780,7 +2758,7 @@ def acorr(data, dtype='ndarray', option=''):
     Same as `autocorr` in cpptraj
     """
     action_datasets = CpptrajDatasetList()
-    action_datasets.add("double", "d0")
+    action_datasets.add(DatasetType.DOUBLE, "d0")
 
     action_datasets[0].data = np.asarray(data)
 
@@ -2808,8 +2786,8 @@ def xcorr(data0, data1, dtype='ndarray'):
     """
 
     action_datasets = CpptrajDatasetList()
-    action_datasets.add("double", "d0")
-    action_datasets.add("double", "d1")
+    action_datasets.add(DatasetType.DOUBLE, "d0")
+    action_datasets.add(DatasetType.DOUBLE, "d1")
 
     action_datasets[0].data = np.asarray(data0)
     action_datasets[1].data = np.asarray(data1)
@@ -2907,7 +2885,7 @@ def rotdif(matrices, command):
     matrices = np.asarray(matrices)
 
     action_datasets = CpptrajDatasetList()
-    action_datasets.add(dtype='matrix3x3', name='myR0')
+    action_datasets.add(DatasetType.MATRIX3x3, name='myR0')
     action_datasets[-1].aspect = "RM"
     action_datasets[-1]._append_from_array(matrices)
 
@@ -2953,7 +2931,7 @@ def wavelet(traj, command):
 
     action_datasets = CpptrajDatasetList()
     crdname = '_DEFAULTCRD_'
-    action_datasets.add('coords', name=crdname)
+    action_datasets.add(DatasetType.COORDS.value, name=crdname)
     action_datasets[0].top = traj.top
 
     for frame in traj:
@@ -2986,30 +2964,22 @@ def atom_map(traj, ref, rmsfit=False):
     '''
     act = c_action.Action_AtomMap()
     options = 'rmsfit rmsout rmsout.dat' if rmsfit else ''
-    command = ' '.join(('my_target my_ref', options))
+    command = f'my_target my_ref {options}'
     action_datasets = CpptrajDatasetList()
 
-    target = action_datasets.add('reference', name='my_target')
-    target.top = traj.top
-    target.append(traj[0])
+    target = action_datasets.add(DatasetType.REFERENCE, name='my_target')
+    target.top, target.data = traj.top, [traj[0]]
 
-    refset = action_datasets.add('reference', name='my_ref')
-    refset.top = ref.top if ref.top is not None else traj.top
-    if not isinstance(ref, Frame):
-        ref_ = ref[0]
-    else:
-        ref_ = ref
-    refset.append(ref_)
+    refset = action_datasets.add(DatasetType.REFERENCE, name='my_ref')
+    refset.top, refset.data = ref.top if ref.top else traj.top, [ref[0] if not isinstance(ref, Frame) else ref]
 
     with capture_stdout() as (out, err):
         act(command, traj, top=traj.top, dslist=action_datasets)
     act.post_process()
 
-    # free memory of two reference
-    action_datasets._pop(0)
-    action_datasets._pop(0)
+    action_datasets._pop(0), action_datasets._pop(0)
 
-    return (out.read(), get_data_from_dtype(action_datasets, dtype='ndarray'))
+    return out.read(), get_data_from_dtype(action_datasets, dtype='ndarray')
 
 
 def check_chirality(traj, mask='', dtype='dict'):
@@ -3078,15 +3048,15 @@ def xtalsymm(traj, mask='', options='', ref=None, **kwargs):
         >>> pytraj.xtalsymm(traj, mask=':1-16', ref=ref, options="group P22(1)2(1) na 2 nb 1 nc 1") # doctest: +SKIP
     '''
     top = traj.top
-    command = ' '.join((mask, options))
+    command = f'{mask} {options}'
 
     action_datasets = CpptrajDatasetList()
 
     if ref is not None:
-        action_datasets.add('reference', name='xtalsymm_ref')
-        action_datasets[0].top = top
-        action_datasets[0].add_frame(ref)
-        command = ' '.join((command, 'reference'))
+        ref_dataset = action_datasets.add('reference', name='xtalsymm_ref')
+        ref_dataset.top = top
+        ref_dataset.add_frame(ref)
+        command += ' reference'
 
     act = c_action.Action_XtalSymm()
     act.read_input(command, top=top, dslist=action_datasets)
@@ -3094,6 +3064,7 @@ def xtalsymm(traj, mask='', options='', ref=None, **kwargs):
 
     for frame in traj:
         act.compute(frame)
+
     act.post_process()
 
     # remove ref
@@ -3169,12 +3140,15 @@ def hausdorff(matrix, options='', dtype='ndarray'):
         - cpptraj help: pytraj.info('hausdorff')
     """
     action_datasets = CpptrajDatasetList()
-    action_datasets.add('matrix_dbl', name='my_matrix')
-    action_datasets[0].data = np.asarray(matrix, dtype='f8')
+    matrix_dataset = action_datasets.add('matrix_dbl', name='my_matrix')
+    matrix_dataset.data = np.asarray(matrix, dtype='f8')
+
     act = c_analysis.Analysis_Hausdorff()
-    command = " ".join(("my_matrix", options))
+    command = f"my_matrix {options}"
     act(command, dslist=action_datasets)
+
     action_datasets._pop(0)
+
     data = get_data_from_dtype(action_datasets, dtype)
     return data
 
@@ -3192,21 +3166,20 @@ def permute_dihedrals(traj, filename, options=''):
 
     This function returns None.
     """
-    from .core.c_core import CpptrajState, Command
-
     state = CpptrajState()
-    top_data = state.data.add('topology', name='my_top')
+
+    top_data = state.data.add(DatasetType.TOPOLOGY, name='my_top')
     top_data.data = traj.top
 
-    ref_data = state.data.add('coords', name='my_coords')
+    ref_data = state.data.add(DatasetType.COORDS, name='my_coords')
     ref_data.top = traj.top
     for frame in traj:
-       ref_data.add_frame(frame)
+        ref_data.add_frame(frame)
 
-    command = 'permutedihedrals crdset my_coords {options} outtraj {filename}'.format(
-            options=options, filename=filename)
+    command = f'permutedihedrals crdset my_coords {options} outtraj {filename}'
 
     with Command() as executor:
         executor.dispatch(state, command)
+
     state.data._pop(0)
     state.data._pop(0)
