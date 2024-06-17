@@ -5,7 +5,7 @@ import unittest
 from pytraj.testing import aa_eq
 
 
-class Test(unittest.TestCase):
+class Test:
     def test_0(self):
         import numpy as np
 

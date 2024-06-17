@@ -13,7 +13,7 @@ analyze crankshaft angle phi2 phi3
 '''.format(fn('tz2.parm7'), fn('tz2.nc'))
 
 
-class TestCrank(unittest.TestCase):
+class TestCrank:
     def test_crank(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         dihedrals = pt.dihedral(

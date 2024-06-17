@@ -9,7 +9,7 @@ from pytraj.utils.tools import concat_dict
 from utils import fn
 
 
-class TestWorkerState(unittest.TestCase):
+class TestWorkerState:
     '''temp test. name will be changed.
     '''
 

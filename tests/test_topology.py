@@ -14,7 +14,7 @@ TRAJ = Trajectory(fn("Tc5b.x"), fn("Tc5b.top"))
 tc5b_top = fn('Tc5b.top')
 
 
-class TestTopology(unittest.TestCase):
+class TestTopology:
     def test_empty_top(self):
         top = Topology()
         assert top.is_empty() == True
@@ -64,7 +64,7 @@ class TestTopology(unittest.TestCase):
         top = traj.top
         assert len(top) == top.n_atoms
 
-    def test_raise_RuntimeError(self):
+    def test_raise_runtime_error(self):
         with pytest.raises(RuntimeError):
             pt.load_topology('dummy')
 

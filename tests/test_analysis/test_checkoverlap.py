@@ -9,7 +9,7 @@ from pytraj.testing import aa_eq
 from pytraj.testing import cpptraj_test_dir
 
 
-class TestCheckOverlap(unittest.TestCase):
+class TestCheckOverlap:
     def test_check_overlap(self):
         '''overlap checking
         '''

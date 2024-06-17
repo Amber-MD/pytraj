@@ -7,7 +7,7 @@ from pytraj.utils import Timer
 from utils import fn
 
 
-class Test(unittest.TestCase):
+class Test:
     def test_0(self):
         with Timer() as t:
             pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))

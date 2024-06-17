@@ -10,7 +10,7 @@ from pytraj.testing import get_fn
 fn, tn = get_fn('tz2_dry')
 
 
-class TestActionList(unittest.TestCase):
+class TestActionList:
     def test_transform_trajectory_iterator(self):
 
         traj0 = pt.load(fn, tn)
@@ -41,7 +41,7 @@ class TestActionList(unittest.TestCase):
 
         aa_eq(traj0.xyz, traj2.xyz)
 
-    def test_transform_trajectory_iterator_API(self):
+    def test_transform_trajectory_iterator_api(self):
         traj_on_disk = pt.iterload(fn, tn)
         traj_on_mem = pt.load(fn, tn)
 

@@ -16,7 +16,7 @@ pucker p3-cp :3@C1' :3@C2' :3@C3' :3@C4' :3@O4' cremer
 '''
 
 
-class TestPucker(unittest.TestCase):
+class TestPucker:
     '''TestPucker
     '''
 

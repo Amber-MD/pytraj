@@ -10,7 +10,7 @@ from pytraj import mean_structure
 import pytest
 
 
-class TestAverageFrame(unittest.TestCase):
+class TestAverageFrame:
     def test_comprehensive(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         # make sure we DO reproducing cpptraj output

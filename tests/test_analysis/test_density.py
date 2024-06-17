@@ -9,7 +9,7 @@ from pytraj.testing import aa_eq
 import pytest
 
 
-class TestDensity(unittest.TestCase):
+class TestDensity:
     def test_density(self):
         rst7 = fn('DOPC.rst7')
         tn = fn('DOPC.parm7')

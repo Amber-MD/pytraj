@@ -41,7 +41,7 @@ def get_total_errors(modules):
 
 
 @pytest.mark.skip(reason="Outputs are sensitive to the formating from different numpy versions")
-class TestDoc(unittest.TestCase):
+class TestDoc:
     '''testing for light modules
     '''
 

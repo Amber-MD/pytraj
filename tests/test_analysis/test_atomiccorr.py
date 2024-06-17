@@ -6,7 +6,7 @@ from utils import fn
 from pytraj.testing import aa_eq
 
 
-class TestAtomicCorr(unittest.TestCase):
+class TestAtomicCorr:
     def test_atomiccorr(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         state = pt.load_batch(traj, '''

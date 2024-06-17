@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from __future__ import print_function
+import pytest
 import os
 import unittest
 
@@ -16,7 +17,7 @@ quit
 
 tleap = os.getenv("AMBERHOME", '') + '/bin/tleap'
 
-@unittest.skipUnless(os.path.exists(tleap), 'no tleap found')
+@pytest.mark.skipif(not os.path.exists(tleap), 'no tleap found')
 def test_leap():
     traj = pt.io.load_leap(leapin)
     assert traj.n_atoms == 22

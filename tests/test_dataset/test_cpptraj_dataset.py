@@ -33,8 +33,8 @@ crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
 '''.format(fn('tz2.parm7'), fn('tz2.nc'))
 
 
-class TestCpptrajDatasetWithMathLib(unittest.TestCase):
-    def setUp(self):
+class TestCpptrajDatasetWithMathLib:
+    def setup_method(self):
         self.state = pt.datafiles.load_cpptraj_state(txt)
         self.state.run()
         self.traj = pt.iterload(tz2_trajin, tz2_top)
@@ -54,7 +54,7 @@ class TestCpptrajDatasetWithMathLib(unittest.TestCase):
             cpp_ref = state.data['AVG'].get_frame()
             aa_eq(avg_frame.xyz, cpp_ref.xyz)
 
-    def test_DatasetModes(self):
+    def test_dataset_modes(self):
         state = self.state
         modes = state.data['MyEvecs']
         mat = state.data['MyMatrix'].values
@@ -67,11 +67,11 @@ class TestCpptrajDatasetWithMathLib(unittest.TestCase):
         aa_eq(np.abs(modes.eigenvectors[1]), np.abs(np_eg[1][:, -2]))
 
 
-class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
-    def setUp(self):
+class TestCpptrajDatasetWithoutMathLib:
+    def setup_method(self):
         self.traj = pt.iterload(tz2_trajin, tz2_top)
 
-    def test_DatasetDouble(self):
+    def test_dataset_double(self):
         dslist = CpptrajDatasetList()
         d = dslist.add(dtype='double')
         a = range(8)
@@ -82,7 +82,7 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
         aa_eq(a, d.values)
         assert int(d[2]) == a[2] == 2, 'must be equal'
 
-    def test_DatasetMatrix3x3(self):
+    def test_dataset_matrix3x3(self):
         # test _append_from_array
         mat0 = pt.calc_rotation_matrix(self.traj, ref=0)
 
@@ -91,7 +91,7 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
         dmat3x3._append_from_array(mat0.reshape(shape2d))
         aa_eq(mat0, dmat3x3.values)
 
-    def test_DatasetMatrixDouble(self):
+    def test_dataset_matrix_double(self):
         from pytraj import matrix
 
         for op in [matrix.dist, matrix.covar]:
@@ -105,7 +105,7 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
             assert new_mat.kind == 'half', 'new_mat must be half matrix'
             aa_eq(orig_mat.values, new_mat.values)
 
-    def test_add_for_CpptrajDatasetList(self):
+    def test_add_for_cpptraj_dataset_list(self):
         dslist = CpptrajDatasetList()
 
         # integer

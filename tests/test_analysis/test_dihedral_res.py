@@ -5,7 +5,7 @@ from utils import fn
 from pytraj.testing import aa_eq
 
 
-class Test(unittest.TestCase):
+class Test:
     def test_0(self):
         traj = pt.iterload(fn('Test_NAstruct/adh026.3.pdb'))
         d = pt.calc_delta(traj, resrange='1').values

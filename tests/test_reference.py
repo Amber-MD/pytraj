@@ -8,7 +8,7 @@ from pytraj.testing import aa_eq
 '''
 
 
-class TestReferenceFrame(unittest.TestCase):
+class TestReferenceFrame:
     def test_reference(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 

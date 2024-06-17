@@ -10,8 +10,8 @@ from pytraj.testing import aa_eq
 from pytraj.analysis.hbond_analysis import DatasetHBond
 
 
-class TestFrameIndices(unittest.TestCase):
-    def setUp(self):
+class TestFrameIndices:
+    def setup_method(self):
         self.traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         self.traj_ortho = pt.iterload(
             fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))

@@ -8,7 +8,7 @@ from pytraj.testing import aa_eq
 from pytraj import sandbox as sb
 
 
-class TestSuperDispatch(unittest.TestCase):
+class TestSuperDispatch:
     def test_radgyr_dispatch(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 

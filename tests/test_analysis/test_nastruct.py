@@ -9,7 +9,7 @@ from utils import fn
 import pytest
 
 
-class TestNastruct(unittest.TestCase):
+class TestNastruct:
     def test_nupars(self):
         pdb_fn = fn('Test_NAstruct/adh026.3.pdb')
         traj = pt.iterload(pdb_fn, pdb_fn)

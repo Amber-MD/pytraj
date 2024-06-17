@@ -7,7 +7,7 @@ import pytraj as pt
 from pytraj.testing import cpptraj_test_dir
 
 
-class TestTI(unittest.TestCase):
+class TestTI:
     def test_ti(self):
         dvdl_fn = cpptraj_test_dir + '/Test_TI/dvdl.dat'
         options = 'nq 9'

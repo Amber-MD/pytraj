@@ -9,7 +9,7 @@ from pytraj.testing import aa_eq
 from pytraj.testing import cpptraj_test_dir
 
 
-class TestRandomizeIons(unittest.TestCase):
+class TestRandomizeIons:
     def test_randomize_ions(self):
         fn = os.path.join(cpptraj_test_dir, 'Test_RandomizeIons',
                           'adh206.tip3p.rst7.gz')

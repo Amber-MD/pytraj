@@ -10,7 +10,7 @@ try not to get segmentation fault error (due to whatever freaking reason)
 traj = io.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
 
-class Test(unittest.TestCase):
+class Test:
     def test_0_trajiter(self):
         traj = io.load_sample_data("tz2")
 

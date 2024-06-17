@@ -28,7 +28,7 @@ crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
 '''.format(fn('tz2.parm7'), fn('tz2.nc'))
 
 
-class TestProjection(unittest.TestCase):
+class TestProjection:
     def test_projection_for_pca(self):
         traj = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
 
@@ -68,7 +68,7 @@ class TestProjection(unittest.TestCase):
         aa_eq(
             np.abs(projection_data), np.abs(state.data[-2:].values), decimal=3)
 
-    def test_projection_with_None_average_coord(self):
+    def test_projection_with_none_average_coord(self):
         cm = '''
         matrix name correlmat {scalar_type} @CA 
         diagmatrix correlmat name evecs vecs 5 

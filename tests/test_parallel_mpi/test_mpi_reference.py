@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import pytest
 import sys
 import unittest
 import pytraj as pt
@@ -14,7 +15,7 @@ except ImportError:
     has_mpi4py = False
 
 
-@unittest.skipUnless(has_mpi4py, 'must have mpi4py')
+@pytest.mark.skipif(not has_mpi4py, 'must have mpi4py')
 def test_mpi_use_reference():
 
     comm = MPI.COMM_WORLD

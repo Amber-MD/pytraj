@@ -9,7 +9,7 @@ from pytraj.testing import cpptraj_test_dir
 import pytest
 
 
-class TestVelocity(unittest.TestCase):
+class TestVelocity:
     def test_set_velocity(self):
         traj = pt.load(
             os.path.join(cpptraj_test_dir, 'tz2.rst7'), fn('tz2.parm7'))

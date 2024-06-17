@@ -6,7 +6,7 @@ from utils import fn
 from pytraj.testing import aa_eq
 
 
-class TestPrincipalAxis(unittest.TestCase):
+class TestPrincipalAxis:
     def test_principal_axes_and_lign_principal_axis(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 

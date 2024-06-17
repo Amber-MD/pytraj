@@ -15,7 +15,7 @@ from pytraj.analysis.c_action import c_action as CA
 import pytest
 
 
-class TestVectorAnalysisModule(unittest.TestCase):
+class TestVectorAnalysisModule:
     def test_vector_principal(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         pdata = pt.vector.principal(traj)

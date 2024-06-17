@@ -6,7 +6,7 @@ from utils import fn
 from pytraj.testing import aa_eq
 
 
-class Test(unittest.TestCase):
+class Test:
     def test_0(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 

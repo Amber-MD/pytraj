@@ -1,4 +1,5 @@
 from __future__ import print_function
+import pytest
 import unittest
 import pytraj as pt
 from utils import fn
@@ -15,8 +16,8 @@ mm_options = sander.gas_input(8)
 '''
 
 
-@unittest.skipIf(not has_sander, 'skip if not having sander')
-class TestSanderPmap(unittest.TestCase):
+@pytest.mark.skipif(not has_sander, 'skip if not having sander')
+class TestSanderPmap:
     def test_sander_pmap_simple(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         fname = traj.top.filename

@@ -6,7 +6,7 @@ from pytraj.testing import aa_eq
 from pytraj.testing import aa_eq
 
 
-class Test(unittest.TestCase):
+class Test:
     def test_0(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         farray = traj[:]
@@ -124,7 +124,7 @@ class Test(unittest.TestCase):
             pass
         assert frame.n_atoms == traj[0].n_atoms
 
-    def test_IterWithMask(self):
+    def test_iter_with_mask(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         farray = traj[:]
         for frame in farray(mask='@CA'):

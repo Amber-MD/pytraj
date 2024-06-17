@@ -13,7 +13,7 @@ def print_name(func):
     return func
 
 
-class TestDSSP(unittest.TestCase):
+class TestDSSP:
     @print_name
     def test_vs_cpptraj(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))

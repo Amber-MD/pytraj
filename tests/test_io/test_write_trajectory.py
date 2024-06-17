@@ -8,8 +8,8 @@ from pytraj.utils import tempfolder
 from utils import fn
 
 
-class TestWriteTraj(unittest.TestCase):
-    def setUp(self):
+class TestWriteTraj:
+    def setup_method(self):
         self.traj = pt.load_sample_data('tz2')
 
     def test_regular(self):

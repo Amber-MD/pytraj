@@ -1,4 +1,5 @@
 from __future__ import print_function
+import pytest
 import os
 import unittest
 import pytraj as pt
@@ -27,10 +28,10 @@ if not amberhome:
     print('amberhome', amberhome)
 
 
-@unittest.skipIf(not has_sander, 'skip if not having sander')
-class TestSander(unittest.TestCase):
-    @unittest.skipIf(not amberhome, 'skip since there is no AMBERHOME')
-    def test_GB(self):
+@pytest.mark.skipif(not has_sander, 'skip if not having sander')
+class TestSander:
+    @pytest.mark.skipif(not amberhome, 'skip since there is no AMBERHOME')
+    def test_gb(self):
         # compare to saved test: GB
         topfile = os.path.join(amberhome, "test/gb7_trx/prmtop_an")
         rstfile = os.path.join(amberhome, "test/gb7_trx/trxox.2.4ns.x")
@@ -76,8 +77,8 @@ class TestSander(unittest.TestCase):
         assert edict == edict4
         assert sorted(dslist.to_dict()) == sorted(edict)
 
-    @unittest.skipIf(not amberhome, 'skip since there is no AMBERHOME')
-    def test_PME(self):
+    @pytest.mark.skipif(not amberhome, 'skip since there is no AMBERHOME')
+    def test_pme(self):
         # compare to saved test: PME
         topfile = os.path.join(amberhome, "test/4096wat/prmtop")
         rstfile = os.path.join(amberhome, "test/4096wat/eq1.x")
@@ -89,8 +90,8 @@ class TestSander(unittest.TestCase):
         assert_close(edict['vdw'][0], 6028.9517, tol=3E-4)
         assert_close(edict['elec'][0], -45371.5995, tol=3E-4)
 
-    @unittest.skipIf(not amberhome, 'skip since there is no AMBERHOME')
-    def test_PME_with_energy_decompositionr(self):
+    @pytest.mark.skipif(not amberhome, 'skip since there is no AMBERHOME')
+    def test_pme_with_energy_decompositionr(self):
         # compare to saved test: PME
         topfile = os.path.join(amberhome, "test/4096wat/prmtop")
         rstfile = os.path.join(amberhome, "test/4096wat/eq1.x")
@@ -102,8 +103,8 @@ class TestSander(unittest.TestCase):
         assert_close(edict['vdw'][0], 6028.9517, tol=3E-4)
         assert_close(edict['elec'][0], -45371.5995, tol=3E-4)
 
-    @unittest.skipIf(not amberhome, 'skip since there is no AMBERHOME')
-    def test_GB_QMMM(self):
+    @pytest.mark.skipif(not amberhome, 'skip since there is no AMBERHOME')
+    def test_gb_qmmm(self):
         # compare to saved test: GB + QMMM
         topfile = os.path.join(amberhome, "test/qmmm2/lysine_PM3_qmgb2/prmtop")
         rstfile = os.path.join(amberhome,
@@ -130,8 +131,8 @@ class TestSander(unittest.TestCase):
         assert_close(edict['gb'][0], -80.1406, tol=3E-4)
         assert_close(edict['scf'][0], -11.9100, tol=3E-4)
 
-    @unittest.skipIf(not amberhome, 'skip since there is no AMBERHOME')
-    def test_PME_QMMM(self):
+    @pytest.mark.skipif(not amberhome, 'skip since there is no AMBERHOME')
+    def test_pme_qmmm(self):
         # compare to saved test: PME + QMMM
         topfile = os.path.join(amberhome,
                                "test/qmmm2/MechEm_nma-spcfwbox/prmtop")
@@ -159,7 +160,7 @@ class TestSander(unittest.TestCase):
         assert_close(edict['elec'][0], -7409.7167, tol=3E-4)
         assert_close(edict['scf'][0], -37.1277, tol=3E-4)
 
-    @unittest.skipIf(not amberhome, 'skip since there is no AMBERHOME')
+    @pytest.mark.skipif(not amberhome, 'skip since there is no AMBERHOME')
     def test_gbneck2nu(self):
         # compare to saved test: GBneck2nu
         topfile = os.path.join(amberhome, "test/gbneck2nu/1hji/prmtop")

@@ -15,8 +15,8 @@ from pytraj import all_actions, c_action
 import pytest
 
 
-class TestExtraCoverage(unittest.TestCase):
-    def setUp(self):
+class TestExtraCoverage:
+    def setup_method(self):
         self.traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
     def test_datafiles(self):

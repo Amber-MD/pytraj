@@ -1,4 +1,5 @@
 from __future__ import print_function
+import pytest
 import unittest
 import pytraj as pt
 from utils import fn
@@ -11,7 +12,7 @@ except ImportError:
     has_cclib = False
 
 
-@unittest.skipUnless(has_cclib, 'skip: does not have cclib')
+@pytest.mark.skipif(not has_cclib, 'skip: does not have cclib')
 def test_read_gaussian_output():
     filename = "./data/gaussian/GF2.log"
     gau = cclib.parser.Gaussian(filename)

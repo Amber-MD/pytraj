@@ -6,8 +6,8 @@ from utils import fn
 from pytraj.testing import aa_eq
 
 
-class TestMolsurf(unittest.TestCase):
-    def setUp(self):
+class TestMolsurf:
+    def setup_method(self):
         self.traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
     def test_molsurf(self):

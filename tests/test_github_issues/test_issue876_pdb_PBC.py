@@ -6,7 +6,7 @@ from utils import fn
 from pytraj.testing import aa_eq
 
 
-class TestPBCFromPDB(unittest.TestCase):
+class TestPBCFromPDB:
     def test_pbc(self):
         traj = pt.load(fn('small_pbc.pdb'))
         aa_eq(traj.unitcells[0], [51.263, 51.263, 51.263, 90.00, 90.00, 90.00])

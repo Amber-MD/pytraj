@@ -15,7 +15,7 @@ from pytraj.core import c_dict
 from pytraj.utils.misc import get_atts
 
 
-class TestRunnable(unittest.TestCase):
+class TestRunnable:
     def test_loading(self):
         traj = pt.load_sample_data('tz2')
         traj[:]
@@ -51,7 +51,7 @@ class TestRunnable(unittest.TestCase):
             if key not in failed_list:
                 analdict[key]
 
-    def test_Dataset(self):
+    def test_dataset(self):
         print("try to make all dataset stuff")
         DatasetDouble()
         DatasetFloat()

@@ -6,7 +6,7 @@ from pytraj import *
 from pytraj.testing import aa_eq
 
 
-class TestAtomMask(unittest.TestCase):
+class TestAtomMask:
     def test_0(self):
         atm = AtomMask("@CA")
         assert atm.n_atoms == 0

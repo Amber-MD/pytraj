@@ -6,8 +6,8 @@ from pytraj.utils.context import tempfolder
 from pytraj.testing import aa_eq
 
 
-class Test_iterchunk_autoimage(unittest.TestCase):
-    def setUp(self):
+class Test_iterchunk_autoimage:
+    def setup_method(self):
         self.traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         self.mask = '@C,N,CA,O'
 

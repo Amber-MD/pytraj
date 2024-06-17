@@ -26,7 +26,7 @@ except ImportError:
 from utils import fn
 
 
-@unittest.skipUnless(has_ipython, 'need IPython')
+@pytest.mark.skipif(not has_ipython, 'need IPython')
 def test_progress_log():
     """test_progress_log: simple test, just to make sure it is runnable
     """
@@ -64,7 +64,7 @@ def test_progress_log():
     aa_eq(pt.rmsd(p2), pt.rmsd(traj2))
 
 
-@unittest.skipUnless(has_ipython, 'require IPython')
+@pytest.mark.skipif(not has_ipython, 'require IPython')
 def test_pickle_progress_bar():
     traj = pt.datafiles.load_tz2()
 

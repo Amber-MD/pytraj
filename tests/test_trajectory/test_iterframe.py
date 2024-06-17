@@ -8,7 +8,7 @@ from pytraj.testing import aa_eq
 import pytest
 
 
-class TestIterFrame(unittest.TestCase):
+class TestIterFrame:
     def test_iterframe(self):
         '''test iterframe for both Trajectory and TrajectoryIterator
         '''

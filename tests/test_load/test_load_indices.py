@@ -6,7 +6,7 @@ from pytraj import *
 from pytraj.testing import aa_eq
 
 
-class TestIndices(unittest.TestCase):
+class TestIndices:
     def test_slice(self):
 
         traj1 = TrajectoryIterator(filename=fn('Tc5b.x'), top=fn('Tc5b.top'))

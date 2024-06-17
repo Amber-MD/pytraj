@@ -7,7 +7,7 @@ from pytraj.testing import aa_eq
 from utils import fn
 
 
-class Test(unittest.TestCase):
+class Test:
     def test_0(self):
         traj = mdio.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         frame = traj[0].copy()

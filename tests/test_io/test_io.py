@@ -579,7 +579,7 @@ def test_amberhome():
         assert _get_amberhome() == fake_amberhome
 
 
-@unittest.skipUnless(os.path.exists(tleap), 'must have tleap')
+@pytest.mark.skipif(not os.path.exists(tleap), 'must have tleap')
 def test_leap():
     cm = """
     source leaprc.protein.ff14SB

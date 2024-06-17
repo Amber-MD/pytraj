@@ -8,7 +8,7 @@ from utils import fn
 from pytraj.testing import aa_eq
 
 
-class TestIssue991(unittest.TestCase):
+class TestIssue991:
     def test_buffer_not_c_contiguous(self):
         # source code was lightly adapted from jmborr
         # https://github.com/Amber-MD/pytraj/issues/991

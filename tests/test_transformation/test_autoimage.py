@@ -8,7 +8,7 @@ from pytraj.testing import aa_eq, cpptraj_test_dir
 from pytraj.utils.tools import rmsd_1darray
 
 
-class TestRegular(unittest.TestCase):
+class TestRegular:
     def test_1(self):
         traj = pt.iterload(fn('tz2.truncoct.nc'), fn('tz2.truncoct.parm7'))
         f0 = traj[0]
@@ -110,4 +110,3 @@ def test_autoimage_for_tightly_packed_systems():
     traj = pt.load(trajin_fn, prmtop_fn)
     pt.autoimage(traj, 'anchor :96 origin')
     aa_eq(traj.xyz, saved_traj.xyz)
-

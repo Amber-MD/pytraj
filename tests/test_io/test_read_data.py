@@ -8,7 +8,7 @@ from pytraj.testing import aa_eq
 from pytraj.testing import cpptraj_test_dir
 
 
-class TestReadWriteData(unittest.TestCase):
+class TestReadWriteData:
     def test_read(self):
         fn0 = "{cpptraj_test_dir}/Test_Vector/vtest.dat.6.save".format(
             cpptraj_test_dir=cpptraj_test_dir)

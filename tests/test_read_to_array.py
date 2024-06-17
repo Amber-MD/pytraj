@@ -23,7 +23,7 @@ expected_result = np.array(
     dtype='f8')
 
 
-class Test(unittest.TestCase):
+class Test:
     def test_0(self):
         arr = pt.tools.read_to_array(fn('floBF-resp.chg'))
         assert arr.shape == (84, )

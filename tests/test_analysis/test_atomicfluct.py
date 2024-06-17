@@ -7,7 +7,7 @@ from pytraj.testing import aa_eq
 from pytraj.testing import cpptraj_test_dir
 
 
-class TestAtomicFluct(unittest.TestCase):
+class TestAtomicFluct:
     def test_bfactors(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         iter_options = {'start': 9, 'stop': 30, 'step': 2}
@@ -22,7 +22,7 @@ class TestAtomicFluct(unittest.TestCase):
         b2 = pt.calc_bfactors(traj(**iter_options), dtype='dataset')
         assert b2[0].key == 'B-factors'
 
-    def test_RMSF(self):
+    def test_rmsf(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
         state = pt.load_batch(traj, '''
@@ -40,7 +40,7 @@ class TestAtomicFluct(unittest.TestCase):
         data = pt.rmsf(t0)
         aa_eq(data, state.data[-1].values)
 
-    def test_RMSF_with_options(self):
+    def test_rmsf_with_options(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
         state = pt.load_batch(traj, '''

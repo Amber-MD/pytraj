@@ -7,7 +7,7 @@ from utils import fn
 from pytraj.testing import aa_eq
 
 
-class TestWavelet(unittest.TestCase):
+class TestWavelet:
     def test_wavelet(self):
         traj = pt.load(fn('DPDP.nc'), fn('DPDP.parm7'))
         traj.superpose('@C,CA,N', ref=0)

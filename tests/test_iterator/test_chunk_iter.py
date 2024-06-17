@@ -9,7 +9,7 @@ from pytraj.datasets.datasetlist import CpptrajDatasetList
 import numpy as np
 
 
-class Test(unittest.TestCase):
+class Test:
     def test_0(self):
         dslist = CpptrajDatasetList()
         traj = mdio.iterload(fn('Tc5b.x'), fn('Tc5b.top'))

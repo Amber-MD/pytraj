@@ -6,7 +6,7 @@ from utils import fn
 from pytraj.testing import aa_eq
 
 
-class TestBugs(unittest.TestCase):
+class TestBugs:
     def test_0(self):
         trajcpp = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         farray = trajcpp[:]

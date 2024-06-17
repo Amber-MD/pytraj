@@ -7,8 +7,8 @@ from pytraj.testing import aa_eq
 from pytraj.utils.get_common_objects import super_dispatch
 
 
-class TestSuperDispatch(unittest.TestCase):
-    def setUp(self):
+class TestSuperDispatch:
+    def setup_method(self):
         self.traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
     def test_naive(self):

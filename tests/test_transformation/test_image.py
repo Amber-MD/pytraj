@@ -7,7 +7,7 @@ import pytraj as pt
 from utils import fn
 
 
-class TestImage(unittest.TestCase):
+class TestImage:
     def test_image(self):
         traj_on_disk = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         traj = traj_on_disk[:]

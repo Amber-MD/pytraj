@@ -14,8 +14,8 @@ from utils import fn, tc5b_trajin, tc5b_top, tz2_trajin, tz2_top
 import pytest
 
 
-class TestSimpleRMSD(unittest.TestCase):
-    def setUp(self):
+class TestSimpleRMSD:
+    def setup_method(self):
         self.traj = pt.iterload(tc5b_trajin, tc5b_top)
 
     def test_fit_and_then_nofit(self):
@@ -100,8 +100,8 @@ class TestSimpleRMSD(unittest.TestCase):
             tc5b_traj, mask='@1-10', ref=tz2_traj, ref_mask='@11-20')
         aa_eq(expected_rmsd, rmsd_data)
 
-    @unittest.skipIf(not has_('mdtraj'), 'does not have mdtraj')
-    def test_ComparetoMDtraj(self):
+    @pytest.mark.skipif(not has_('mdtraj'), 'does not have mdtraj')
+    def test_compareto_mdtraj(self):
         import mdtraj as md
         traj = pt.load(filename=tc5b_trajin, top=tc5b_top)
         m_top = md.load_prmtop(tc5b_top)
@@ -213,7 +213,7 @@ class TestSimpleRMSD(unittest.TestCase):
         aa_eq(data, state.data[-1])
 
 
-class TestRMSDPerRes(unittest.TestCase):
+class TestRMSDPerRes:
     def test_noreference(self):
         from pytraj.datafiles import load_cpptraj_output, tz2_ortho_trajin
         traj = pt.iterload(fn("tz2.ortho.nc"), fn("tz2.ortho.parm7"))
@@ -279,7 +279,7 @@ class TestRMSDPerRes(unittest.TestCase):
         aa_eq(rmsdperres[1], state.data[3].values)
 
 
-class TestRMSDnofit(unittest.TestCase):
+class TestRMSDnofit:
     def test_0(self):
         tz2_ortho_trajin = fn('tz2.ortho.nc')
         tz2_ortho_top = fn('tz2.ortho.parm7')
@@ -295,8 +295,8 @@ class TestRMSDnofit(unittest.TestCase):
         aa_eq(pt.rmsd(traj, mass=True), cout[2])
 
 
-class TestPairwiseRMSD(unittest.TestCase):
-    def testTwoTrajTypes(self):
+class TestPairwiseRMSD:
+    def test_two_traj_types(self):
         '''test different metrics with different traj objects
         '''
         funclist = [pt.iterload, pt.load]
@@ -324,7 +324,7 @@ class TestPairwiseRMSD(unittest.TestCase):
                 aa_eq(d0, d3)
 
 
-class TestActionListRMSD(unittest.TestCase):
+class TestActionListRMSD:
     def test_actionlist(self):
         traj = pt.iterload(tc5b_trajin, tc5b_top)
         standard_rmsd = pt.rmsd(traj, mask='@CA')
@@ -368,7 +368,7 @@ class TestActionListRMSD(unittest.TestCase):
         aa_eq(standard_rmsd, rmsd4)
 
 
-class TestSymmRmsd(unittest.TestCase):
+class TestSymmRmsd:
     def test_symmrmsd(self):
         tyr_trajin = cpptraj_test_dir + '/Test_SymmRmsd/TYR.nc'
         tn = cpptraj_test_dir + '/Test_SymmRmsd/TYR.parm7'

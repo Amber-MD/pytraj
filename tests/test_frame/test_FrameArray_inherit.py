@@ -3,7 +3,7 @@ from pytraj import *
 import pytest
 
 
-class Test(unittest.TestCase):
+class Test:
     def test_0(self):
         def test_class(self):
             class FA(Trajectory):

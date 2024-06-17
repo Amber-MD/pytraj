@@ -7,7 +7,7 @@ from pytraj.testing import aa_eq
 import pytest
 
 
-class TestTools(unittest.TestCase):
+class TestTools:
     def test_tools(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         aa_eq(pt.tools.as_2darray(traj), pt.tools.as_2darray(traj.xyz))

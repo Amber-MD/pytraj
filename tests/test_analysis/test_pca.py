@@ -11,7 +11,7 @@ import pytest
 from utils import tz2_trajin, tz2_top
 
 
-class TestPCA(unittest.TestCase):
+class TestPCA:
     def test_pca_noref(self):
         '''test_pca_noref: no reference
         

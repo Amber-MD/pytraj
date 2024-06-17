@@ -6,7 +6,7 @@ from pytraj.testing import aa_eq
 import pytest
 
 
-class TestReplicateCell(unittest.TestCase):
+class TestReplicateCell:
     def test_vs_cpptraj(self):
         traj = pt.iterload(
             fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'), frame_slice=[(0, 1)])

@@ -1,4 +1,5 @@
 from __future__ import print_function
+import pytest
 import unittest
 import pytraj as pt
 from utils import fn
@@ -43,8 +44,8 @@ except ImportError:
     nglview = Comm = DummyComm = _widget_attrs = displayed = undefined = Widget = None
 
 
-@unittest.skipUnless(has_nglview, "Only test if having nglview")
-class TestVisualization(unittest.TestCase):
+@pytest.mark.skipif(not has_nglview, "Only test if having nglview")
+class TestVisualization:
     """ Test visualization """
 
     def test_visualization(self):

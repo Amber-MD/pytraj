@@ -7,7 +7,7 @@ from utils import fn
 from pytraj.testing import aa_eq
 
 
-class TestTransformation(unittest.TestCase):
+class TestTransformation:
     def test_transforming_trajectory(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         t0 = traj[:]

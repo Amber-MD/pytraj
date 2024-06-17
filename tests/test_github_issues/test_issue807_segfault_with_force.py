@@ -5,7 +5,7 @@ import pytraj as pt
 from utils import fn
 
 
-class TestSegmetationFault(unittest.TestCase):
+class TestSegmetationFault:
     def test_issue807(self):
         # files are provided by Chris Lee
         traj = pt.iterload(

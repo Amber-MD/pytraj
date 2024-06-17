@@ -15,7 +15,7 @@ FRAME.xyz[:] = arr.reshape(N_ATOMS, 3)
 FRAME_orig = FRAME.copy()
 
 
-class TestFrame(unittest.TestCase):
+class TestFrame:
     def test_fit(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         trajnew = pt.iterload(

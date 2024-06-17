@@ -10,8 +10,8 @@ from pytraj.testing import assert_equal_topology
 from pytraj.core import Box
 
 
-class TestBuildAndPickleTopology(unittest.TestCase):
-    def setUp(self):
+class TestBuildAndPickleTopology:
+    def setup_method(self):
         self.traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 
     def test_picle(self):
@@ -27,7 +27,7 @@ class TestBuildAndPickleTopology(unittest.TestCase):
         assert_equal_topology(top, cls.from_dict(top.to_dict()), self.traj)
 
 
-class TestPickleFrame(unittest.TestCase):
+class TestPickleFrame:
     def test_set_mass_correctly(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         f0 = traj[0]
@@ -51,7 +51,7 @@ class TestPickleFrame(unittest.TestCase):
         print(f1.mass)
 
 
-class TestPickleTrajectoryIterator(unittest.TestCase):
+class TestPickleTrajectoryIterator:
     def test_trajiter_normal(self):
         for _pickle_topology in [True, False]:
             for frame_slice in [(0, 8, 2), (0, 10, 1)]:
@@ -78,8 +78,8 @@ def worker(rank, frame, traj):
     pt.nastruct(traj, ref=frame)
 
 
-class TestPickleFrame(unittest.TestCase):
-    def setUp(self):
+class TestPickleFrame:
+    def setup_method(self):
         self.traj = pt.iterload(fn('Test_NAstruct/x3dna/rna.pdb'))
 
     def test_frame(self):
@@ -104,7 +104,7 @@ class TestPickleFrame(unittest.TestCase):
         Pool(2).map(func, range(2))
 
 
-class TestPickleDatasetList(unittest.TestCase):
+class TestPickleDatasetList:
     def test_pickle_datasetlist(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         dslist = pt.multidihedral(traj)

@@ -7,7 +7,7 @@ from pytraj.testing import aa_eq
 import pytest
 
 
-class TestSearchHbonds(unittest.TestCase):
+class TestSearchHbonds:
     def test_hbond_general(self):
         traj = pt.iterload(fn('DPDP.nc'), fn('DPDP.parm7'))
         dslist = pt.search_hbonds(traj, dtype='dataset')

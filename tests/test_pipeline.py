@@ -7,7 +7,7 @@ from utils import fn
 from pytraj.testing import aa_eq
 
 
-class TestPipeline(unittest.TestCase):
+class TestPipeline:
     def test_pieline(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 

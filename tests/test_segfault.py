@@ -11,7 +11,7 @@ try not to get segmentation fault error (due to whatever freaking reason)
 traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
 
-class Test(unittest.TestCase):
+class Test:
     def test_0(self):
         it = iterframe_master(traj)
 
@@ -35,7 +35,7 @@ class Test(unittest.TestCase):
         for idx, (f0, f1) in enumerate(zip(traj, traj)):
             f0.rmsd(f1)
 
-    def test_indexing_nonrefernce_DSL(self):
+    def test_indexing_nonrefernce_dsl(self):
 
         # segmentation fault
         # new DSL

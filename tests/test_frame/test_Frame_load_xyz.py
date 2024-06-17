@@ -7,7 +7,7 @@ from pytraj import Frame
 from pytraj.testing import aa_eq
 
 
-class Test(unittest.TestCase):
+class Test:
     def test_xyz(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         frame = Frame()

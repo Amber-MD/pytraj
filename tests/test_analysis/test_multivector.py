@@ -7,7 +7,7 @@ from utils import fn
 from pytraj.testing import aa_eq
 
 
-class TestMultiVector(unittest.TestCase):
+class TestMultiVector:
     def test_multivector(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         state = pt.load_batch(traj, '''

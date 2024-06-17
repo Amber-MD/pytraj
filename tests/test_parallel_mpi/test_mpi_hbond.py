@@ -1,3 +1,4 @@
+import pytest
 import unittest
 import pytraj as pt
 from utils import fn
@@ -11,7 +12,7 @@ except ImportError:
     has_mpi4py = False
 
 
-@unittest.skipUnless(has_mpi4py, 'must have mpi4py')
+@pytest.mark.skipif(not has_mpi4py, 'must have mpi4py')
 def test_mpi_hbond():
     rank = MPI.COMM_WORLD.rank
 

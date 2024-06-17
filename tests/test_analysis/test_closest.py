@@ -9,7 +9,7 @@ from pytraj.testing import aa_eq
 import pytest
 
 
-class TestClosest(unittest.TestCase):
+class TestClosest:
     def test_closest(self):
         # raise if not has solvent
         traj0 = pt.iterload(

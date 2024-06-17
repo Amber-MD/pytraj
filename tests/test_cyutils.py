@@ -4,7 +4,7 @@ from pytraj.utils.cyutils import _int_array1d_like_to_memview
 from pytraj.utils.cyutils import _int_array2d_like_to_memview
 
 
-class Test(unittest.TestCase):
+class Test:
     def test_0(self):
         import numpy as np
         from array import array

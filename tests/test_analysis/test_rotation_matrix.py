@@ -9,8 +9,8 @@ from pytraj.testing import aa_eq, tempfolder
 from utils import fn
 
 
-class TestRotationMatrix(unittest.TestCase):
-    def setUp(self):
+class TestRotationMatrix:
+    def setup_method(self):
         self.traj = pt.iterload(fn("tz2.nc"), fn("tz2.parm7"))
         cm_avg = '''
         average avg.pdb

@@ -11,7 +11,7 @@ import pytest
 '''
 
 
-class TestDiagMatrix(unittest.TestCase):
+class TestDiagMatrix:
     def test_diagmatrix(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 

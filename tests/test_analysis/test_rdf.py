@@ -9,7 +9,7 @@ from pytraj.testing import aa_eq, tempfolder
 from utils import fn
 
 
-class TestRDF(unittest.TestCase):
+class TestRDF:
     def test_rdf(self):
         traj = pt.iterload(
             fn("tz2.truncoct.nc"),

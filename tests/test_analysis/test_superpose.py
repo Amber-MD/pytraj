@@ -8,7 +8,7 @@ from pytraj.utils import tempfolder
 from utils import fn, tc5b_trajin, tc5b_top
 
 
-class TestSuperposeTrajectory(unittest.TestCase):
+class TestSuperposeTrajectory:
     """superpose mutable Trajectory
     """
 
@@ -123,7 +123,7 @@ class TestSuperposeTrajectory(unittest.TestCase):
         aa_eq(t0.xyz, t1.xyz)
 
 
-class TestSuperposeTrajectoryIterator(unittest.TestCase):
+class TestSuperposeTrajectoryIterator:
     """test superpose TrajectoryIterator
     """
 
@@ -236,7 +236,7 @@ class TestSuperposeTrajectoryIterator(unittest.TestCase):
         aa_eq(state.data['mycrd'].xyz, traj_on_mem.xyz)
 
 
-class TestAlign(unittest.TestCase):
+class TestAlign:
     def test_align(self):
         traj_on_disk = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         traj_on_mem = pt.load(fn('Tc5b.x'), fn('Tc5b.top'))

@@ -6,7 +6,7 @@ from pytraj.testing import aa_eq
 import pytest
 
 
-class Test(unittest.TestCase):
+class Test:
     def test_load_from_list(self):
         from glob import glob
         pattern = fn('Test_RemdTraj/rem.nc.*')

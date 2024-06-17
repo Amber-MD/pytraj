@@ -1,4 +1,5 @@
 # always add those lines to your code
+import pytest
 import sys
 import unittest
 import pytraj as pt
@@ -13,7 +14,7 @@ except ImportError:
     has_mpi4py = False
 
 
-@unittest.skipUnless(has_mpi4py, 'must have mpi4py')
+@pytest.mark.skipif(not has_mpi4py, 'must have mpi4py')
 def test_mpi_cpptraj_style():
     comm = MPI.COMM_WORLD
     # end. you are free to update anything below here

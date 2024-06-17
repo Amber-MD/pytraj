@@ -18,9 +18,9 @@ import pytest
 from utils import fn
 
 
-@unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
-class TestNormalPmap(unittest.TestCase):
-    def setUp(self):
+@pytest.mark.skipif(not sys.platform.startswith('linux'), 'pmap for linux')
+class TestNormalPmap:
+    def setup_method(self):
         self.traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
     def test_progress(self):
@@ -135,7 +135,7 @@ class TestNormalPmap(unittest.TestCase):
             aa_eq(radgyr_[0], saved_radgyr)
 
 
-@unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
+@pytest.mark.skipif(not sys.platform.startswith('linux'), 'pmap for linux')
 class TestParallelMapForTrajectoryIteratorWithTransformation(
         unittest.TestCase):
     def test_trajectoryiterator_with_transformation(self):
@@ -152,8 +152,8 @@ class TestParallelMapForTrajectoryIteratorWithTransformation(
         aa_eq(pt.tools.dict_to_ndarray(rmsd0_dict), [rmsd1])
 
 
-@unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
-class TestParallelMapForMatrix(unittest.TestCase):
+@pytest.mark.skipif(not sys.platform.startswith('linux'), 'pmap for linux')
+class TestParallelMapForMatrix:
     def test_matrix_module(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
@@ -196,7 +196,7 @@ class TestParallelMapForMatrix(unittest.TestCase):
 
 
 # @unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
-class TestParallelMapForHbond(unittest.TestCase):
+class TestParallelMapForHbond:
     def test_pmap_hbond(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         hbond_data_serial = pt.hbond(traj, dtype='dict')
@@ -212,7 +212,7 @@ class TestParallelMapForHbond(unittest.TestCase):
             # not support yet.
             pt.pmap(['radgyr', 'hbond'], traj, n_cores=3)
 
-    @unittest.skipIf(sys.version_info[:2] == (3, 8), 'Timeout on Python 3.8. Skip for now')
+    @pytest.mark.skipif(sys.version_info[:2] == (3, 8), 'Timeout on Python 3.8. Skip for now')
     def test_pmap_hbond_with_solvent_bridge(self):
         for trajin_fn, parm_fn in [('tz2.ortho.nc', 'tz2.ortho.parm7'),
                                    ('tz2.truncoct.nc', 'tz2.truncoct.parm7')]:
@@ -236,9 +236,9 @@ class TestParallelMapForHbond(unittest.TestCase):
                     assert value.dtype == np.int32
 
 
-@unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
-class TestCpptrajCommandStyle(unittest.TestCase):
-    @unittest.skipIf(sys.version_info[:2] == (3, 8), 'Timeout on Python 3.8. Skip for now')
+@pytest.mark.skipif(not sys.platform.startswith('linux'), 'pmap for linux')
+class TestCpptrajCommandStyle:
+    @pytest.mark.skipif(sys.version_info[:2] == (3, 8), 'Timeout on Python 3.8. Skip for now')
     def test_c_command_style(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
@@ -305,8 +305,8 @@ class TestCpptrajCommandStyle(unittest.TestCase):
             aa_eq(arr, pt.radgyr(traj))
 
 
-@unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
-class TestParallelMapForAverageStructure(unittest.TestCase):
+@pytest.mark.skipif(not sys.platform.startswith('linux'), 'pmap for linux')
+class TestParallelMapForAverageStructure:
     def test_pmap_average_structure(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         saved_frame = pt.mean_structure(traj, '@CA')
@@ -317,8 +317,8 @@ class TestParallelMapForAverageStructure(unittest.TestCase):
             aa_eq(frame.xyz, saved_xyz)
 
 
-@unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
-class TestLoadBathPmap(unittest.TestCase):
+@pytest.mark.skipif(not sys.platform.startswith('linux'), 'pmap for linux')
+class TestLoadBathPmap:
     def test_load_batch(self):
         '''just test ValueError
         '''
@@ -326,8 +326,8 @@ class TestLoadBathPmap(unittest.TestCase):
             _load_batch_pmap(n_cores=4, lines=['autoimage'], traj=None, dtype='dict', root=0, mode='xyz', ref=None)
 
 
-@unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
-class TestFrameIndices(unittest.TestCase):
+@pytest.mark.skipif(not sys.platform.startswith('linux'), 'pmap for linux')
+class TestFrameIndices:
     def test_frame_indices(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
@@ -347,9 +347,9 @@ class TestFrameIndices(unittest.TestCase):
                       pt.tools.dict_to_ndarray(parallel_out_c_style))
 
 
-@unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
-class TestCheckValidCommand(unittest.TestCase):
-    @unittest.skipIf(sys.version_info[:2] == (3, 8), 'Timeout on Python 3.8. Skip for now')
+@pytest.mark.skipif(not sys.platform.startswith('linux'), 'pmap for linux')
+class TestCheckValidCommand:
+    @pytest.mark.skipif(sys.version_info[:2] == (3, 8), 'Timeout on Python 3.8. Skip for now')
     def test_check_valid_command(self):
         from pytraj.parallel.base import check_valid_command
         assert check_valid_command([
@@ -403,8 +403,8 @@ class TestCheckValidCommand(unittest.TestCase):
                 pt.pmap(word, traj, n_cores=2)
 
 
-@unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
-class TestVolmap(unittest.TestCase):
+@pytest.mark.skipif(not sys.platform.startswith('linux'), 'pmap for linux')
+class TestVolmap:
     def test_volmap(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 
@@ -432,8 +432,8 @@ class TestVolmap(unittest.TestCase):
                 aa_eq(serial_out, parallel_out)
 
 
-@unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
-class TestWorker(unittest.TestCase):
+@pytest.mark.skipif(not sys.platform.startswith('linux'), 'pmap for linux')
+class TestWorker:
     def testworker_by_actlist(self):
         # just want to exercise all codes
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
@@ -453,8 +453,8 @@ def change_10_atoms(traj):
         yield frame
 
 
-@unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
-class TestInserNewFunction(unittest.TestCase):
+@pytest.mark.skipif(not sys.platform.startswith('linux'), 'pmap for linux')
+class TestInserNewFunction:
     def test_insert_new_function(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 

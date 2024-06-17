@@ -6,7 +6,7 @@ from utils import fn
 from pytraj.testing import aa_eq
 
 
-class TestChainofCommands(unittest.TestCase):
+class TestChainofCommands:
     def test_center_autoimagesuperpose(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         t0 = traj[:]

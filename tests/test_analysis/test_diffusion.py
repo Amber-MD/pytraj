@@ -9,7 +9,7 @@ from pytraj.testing import aa_eq
 from utils import tz2_ortho_trajin, tz2_ortho_top
 
 
-class TestDiffusion(unittest.TestCase):
+class TestDiffusion:
     def test_diffusion(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 

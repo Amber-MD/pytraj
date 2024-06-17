@@ -5,7 +5,7 @@ import numpy as np
 from utils import fn
 
 
-class Test(unittest.TestCase):
+class Test:
     def test_0(self):
         mask = pt.utils.convert.array2d_to_cpptraj_maskgroup(np.array([[0, 3],
                                                               [5, 6, 8]], dtype=object))

@@ -5,7 +5,7 @@ import pytraj as pt
 from utils import fn
 
 
-class Test(unittest.TestCase):
+class Test:
     def test_0(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         f0 = Frame()

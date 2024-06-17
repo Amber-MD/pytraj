@@ -45,7 +45,7 @@ command_list = command_list + [
 ]
 
 
-class TestMatrixConprehensive(unittest.TestCase):
+class TestMatrixConprehensive:
     def test_matrix(self):
         import numpy as np
         from pytraj import ArgList

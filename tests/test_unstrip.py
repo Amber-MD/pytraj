@@ -7,7 +7,7 @@ from utils import fn
 from pytraj.testing import aa_eq
 
 
-class TestUnstrip(unittest.TestCase):
+class TestUnstrip:
     def test_unstrip(self):
         from pytraj.datasets import CpptrajDatasetList
 

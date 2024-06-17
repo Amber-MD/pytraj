@@ -5,7 +5,7 @@ import pytraj as pt
 from utils import fn, tz2_trajin, tz2_top
 
 
-class TestDihedralCovarianceMatrix(unittest.TestCase):
+class TestDihedralCovarianceMatrix:
     # TODO: add assertion
 
     def test_dihcovar(self):

@@ -7,7 +7,7 @@ from pytraj.testing import aa_eq
 from utils import fn
 
 
-class TestGrid(unittest.TestCase):
+class TestGrid:
     def test_0(self):
         from pytraj.math import Grid
         nx = ny = nz = 3
@@ -21,7 +21,7 @@ class TestGrid(unittest.TestCase):
         assert g._element(0, 0, 0) == value
 
 
-class TestGridAction(unittest.TestCase):
+class TestGridAction:
     def test_action_grid(self):
         from pytraj.all_actions import grid
         traj = pt.load_sample_data("tz2")[:]

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from __future__ import print_function
+import pytest
 import os
 import unittest
 import pytraj as pt
@@ -14,7 +15,7 @@ from utils import fn, tz2_ortho_trajin, tz2_ortho_top
 DO_GIST = os.getenv("DO_GIST", False)
 
 
-@unittest.skipUnless(DO_GIST, 'only do gist test if setting DO_GIST=True')
+@pytest.mark.skipif(not DO_GIST, 'only do gist test if setting DO_GIST=True')
 def test_gist():
     traj = pt.iterload(tz2_ortho_trajin, tz2_ortho_top, frame_slice=(0, 10))
     traj.autoimage('origin')

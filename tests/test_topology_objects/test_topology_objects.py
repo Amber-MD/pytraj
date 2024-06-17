@@ -6,8 +6,8 @@ import pytraj as pt
 from utils import fn
 
 
-class TestTopoloyObjects(unittest.TestCase):
-    def setUp(self):
+class TestTopoloyObjects:
+    def setup_method(self):
         self.traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
     def test_atom(self):
@@ -24,7 +24,7 @@ class TestTopoloyObjects(unittest.TestCase):
             assert res.index == idx, 'residue index'
 
 
-class TestSimplifiedTopology(unittest.TestCase):
+class TestSimplifiedTopology:
     def test_simplified_topology(self):
         traj = pt.datafiles.load_trpcage()
         top = traj.top

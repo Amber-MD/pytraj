@@ -2,6 +2,7 @@
 # mpirun -n 4 your_script.py
 
 # always add those lines to your code
+import pytest
 import pytraj as pt
 import unittest
 from pytraj.testing import aa_eq
@@ -17,7 +18,7 @@ except ImportError:
     has_mpi4py = False
 
 
-@unittest.skipUnless(has_mpi4py, 'must have mpi4py')
+@pytest.mark.skipif(not has_mpi4py, 'must have mpi4py')
 def test_mpi_load_batch():
     # create ``comm`` so you can have the info about n_cpus, cpu id
     comm = MPI.COMM_WORLD

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from __future__ import print_function
+import pytest
 import numpy as np
 import sys
 import unittest
@@ -9,8 +10,8 @@ from pytraj.testing import aa_eq
 from pytraj.testing import cpptraj_test_dir
 
 
-class TestNHOrderParamters(unittest.TestCase):
-    @unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
+class TestNHOrderParamters:
+    @pytest.mark.skipif(sys.platform != 'linux', 'pmap for linux')
     def test_nh_paramters(self):
         parmfile = cpptraj_test_dir + '/Test_IRED/1IEE_A_prot.prmtop'
         trajfile = cpptraj_test_dir + '/Test_IRED/1IEE_A_test.mdcrd'

@@ -7,7 +7,7 @@ from pytraj.testing import aa_eq
 from utils import fn
 
 
-class Test(unittest.TestCase):
+class Test:
     def test_0(self):
 
         # create TrajectoryIter (readonly)

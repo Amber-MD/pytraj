@@ -6,7 +6,7 @@ from utils import fn
 from pytraj.testing import aa_eq
 
 
-class TestCrdFrames(unittest.TestCase):
+class TestCrdFrames:
     def test_crdframes(self):
         '''test crdframes in cpptraj
         '''

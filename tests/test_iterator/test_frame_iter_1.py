@@ -3,7 +3,7 @@ import pytraj as pt
 from utils import fn
 
 
-class TestIterator(unittest.TestCase):
+class TestIterator:
     def test_frame_iterator(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 

@@ -6,7 +6,7 @@ from pytraj.testing import aa_eq
 from pytraj.testing import cpptraj_test_dir
 
 
-class TestMakeStructure(unittest.TestCase):
+class TestMakeStructure:
     def test_makestructure(self):
         # FIXME: What does this test?
         # https://github.com/Amber-MD/cpptraj/issues/27

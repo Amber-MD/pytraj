@@ -26,7 +26,7 @@ trajin = lines[2].split()[-1]
 short_cm = ' '.join(lines[-1].split()[1:])
 
 
-class TestRotdif(unittest.TestCase):
+class TestRotdif:
 
     # @unittest.skip("cpptraj rotdif does not dump data to DatasetList yet")
     def test_rotdif(self):

@@ -9,7 +9,7 @@ from itertools import product
 from utils import fn, tz2_trajin, tz2_top
 
 
-class TestDistanceBasedMask(unittest.TestCase):
+class TestDistanceBasedMask:
     def test_atom_distance(self):
         traj = pt.iterload(tz2_trajin, tz2_top)
         top = traj.top

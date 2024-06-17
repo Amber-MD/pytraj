@@ -7,7 +7,7 @@ from pytraj.core import Box
 from pytraj.testing import aa_eq
 
 
-class TestBox(unittest.TestCase):
+class TestBox:
     def test_0(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         frame0 = traj[0]

@@ -4,7 +4,7 @@ import pytraj as pt
 from utils import fn
 
 
-class Test(unittest.TestCase):
+class Test:
     def test_0(self):
         # merge_coordinates
         pass

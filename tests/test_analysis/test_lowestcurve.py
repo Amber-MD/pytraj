@@ -58,7 +58,7 @@ saved_data = np.array(
     dtype='f4').T
 
 
-class TestLowestCurve(unittest.TestCase):
+class TestLowestCurve:
     def test_lowestcurve_low_level(self):
         data = np.loadtxt(fn('esurf_vs_rmsd.dat')).T
         lc_data = pt.lowestcurve(data, points=10, step=0.2)

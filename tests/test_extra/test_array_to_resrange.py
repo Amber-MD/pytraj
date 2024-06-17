@@ -5,7 +5,7 @@ from utils import fn
 from pytraj.testing import aa_eq
 
 
-class Test(unittest.TestCase):
+class Test:
     def test_0(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         from pytraj.utils import convert as cv

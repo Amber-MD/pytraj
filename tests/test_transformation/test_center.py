@@ -8,7 +8,7 @@ from pytraj.testing import aa_eq
 from utils import fn
 
 
-class TestCenter(unittest.TestCase):
+class TestCenter:
     def test_center(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         pt.load(fn("tz2.center_mass.nc"), traj.top)

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from __future__ import print_function
+import pytest
 import unittest
 import pytraj as pt
 from utils import fn
@@ -13,9 +14,9 @@ except ImportError:
     pmd = None
 
 
-@unittest.skipIf(pmd is None, "Must install ParmEd")
-class TestParmEdConverter(unittest.TestCase):
-    def setUp(self):
+@pytest.mark.skipif(pmd is None, "Must install ParmEd")
+class TestParmEdConverter:
+    def setup_method(self):
         self.traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         self.parm = pmd.load_file(self.traj.top.filename)
 

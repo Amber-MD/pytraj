@@ -1,3 +1,4 @@
+import pytest
 import unittest
 from pytraj import *
 import pytraj as pt
@@ -6,7 +7,7 @@ from pytraj.testing import aa_eq
 import numpy as np
 
 
-class Test(unittest.TestCase):
+class Test:
     # tests to see if function can find an atom if we search with a coordinate
     # very close to the atom's xyz coordinates
     def test_0(self):
@@ -70,15 +71,15 @@ class Test(unittest.TestCase):
     def test_4(self):
         traj = pt.datafiles.load_rna()
         emptyTop = pt.Topology()
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             pt.closest_atom(emptyTop, traj[0], (0, 0, 0))
 
     # make sure exception raised for argument without 3 coordinate tuple
     def test_5(self):
         traj = pt.datafiles.load_rna()
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             pt.closest_atom(traj.top, traj[0], (0, 0, 0, 0))
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             pt.closest_atom(traj.top, traj[0], "(0, 0, 0)")
 
     # makes sure that mask argument indeed returns an atom with that mask

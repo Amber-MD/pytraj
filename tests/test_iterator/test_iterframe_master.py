@@ -22,7 +22,7 @@ def iter_me(obj, n_frames):
     assert idx + 1 == n_frames
 
 
-class TestIterFrameMaster(unittest.TestCase):
+class TestIterFrameMaster:
     def test_iter(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         fa = traj[:]
@@ -71,7 +71,7 @@ class TestIterFrameMaster(unittest.TestCase):
         with pytest.raises(TypeError):
             test_raise()
 
-    def test_iter_with_a_list_of_frame_and_trajectory_and_FrameIterator(self):
+    def test_iter_with_a_list_of_frame_and_trajectory_and_frame_iterator(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         traj[0]
 
@@ -96,7 +96,7 @@ class TestIterFrameMaster(unittest.TestCase):
         for f0, f1 in zip(fa, traj):
             aa_eq(f0.xyz, f1.xyz)
 
-    def test_TrajectorView(self):
+    def test_trajector_view(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         # make mutable traj
         t0 = traj[:]
@@ -109,7 +109,7 @@ class TestIterFrameMaster(unittest.TestCase):
         aa_eq(t1.xyz[indices], traj[indices].xyz)
 
 
-class TestIterFrameFromArray(unittest.TestCase):
+class TestIterFrameFromArray:
     def test_iterframe_from_array(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
