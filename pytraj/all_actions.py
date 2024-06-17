@@ -3020,8 +3020,8 @@ def atom_map(traj, ref, rmsfit=False):
     act.post_process()
 
     # free memory of two reference
-    dataset_list.pop(0)
-    dataset_list.pop(0)
+    dataset_list._pop(0)
+    dataset_list._pop(0)
 
     return (out.read(), get_data_from_dtype(dataset_list, dtype='ndarray'))
 
