@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 import numpy as np
 from enum import Enum
+from typing import Any, Callable, List, Union
 from functools import partial
 
 from .utils.get_common_objects import (
