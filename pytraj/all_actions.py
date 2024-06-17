@@ -1048,36 +1048,42 @@ def rdf(traj=None,
     - install ``pytraj`` and ``libcpptraj`` with openmp to speed up calculation
     - do not use this method with pytraj.pmap
     '''
+
+
     traj = get_fiterator(traj, frame_indices)
     if not isinstance(solvent_mask, str):
         solvent_mask = array_to_cpptraj_atommask(solvent_mask)
 
+
     if not isinstance(solute_mask, str) and solute_mask is not None:
         solute_mask = array_to_cpptraj_atommask(solute_mask)
 
-    spacing = str(bin_spacing)
-    maximum = str(maximum)
-    solvent_mask_str = solvent_mask
-    solute_mask_str = solute_mask
-    no_image = 'noimage' if not image else ''
-    density_str = 'density ' + str(density) if density is not None else ''
-    volume_str = 'volume' if volume else ''
-    center1 = 'center1' if center_solvent else ''
-    center2 = 'center2' if center_solute else ''
-    no_intramol = 'nointramol' if not intramol else ''
-    raw_rdf_str = "rawrdf pytraj_tmp_output_raw.agr" if raw_rdf else ''
+
+    spacing_ = str(bin_spacing)
+    maximum_ = str(maximum)
+    solventmask_ = solvent_mask
+    solutemask_ = solute_mask
+    noimage_ = 'noimage' if not image else ''
+    density_ = 'density ' + str(density) if density is not None else ''
+    volume_ = 'volume' if volume else ''
+    center1_ = 'center1' if center_solvent else ''
+    center2_ = 'center2' if center_solute else ''
+    nointramol_ = 'nointramol' if not intramol else ''
+    raw_rdf_ = "rawrdf pytraj_tmp_output_raw.agr" if raw_rdf else ''
+
 
     # order does matters
-    # the order between solvent_mask_str and solute_mask_str is swapped compared
+    # the order between solventmask_ and solutemask_ is swapped compared
     # to cpptraj's doc (to get correct result)
-    command = ' '.join(("pytraj_tmp_output.agr", spacing, maximum,
-                        solvent_mask_str, solute_mask_str, no_image, density_str, volume_str,
-                        center1, center2, no_intramol, raw_rdf_str))
+    command = ' '.join(("pytraj_tmp_output.agr", spacing_, maximum_,
+                        solventmask_, solutemask_, noimage_, density_, volume_,
+                        center1_, center2_, nointramol_, raw_rdf_))
 
-    action_datasets, _ = do_action(traj, command, c_action.Action_Radial)
-    # make a copy sine action_datasets[-1].values return view of its data
-    # action_datasets will be freed
-    values = np.array(action_datasets[-1].values)
+
+    c_dslist, _ = do_action(traj, command, c_action.Action_Radial)
+    # make a copy sine c_dslist[-1].values return view of its data
+    # c_dslist will be freed
+    values = np.array(c_dslist[-1].values)
     # return (bin_centers, values)
     return (np.arange(bin_spacing / 2., maximum, bin_spacing), values)
 
@@ -1773,28 +1779,37 @@ def closest(traj=None,
     >>> # to residues 1 to 13 (index starts from 1) by distance to the first atom of water
     >>> t = pt.closest(traj, mask='@CA', n_solvents=10)
     """
-    action_datasets = CpptrajDatasetList()
-    closest_action = c_action.Action_Closest()
-    command = f"{n_solvents} {mask}"
+    # check if top has solvent
+    c_dslist = CpptrajDatasetList()
+
+    command = str(n_solvents) + ' ' + mask
+
+    act = c_action.Action_Closest()
 
     if solvent_mask is not None:
         top = top.copy()
         top.set_solvent(solvent_mask)
 
-    if not any(mol.is_solvent() for mol in top.mols):
+    has_solvent = False
+    for mol in top.mols:
+        if mol.is_solvent():
+            has_solvent = True
+            break
+    if not has_solvent:
         raise RuntimeError("Topology does not have solvent")
 
-    closest_action.read_input(command, top, dslist=action_datasets)
-    new_top = closest_action.setup(top, get_new_top=True)
-    frame_iterator = _closest_iter(closest_action, traj)
+    act.read_input(command, top, dslist=c_dslist)
+    new_top = act.setup(top, get_new_top=True)
+
+    fiter = _closest_iter(act, traj)
 
     if dtype == 'trajectory':
         return Trajectory(
-            xyz=np.array([frame.xyz.copy() for frame in frame_iterator]),
+            xyz=np.array([frame.xyz.copy() for frame in fiter]),
             top=new_top.copy())
     else:
         # iterator
-        return (frame_iterator, new_top.copy())
+        return (fiter, new_top.copy())
 
 
 @register_pmap
