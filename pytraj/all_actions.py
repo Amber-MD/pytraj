@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 # Standard library imports
 from enum import Enum
 from typing import Any, Callable, List, Union
