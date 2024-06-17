@@ -1117,7 +1117,7 @@ def pairdist(traj,
 
 
 @super_dispatch()
-def translate(traj=None, command="", frame_indices=None):
+def translate(traj=None, command="", top=None, frame_indices=None):
     '''translate coordinate
 
     Examples
