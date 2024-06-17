@@ -1,23 +1,33 @@
 from __future__ import absolute_import
-# Standard library imports
-from enum import Enum
-from typing import Any, Callable, List, Union
 import numpy as np
 from functools import partial
 
-# Local application imports
-from .analysis import (
-    matrix,
-    vector,
-    nmr,
-    dssp_analysis,
-    hbond_analysis,
-    energy_analysis,
-)
-from .analysis.c_action import c_action, do_action
-from .analysis.c_action.actionlist import ActionList
+from .utils.get_common_objects import (
+    get_topology,
+    get_data_from_dtype,
+    get_list_of_commands,
+    get_reference,
+    get_fiterator,
+    super_dispatch, )
+from .utils import ensure_not_none_or_string
+from .utils import is_int
+from .utils.context import tempfolder
+from .utils.context import capture_stdout
+from .utils.convert import array_to_cpptraj_atommask
+from .utils.convert import array2d_to_cpptraj_maskgroup
+from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
+from .datasets.datasetlist import DatasetList
+from .trajectory.shared_methods import iterframe_master
+from .trajectory.frame import Frame
+from .trajectory.trajectory import Trajectory
+from .trajectory.trajectory_iterator import TrajectoryIterator
+from .utils.decorators import register_pmap, register_openmp
+from .analysis.c_action import c_action
+from .analysis.c_action import do_action
 from .analysis.c_analysis import c_analysis
-from .analysis.energy_analysis import esander, lie
+from .analysis.c_action.actionlist import ActionList
+from .topology.topology import Topology
+from .builder.build import make_structure
 from .analysis.rmsd import (
     rotation_matrix,
     pairwise_rmsd,
@@ -25,26 +35,17 @@ from .analysis.rmsd import (
     rmsd_nofit,
     rmsd,
     symmrmsd,
-    distance_rmsd,
-)
-from .builder.build import make_structure
-from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
-from .datasets.datasetlist import DatasetList
-from .topology.topology import Topology
-from .trajectory import Frame, Trajectory, TrajectoryIterator
-from .trajectory.shared_methods import iterframe_master
-from .utils import ensure_not_none_or_string, is_int
-from .utils.context import capture_stdout, tempfolder
-from .utils.convert import array2d_to_cpptraj_maskgroup, array_to_cpptraj_atommask
-from .utils.decorators import register_openmp, register_pmap
-from .utils.get_common_objects import (
-    get_topology,
-    get_data_from_dtype,
-    get_list_of_commands,
-    get_reference,
-    get_fiterator,
-    super_dispatch,
-)
+    distance_rmsd, )
+from .analysis.energy_analysis import (
+    esander,
+    lie, )
+from .analysis import (
+    matrix,
+    vector,
+    nmr,
+    dssp_analysis,
+    hbond_analysis,
+    energy_analysis, )
 
 from .core.c_core import CpptrajState, Command
 
