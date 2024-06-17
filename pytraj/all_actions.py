@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 import numpy as np
-from enum import Enum
+from enum import StrEnum
 from typing import Any, Callable, List, Union
 from functools import partial
 
@@ -71,7 +71,7 @@ __all__ = [
     'watershell', 'wavelet', 'xcorr', 'xtalsymm',
 ] # yapf: disable
 
-class DatasetType(Enum):
+class DatasetType(StrEnum):
     COORDS = 'coords'
     REFERENCE = 'reference'
     REFERENCE_FRAME = 'ref_frame'
