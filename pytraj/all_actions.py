@@ -2149,21 +2149,32 @@ def pucker(traj=None,
     -------
     Dataset
     """
-    topology = get_topology(traj, top)
-    resrange = range(topology.n_residues) if resrange is None else resrange
+    top_ = get_topology(traj, top)
+    if resrange is None:
+        resrange = range(top_.n_residues)
 
-    action_datasets = CpptrajDatasetList()
+
+    _range360 = "range360" if range360 else ""
+    geom = "geom" if not use_com else ""
+    amp = "amplitude" if amplitude else ""
+    offset_ = "offset " + str(offset) if offset else ""
+
+
+    c_dslist = CpptrajDatasetList()
+
 
     for res in resrange:
-        command = f"pucker_res{res + 1} :{res + 1}@" + " @".join(pucker_mask)
-        options = [range360, method, not use_com, amplitude, offset]
-        options_str = " ".join([str(opt) for opt in options if opt])
-        command += f" {options_str}"
+        command = " ".join((":" + str(res + 1) + '@' + x for x in pucker_mask))
+        name = "pucker_res" + str(res + 1)
+        command = " ".join((name, command, _range360, method, geom, amp,
+                            offset_))
 
-        action = c_action.Action_Pucker()
-        action(command, traj, top=topology, dslist=action_datasets)
 
-    return get_data_from_dtype(action_datasets, dtype)
+        act = c_action.Action_Pucker()
+        act(command, traj, top=top_, dslist=c_dslist)
+
+
+    return get_data_from_dtype(c_dslist, dtype)
 
 
 @super_dispatch()
