@@ -208,7 +208,7 @@ def closest_atom(top=None, frame=None, point=(0, 0, 0), mask=""):
     """
 
     atoms = top.atom_indices(mask)
-    if not atoms:
+    if len(atoms):
         raise ValueError(
             "Please pass in a topology file with atoms that match the mask in it"
         )
