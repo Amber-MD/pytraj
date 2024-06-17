@@ -1902,7 +1902,7 @@ def check_structure(traj,
     return get_data_from_dtype(action_datasets, dtype=dtype), c_stdout
 
 
-def compute_time_correlation(vec0, vec1, order=2, tstep=1., tcorr=10000., norm=False, dtype='ndarray'):
+def timecorr(vec0, vec1, order=2, tstep=1., tcorr=10000., norm=False, dtype='ndarray'):
     """Compute time correlation.
 
     Parameters
