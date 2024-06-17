@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 import numpy as np
+from enum import Enum
 from functools import partial
 
 from .utils.get_common_objects import (
