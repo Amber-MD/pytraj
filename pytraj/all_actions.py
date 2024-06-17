@@ -436,7 +436,7 @@ def pairwise_distance(traj=None,
             arr.reshape(len(indices_1), len(indices_2), 2))
 
 
-class CommandType(Enum):
+class CommandType(StrEnum):
     INT = 'int'
     STR = 'str'
     LIST = 'list'
