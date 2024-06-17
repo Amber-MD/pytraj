@@ -1,6 +1,9 @@
 from __future__ import absolute_import
 import numpy as np
-from enum import StrEnum
+try:
+    from enum import StrEnum
+except ImportError:
+    from strenum import StrEnum
 from typing import Any, Callable, List, Union
 from functools import partial
 
@@ -2997,22 +3000,30 @@ def atom_map(traj, ref, rmsfit=False):
     '''
     act = c_action.Action_AtomMap()
     options = 'rmsfit rmsout rmsout.dat' if rmsfit else ''
-    command = f'my_target my_ref {options}'
-    action_datasets = CpptrajDatasetList()
+    command = ' '.join(('my_target my_ref', options))
+    dataset_list = CpptrajDatasetList()
 
-    target = action_datasets.add(DatasetType.REFERENCE, name='my_target')
-    target.top, target.data = traj.top, [traj[0]]
+    target = dataset_list.add('reference', name='my_target')
+    target.top = traj.top
+    target.append(traj[0])
 
-    refset = action_datasets.add(DatasetType.REFERENCE, name='my_ref')
-    refset.top, refset.data = ref.top if ref.top else traj.top, [ref[0] if not isinstance(ref, Frame) else ref]
+    refset = dataset_list.add('reference', name='my_ref')
+    refset.top = ref.top if ref.top is not None else traj.top
+    if not isinstance(ref, Frame):
+        ref_frame = ref[0]
+    else:
+        ref_frame = ref
+    refset.append(ref_frame)
 
     with capture_stdout() as (out, err):
-        act(command, traj, top=traj.top, dslist=action_datasets)
+        act(command, traj, top=traj.top, dslist=dataset_list)
     act.post_process()
 
-    action_datasets._pop(0), action_datasets._pop(0)
+    # free memory of two reference
+    dataset_list.pop(0)
+    dataset_list.pop(0)
 
-    return out.read(), get_data_from_dtype(action_datasets, dtype='ndarray')
+    return (out.read(), get_data_from_dtype(dataset_list, dtype='ndarray'))
 
 
 def check_chirality(traj, mask='', dtype='dict'):
