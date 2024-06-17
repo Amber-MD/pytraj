@@ -2013,6 +2013,7 @@ def velocity_autocorrelation(
 
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
+velocityautocorr = velocity_autocorrelation
 
 def set_velocity(traj, temperature=298, ig=10, options=''):
     """
