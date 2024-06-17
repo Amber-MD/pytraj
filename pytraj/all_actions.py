@@ -207,21 +207,23 @@ def closest_atom(top=None, frame=None, point=(0, 0, 0), mask=""):
     205
     """
 
-    atoms = top.atom_indices(mask)
-    if len(atoms):
+
+    if (len(top.atom_indices(mask)) == 0):
         raise ValueError(
             "Please pass in a topology file with atoms that match the mask in it"
         )
 
-    closest_idx = atoms[0]
-    closest_dist = pair_distance(frame.atom(closest_idx), point)
 
-    for atm in atoms[1:]:
+    closest_dist = None
+    closest_idx = None
+    atoms = top.atom_indices(mask)
+    for atm in atoms:
         coord = frame.atom(atm)
-        dist = pair_distance(coord, point)
-        if dist < closest_dist:
-            closest_dist = dist
+        if ((closest_dist is None)
+                or (pair_distance(coord, point) < closest_dist)):
+            closest_dist = pair_distance(coord, point)
             closest_idx = atm
+
 
     return closest_idx
 
