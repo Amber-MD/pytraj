@@ -101,7 +101,7 @@ class AnalysisRunner:
         else:
             self.datasets.add(dataset_type, dataset_name)
             if dataset_type == DatasetType.XYMESH:
-                self.datasets[-1]._append_from_array(data.T)
+                self.datasets[-1]._append_from_array(data)
             elif dataset_type == DatasetType.MATRIX_DBL:
                 self.datasets[-1].data = np.asarray(data).astype('f8')
             elif dataset_type == DatasetType.MODES:
