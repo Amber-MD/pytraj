@@ -91,7 +91,7 @@ class AnalysisRunner:
         self.datasets = CpptrajDatasetList()
         self.analysis = analysis_class()
 
-    def add_dataset(self, dataset_type, dataset_name, data):
+    def add_dataset(self, dataset_type, dataset_name, data, aspect=None):
         if dataset_type == DatasetType.COORDS:
             crdname = '_DEFAULTCRD_'
             self.datasets.add(dataset_type.value, name=crdname)
@@ -107,6 +107,9 @@ class AnalysisRunner:
             elif dataset_type == DatasetType.MODES:
                 # For MODES, we don't set the data immediately
                 pass
+            elif dataset_type == DatasetType.MATRIX3x3:
+                self.datasets[-1].aspect = aspect
+                self.datasets[-1]._append_from_array(data)
             else:
                 self.datasets[-1].data = np.asarray(data).astype('f8')
 
@@ -2932,7 +2935,7 @@ def rotdif(matrices, command):
     matrices = np.asarray(matrices)
 
     runner = AnalysisRunner(c_analysis.Analysis_Rotdif)
-    runner.add_dataset(DatasetType.MATRIX3x3, "myR0", matrices)
+    runner.add_dataset(DatasetType.MATRIX3x3, "myR0", matrices, aspect='RH')
 
     command = 'rmatrix myR0[RM] ' + command
     with capture_stdout() as (out, _):
@@ -3162,15 +3165,11 @@ def ti(fn, options=''):
         - EXPERIMENTAL
     """
     from pytraj import io
-    data = io.read_data(fn, 'name TI_set index 1')
-
-    runner = AnalysisRunner(c_analysis.Analysis_TI)
-    runner.add_dataset(DatasetType.DOUBLE, "TI_set", data)
-
+    action_datasets = io.read_data(fn, 'name TI_set index 1')
+    act = c_analysis.Analysis_TI()
     command = 'TI_set ' + options
-    runner.run_analysis(command)
-
-    return runner.datasets
+    act(command, dslist=action_datasets)
+    return action_datasets
 
 
 def hausdorff(matrix, options='', dtype='ndarray'):
