@@ -84,6 +84,7 @@ class DatasetType(StrEnum):
     MODES = 'modes'
     XYMESH = 'xymesh'
     MATRIX3x3 = 'matrix3x3'
+    MATRIX_DBL = 'matrix_dbl'
 
 class AnalysisRunner:
     def __init__(self, analysis_class):
