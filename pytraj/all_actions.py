@@ -101,6 +101,11 @@ class AnalysisRunner:
             self.datasets.add(dataset_type, dataset_name)
             if dataset_type == DatasetType.XYMESH:
                 self.datasets[-1]._append_from_array(data.T)
+            elif dataset_type == DatasetType.MATRIX_DBL:
+                self.datasets[-1].data = np.asarray(data).astype('f8')
+            elif dataset_type == DatasetType.MODES:
+                # For MODES, we don't set the data immediately
+                pass
             else:
                 self.datasets[-1].data = np.asarray(data).astype('f8')
 
@@ -3118,19 +3123,21 @@ def analyze_modes(mode_type,
                   scalar_type='mwcovar',
                   options='',
                   dtype='dict'):
-    analysis_modes = c_analysis.Analysis_Modes()
-    action_datasets = CpptrajDatasetList()
+    runner = AnalysisRunner(c_analysis.Analysis_Modes)
     my_modes = 'my_modes'
-    modes = action_datasets.add('modes', name=my_modes)
+    runner.add_dataset(DatasetType.MODES, my_modes, None)
+
+    modes = runner.datasets[-1]
     modes.scalar_type = scalar_type
-    # cpptraj will use natoms = modes.NavgCrd()
     modes._allocate_avgcoords(eigenvectors.shape[1])
     modes._set_modes(False, eigenvectors.shape[0], eigenvectors.shape[1],
                      eigenvalues, eigenvectors.flatten())
+
     command = ' '.join((mode_type, 'name {}'.format(my_modes), options))
-    analysis_modes(command, dslist=action_datasets)
-    action_datasets._pop(0)
-    return get_data_from_dtype(action_datasets, dtype=dtype)
+    runner.run_analysis(command)
+
+    runner.datasets._pop(0)
+    return get_data_from_dtype(runner.datasets, dtype=dtype)
 
 
 def ti(fn, options=''):
@@ -3154,16 +3161,19 @@ def ti(fn, options=''):
         - EXPERIMENTAL
     """
     from pytraj import io
-    action_datasets = io.read_data(fn, 'name TI_set index 1')
-    act = c_analysis.Analysis_TI()
+    data = io.read_data(fn, 'name TI_set index 1')
+
+    runner = AnalysisRunner(c_analysis.Analysis_TI)
+    runner.add_dataset(DatasetType.DOUBLE, "TI_set", data)
+
     command = 'TI_set ' + options
-    act(command, dslist=action_datasets)
-    return action_datasets
+    runner.run_analysis(command)
+
+    return runner.datasets
 
 
 def hausdorff(matrix, options='', dtype='ndarray'):
     """
-
     Parameters
     ----------
     matrix : 2D array
@@ -3178,17 +3188,15 @@ def hausdorff(matrix, options='', dtype='ndarray'):
     -----
         - cpptraj help: pytraj.info('hausdorff')
     """
-    action_datasets = CpptrajDatasetList()
-    matrix_dataset = action_datasets.add('matrix_dbl', name='my_matrix')
-    matrix_dataset.data = np.asarray(matrix, dtype='f8')
+    runner = AnalysisRunner(c_analysis.Analysis_Hausdorff)
+    runner.add_dataset(DatasetType.MATRIX_DBL, "my_matrix", matrix)
 
-    act = c_analysis.Analysis_Hausdorff()
     command = f"my_matrix {options}"
-    act(command, dslist=action_datasets)
+    runner.run_analysis(command)
 
-    action_datasets._pop(0)
+    runner.datasets._pop(0)
 
-    data = get_data_from_dtype(action_datasets, dtype)
+    data = get_data_from_dtype(runner.datasets, dtype)
     return data
 
 
