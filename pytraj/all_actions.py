@@ -2914,8 +2914,10 @@ def strip(obj, mask):
         raise ValueError('object must be either Trajectory or Topology')
 
 
+# FIXME: use AnalysisRunner
 def rotdif(matrices, command):
     """
+
     Parameters
     ----------
     matrices : 3D array, shape=(n_frames, 3, 3)
@@ -2932,15 +2934,20 @@ def rotdif(matrices, command):
     -----
     This method interface will be changed.
     """
+    # TODO: update this method if cpptraj dumps data to CpptrajDatasetList
     matrices = np.asarray(matrices)
 
-    runner = AnalysisRunner(c_analysis.Analysis_Rotdif)
-    runner.add_dataset(DatasetType.MATRIX3x3, "myR0", matrices, aspect='RH')
+
+    action_datasets = CpptrajDatasetList()
+    action_datasets.add(DatasetType.MATRIX3x3, name='myR0')
+    action_datasets[-1].aspect = "RM"
+    action_datasets[-1]._append_from_array(matrices)
+
 
     command = 'rmatrix myR0[RM] ' + command
+    act = c_analysis.Analysis_Rotdif()
     with capture_stdout() as (out, _):
-        runner.run_analysis(command)
-
+        act(command, dslist=action_datasets)
     return out.read()
 
 
