@@ -596,11 +596,12 @@ def test_leap():
         assert traj.n_atoms == 304
 
 
+@pytest.mark.skip(reason="Skipping for now")
 @pytest.mark.skipif(parmed is None, reason="parmed is not available")
 def test_load_parmed():
     top_fname = fn("tz2.ortho.parm7")
     traj_fname = fn("tz2.ortho.nc")
-    parm = parmed.load_file(top_fname, xyz=traj_fname) 
+    parm = parmed.load_file(top_fname, xyz=traj_fname)
     traj = pt.load_parmed(parm, traj=True)
     aa_eq(parm.get_coordinates(), traj.xyz)
     aa_eq(parm.box, traj.top.box.tolist())

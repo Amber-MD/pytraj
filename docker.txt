@@ -1,0 +1,8 @@
+bash configure --requires-flink -shared -noarpack --with-bzlib=/opt/conda --with-zlib=/opt/conda -nosanderlib -nohdf5  --with-netcdf=/opt/conda -nomathlib -nofftw3 gnu
+
+gcc
+gxx
+gfortran
+zlib
+make
+binutils # ar
