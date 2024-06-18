@@ -1,23 +1,36 @@
 from __future__ import absolute_import
 
 import numpy as np
+
 from ..core.box import Box
-from .frame import Frame
+from ..core.c_core import AtomMask
+from ..topology.topology import Topology
 from ..utils.check_and_assert import is_int, is_frame_iter
 from ..utils.convert import array_to_cpptraj_atommask
-from ..core.c_core import AtomMask
+from ..utils.cyutils import _fast_iterptr, _fast_iterptr_withbox
+from ..utils.get_common_objects import get_topology
+
+from .frame import Frame
+from .frameiter import FrameIterator
+from .shared_methods import iterframe_master
 from .shared_trajectory import SharedTrajectory
 
-# use absolute import here
-from pytraj.utils.get_common_objects import get_topology
-
-from ..topology.topology import Topology
-from .shared_methods import iterframe_master
-from ..utils.cyutils import _fast_iterptr, _fast_iterptr_withbox
-from .frameiter import FrameIterator
+from pytraj.analysis.c_action import c_action
 
 __all__ = ['Trajectory']
 
+
+def action_decorator(action_class):
+    def decorator(func):
+        def wrapper(self, command=''):
+            act = action_class()
+            act(command, self, top=self.top)
+            return self
+
+        wrapper.__doc__ = func.__doc__
+        return wrapper
+
+    return decorator
 
 class Trajectory(SharedTrajectory):
     """Simple in-memory Trajectory. It has only information about 3D coordinates
@@ -573,18 +586,6 @@ class Trajectory(SharedTrajectory):
         self.unitcells = ts.unitcells
         self.forces = ts.forces
         self.velocities = ts.velocities
-
-    from pytraj.analysis.c_action import c_action
-
-    def action_decorator(action_class):
-        def decorator(func):
-            def wrapper(self, command=''):
-                act = action_class()
-                act(command, self, top=self.top)
-                return self
-            wrapper.__doc__ = func.__doc__
-            return wrapper
-        return decorator
 
     @action_decorator(c_action.Action_AutoImage)
     def autoimage(self, command=''):
