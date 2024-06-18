@@ -84,7 +84,38 @@ class DatasetType(StrEnum):
     MODES = 'modes'
     XYMESH = 'xymesh'
     MATRIX3x3 = 'matrix3x3'
+    MATRIX_DBL = 'matrix_dbl'
 
+class AnalysisRunner:
+    def __init__(self, analysis_class):
+        self.datasets = CpptrajDatasetList()
+        self.analysis = analysis_class()
+
+    def add_dataset(self, dataset_type, dataset_name, data, aspect=None):
+        if dataset_type == DatasetType.COORDS:
+            crdname = '_DEFAULTCRD_'
+            self.datasets.add(dataset_type.value, name=crdname)
+            self.datasets[0].top = data.top
+            for frame in data:
+                self.datasets[0].append(frame)
+        else:
+            dataset = self.datasets.add(dataset_type, dataset_name)
+            if dataset_type == DatasetType.XYMESH:
+                dataset._append_from_array(data)
+            elif dataset_type == DatasetType.MATRIX_DBL:
+                dataset.data = np.asarray(data).astype('f8')
+            elif dataset_type == DatasetType.MODES:
+                # For MODES, we don't set the data immediately
+                pass
+            elif dataset_type == DatasetType.MATRIX3x3:
+                dataset.aspect = aspect
+                dataset._append_from_array(data)
+            else:
+                dataset.data = np.asarray(data).astype('f8')
+
+    def run_analysis(self, command):
+        self.analysis(command, dslist=self.datasets)
+        return self.datasets
 
 
 def _assert_mutable(trajiter):
@@ -1935,18 +1966,14 @@ def timecorr(vec0, vec1, order=2, tstep=1., tcorr=10000., norm=False, dtype='nda
     norm : bool, default False
     dtype : str, default 'ndarray'
     """
-    time_correlation_action = c_analysis.Analysis_Timecorr()
-    action_datasets = CpptrajDatasetList()
-
-    action_datasets.add(DatasetType.VECTOR, "_vec0")
-    action_datasets.add(DatasetType.VECTOR, "_vec1")
-    action_datasets[0].data = np.asarray(vec0).astype('f8')
-    action_datasets[1].data = np.asarray(vec1).astype('f8')
+    runner = AnalysisRunner(c_analysis.Analysis_Timecorr)
+    runner.add_dataset(DatasetType.VECTOR, "_vec0", vec0)
+    runner.add_dataset(DatasetType.VECTOR, "_vec1", vec1)
 
     command = f"vec1 _vec0 vec2 _vec1 order {order} tstep {tstep} tcorr {tcorr} {'norm' if norm else ''}"
-    time_correlation_action(command, dslist=action_datasets)
+    runner.run_analysis(command)
 
-    return get_data_from_dtype(action_datasets[2:], dtype=dtype)
+    return get_data_from_dtype(runner.datasets[2:], dtype=dtype)
 
 
 @super_dispatch()
@@ -2079,17 +2106,13 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     -----
     Same as `crank` in cpptraj
     """
-    action_datasets = CpptrajDatasetList()
-    action_datasets.add(DatasetType.DOUBLE, "d0")
-    action_datasets.add(DatasetType.DOUBLE, "d1")
+    runner = AnalysisRunner(c_analysis.Analysis_CrankShaft)
+    runner.add_dataset(DatasetType.DOUBLE, "d0", data0)
+    runner.add_dataset(DatasetType.DOUBLE, "d1", data1)
 
-    action_datasets[0].data = np.asarray(data0)
-    action_datasets[1].data = np.asarray(data1)
-
-    act = c_analysis.Analysis_CrankShaft()
     command = ' '.join((mode, 'd0', 'd1'))
     with capture_stdout() as (out, err):
-        act(command, dslist=action_datasets)
+        runner.run_analysis(command)
     return out.read()
 
 
@@ -2768,14 +2791,12 @@ def lowestcurve(data, points=10, step=0.2):
 
     data = np.asarray(data).T
 
-    action_datasets = CpptrajDatasetList()
-    action_datasets.add(DatasetType.XYMESH, 'mydata')
-    action_datasets[0]._append_from_array(data)
+    runner = AnalysisRunner(c_analysis.Analysis_LowestCurve)
+    runner.add_dataset(DatasetType.XYMESH, 'mydata', data)
 
-    analysis_lowest_curve = c_analysis.Analysis_LowestCurve()
-    analysis_lowest_curve(command, dslist=action_datasets)
+    runner.run_analysis(command)
 
-    return np.array([action_datasets[-1]._xcrd(), np.array(action_datasets[-1].values)])
+    return np.array([runner.datasets[-1]._xcrd(), np.array(runner.datasets[-1].values)])
 
 
 def acorr(data, dtype='ndarray', option=''):
@@ -2793,15 +2814,13 @@ def acorr(data, dtype='ndarray', option=''):
     -----
     Same as `autocorr` in cpptraj
     """
-    action_datasets = CpptrajDatasetList()
-    action_datasets.add(DatasetType.DOUBLE, "d0")
+    runner = AnalysisRunner(c_analysis.Analysis_AutoCorr)
+    runner.add_dataset(DatasetType.DOUBLE, "d0", np.asarray(data))
 
-    action_datasets[0].data = np.asarray(data)
-
-    act = c_analysis.Analysis_AutoCorr()
     command = "d0 out _tmp.out"
-    act(command, dslist=action_datasets)
-    return get_data_from_dtype(action_datasets[1:], dtype=dtype)
+    runner.run_analysis(command)
+
+    return get_data_from_dtype(runner.datasets[1:], dtype=dtype)
 
 
 auto_correlation_function = acorr
@@ -2820,17 +2839,14 @@ def xcorr(data0, data1, dtype='ndarray'):
     -----
     Same as `corr` in cpptraj
     """
+    runner = AnalysisRunner(c_analysis.Analysis_Corr)
+    runner.add_dataset(DatasetType.DOUBLE, "d0", np.asarray(data0))
+    runner.add_dataset(DatasetType.DOUBLE, "d1", np.asarray(data1))
 
-    action_datasets = CpptrajDatasetList()
-    action_datasets.add(DatasetType.DOUBLE, "d0")
-    action_datasets.add(DatasetType.DOUBLE, "d1")
+    command = "d0 d1 out _tmp.out"
+    runner.run_analysis(command)
 
-    action_datasets[0].data = np.asarray(data0)
-    action_datasets[1].data = np.asarray(data1)
-
-    act = c_analysis.Analysis_Corr()
-    act("d0 d1 out _tmp.out", dslist=action_datasets)
-    return get_data_from_dtype(action_datasets[2:3], dtype=dtype)
+    return get_data_from_dtype(runner.datasets[2:3], dtype=dtype)
 
 
 cross_correlation_function = xcorr
@@ -2898,6 +2914,7 @@ def strip(obj, mask):
         raise ValueError('object must be either Trajectory or Topology')
 
 
+# FIXME: use AnalysisRunner
 def rotdif(matrices, command):
     """
 
@@ -2920,10 +2937,12 @@ def rotdif(matrices, command):
     # TODO: update this method if cpptraj dumps data to CpptrajDatasetList
     matrices = np.asarray(matrices)
 
+
     action_datasets = CpptrajDatasetList()
     action_datasets.add(DatasetType.MATRIX3x3, name='myR0')
     action_datasets[-1].aspect = "RM"
     action_datasets[-1]._append_from_array(matrices)
+
 
     command = 'rmatrix myR0[RM] ' + command
     act = c_analysis.Analysis_Rotdif()
@@ -2964,19 +2983,11 @@ def wavelet(traj, command):
     >>> command = ' '.join((c0, c1))
     >>> wavelet_dict = pt.wavelet(traj, command)
     """
-
-    action_datasets = CpptrajDatasetList()
-    crdname = '_DEFAULTCRD_'
-    action_datasets.add(DatasetType.COORDS.value, name=crdname)
-    action_datasets[0].top = traj.top
-
-    for frame in traj:
-        action_datasets[0].append(frame)
-
-    act = c_analysis.Analysis_Wavelet()
-    act(command, dslist=action_datasets)
-    action_datasets.remove_set(action_datasets[crdname])
-    return get_data_from_dtype(action_datasets, dtype='dict')
+    runner = AnalysisRunner(c_analysis.Analysis_Wavelet)
+    runner.add_dataset(DatasetType.COORDS, "_DEFAULTCRD_", traj)
+    runner.run_analysis(command)
+    runner.datasets.remove_set(runner.datasets["_DEFAULTCRD_"])
+    return get_data_from_dtype(runner.datasets, dtype='dict')
 
 
 def atom_map(traj, ref, rmsfit=False):
@@ -3123,19 +3134,21 @@ def analyze_modes(mode_type,
                   scalar_type='mwcovar',
                   options='',
                   dtype='dict'):
-    analysis_modes = c_analysis.Analysis_Modes()
-    action_datasets = CpptrajDatasetList()
+    runner = AnalysisRunner(c_analysis.Analysis_Modes)
     my_modes = 'my_modes'
-    modes = action_datasets.add('modes', name=my_modes)
+    runner.add_dataset(DatasetType.MODES, my_modes, None)
+
+    modes = runner.datasets[-1]
     modes.scalar_type = scalar_type
-    # cpptraj will use natoms = modes.NavgCrd()
     modes._allocate_avgcoords(eigenvectors.shape[1])
     modes._set_modes(False, eigenvectors.shape[0], eigenvectors.shape[1],
                      eigenvalues, eigenvectors.flatten())
+
     command = ' '.join((mode_type, 'name {}'.format(my_modes), options))
-    analysis_modes(command, dslist=action_datasets)
-    action_datasets._pop(0)
-    return get_data_from_dtype(action_datasets, dtype=dtype)
+    runner.run_analysis(command)
+
+    runner.datasets._pop(0)
+    return get_data_from_dtype(runner.datasets, dtype=dtype)
 
 
 def ti(fn, options=''):
@@ -3168,7 +3181,6 @@ def ti(fn, options=''):
 
 def hausdorff(matrix, options='', dtype='ndarray'):
     """
-
     Parameters
     ----------
     matrix : 2D array
@@ -3183,17 +3195,15 @@ def hausdorff(matrix, options='', dtype='ndarray'):
     -----
         - cpptraj help: pytraj.info('hausdorff')
     """
-    action_datasets = CpptrajDatasetList()
-    matrix_dataset = action_datasets.add('matrix_dbl', name='my_matrix')
-    matrix_dataset.data = np.asarray(matrix, dtype='f8')
+    runner = AnalysisRunner(c_analysis.Analysis_Hausdorff)
+    runner.add_dataset(DatasetType.MATRIX_DBL, "my_matrix", matrix)
 
-    act = c_analysis.Analysis_Hausdorff()
     command = f"my_matrix {options}"
-    act(command, dslist=action_datasets)
+    runner.run_analysis(command)
 
-    action_datasets._pop(0)
+    runner.datasets._pop(0)
 
-    data = get_data_from_dtype(action_datasets, dtype)
+    data = get_data_from_dtype(runner.datasets, dtype)
     return data
 
 
