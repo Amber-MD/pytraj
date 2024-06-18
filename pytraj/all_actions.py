@@ -99,19 +99,19 @@ class AnalysisRunner:
             for frame in data:
                 self.datasets[0].append(frame)
         else:
-            self.datasets.add(dataset_type, dataset_name)
+            dataset = self.datasets.add(dataset_type, dataset_name)
             if dataset_type == DatasetType.XYMESH:
-                self.datasets[-1]._append_from_array(data)
+                dataset._append_from_array(data)
             elif dataset_type == DatasetType.MATRIX_DBL:
-                self.datasets[-1].data = np.asarray(data).astype('f8')
+                dataset.data = np.asarray(data).astype('f8')
             elif dataset_type == DatasetType.MODES:
                 # For MODES, we don't set the data immediately
                 pass
             elif dataset_type == DatasetType.MATRIX3x3:
-                self.datasets[-1].aspect = aspect
-                self.datasets[-1]._append_from_array(data)
+                dataset.aspect = aspect
+                dataset._append_from_array(data)
             else:
-                self.datasets[-1].data = np.asarray(data).astype('f8')
+                dataset.data = np.asarray(data).astype('f8')
 
     def run_analysis(self, command):
         self.analysis(command, dslist=self.datasets)
