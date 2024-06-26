@@ -32,7 +32,7 @@ jobs:
       - name: Install conda packages with mamba
         run: |
           mamba create -n env python=${{ matrix.python-version }} -c conda-forge
-          conda activate env
+          source activate env
           mamba env update -f environment.yml
 
       - name: Install dependencies
