@@ -29,6 +29,11 @@ jobs:
       - name: Add conda to system path
         run: echo $CONDA/bin >> $GITHUB_PATH
 
+      - name: Install conda packages with mamba
+      run: |
+        mamaba env create --file environment.yml --name env python=${{ matrix.python-version }}
+        mamaba activate env
+
       - name: Install dependencies
         run: |
           curl -OL https://github.com/Unidata/netcdf-c/archive/refs/tags/v4.9.2.tar.gz
@@ -39,11 +44,6 @@ jobs:
           make install
           cd ..
           export PATH=$HOME/bin:$PATH
-
-      - name: Install conda packages with mamba
-        run: |
-          mamaba env create --file environment.yml --name env python=${{ matrix.python-version }}
-          mamaba activate env
 
       - name: Install cpptraj
         run: |
