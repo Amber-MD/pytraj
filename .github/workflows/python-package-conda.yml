@@ -1,59 +1,60 @@
-name: Python Package using Conda
+name: Testing pytraj
 
-on:
-  push:
-  pull_request:
-  workflow_dispatch:
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build-linux:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 5
+      matrix:
+        python-version: [3.11, 3.12]
 
     steps:
-    - name: Install prerequisite packages
-      run: |
-        sudo apt-get install gfortran
-        sudo apt-get install libbz2-dev
-        sudo apt-get install libblas-dev liblapack-dev
-        sudo apt-get install libfftw3-dev
-        sudo apt-get install clang
-        sudo apt-get install cmake-data cmake    
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.8
-    - name: Add conda to system path
-      run: |
-        # $CONDA is an environment variable pointing to the root of the miniconda directory
-        echo $CONDA/bin >> $GITHUB_PATH
-    - name: Install dependencies
-      run: |
-        curl -OL https://github.com/Unidata/netcdf-c/archive/refs/tags/v4.9.2.tar.gz
-        tar -zxf v4.9.2.tar.gz 
-        cd netcdf-c-4.9.2
-        ./configure --disable-byterange --disable-libxml2 --disable-netcdf-4 --disable-dap --disable-doxygen --prefix=$HOME
-        make -j2
-        make install
-        cd ..
-        export PATH=$HOME/bin:$PATH
-    - name: Install conda packages
-      run: |
-        conda update conda
-        conda env update --file environment.yml --name base        
-    - name: Install cpptraj
-      run: |
-        git clone https://github.com/Amber-MD/cpptraj
-        cd cpptraj
-        export CPPTRAJHOME=`pwd`
-        yes | ./configure -shared -openmp gnu
-        make libcpptraj
-        cd ../
-    - name: Install pytraj
-      run: |        
-        python setup.py install
-    - name: Test with pytest
-      run: |
-        export CPPTRAJHOME=`pwd`/cpptraj && cd tests && pytest -vs --ignore=test_parallel_pmap --ignore=test_run_mpi.py --ignore=test_energy/test_pmap_sander.py --ignore=test_parallel_mpi --ignore=test_actionlist.py
+      - name: Install prerequisite packages
+        run: |
+          sudo apt-get install -y gfortran libbz2-dev libblas-dev liblapack-dev libfftw3-dev clang cmake-data cmake
+
+      - uses: actions/checkout@v3
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Add conda to system path
+        run: echo $CONDA/bin >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: |
+          curl -OL https://github.com/Unidata/netcdf-c/archive/refs/tags/v4.9.2.tar.gz
+          tar -zxf v4.9.2.tar.gz
+          cd netcdf-c-4.9.2
+          ./configure --disable-byterange --disable-libxml2 --disable-netcdf-4 --disable-dap --disable-doxygen --prefix=$HOME
+          make -j2
+          make install
+          cd ..
+          export PATH=$HOME/bin:$PATH
+
+      - name: Install conda packages
+        run: |
+          conda update conda
+          conda env update --file environment.yml --name base
+
+      - name: Install cpptraj
+        run: |
+          git clone https://github.com/Amber-MD/cpptraj
+          cd cpptraj
+          export CPPTRAJHOME=`pwd`
+          yes | ./configure -shared -openmp gnu
+          make libcpptraj
+          cd ../
+
+      - name: Install pytraj
+        run: python setup.py install
+
+      - name: Test with pytest
+        run: |
+          export CPPTRAJHOME=`pwd`/cpptraj
+          cd tests
+          pytest -vs --ignore=test_parallel_pmap --ignore=test_run_mpi.py --ignore=test_energy/test_pmap_sander.py --ignore=test_parallel_mpi --ignore=test_actionlist.py
