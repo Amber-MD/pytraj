@@ -31,9 +31,9 @@ jobs:
 
       - name: Install conda packages with mamba
         run: |
-          echo "  - python=${{ matrix.python-version }}" >> environment.yml
-          mamba env create -f environment.yml
+          mamba create -n env python=${{ matrix.python-version }} -c conda-forge
           conda activate env
+          mamba env update -f environment.yml
 
       - name: Install dependencies
         run: |
