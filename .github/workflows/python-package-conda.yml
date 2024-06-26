@@ -31,9 +31,9 @@ jobs:
 
       - name: Install conda packages with mamba
         run: |
-          mamaba env create --name env python=${{ matrix.python-version }}
+          mamba env create --name env python=${{ matrix.python-version }}
           conda activate env
-          mamaba env update --name env --file environment.yml
+          mamba env update --name env --file environment.yml
 
       - name: Install dependencies
         run: |
