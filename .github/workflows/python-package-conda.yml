@@ -30,9 +30,9 @@ jobs:
         run: echo $CONDA/bin >> $GITHUB_PATH
 
       - name: Install conda packages with mamba
-      run: |
-        mamaba env create --file environment.yml --name env python=${{ matrix.python-version }}
-        mamaba activate env
+        run: |
+          mamba env create --file environment.yml --name env python=${{ matrix.python-version }}
+          conda activate env
 
       - name: Install dependencies
         run: |
