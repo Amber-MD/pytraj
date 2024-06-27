@@ -29,12 +29,6 @@ jobs:
       - name: Add conda to system path
         run: echo $CONDA/bin >> $GITHUB_PATH
 
-      - name: Install conda packages with mamba
-        run: |
-          mamba create -n env python=${{ matrix.python-version }} -c conda-forge
-          source activate env
-          mamba env update -f environment.yml
-
       - name: Install dependencies
         run: |
           curl -OL https://github.com/Unidata/netcdf-c/archive/refs/tags/v4.9.2.tar.gz
@@ -55,6 +49,12 @@ jobs:
           make libcpptraj
           cd ../
 
+      - name: Install conda packages with mamba
+        run: |
+          mamba create -n env python=${{ matrix.python-version }} -c conda-forge
+          source activate env
+          mamba env update -f environment.yml
+
       - name: Install pytraj
         run: python setup.py install
 
@@ -62,4 +62,4 @@ jobs:
         run: |
           export CPPTRAJHOME=`pwd`/cpptraj
           cd tests
-          pytest -vs --ignore=test_parallel_pmap --ignore=test_run_mpi.py --ignore=test_energy/test_pmap_sander.py --ignore=test_parallel_mpi --ignore=test_actionlist.py
+          pytest -vs --ignore=test_parallel_pmap --ignore=test
