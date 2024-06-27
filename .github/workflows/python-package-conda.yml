@@ -53,7 +53,7 @@ jobs:
         run: |
           mamba create -n env python=${{ matrix.python-version }} -c conda-forge
           source activate env
-          mamba env update -f environment.yml
+          mamba install --file environment.yml
 
       - name: Install pytraj
         run: python setup.py install
