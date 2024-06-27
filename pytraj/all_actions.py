@@ -3,7 +3,17 @@ import numpy as np
 try:
     from enum import StrEnum
 except ImportError:
-    from strenum import StrEnum
+    from enum import Enum
+    class StrEnum(str, Enum):
+        """
+        Enum where members are also (and must be) strs.
+        """
+        def __new__(cls, value):
+            member = str.__new__(cls, value)  # Create a new instance of str with the given value
+            member._value_ = value  # Set the _value_ attribute to the given value
+            return member
+
+
 from typing import Any, Callable, List, Union
 from functools import partial
 
