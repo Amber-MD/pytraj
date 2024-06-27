@@ -52,8 +52,8 @@ jobs:
       - name: Install conda packages with mamba
         run: |
           mamba create -n env python=${{ matrix.python-version }} -c conda-forge
+          mamba env update --file environment.yml --name env  
           source activate env
-          mamba update --file environment.yml
 
       - name: Install pytraj
         run: python setup.py install
