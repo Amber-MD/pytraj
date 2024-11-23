@@ -17,6 +17,13 @@ jobs:
     steps:
     - name: Checkout nglview repository
       uses: actions/checkout@v4
+    - name: Cache conda
+      uses: actions/cache@v4
+      env:
+        CACHE_NUMBER: 1  # Increase this value to reset cache if environment.yml has changed
+      with:
+        path: ~/conda_pkgs_dir
+        key: ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('.github/workflows/environment.yml') }}
     - name: Set up Miniconda
       uses: conda-incubator/setup-miniconda@v3
       with:
