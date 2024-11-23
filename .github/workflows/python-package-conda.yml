@@ -5,13 +5,13 @@ on:
   pull_request:
   workflow_dispatch:
 
-defaults:
-  run:
-    shell: bash -l {0}
-
 jobs:
   build-linux:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash -l {0}
 
     strategy:
       max-parallel: 5
