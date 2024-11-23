@@ -37,7 +37,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install prerequisite packages
       run: |
-        conda init --all --no-prompt
+        conda init --all
         conda activate pytraj-gha
         which python3
         sudo apt-get install gfortran
