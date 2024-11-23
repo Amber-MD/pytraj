@@ -46,7 +46,7 @@ jobs:
         channels: conda-forge
         channel-priority: true
         python-version: ${{ matrix.python-version }}
-    - name: Activate conda environment
+    - name: Check conda environment
       run: |
         conda --version
         which conda
