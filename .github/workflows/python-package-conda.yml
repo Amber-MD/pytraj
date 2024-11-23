@@ -36,11 +36,17 @@ jobs:
         key: ${{ runner.os }}-netcdf-c-${{ hashFiles('.github/workflows/python-package-conda.yml') }}
         restore-keys: |
           ${{ runner.os }}-netcdf-c-
+    - name: Get latest cpptraj commit hash
+      id: get-hash
+      run: |
+        latest_hash=$(git ls-remote https://github.com/Amber-MD/cpptraj.git refs/heads/master | awk '{print $1}')
+        echo "::set-output name=hash::$latest_hash"
+
     - name: Cache cpptraj
       uses: actions/cache@v4
       with:
         path: ~/cpptraj
-        key: ${{ runner.os }}-cpptraj-${{ hashFiles('https://github.com/Amber-MD/cpptraj/commits/master') }}
+        key: ${{ runner.os }}-cpptraj-${{ steps.get-hash.outputs.hash }}
         restore-keys: |
           ${{ runner.os }}-cpptraj-
     - name: Set up Miniconda
