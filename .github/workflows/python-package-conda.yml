@@ -42,8 +42,10 @@ jobs:
         channels: conda-forge
         channel-priority: true
         python-version: ${{ matrix.python-version }}
-    - name : Check conda version
+    - name: Activate conda environment
       run: |
+        source ~/miniconda/etc/profile.d/conda.sh
+        conda activate pytraj-gha
         conda --version
         which conda
         which python
