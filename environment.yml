@@ -1,11 +1,9 @@
 channels:
     - conda-forge
 dependencies:
-    # - python=3.8
-    # - netcdf4
     - pyflakes
     - numpy
-    - cython=0.29
+    - cython=3.0.11
     - parmed
     - pytest
     - mock
