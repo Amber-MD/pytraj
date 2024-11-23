@@ -36,6 +36,13 @@ jobs:
         key: ${{ runner.os }}-netcdf-c-${{ hashFiles('.github/workflows/python-package-conda.yml') }}
         restore-keys: |
           ${{ runner.os }}-netcdf-c-
+    - name: Cache Miniconda
+      uses: actions/cache@v4
+      with:
+        path: ~/miniconda
+        key: ${{ runner.os }}-miniconda-${{ hashFiles('.github/workflows/environment.yml') }}
+        restore-keys: |
+          ${{ runner.os }}-miniconda-
     - name: Get latest cpptraj commit hash
       id: get-hash
       run: |
@@ -87,7 +94,7 @@ jobs:
           git clone https://github.com/Amber-MD/cpptraj
           cd cpptraj
           export CPPTRAJHOME=`pwd`
-          ./configure -shared -openmp -nohdf5 gnu
+          yes | ./configure -shared -openmp -nohdf5 gnu
           make libcpptraj
           cd ../
         fi
