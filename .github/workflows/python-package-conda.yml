@@ -37,6 +37,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install prerequisite packages
       run: |
+        which python3
         sudo apt-get install gfortran
         sudo apt-get install libbz2-dev
         sudo apt-get install libblas-dev liblapack-dev
@@ -52,7 +53,7 @@ jobs:
         make -j2
         make install
         cd ..
-        export PATH=$HOME/bin:$PATH
+        export PATH=$PATH:$HOME/bin
     - name: Install cpptraj
       run: |
         git clone https://github.com/Amber-MD/cpptraj
