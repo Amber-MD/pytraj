@@ -11,6 +11,7 @@ jobs:
 
     defaults:
       run:
+        # Enable bash login shell to activate conda environment
         shell: bash -l {0}
 
     strategy:
