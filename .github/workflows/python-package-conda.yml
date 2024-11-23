@@ -57,7 +57,7 @@ jobs:
         ./configure --disable-byterange --disable-libxml2 --disable-netcdf-4 --disable-dap --disable-doxygen --prefix=$HOME
         make -j2
         make install
-        cd ..q
+        cd ..
         export PATH=$HOME/bin:$PATH
     - name: Install cpptraj
       run: |
