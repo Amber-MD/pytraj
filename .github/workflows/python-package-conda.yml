@@ -42,23 +42,9 @@ jobs:
         channels: conda-forge
         channel-priority: true
         python-version: ${{ matrix.python-version }}
-    - name: Activate conda environment
-      shell: /usr/bin/bash -e {0}
-      env:
-        INPUT_RUN_POST: true
-        CONDA: /usr/share/miniconda
-      run: |
-        conda init --all
-        conda activate pytraj-gha
-        which python3
     - name: Install prerequisite packages
       run: |
-        sudo apt-get install gfortran
-        sudo apt-get install libbz2-dev
-        sudo apt-get install libblas-dev liblapack-dev
-        sudo apt-get install libfftw3-dev
-        sudo apt-get install clang
-        sudo apt-get install cmake-data cmake
+        sudo apt-get install -y gfortran libbz2-dev libblas-dev liblapack-dev libfftw3-dev clang cmake-data cmake
     - name: Install cpptraj dependencies
       run: |
         if [ ! -d "$HOME/netcdf-c" ]; then
