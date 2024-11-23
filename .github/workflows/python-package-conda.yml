@@ -29,13 +29,6 @@ jobs:
       with:
         path: ~/conda_pkgs_dir
         key: ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('.github/workflows/environment.yml') }}
-    - name: Cache netcdf-c
-      uses: actions/cache@v4
-      with:
-        path: ~/netcdf-c
-        key: ${{ runner.os }}-netcdf-c-${{ hashFiles('.github/workflows/python-package-conda.yml') }}
-        restore-keys: |
-          ${{ runner.os }}-netcdf-c-
     - name: Cache Miniconda
       uses: actions/cache@v4
       with:
@@ -43,26 +36,13 @@ jobs:
         key: ${{ runner.os }}-miniconda-${{ hashFiles('.github/workflows/environment.yml') }}
         restore-keys: |
           ${{ runner.os }}-miniconda-
-    - name: Get latest cpptraj commit hash
-      id: get-hash
-      run: |
-        latest_hash=$(git ls-remote https://github.com/Amber-MD/cpptraj.git refs/heads/master | awk '{print $1}')
-        echo "::set-output name=hash::$latest_hash"
-
-    - name: Cache cpptraj
-      uses: actions/cache@v4
-      with:
-        path: ~/cpptraj
-        key: ${{ runner.os }}-cpptraj-${{ steps.get-hash.outputs.hash }}
-        restore-keys: |
-          ${{ runner.os }}-cpptraj-
     - name: Set up Miniconda
       uses: conda-incubator/setup-miniconda@v3
       with:
         auto-update-conda: true
         auto-activate-base: false
         activate-environment: pytraj-gha
-        environment-file: .github/workflows/environment.yml
+        environment-file: .environment.yml
         mamba-version: "*"
         channels: conda-forge
         channel-priority: true
@@ -76,29 +56,24 @@ jobs:
     - name: Install prerequisite packages
       run: |
         sudo apt-get install -y gfortran libbz2-dev libblas-dev liblapack-dev libfftw3-dev clang cmake-data cmake
-    - name: Install cpptraj dependencies
+    - name: Install CPPTRAJ dependencies
       run: |
-        if [ ! -d "$HOME/netcdf-c" ]; then
-          curl -OL https://github.com/Unidata/netcdf-c/archive/refs/tags/v4.9.2.tar.gz
-          tar -zxf v4.9.2.tar.gz
-          mv netcdf-c-4.9.2 netcdf-c
-          cd netcdf-c
-          ./configure --disable-byterange --disable-libxml2 --disable-netcdf-4 --disable-dap --disable-doxygen --prefix=$HOME
-          make -j2
-          make install
-          cd ..
-        fi
-        export PATH=$PATH:$HOME/bin
+        curl -OL https://github.com/Unidata/netcdf-c/archive/refs/tags/v4.9.2.tar.gz
+        tar -zxf v4.9.2.tar.gz
+        cd netcdf-c-4.9.2
+        ./configure --disable-byterange --disable-libxml2 --disable-netcdf-4 --disable-dap --disable-doxygen --prefix=$HOME
+        make -j2
+        make install
+        cd ..
+        export PATH=$HOME/bin:$PATH
     - name: Install cpptraj
       run: |
-        if [ ! -d "$HOME/cpptraj" ]; then
-          git clone https://github.com/Amber-MD/cpptraj
-          cd cpptraj
-          export CPPTRAJHOME=`pwd`
-          yes | ./configure -shared -openmp -nohdf5 gnu
-          make libcpptraj
-          cd ../
-        fi
+        git clone https://github.com/Amber-MD/cpptraj
+        cd cpptraj
+        export CPPTRAJHOME=`pwd`
+        yes | ./configure -shared -openmp gnu
+        make libcpptraj
+        cd ../
     - name: Install pytraj
       run: |
         which python3
