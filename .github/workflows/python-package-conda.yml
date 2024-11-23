@@ -36,6 +36,13 @@ jobs:
         key: ${{ runner.os }}-netcdf-c-${{ hashFiles('.github/workflows/python-package-conda.yml') }}
         restore-keys: |
           ${{ runner.os }}-netcdf-c-
+    - name: Cache cpptraj
+      uses: actions/cache@v4
+      with:
+        path: ~/cpptraj
+        key: ${{ runner.os }}-cpptraj-${{ hashFiles('https://github.com/Amber-MD/cpptraj/commits/main') }}
+        restore-keys: |
+          ${{ runner.os }}-cpptraj-
     - name: Set up Miniconda
       uses: conda-incubator/setup-miniconda@v3
       with:
@@ -70,12 +77,14 @@ jobs:
         export PATH=$PATH:$HOME/netcdf-c/bin
     - name: Install cpptraj
       run: |
-        git clone https://github.com/Amber-MD/cpptraj
-        cd cpptraj
-        export CPPTRAJHOME=`pwd`
-        yes | ./configure -shared -openmp gnu
-        make libcpptraj
-        cd ../
+        if [ ! -d "$HOME/cpptraj" ]; then
+          git clone https://github.com/Amber-MD/cpptraj
+          cd cpptraj
+          export CPPTRAJHOME=`pwd`
+          yes | ./configure -shared -openmp gnu
+          make libcpptraj
+          cd ../
+        fi
     - name: Install pytraj
       run: |
         which python3
