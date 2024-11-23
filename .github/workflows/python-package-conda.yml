@@ -26,12 +26,15 @@ jobs:
     - name: Set up Miniconda
       uses: conda-incubator/setup-miniconda@v3
       with:
-        python-version: ${{ matrix.python-version }}
         auto-update-conda: true
-    - name: Install conda packages
-      run: |
-        conda env update --file environment.yml
-    - name: Install dependencies
+        auto-activate-base: false
+        activate-environment: pytraj-gha
+        environment-file: .github/workflows/environment.yml
+        mamba-version: "*"
+        channels: conda-forge
+        channel-priority: true
+        python-version: ${{ matrix.python-version }}
+    - name: Install cpptraj dependencies
       run: |
         curl -OL https://github.com/Unidata/netcdf-c/archive/refs/tags/v4.9.2.tar.gz
         tar -zxf v4.9.2.tar.gz
