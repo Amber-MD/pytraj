@@ -28,6 +28,9 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         auto-update-conda: true
+    - name: Install conda packages
+      run: |
+        conda env update --file environment.yml
     - name: Install dependencies
       run: |
         curl -OL https://github.com/Unidata/netcdf-c/archive/refs/tags/v4.9.2.tar.gz
@@ -38,9 +41,6 @@ jobs:
         make install
         cd ..
         export PATH=$HOME/bin:$PATH
-    - name: Install conda packages
-      run: |
-        conda env update --file environment.yml
     - name: Install cpptraj
       run: |
         git clone https://github.com/Amber-MD/cpptraj
@@ -51,7 +51,8 @@ jobs:
         cd ../
     - name: Install pytraj
       run: |
-        python setup.py install
+        which python3
+        python3 setup.py install
     - name: Test with pytest
       run: |
         export CPPTRAJHOME=`pwd`/cpptraj && cd tests && pytest -vs --ignore=test_parallel_pmap --ignore=test_run_mpi.py --ignore=test_energy/test_pmap_sander.py --ignore=test_parallel_mpi --ignore=test_actionlist.py
