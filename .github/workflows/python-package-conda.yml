@@ -50,7 +50,7 @@ jobs:
         yes | ./configure -shared -openmp gnu
         make libcpptraj
         cd ../
-    - name: Set up Miniconda
+    - name: Set up Miniconda # Do this after installing cpptraj to avoid "yes: standard output: Broken pipe" error
       uses: conda-incubator/setup-miniconda@v3
       with:
         auto-update-conda: true
