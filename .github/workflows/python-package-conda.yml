@@ -36,7 +36,8 @@ jobs:
         channels: conda-forge
         channel-priority: true
         python-version: ${{ matrix.python-version }}
-    - name: Install prerequisite packages
+    - name: Install prerequisite packages (Ubuntu only)
+      if: runner.os == 'ubuntu-latest'
       run: |
         sudo apt-get install gfortran
         sudo apt-get install libbz2-dev
