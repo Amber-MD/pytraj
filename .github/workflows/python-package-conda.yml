@@ -29,13 +29,6 @@ jobs:
       with:
         path: ~/conda_pkgs_dir
         key: ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('.github/workflows/environment.yml') }}
-    - name: Cache Miniconda
-      uses: actions/cache@v4
-      with:
-        path: ~/miniconda
-        key: ${{ runner.os }}-miniconda-${{ hashFiles('.github/workflows/environment.yml') }}
-        restore-keys: |
-          ${{ runner.os }}-miniconda-
     - name: Set up Miniconda
       uses: conda-incubator/setup-miniconda@v3
       with:
@@ -64,7 +57,7 @@ jobs:
         ./configure --disable-byterange --disable-libxml2 --disable-netcdf-4 --disable-dap --disable-doxygen --prefix=$HOME
         make -j2
         make install
-        cd ..
+        cd ..q
         export PATH=$HOME/bin:$PATH
     - name: Install cpptraj
       run: |
