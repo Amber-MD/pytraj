@@ -81,7 +81,7 @@ jobs:
           git clone https://github.com/Amber-MD/cpptraj
           cd cpptraj
           export CPPTRAJHOME=`pwd`
-          yes | ./configure -shared -openmp gnu
+          ./configure -shared -openmp -nohdf5 gnu
           make libcpptraj
           cd ../
         fi
