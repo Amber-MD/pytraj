@@ -81,8 +81,8 @@ jobs:
         if [ ! -d "$HOME/netcdf-c" ]; then
           curl -OL https://github.com/Unidata/netcdf-c/archive/refs/tags/v4.9.2.tar.gz
           tar -zxf v4.9.2.tar.gz
-          cd netcdf-c-4.9.2
           mv netcdf-c-4.9.2 netcdf-c
+          cd netcdf-c
           ./configure --disable-byterange --disable-libxml2 --disable-netcdf-4 --disable-dap --disable-doxygen --prefix=$HOME
           make -j2
           make install
