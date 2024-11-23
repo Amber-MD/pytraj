@@ -37,7 +37,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install prerequisite packages
       run: |
-        conda activate pytraj-gha
+        source activate pytraj-gha
         which python3
         sudo apt-get install gfortran
         sudo apt-get install libbz2-dev
