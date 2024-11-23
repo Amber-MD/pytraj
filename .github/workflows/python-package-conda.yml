@@ -40,7 +40,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: ~/cpptraj
-        key: ${{ runner.os }}-cpptraj-${{ hashFiles('https://github.com/Amber-MD/cpptraj/commits/main') }}
+        key: ${{ runner.os }}-cpptraj-${{ hashFiles('https://github.com/Amber-MD/cpptraj/commits/master') }}
         restore-keys: |
           ${{ runner.os }}-cpptraj-
     - name: Set up Miniconda
