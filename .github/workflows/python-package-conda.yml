@@ -29,23 +29,6 @@ jobs:
       with:
         path: ~/conda_pkgs_dir
         key: ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('environment.yml') }}
-    - name: Set up Miniconda
-      uses: conda-incubator/setup-miniconda@v3
-      with:
-        auto-update-conda: true
-        auto-activate-base: false
-        activate-environment: pytraj-gha
-        environment-file: environment.yml
-        mamba-version: "*"
-        channels: conda-forge
-        channel-priority: true
-        python-version: ${{ matrix.python-version }}
-    - name: Check conda environment
-      run: |
-        conda --version
-        which conda
-        which python
-        which python3
     - name: Install prerequisite packages
       run: |
         sudo apt-get install -y gfortran libbz2-dev libblas-dev liblapack-dev libfftw3-dev clang cmake-data cmake
@@ -67,6 +50,23 @@ jobs:
         yes | ./configure -shared -openmp gnu
         make libcpptraj
         cd ../
+    - name: Set up Miniconda
+      uses: conda-incubator/setup-miniconda@v3
+      with:
+        auto-update-conda: true
+        auto-activate-base: false
+        activate-environment: pytraj-gha
+        environment-file: environment.yml
+        mamba-version: "*"
+        channels: conda-forge
+        channel-priority: true
+        python-version: ${{ matrix.python-version }}
+    - name: Check conda environment
+      run: |
+        conda --version
+        which conda
+        which python
+        which python3
     - name: Install pytraj
       run: |
         which python3
