@@ -6,13 +6,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-linux:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ${{ matrix.os }}
 
     strategy:
       max-parallel: 5
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        os: [ubuntu-latest, macos-latest]
+        python-version: ["3.10", "3.11", "3.12"]
 
     steps:
     - name: Checkout nglview repository
