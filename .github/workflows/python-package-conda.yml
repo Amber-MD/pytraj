@@ -43,28 +43,6 @@ jobs:
         key: ${{ runner.os }}-cpptraj-${{ steps.get-hash.outputs.hash }}
         restore-keys: |
           ${{ runner.os }}-cpptraj-
-    # - name: Install CPPTRAJ dependencies
-    #   run: |
-    #     curl -OL https://github.com/Unidata/netcdf-c/archive/refs/tags/v4.9.2.tar.gz
-    #     tar -zxf v4.9.2.tar.gz
-    #     cd netcdf-c-4.9.2
-    #     ./configure --disable-byterange --disable-libxml2 --disable-netcdf-4 --disable-dap --disable-doxygen --prefix=$HOME
-    #     make -j2
-    #     make install
-    #     cd ..
-    #     export PATH=$HOME/bin:$PATH
-    - name: Install cpptraj
-      run: |
-        if [ ! -d "$HOME/cpptraj" ]; then
-          echo $HOME
-          pwd
-          git clone https://github.com/Amber-MD/cpptraj
-          cd cpptraj
-          export CPPTRAJHOME=`pwd`
-          yes | ./configure -shared -openmp gnu
-          make libcpptraj
-          cd ../
-        fi
     - name: Set up Miniconda # Do this after installing cpptraj to avoid "yes: standard output: Broken pipe" error
       uses: conda-incubator/setup-miniconda@v3
       with:
@@ -82,6 +60,22 @@ jobs:
         which conda
         which python
         which python3
+    - name: Get Conda path
+      id: conda-path
+      run: echo "::set-output name=path::$(dirname $(dirname $(which conda)))"
+    - name: Install cpptraj
+      run: |
+        if [ ! -d "$HOME/cpptraj" ]; then
+          echo $HOME
+          pwd
+          git clone https://github.com/Amber-MD/cpptraj
+          cd cpptraj
+          export CPPTRAJHOME=`pwd`
+          conda_path=${{ steps.conda-path.outputs.path }}
+          yes | ./configure -shared -openmp -nohdf5 --with-netcdf=$conda_path --with-lapack=$conda_path --with-fftw3=$conda_path gnu
+          make libcpptraj
+          cd ../
+        fi
     - name: Install pytraj
       run: |
         which python3
