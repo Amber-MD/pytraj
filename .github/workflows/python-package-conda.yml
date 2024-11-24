@@ -43,25 +43,6 @@ jobs:
         key: ${{ runner.os }}-cpptraj-${{ steps.get-hash.outputs.hash }}
         restore-keys: |
           ${{ runner.os }}-cpptraj-
-    - name: Cache netcdf-c
-      uses: actions/cache@v4
-      with:
-        path: ~/netcdf-c
-        key: ${{ runner.os }}-netcdf-c-${{ steps.get-hash.outputs.hash }}
-        restore-keys: |
-          ${{ runner.os }}-netcdf-c-
-    - name: Install CPPTRAJ dependencies
-      run: |
-        if [ ! -d "$HOME/netcdf-c" ]; then
-          curl -OL https://github.com/Unidata/netcdf-c/archive/refs/tags/v4.9.2.tar.gz
-          tar -zxf v4.9.2.tar.gz
-          cd netcdf-c-4.9.2
-          ./configure --disable-byterange --disable-libxml2 --disable-netcdf-4 --disable-dap --disable-doxygen --prefix=$HOME/netcdf-c
-          make -j2
-          make install
-          cd ..
-        fi
-        export PATH=$HOME/netcdf-c/bin:$PATH
     - name: Install cpptraj
       run: |
         if [ ! -d "$HOME/cpptraj" ]; then
