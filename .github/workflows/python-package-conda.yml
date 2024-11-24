@@ -61,8 +61,8 @@ jobs:
         which python
         which python3
     - name: Get Conda path
-      id: conda-path
-      run: echo "::set-output name=path::$(dirname $(dirname $(which conda)))"
+      id: env-path
+      run: echo "::set-output name=path::$(dirname $(dirname $(which python3)))"
     - name: Install cpptraj
       run: |
         if [ ! -d "$HOME/cpptraj" ]; then
@@ -71,8 +71,8 @@ jobs:
           git clone https://github.com/Amber-MD/cpptraj
           cd cpptraj
           export CPPTRAJHOME=`pwd`
-          conda_path=${{ steps.conda-path.outputs.path }}
-          yes | ./configure -shared -openmp -nohdf5 --with-netcdf=$conda_path --with-lapack=$conda_path --with-fftw3=$conda_path gnu
+          env_path=${{ steps.env-path.outputs.path }}
+          yes | ./configure -shared -openmp -nohdf5 --with-netcdf=$env_path --with-lapack=$env_path --with-fftw3=$env_path gnu
           make libcpptraj
           cd ../
         fi
