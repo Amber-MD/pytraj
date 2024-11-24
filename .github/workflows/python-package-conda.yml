@@ -43,16 +43,16 @@ jobs:
         key: ${{ runner.os }}-cpptraj-${{ steps.get-hash.outputs.hash }}
         restore-keys: |
           ${{ runner.os }}-cpptraj-
-    - name: Install CPPTRAJ dependencies
-      run: |
-        curl -OL https://github.com/Unidata/netcdf-c/archive/refs/tags/v4.9.2.tar.gz
-        tar -zxf v4.9.2.tar.gz
-        cd netcdf-c-4.9.2
-        ./configure --disable-byterange --disable-libxml2 --disable-netcdf-4 --disable-dap --disable-doxygen --prefix=$HOME
-        make -j2
-        make install
-        cd ..
-        export PATH=$HOME/bin:$PATH
+    # - name: Install CPPTRAJ dependencies
+    #   run: |
+    #     curl -OL https://github.com/Unidata/netcdf-c/archive/refs/tags/v4.9.2.tar.gz
+    #     tar -zxf v4.9.2.tar.gz
+    #     cd netcdf-c-4.9.2
+    #     ./configure --disable-byterange --disable-libxml2 --disable-netcdf-4 --disable-dap --disable-doxygen --prefix=$HOME
+    #     make -j2
+    #     make install
+    #     cd ..
+    #     export PATH=$HOME/bin:$PATH
     - name: Install cpptraj
       run: |
         if [ ! -d "$HOME/cpptraj" ]; then
