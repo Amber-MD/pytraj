@@ -67,14 +67,14 @@ jobs:
       run: |
         if [ ! -d "$HOME/cpptraj" ]; then
           echo $HOME
-          pwd
-          git clone https://github.com/Amber-MD/cpptraj
-          cd cpptraj
+          CWD=`pwd`
+          git clone https://github.com/Amber-MD/cpptraj $HOME/cpptraj
+          cd $HOME/cpptraj
           export CPPTRAJHOME=`pwd`
           env_path=${{ steps.env-path.outputs.path }}
           yes | ./configure -shared -openmp -nohdf5 --with-netcdf=$env_path --with-lapack=$env_path --with-fftw3=$env_path gnu
           make libcpptraj
-          cd ../
+          cd $CWD
         fi
     - name: Install pytraj
       run: |
@@ -82,4 +82,4 @@ jobs:
         python3 setup.py install
     - name: Test with pytest
       run: |
-        export CPPTRAJHOME=`pwd`/cpptraj && cd tests && pytest -vs --ignore=test_parallel_pmap --ignore=test_run_mpi.py --ignore=test_energy/test_pmap_sander.py --ignore=test_parallel_mpi --ignore=test_actionlist.py
+        export CPPTRAJHOME=$HOME/cpptraj && cd tests && pytest -vs --ignore=test_parallel_pmap --ignore=test_run_mpi.py --ignore=test_energy/test_pmap_sander.py --ignore=test_parallel_mpi --ignore=test_actionlist.py
