@@ -72,7 +72,8 @@ jobs:
           cd $HOME/cpptraj
           export CPPTRAJHOME=`pwd`
           env_path=${{ steps.env-path.outputs.path }}
-          yes | ./configure -shared -openmp -nohdf5 --with-netcdf=$env_path --with-lapack=$env_path --with-fftw3=$env_path gnu
+          # yes | ./configure -shared -openmp -nohdf5 --with-netcdf=$env_path --with-lapack=$env_path --with-fftw3=$env_path gnu
+          yes | ./configure -shared -openmp -nohdf5 --with-lapack=$env_path --with-fftw3=$env_path gnu
           make libcpptraj
           cd $CWD
         fi
