@@ -43,25 +43,15 @@ jobs:
         key: ${{ runner.os }}-cpptraj-${{ steps.get-hash.outputs.hash }}
         restore-keys: |
           ${{ runner.os }}-cpptraj-
-    - name: Install CPPTRAJ dependencies
-      run: |
-        curl -OL https://github.com/Unidata/netcdf-c/archive/refs/tags/v4.9.2.tar.gz
-        tar -zxf v4.9.2.tar.gz
-        cd netcdf-c-4.9.2
-        ./configure --disable-byterange --disable-libxml2 --disable-netcdf-4 --disable-dap --disable-doxygen --prefix=$HOME
-        make -j2
-        make install
-        cd ..
-        export PATH=$HOME/bin:$PATH
     - name: Install cpptraj
       run: |
         if [ ! -d "$HOME/cpptraj" ]; then
-          git clone https://github.com/Amber-MD/cpptraj
-          cd cpptraj
-          export CPPTRAJHOME=`pwd`
+          CWD=$(pwd)
+          git clone https://github.com/Amber-MD/cpptraj $HOME/cpptraj
+          cd $HOME/cpptraj
           yes | ./configure -shared -openmp gnu
-          make libcpptraj
-          cd ../
+          make libcpptraj -j2
+          cd $CWD
         fi
     - name: Set up Miniconda # Do this after installing cpptraj to avoid "yes: standard output: Broken pipe" error
       uses: conda-incubator/setup-miniconda@v3
@@ -83,7 +73,7 @@ jobs:
     - name: Install pytraj
       run: |
         which python3
-        python3 setup.py install
+        export CPPTRAJHOME=$HOME/cpptraj && python3 setup.py install
     - name: Test with pytest
       run: |
-        export CPPTRAJHOME=`pwd`/cpptraj && cd tests && pytest -vs --ignore=test_parallel_pmap --ignore=test_run_mpi.py --ignore=test_energy/test_pmap_sander.py --ignore=test_parallel_mpi --ignore=test_actionlist.py
+        export CPPTRAJHOME=$HOME/cpptraj && cd tests && pytest -vs --ignore=test_parallel_pmap --ignore=test_run_mpi.py --ignore=test_energy/test_pmap_sander.py --ignore=test_parallel_mpi --ignore=test_actionlist.py
