@@ -8,6 +8,7 @@ import os
 import sys
 import subprocess
 from glob import glob
+import argparse
 
 sys.path.insert(0, os.path.abspath(__file__))
 from utils import temporarily_move_libcpptraj
@@ -15,7 +16,6 @@ from utils import temporarily_move_libcpptraj
 
 class PipBuilder(object):
     '''
-
     Parameters
     ----------
     tarfile : str, source file made by ./devtools/mkrelease
@@ -59,24 +59,28 @@ class PipBuilder(object):
         self.python_versions = python_versions
         self.use_manylinux = use_manylinux
         self.validate_only = validate_only
-        if cpptraj_dir:
-            self.cpptraj_dir = os.path.abspath(cpptraj_dir)
-        else:
-            self.cpptraj_dir = ''
+        self.cpptraj_dir = os.path.abspath(cpptraj_dir) if cpptraj_dir else ''
         self.miniconda_root = self.find_miniconda_root()
         print('INFO: miniconda_root = ', self.miniconda_root)
-        if self.use_manylinux:
-            self.python_exe_paths = dict(
-                (py_version, PipBuilder.MANY_LINUX_PYTHONS[py_version])
-                for py_version in self.python_versions)
-        else:
-            self.python_exe_paths = dict((py_version, '/'.join(
-                (self.miniconda_root, '/envs/pytraj' + py_version,
-                 'bin/python'))) for py_version in self.python_versions)
+        self.python_exe_paths = self.get_python_exe_paths()
         print('INFO: python_exe_paths', self.python_exe_paths)
-        self.repair_exe = ([
-            pytraj_home + '/scripts/misc/fix_rpath_pip_osx.py',
-        ] if self.is_osx else ['auditwheel', 'repair'])
+        self.repair_exe = self.get_repair_exe(pytraj_home)
+
+    def get_python_exe_paths(self):
+        if self.use_manylinux:
+            return {
+                py_version: PipBuilder.MANY_LINUX_PYTHONS[py_version]
+                for py_version in self.python_versions
+            }
+        return {
+            py_version:
+                '/'.join((self.miniconda_root, '/envs/pytraj' + py_version,
+                          'bin/python')) for py_version in self.python_versions
+        }
+
+    def get_repair_exe(self, pytraj_home):
+        return [pytraj_home + '/scripts/misc/fix_rpath_pip_osx.py'
+               ] if self.is_osx else ['auditwheel', 'repair']
 
     def run(self):
         self.check_cpptraj_and_required_libs()
@@ -92,7 +96,6 @@ class PipBuilder(object):
     def initialize_env(self, python_version):
         if not self.use_manylinux:
             print('Using conda to create env')
-            # use conda to create a new env
             env = 'pytraj' + python_version
             env_path = self.miniconda_root + '/envs/' + env
             if not os.path.exists(env_path):
@@ -104,7 +107,7 @@ class PipBuilder(object):
     def build_original_wheel(self, python_version):
         python = self.python_exe_paths[python_version]
         cmlist = '{python} -m pip wheel {tarfile}'.format(
-            python=python, tarfile=tarfile).split()
+            python=python, tarfile=self.tarfile).split()
         print("Building original wheel")
         print("CMD", cmlist)
         subprocess.check_call(cmlist)
@@ -112,15 +115,13 @@ class PipBuilder(object):
     def find_miniconda_root(self):
         if self.use_manylinux:
             return ''
-        else:
-            try:
-                command = "conda info | grep 'root environment'"
-                output = subprocess.check_output(command, shell=True).decode()
-                # e.g: outproot = "environment : /home/haichit/anaconda3  (writable)"
-                return output.split()[3] + '/'
-            except subprocess.CalledProcessError:
-                command = "conda info --base"
-                return subprocess.check_output(command, shell=True).decode().strip()
+        try:
+            command = "conda info | grep 'root environment'"
+            output = subprocess.check_output(command, shell=True).decode()
+            return output.split()[3] + '/'
+        except subprocess.CalledProcessError:
+            command = "conda info --base"
+            return subprocess.check_output(command, shell=True).decode().strip()
 
     def create_env(self, python_version):
         env = 'pytraj' + python_version
@@ -134,7 +135,7 @@ class PipBuilder(object):
         pdict = dict(darwin='macos', linux='linux')
         platform = pdict[sys.platform]
         files = glob(folder + '/*' + python_version.replace('.', '') +
-                        '*{}*.whl'.format(platform))
+                     '*{}*.whl'.format(platform))
         whl_file = sorted(files, key=os.path.getmtime)[-1]
         print(whl_file)
         return whl_file
@@ -142,9 +143,7 @@ class PipBuilder(object):
     def repair_wheel(self, python_version):
         print('repair_wheel')
         whl_name = self._get_wheel_file(python_version)
-        command = self.repair_exe + [
-            whl_name,
-        ]
+        command = self.repair_exe + [whl_name]
         if self.is_osx:
             command.extend(['--libcpptraj', self.libcpptraj])
         print(command)
@@ -152,18 +151,18 @@ class PipBuilder(object):
 
     def _check_numpy_and_fix(self, python_exe, env):
         try:
-            subprocess.check_call(
-                '{} -c "import numpy"'.format(python_exe), shell=True)
+            subprocess.check_call('{} -c "import numpy"'.format(python_exe),
+                                  shell=True)
         except subprocess.CalledProcessError:
-            subprocess.check_call(
-                '{} -m pip install numpy'.format(python_exe), shell=True)
+            subprocess.check_call('{} -m pip install numpy'.format(python_exe),
+                                  shell=True)
 
     def validate_install(self, py_version):
         python_exe = self.python_exe_paths[py_version]
         env = 'pytraj' + py_version
-        # e.g: change 2.7 to 27
         print('Testing pytraj build')
-        whl_file = os.path.abspath(self._get_wheel_file(py_version, folder='wheelhouse'))
+        whl_file = os.path.abspath(
+            self._get_wheel_file(py_version, folder='wheelhouse'))
         print('Testing wheel file {}'.format(whl_file))
         try:
             subprocess.check_call(
@@ -171,17 +170,15 @@ class PipBuilder(object):
         except subprocess.CalledProcessError:
             pass
 
-        # always try with newest pip
         subprocess.check_call(
             '{} -m pip install pip --upgrade'.format(python_exe), shell=True)
-        subprocess.check_call(
-            '{} -m pip install {}'.format(python_exe, whl_file), shell=True)
+        subprocess.check_call('{} -m pip install {}'.format(
+            python_exe, whl_file),
+                              shell=True)
         self._check_numpy_and_fix(python_exe, env)
-        if sys.platform.startswith('darwin'):
+        if self.is_osx:
             print('libcpptraj', self.libcpptraj)
             with temporarily_move_libcpptraj(self.libcpptraj):
-                # moving libcpptraj to make sure pytraj use libcpptraj in pytraj/lib/
-                # this is for osx only
                 output = subprocess.check_output(
                     '{} -c "import pytraj as pt; pt.run_tests()"'.format(
                         python_exe),
@@ -218,7 +215,8 @@ class PipBuilder(object):
                     'Must set CPPTRAJHOME having lib/libcpptraj')
         else:
             self.cpptraj_dir = cpptraj_home
-        self.libcpptraj = os.path.join(self.cpptraj_dir, 'lib', 'libcpptraj.' + ext)
+        self.libcpptraj = os.path.join(self.cpptraj_dir, 'lib',
+                                       'libcpptraj.' + ext)
 
         for package in self.REQUIRED_PACKAGES:
             try:
@@ -227,39 +225,39 @@ class PipBuilder(object):
                 raise ImportError('require {}'.format(package))
 
 
-if __name__ == '__main__':
-    import argparse
+def main():
     parser = argparse.ArgumentParser('Build wheel file to upload to pypi')
     parser.add_argument('tarfile')
     parser.add_argument(
         '--py',
         default=None,
         nargs='+',
-        help='Python version (e.g. 2.7 or 3.8). Default: build all supported versions')
-    parser.add_argument(
-        '--cpptraj-dir', default='', help='cpptraj dir, optional')
-    parser.add_argument(
-        '--manylinux-docker',
-        action='store_true',
-        help='If specified, use Python versions from manylinux')
-    parser.add_argument(
-        '--validate-only',
-        action='store_true',
-        help='Only validate the exisint repaired wheel')
+        help=
+        'Python version (e.g. 2.7 or 3.8). Default: build all supported versions'
+    )
+    parser.add_argument('--cpptraj-dir',
+                        default='',
+                        help='cpptraj dir, optional')
+    parser.add_argument('--manylinux-docker',
+                        action='store_true',
+                        help='If specified, use Python versions from manylinux')
+    parser.add_argument('--validate-only',
+                        action='store_true',
+                        help='Only validate the existing repaired wheel')
     args = parser.parse_args()
 
     tarfile = os.path.abspath(args.tarfile)
     python_versions = args.py or list(PipBuilder.SUPPORTED_VERSIONS.keys())
     print(f"Building package for python: {python_versions}")
-    # pytraj tar file
     pytraj_home = os.path.dirname(__file__).strip('scripts')
-    builder = PipBuilder(
-        tarfile=tarfile,
-        pytraj_home=pytraj_home,
-        python_versions=python_versions,
-        use_manylinux=args.manylinux_docker,
-        cpptraj_dir=args.cpptraj_dir,
-        validate_only=args.validate_only)
+    builder = PipBuilder(tarfile=tarfile,
+                         pytraj_home=pytraj_home,
+                         python_versions=python_versions,
+                         use_manylinux=args.manylinux_docker,
+                         cpptraj_dir=args.cpptraj_dir,
+                         validate_only=args.validate_only)
     builder.run()
-    # builder.libcpptraj = '../cpptraj/lib/libcpptraj.dylib'
-    # builder.validate_install('3.5')
+
+
+if __name__ == '__main__':
+    main()
