@@ -1,10 +1,8 @@
 channels:
     - conda-forge
 dependencies:
-    # - python=3.8
-    # - netcdf4
     - pyflakes
-    - numpy
+    - numpy=2.0.0 # > 2.0 will cause Frame.__array__() takes no keyword arguments (so on)
     - cython=0.29
     - parmed
     - pytest
