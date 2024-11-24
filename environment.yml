@@ -9,9 +9,6 @@ dependencies:
     - pytest
     - mock
     - pytest
-    - libnetcdf
-    - lapack
-    - fftw
 
       # This is for condaforge/mambraforge docker image
       # - gcc_linux-64
