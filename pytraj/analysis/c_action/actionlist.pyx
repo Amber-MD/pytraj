@@ -66,11 +66,10 @@ def pipe(traj, commands, DatasetList dslist=DatasetList(), frame_indices=None):
         commands = [line.lstrip().rstrip()
                     for line in commands.split('\n') if line.strip() != '']
 
-    with nogil:
-        actlist = ActionList(commands, top=traj.top, dslist=dslist)
-        for frame in iterframe_master(fi):
-            actlist.compute(frame)
-            yield frame
+    actlist = ActionList(commands, top=traj.top, dslist=dslist)
+    for frame in iterframe_master(fi):
+        actlist.compute(frame)
+        yield frame
 
 
 def compute(lines, traj, *args, **kwd):
@@ -173,12 +172,11 @@ def compute(lines, traj, *args, **kwd):
 
         dslist = DatasetList()
 
-        with nogil:
-            if reflist:
-                for ref_ in reflist:
-                    ref_dset = dslist.add('reference')
-                    ref_dset.top = traj.top
-                    ref_dset.add_frame(ref_)
+        if reflist:
+            for ref_ in reflist:
+                ref_dset = dslist.add('reference')
+                ref_dset.top = traj.top
+                ref_dset.add_frame(ref_)
 
         # create Frame generator
         fi = pipe(traj, commands=lines, dslist=dslist)
@@ -256,18 +254,17 @@ cdef class ActionList:
         self._crdinfo = crdinfo
         self.top = top
 
-        with nogil:
-            if commands is not None and top is not None:
-                for command in commands:
-                    command = command.rstrip().lstrip()
-                    try:
-                        action, cm = command.split(" ", 1)
-                    except ValueError:
-                        action = command.split(" ", 1)[0]
-                        cm = ''
-                    action = action.rstrip().lstrip()
-                    self.add(action, command=cm,
-                             top=top, dslist=dslist, dflist=dflist)
+        if commands is not None and top is not None:
+            for command in commands:
+                command = command.rstrip().lstrip()
+                try:
+                    action, cm = command.split(" ", 1)
+                except ValueError:
+                    action = command.split(" ", 1)[0]
+                    cm = ''
+                action = action.rstrip().lstrip()
+                self.add(action, command=cm,
+                         top=top, dslist=dslist, dflist=dflist)
 
     def __dealloc__(self):
         if self.thisptr:
@@ -314,13 +311,11 @@ cdef class ActionList:
         _arglist = _get_arglist(command)
         # let ActionList free memory
         action_.own_memory = False
+        status = self.thisptr.AddAction(action_.baseptr, _arglist.thisptr[0],
+                                        actioninit_)
 
-        with nogil:
-            status = self.thisptr.AddAction(action_.baseptr, _arglist.thisptr[0],
-                                            actioninit_)
-
-            if status != 0:
-                raise ValueError("ERROR: " + "%s %s" % (action, command))
+        if status != 0:
+            raise ValueError("ERROR: " + "%s %s" % (action, command))
 
     def setup(self, Topology top, crdinfo={}, n_frames_t=0, bint exit_on_error=True):
         '''perform Topology checking and some stuff
@@ -342,9 +337,8 @@ cdef class ActionList:
 
         crdinfo_ = CoordinateInfo(crdinfo2)
 
-        with nogil:
-            actionsetup_ = _ActionSetup(top.thisptr, crdinfo_.thisptr[0], n_frames_t)
-            self.thisptr.SetupActions(actionsetup_, exit_on_error)
+        actionsetup_ = _ActionSetup(top.thisptr, crdinfo_.thisptr[0], n_frames_t)
+        self.thisptr.SetupActions(actionsetup_, exit_on_error)
 
     def compute(self, traj=Frame()):
         '''perform a series of Actions on Frame or Trajectory
@@ -358,16 +352,14 @@ cdef class ActionList:
             # if not, pytraj will try to setup for every Frame
             self.is_setup = True
 
-        with nogil:
-            if isinstance(traj, Frame):
-                frame = <Frame> traj
-                actionframe_ = _ActionFrame(frame.thisptr, self.n_frames)
-                self.thisptr.DoActions(self.n_frames, actionframe_)
-                self.n_frames += 1
-            else:
-                for frame in iterframe_master(traj):
-                    self.compute(frame)
+        if isinstance(traj, Frame):
+            frame = <Frame> traj
+            actionframe_ = _ActionFrame(frame.thisptr, self.n_frames)
+            self.thisptr.DoActions(self.n_frames, actionframe_)
+            self.n_frames += 1
+        else:
+            for frame in iterframe_master(traj):
+                self.compute(frame)
 
     def post_process(self):
-        with nogil:
-            self.thisptr.PrintActions()
+        self.thisptr.PrintActions()
