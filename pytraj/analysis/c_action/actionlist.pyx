@@ -4,14 +4,14 @@ from cython.operator cimport dereference as deref
 from .c_action import ActionDict
 from ...trajectory.shared_methods import iterframe_master
 
-
+# Helper function to get ArgList
 def _get_arglist(arg):
     if isinstance(arg, ArgList):
         return arg
     else:
         return ArgList(arg)
 
-
+# Function to create frame iterator from cpptraj's commands
 def pipe(traj, commands, DatasetList dslist=DatasetList(), frame_indices=None):
     '''create frame iterator from cpptraj's commands.
 
@@ -55,25 +55,24 @@ def pipe(traj, commands, DatasetList dslist=DatasetList(), frame_indices=None):
     cdef Frame frame
     cdef ActionList actlist
 
-    if frame_indices is None:
-        fi = traj
-    else:
-        fi = traj.iterframe(frame_indices=frame_indices)
+    # Determine frame iterator
+    fi = traj if frame_indices is None else traj.iterframe(frame_indices=frame_indices)
 
-    if isinstance(commands, (list, tuple)):
-        commands = commands
-    elif isinstance(commands, str):
-        commands = [line.lstrip().rstrip()
-                    for line in commands.split('\n') if line.strip() != '']
+    # Normalize commands to list of strings
+    if isinstance(commands, str):
+        commands = [line.strip() for line in commands.split('\n') if line.strip()]
 
+    # Initialize ActionList
     actlist = ActionList(commands, top=traj.top, dslist=dslist)
+
+    # Iterate over frames and apply actions
     for frame in iterframe_master(fi):
         actlist.compute(frame)
         yield frame
 
-
+# Function to perform a series of cpptraj's actions on trajectory
 def compute(lines, traj, *args, **kwd):
-    """perorm a series of cpptraj's actions on trajectory
+    """perform a series of cpptraj's actions on trajectory
 
     Parameters
     ----------
@@ -151,8 +150,8 @@ def compute(lines, traj, *args, **kwd):
 
     # frequency to make the bar
     # None or an int
-    freq =  kwd.get("progress")
-    color =  kwd.get("color")
+    freq = kwd.get("progress")
+    color = kwd.get("color")
 
     if color is None:
         color = '#0080FF'
@@ -161,54 +160,39 @@ def compute(lines, traj, *args, **kwd):
 
     if isinstance(lines, (list, tuple, str)):
         ref = kwd.get('ref')
-        if ref is not None:
-            if isinstance(ref, Frame):
-                reflist = [ref, ]
-            else:
-                # list/tuplex
-                reflist = ref
-        else:
-            reflist = []
+        reflist = [ref] if isinstance(ref, Frame) else ref if ref else []
 
         dslist = DatasetList()
 
-        if reflist:
-            for ref_ in reflist:
-                ref_dset = dslist.add('reference')
-                ref_dset.top = traj.top
-                ref_dset.add_frame(ref_)
+        # Add reference frames to dataset list
+        for ref_ in reflist:
+            ref_dset = dslist.add('reference')
+            ref_dset.top = traj.top
+            ref_dset.add_frame(ref_)
 
-        # create Frame generator
+        # Create frame generator
         fi = pipe(traj, commands=lines, dslist=dslist)
 
-        # just iterate Frame to trigger calculation.
-        # this code is for fun.
+        # Initialize progress bar if needed
         if freq is not None:
-           from pytraj.utils.progress import make_bar, init_display
-           if hasattr(fi, 'n_frames'):
-               max_frames = fi.n_frames
-           elif hasattr(traj, 'n_frames'):
-               max_frames = traj.n_frames
-           else:
-               # inaccurate max_frames
-               max_frames = 1000000
-           init_display(color)
+            from pytraj.utils.progress import make_bar, init_display
+            max_frames = getattr(fi, 'n_frames', getattr(traj, 'n_frames', 1000000))
+            init_display(color)
 
+        # Iterate frames and update progress bar
         for idx, _ in enumerate(fi):
-            if freq is not None:
-                if idx % freq == 0:
-                    make_bar(idx, max_frames)
-                if idx == max_frames - 1:
-                    make_bar(max_frames, max_frames)
-            pass
+            if freq is not None and idx % freq == 0:
+                make_bar(idx, max_frames)
+            if idx == max_frames - 1:
+                make_bar(max_frames, max_frames)
 
-        # remove ref
+        # Return dataset list as dictionary
         return dslist[len(reflist):].to_dict()
 
     elif callable(lines):
         return lines(traj, *args, **kwd)
 
-
+# Cython class for ActionList
 cdef class ActionList:
     def __cinit__(self):
         self.thisptr = new _ActionList()
@@ -216,8 +200,7 @@ cdef class ActionList:
         self.n_frames = 0
 
     property data:
-        '''Store data (CpptrajDatasetList). This is for internal use.
-        '''
+        '''Store data (CpptrajDatasetList). This is for internal use.'''
         def __get__(self):
             return self._dslist
 
@@ -256,26 +239,15 @@ cdef class ActionList:
 
         if commands is not None and top is not None:
             for command in commands:
-                command = command.rstrip().lstrip()
-                try:
-                    action, cm = command.split(" ", 1)
-                except ValueError:
-                    action = command.split(" ", 1)[0]
-                    cm = ''
-                action = action.rstrip().lstrip()
-                self.add(action, command=cm,
-                         top=top, dslist=dslist, dflist=dflist)
+                action, cm = (command.split(" ", 1) + [''])[:2]
+                self.add(action.strip(), command=cm.strip(), top=top, dslist=dslist, dflist=dflist)
 
     def __dealloc__(self):
         if self.thisptr:
             del self.thisptr
 
-    def add(self, action="",
-                  command="",
-                  top=None,
-                  DatasetList dslist=DatasetList(),
-                  DataFileList dflist=DataFileList(),
-                  check_status=False):
+    def add(self, action="", command="", top=None, DatasetList dslist=DatasetList(),
+            DataFileList dflist=DataFileList(), check_status=False):
         """Add action to ActionList
 
         Parameters
@@ -287,62 +259,36 @@ cdef class ActionList:
         dflist : DataFileList
         check_status : bool, default=False
             return status of Action (0 or 1) if "True"
-
-        Examples
-        --------
-        >>> actlist = ActionList()
-        >>> actlist.add('radgyr', '@CA', top=traj.top, dslist=dslist) # doctest: +SKIP
         """
         cdef Action action_
         cdef int status
         cdef _ActionInit actioninit_
         actioninit_ = _ActionInit(dslist.thisptr[0], dflist.thisptr[0])
 
-        if isinstance(action, str):
-            # create action object from string
-            action_ = ActionDict()[action]
-        else:
-            action_ = action
-
-        cdef ArgList _arglist
-
-        self.top = top if top is not None else self.top
+        action_ = ActionDict()[action] if isinstance(action, str) else action
+        action_.own_memory = False
 
         _arglist = _get_arglist(command)
-        # let ActionList free memory
-        action_.own_memory = False
-        status = self.thisptr.AddAction(action_.baseptr, _arglist.thisptr[0],
-                                        actioninit_)
+        self.top = top if top is not None else self.top
 
+        status = self.thisptr.AddAction(action_.baseptr, _arglist.thisptr[0], actioninit_)
         if status != 0:
             raise ValueError("ERROR: " + "%s %s" % (action, command))
 
     def setup(self, Topology top, crdinfo={}, n_frames_t=0, bint exit_on_error=True):
-        '''perform Topology checking and some stuff
-        '''
+        '''perform Topology checking and some stuff'''
         # let cpptraj free mem
         cdef _ActionSetup actionsetup_
         cdef CoordinateInfo crdinfo_
-        cdef Box box
-        cdef bint has_velocity, has_time, has_force
-
-        if not crdinfo:
-            crdinfo = self._crdinfo
-        else:
-            crdinfo = crdinfo
-
-        crdinfo2 = dict((k, v) for k, v in crdinfo.items())
-        if 'box' not in crdinfo2:
-            crdinfo2['box'] = top.box
+        crdinfo2 = dict(crdinfo or self._crdinfo)
+        crdinfo2.setdefault('box', top.box)
 
         crdinfo_ = CoordinateInfo(crdinfo2)
-
         actionsetup_ = _ActionSetup(top.thisptr, crdinfo_.thisptr[0], n_frames_t)
         self.thisptr.SetupActions(actionsetup_, exit_on_error)
 
     def compute(self, traj=Frame()):
-        '''perform a series of Actions on Frame or Trajectory
-        '''
+        '''perform a series of Actions on Frame or Trajectory'''
         cdef _ActionFrame actionframe_
         cdef Frame frame
 
