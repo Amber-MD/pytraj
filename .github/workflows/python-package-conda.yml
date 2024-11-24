@@ -31,6 +31,18 @@ jobs:
     - name: Install prerequisite packages
       run: |
         sudo apt-get install -y gfortran libbz2-dev libblas-dev liblapack-dev libfftw3-dev clang cmake-data cmake
+    - name: Get latest cpptraj commit hash
+      id: get-hash
+      run: |
+        latest_hash=$(git ls-remote https://github.com/Amber-MD/cpptraj.git refs/heads/master | awk '{print $1}')
+        echo "::set-output name=hash::$latest_hash"
+    - name: Cache cpptraj
+      uses: actions/cache@v4
+      with:
+        path: ~/cpptraj
+        key: ${{ runner.os }}-cpptraj-${{ steps.get-hash.outputs.hash }}
+        restore-keys: |
+          ${{ runner.os }}-cpptraj-
     - name: Install CPPTRAJ dependencies
       run: |
         curl -OL https://github.com/Unidata/netcdf-c/archive/refs/tags/v4.9.2.tar.gz
@@ -43,12 +55,14 @@ jobs:
         export PATH=$HOME/bin:$PATH
     - name: Install cpptraj
       run: |
-        git clone https://github.com/Amber-MD/cpptraj
-        cd cpptraj
-        export CPPTRAJHOME=`pwd`
-        yes | ./configure -shared -openmp gnu
-        make libcpptraj
-        cd ../
+        if [ ! -d "$HOME/cpptraj" ]; then
+          git clone https://github.com/Amber-MD/cpptraj
+          cd cpptraj
+          export CPPTRAJHOME=`pwd`
+          yes | ./configure -shared -openmp gnu
+          make libcpptraj
+          cd ../
+        fi
     - name: Set up Miniconda # Do this after installing cpptraj to avoid "yes: standard output: Broken pipe" error
       uses: conda-incubator/setup-miniconda@v3
       with:
