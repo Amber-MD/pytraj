@@ -136,10 +136,12 @@ cdef class Frame (object):
                 self.thisptr = new _Frame(natom, &view[0, 0])
 
     def __dealloc__(self):
+        return
         if self._own_memory and self.thisptr:
             del self.thisptr
 
     def __del__(self):
+        return
         del self.thisptr
 
     def copy(self):
