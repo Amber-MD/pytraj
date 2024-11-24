@@ -1,4 +1,3 @@
-# DUMMY
 '''pytraj: A python package binding to cpptraj program
 '''
 
