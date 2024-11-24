@@ -56,6 +56,8 @@ jobs:
     - name: Install cpptraj
       run: |
         if [ ! -d "$HOME/cpptraj" ]; then
+          echo $HOME
+          pwd
           git clone https://github.com/Amber-MD/cpptraj
           cd cpptraj
           export CPPTRAJHOME=`pwd`
