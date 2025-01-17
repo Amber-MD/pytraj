@@ -296,7 +296,7 @@ cdef class Frame (object):
         for i in range(self.n_atoms):
             yield np.asarray(self._buffer2d[i])
 
-    def __array__(self):
+    def __array__(self, *args, **kwargs):
         """
         arr0 = np.asarray(frame)
 
