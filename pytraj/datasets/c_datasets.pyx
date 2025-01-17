@@ -111,7 +111,7 @@ cdef class Dataset:
     def __setitem__(self, idx, value):
         raise NotImplementedError("Must over-write Dataset data attr")
 
-    def __array__(self):
+    def __array__(self, *args, **kwargs):
         """
         Aim: directly use numpy to perform analysis without casting to ndararay again
 
@@ -702,7 +702,7 @@ cdef class DatasetMatrixDouble (Dataset2D):
 
     @data.setter
     def data(self, double[:, :] data):
-        cdef size_t i,j 
+        cdef size_t i,j
         cdef int n_rows
         cdef int n_cols
 
@@ -1039,8 +1039,8 @@ cdef class DatasetModes(Dataset):
         self.thisptr.AllocateAvgCoords(n)
 
     def _set_avg_frame(self, double[:] arr):
-        cdef unsigned int i 
-        cdef double* ptr = self.thisptr.AvgFramePtr() 
+        cdef unsigned int i
+        cdef double* ptr = self.thisptr.AvgFramePtr()
 
         for i in range(arr.shape[0]):
             ptr[i] = arr[i]
