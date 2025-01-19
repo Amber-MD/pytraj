@@ -3,7 +3,6 @@ channels:
 name: pytraj-gha
 dependencies:
     - pyflakes
-    - numpy=2.0.0
     - cython=3.0.11
     - numpy=2.2.1
     - parmed
