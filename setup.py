@@ -87,6 +87,7 @@ cpptraj_info = get_cpptraj_info(
     pytraj_home=pytraj_home,
     openmp_flag=openmp_flag,
     use_amberlib=use_amberlib)
+print('cpptraj info', cpptraj_info)
 
 # CMake's libcpptraj has an _omp suffix to denote that it's OpenMP, so look for that first.
 if openmp_flag:

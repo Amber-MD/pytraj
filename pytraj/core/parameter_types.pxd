@@ -96,27 +96,6 @@ cdef extern from "ParameterTypes.h":
         inline double B() const 
 
 
-    cdef cppclass _ChamberParmType "ChamberParmType":
-        _ChamberParmType() 
-        bint HasChamber() const 
-        bint HasCmap() const 
-        int FF_Version() const 
-        const string& FF_Type() const 
-        const BondArray& UB() const 
-        const BondParmArray& UBparm() const 
-        const DihedralArray& Impropers() const 
-        const DihedralParmArray& ImproperParm() const 
-        const NonbondArray& LJ14() const 
-        const CmapGridArray& CmapGrid() const 
-        const CmapArray& Cmap() const 
-        void SetLJ14(const NonbondArray& nb)
-        void SetChamber(int i, const string& s)
-        void SetUB(const BondArray& ub, const BondParmArray& ubp)
-        void SetImproper(const DihedralArray& im, const DihedralParmArray& imp)
-        void AddCmapGrid(const _CmapGridType& g)
-        void AddCmapTerm(const _CmapType& c)
-
-
     cdef cppclass _BondParmType "BondParmType":
         _BondParmType() 
         _BondParmType(double rk, double req)
@@ -207,9 +186,6 @@ cdef class HB_ParmType:
 
 cdef class NonbondType:
     cdef _NonbondType* thisptr
-
-cdef class ChamberParmType:
-    cdef _ChamberParmType* thisptr
 
 cdef class BondParmType:
     cdef _BondParmType* thisptr
