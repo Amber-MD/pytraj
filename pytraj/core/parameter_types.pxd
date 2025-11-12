@@ -6,7 +6,6 @@ ctypedef vector[_BondParmType] BondParmArray
 ctypedef vector[_BondType] BondArray
 ctypedef vector[_AngleParmType] AngleParmArray
 ctypedef vector[_AngleType] AngleArray
-ctypedef vector[_DihedralParmType] DihedralParmArray
 ctypedef vector[_DihedralType] DihedralArray
 ctypedef vector[_HB_ParmType] HB_ParmArray
 ctypedef vector[_NonbondType] NonbondArray
@@ -19,7 +18,6 @@ ctypedef fused ptype:
     _BondParmType
     _BondType
     _AngleParmType
-    _DihedralParmType
 
 cdef extern from "ParameterTypes.h": 
     cdef cppclass _AngleType "AngleType":
@@ -149,20 +147,6 @@ cdef extern from "ParameterTypes.h":
         inline double zCap() const 
 
 
-    cdef cppclass _DihedralParmType "DihedralParmType":
-        _DihedralParmType() 
-        _DihedralParmType(double k, double n, double p, double e, double b)
-        _DihedralParmType(double k, double p)
-        #inline double Pk() const 
-        inline double& Pk() 
-        inline double Pn() const 
-        inline double Phase() const 
-        inline double SCEE() const 
-        inline double SCNB() const 
-        void SetSCEE(double s)
-        void SetSCNB(double s)
-
-
 cdef class AngleType:
     cdef _AngleType* thisptr
 
@@ -201,7 +185,3 @@ cdef class BondType:
 
 cdef class CapParmType:
     cdef _CapParmType* thisptr
-
-cdef class DihedralParmType:
-    cdef _DihedralParmType* thisptr
-
