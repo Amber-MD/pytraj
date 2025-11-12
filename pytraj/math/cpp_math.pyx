@@ -219,12 +219,6 @@ cdef class Matrix_3x3:
     def transpose(self):
         self.thisptr.Transpose()
 
-    def rotation_around_zaxis(self, idx, idy):
-        self.thisptr.RotationAroundZ(idx, idy)
-
-    def rotation_around_yaxis(self, idx, idz):
-        self.thisptr.RotationAroundY(idx, idz)
-
     def __mul__(Matrix_3x3 self, other):
         cdef Matrix_3x3 mat_other, mat_result
         cdef Vec3 vec_other, vec_result

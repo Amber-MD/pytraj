@@ -70,8 +70,6 @@ cdef extern from "Matrix_3x3.h":
         int Diagonalize_Sort_Chirality(_Vec3&, int)
         void Transpose() 
         _Matrix_3x3& star_equal "operator *=" (const _Matrix_3x3&)
-        void RotationAroundZ(double, double)
-        void RotationAroundY(double, double)
         void CalcRotationMatrix(const _Vec3&, double)
         void CalcRotationMatrix(double, double, double)
         double RotationAngle() 
