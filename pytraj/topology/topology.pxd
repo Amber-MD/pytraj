@@ -16,33 +16,33 @@ ctypedef cppvector[_Residue].const_iterator res_iterator
 ctypedef cppvector[_Molecule].const_iterator mol_iterator
 ctypedef cppvector[int].const_iterator bond_iterator
 
-cdef extern from "CoordinateInfo.h": 
+cdef extern from "CoordinateInfo.h":
     cdef cppclass _CoordinateInfo "CoordinateInfo" nogil:
-        _CoordinateInfo() 
+        _CoordinateInfo()
         _CoordinateInfo(const _Box& b, bint v, bint t, bint m)
-        bint HasBox() const 
-        const _Box& TrajBox() const 
-        bint HasVel() const 
-        bint HasTemp() const 
-        bint HasTime() const 
-        bint HasForce() const 
-        bint HasReplicaDims() const 
+        bint HasBox() const
+        const _Box& TrajBox() const
+        bint HasVel() const
+        bint HasTemp() const
+        bint HasTime() const
+        bint HasForce() const
+        bint HasReplicaDims() const
         void SetTime(bint m)
         void SetTemperature(bint t)
         void SetVelocity(bint v)
         void SetBox(const _Box& b)
 
-cdef extern from "Topology.h": 
+cdef extern from "Topology.h":
     cdef cppclass _Topology "Topology" nogil:
-        _Topology() 
+        _Topology()
         int DetermineMolecules()
         void SetDistMaskRef(_Frame)
         _Atom& GetAtomView "SetAtom" (int idx)
-        int Natom() const 
-        int Nres() const 
-        int Nmol() const 
-        int Nsolvent() const 
-        const _FileName& OriginalFilename() const 
+        int Natom() const
+        int Nres() const
+        int Nmol() const
+        int Nsolvent() const
+        const _FileName& OriginalFilename() const
         atom_iterator begin()
         atom_iterator end()
         const _Atom& index_opr "operator[]"(int idx)
@@ -50,25 +50,25 @@ cdef extern from "Topology.h":
         inline res_iterator ResStart()
         inline res_iterator ResEnd()
         const _Residue& Res(int idx)
-        inline mol_iterator MolStart() const 
-        inline mol_iterator MolEnd() const 
-        const BondArray& Bonds() const 
-        const BondArray& BondsH() const 
+        inline mol_iterator MolStart() const
+        inline mol_iterator MolEnd() const
+        const _BondArray& Bonds() const
+        const _BondArray& BondsH() const
         void AddBond(int, int)
-        const AngleArray& Angles() const 
-        const AngleArray& AnglesH() const 
-        const DihedralArray& Dihedrals() const 
-        const DihedralArray& DihedralsH() const 
-        void Summary() const 
-        inline const _Box& ParmBox() const 
+        const _AngleArray& Angles() const
+        const _AngleArray& AnglesH() const
+        const _DihedralArray& Dihedrals() const
+        const _DihedralArray& DihedralsH() const
+        void Summary() const
+        inline const _Box& ParmBox() const
         void SetParmBox(_Box& bIn)
         int AddTopAtom(_Atom&, _Residue&)
         void AddAngle(int, int, int)
         void AddDihedral(int, int, int, int)
-        bint SetupIntegerMask(_AtomMask&) const 
-        bint SetupIntegerMask(_AtomMask&, const _Frame&) const 
-        _Topology* partialModifyStateByMask(const _AtomMask& m) const 
-        _Topology* modifyStateByMask(const _AtomMask& m) const 
+        bint SetupIntegerMask(_AtomMask&) const
+        bint SetupIntegerMask(_AtomMask&, const _Frame&) const
+        _Topology* partialModifyStateByMask(const _AtomMask& m) const
+        _Topology* modifyStateByMask(const _AtomMask& m) const
         int AppendTop(const _Topology &)
         int SetSolvent(const string&)
 
@@ -77,16 +77,16 @@ cdef class Topology:
     cdef public bint _own_memory
     cdef cppvector[int] _get_atom_bond_indices(self, _Atom)
 
-cdef extern from "ParmFile.h": 
+cdef extern from "ParmFile.h":
     ctypedef enum ParmFormatType "ParmFile::ParmFormatType":
         pass
         UNKNOWN_PARM "ParmFile::UNKNOWN_PARM"
     cdef cppclass _ParmFile "ParmFile" nogil:
-        _ParmFile() 
+        _ParmFile()
         int ReadTopology(_Topology&, const string&, const _ArgList&, int)
         int ReadTopology(_Topology& t, const string& n, int d)
         int WriteTopology(const _Topology&, const string&, const _ArgList&, ParmFormatType, int)
-        const _FileName ParmFilename() 
+        const _FileName ParmFilename()
 
 cdef class ParmFile:
     cdef _ParmFile* thisptr

@@ -470,7 +470,7 @@ cdef class Topology:
                 incr(it)
 
     def summary(self):
-        """basic info. This information only appears in Ipython or Python shell. 
+        """basic info. This information only appears in Ipython or Python shell.
         It does not appear in Jupyter notebook (due to C++ stdout)
         """
         with capture_stdout() as (out, _):
@@ -698,43 +698,58 @@ cdef class Topology:
     property bonds:
         def __get__(self):
             """return bond iterator"""
-            # both noh and with-h bonds
-            cdef BondArray bondarray, bondarray_h
+            cdef _BondArray bondarray, bondarray_h
             cdef BondType btype = BondType()
 
             bondarray = self.thisptr.Bonds()
             bondarray_h = self.thisptr.BondsH()
-            bondarray.insert(bondarray.end(), bondarray_h.begin(), bondarray_h.end())
 
+            # Iterate through regular bonds first
             for btype.thisptr[0] in bondarray:
+                yield btype
+                btype = BondType()
+
+            # Then iterate through hydrogen bonds
+            for btype.thisptr[0] in bondarray_h:
                 yield btype
                 btype = BondType()
 
     property angles:
         def __get__(self):
             """return angle iterator"""
-            cdef AngleArray anglearray, anglearray_h
+            cdef _AngleArray anglearray, anglearray_h
             cdef AngleType atype = AngleType()
 
             anglearray = self.thisptr.Angles()
             anglearray_h = self.thisptr.AnglesH()
-            anglearray.insert(anglearray.end(), anglearray_h.begin(), anglearray_h.end())
 
+            # Iterate through regular angles first
             for atype.thisptr[0] in anglearray:
+                yield atype
+                atype = AngleType()
+
+            # Then iterate through hydrogen angles
+            for atype.thisptr[0] in anglearray_h:
                 yield atype
                 atype = AngleType()
 
     property dihedrals:
         def __get__(self):
             """return dihedral iterator"""
-            cdef DihedralArray dharr, dharr_h
+            cdef _DihedralArray dharr, dharr_h
             cdef DihedralType dhtype = DihedralType()
+            cdef _DihedralArray.const_iterator it
 
             dharr = self.thisptr.Dihedrals()
             dharr_h = self.thisptr.DihedralsH()
-            dharr.insert(dharr.end(), dharr_h.begin(), dharr_h.end())
 
+            # Iterate through regular dihedrals first
             for dhtype.thisptr[0] in dharr:
+                yield dhtype
+                dhtype = DihedralType()
+
+            # Then iterate through hydrogen dihedrals
+            for dhtype.thisptr[0] in dharr_h:
                 yield dhtype
                 dhtype = DihedralType()
 
