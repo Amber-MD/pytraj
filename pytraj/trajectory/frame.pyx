@@ -139,9 +139,6 @@ cdef class Frame (object):
         if self._own_memory and self.thisptr:
             del self.thisptr
 
-    def __del__(self):
-        del self.thisptr
-
     def copy(self):
         """return a deep copy of Frame"""
         cdef Frame frame = Frame(self)

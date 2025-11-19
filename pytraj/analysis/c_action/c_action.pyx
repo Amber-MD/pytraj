@@ -45,9 +45,6 @@ class ActionDict:
         self.action_holder = self.adict[key]()
         return self.action_holder
 
-    def __del__(self):
-        del self.action_holder
-
     def keys(self):
         return sorted(self.adict.keys())
 
@@ -87,9 +84,6 @@ cdef class Action:
         # should I del pointer here or in subclass?
         #del self.baseptr
         pass
-
-    def __del__(self):
-        del self.baseptr
 
     def __str__(self):
         txt = "<pytraj.actions.CpptrajActions.%s>" % (self.__class__.__name__)
