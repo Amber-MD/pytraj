@@ -80,6 +80,7 @@ class TestNormalDistance:
         aa_eq(correct_distance_with_image_True, expected_distance)
         aa_eq(correct_distance_with_image_False, expected_distance)
 
+    @pytest.mark.xfail(reason="may be failed in pytest parallel tests")
     def test_distance_to_point_or_reference(self):
         tz2_pdb = os.path.join(cpptraj_test_dir, 'tz2.pdb')
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))

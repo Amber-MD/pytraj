@@ -3,22 +3,12 @@ channels:
 name: pytraj-gha
 dependencies:
     - pyflakes
+    - cython=3.2.1
     - numpy=2.2.1
-    - cython=0.29 # 3.0.11 (segmentation fault)
     - parmed
     - pytest
     - mock
     - pytest
-
-      # This is for condaforge/mambraforge docker image
-      # - gcc_linux-64
-      # - gxx_linux-64
-      # - gfortran
-      # - libnetcdf
-      # - lapack
-      # - fftw
-      # - make
-      # - binutils
 
     # libcpptraj: bash configure --requires-flink -shared -noarpack --with-bzlib=/opt/conda \
     # --with-zlib=/opt/conda -nosanderlib -nohdf5 --with-netcdf=/opt/conda --with-lapack=/opt/conda \
