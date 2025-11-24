@@ -128,6 +128,26 @@ class AnalysisRunner:
         return self.datasets
 
 
+class CommandBuilder:
+    def __init__(self):
+        self.parts = []
+
+    def add(self, key, value=None, condition=True):
+        if condition and value is not None:
+            if isinstance(value, bool):
+                if value:
+                    self.parts.append(key)
+            else:
+                self.parts.append(f"{key} {value}")
+        elif condition and value is None:
+            self.parts.append(key)
+        return self
+
+    def build(self, base_command=""):
+        command_parts = [base_command] + self.parts
+        return " ".join(filter(None, command_parts))
+
+
 def _assert_mutable(trajiter):
     """make sure the input is not TrajectoryIterator
     """
@@ -1095,36 +1115,30 @@ def rdf(traj=None,
     - do not use this method with pytraj.pmap
     '''
 
-
     traj = get_fiterator(traj, frame_indices)
+
+    # Convert masks to string format if needed
     if not isinstance(solvent_mask, str):
         solvent_mask = array_to_cpptraj_atommask(solvent_mask)
-
 
     if not isinstance(solute_mask, str) and solute_mask is not None:
         solute_mask = array_to_cpptraj_atommask(solute_mask)
 
-
-    spacing_ = str(bin_spacing)
-    maximum_ = str(maximum)
-    solventmask_ = solvent_mask
-    solutemask_ = solute_mask
-    noimage_ = 'noimage' if not image else ''
-    density_ = 'density ' + str(density) if density is not None else ''
-    volume_ = 'volume' if volume else ''
-    center1_ = 'center1' if center_solvent else ''
-    center2_ = 'center2' if center_solute else ''
-    nointramol_ = 'nointramol' if not intramol else ''
-    raw_rdf_ = "rawrdf pytraj_tmp_output_raw.agr" if raw_rdf else ''
-
-
-    # order does matters
-    # the order between solventmask_ and solutemask_ is swapped compared
-    # to cpptraj's doc (to get correct result)
-    command = ' '.join(("pytraj_tmp_output.agr", spacing_, maximum_,
-                        solventmask_, solutemask_, noimage_, density_, volume_,
-                        center1_, center2_, nointramol_, raw_rdf_))
-
+    # Build command using CommandBuilder
+    command = (CommandBuilder()
+               .add("pytraj_tmp_output.agr")
+               .add(str(bin_spacing))
+               .add(str(maximum))
+               .add(solvent_mask)
+               .add(solute_mask, condition=solute_mask is not None)
+               .add("noimage", condition=not image)
+               .add("density", str(density), condition=density is not None)
+               .add("volume", condition=volume)
+               .add("center1", condition=center_solvent)
+               .add("center2", condition=center_solute)
+               .add("nointramol", condition=not intramol)
+               .add("rawrdf pytraj_tmp_output_raw.agr", condition=raw_rdf)
+               .build())
 
     c_dslist, _ = do_action(traj, command, c_action.Action_Radial)
     # make a copy sine c_dslist[-1].values return view of its data
