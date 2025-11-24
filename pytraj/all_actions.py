@@ -1928,13 +1928,16 @@ def native_contacts(traj=None,
         mask2 = array_to_cpptraj_atommask(mask2)
     mask_str = ' '.join((mask, mask2))
 
-    distance_str = f'distance {str(distance)}'
-    image_str = "noimage" if not image else ""
-    solvent_str = "includesolvent" if include_solvent else ""
-    byres_str = "byresidue" if byres else ""
+    command = (CommandBuilder()
+               .add("ref myframe")
+               .add(mask_str)
+               .add("distance", str(distance))
+               .add("noimage", condition=not image)
+               .add("includesolvent", condition=include_solvent)
+               .add("byresidue", condition=byres)
+               .add(options, condition=bool(options))
+               .build())
 
-    command = " ".join(('ref myframe', mask_str, distance_str, image_str,
-                         solvent_str, byres_str, options))
     action_datasets.add(DatasetType.REFERENCE_FRAME, 'myframe')
     action_datasets[0].top = top
     action_datasets[0].add_frame(ref)
