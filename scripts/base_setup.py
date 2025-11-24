@@ -265,6 +265,7 @@ def check_cython(is_released,
             need_cython = True
             cmdclass['build_ext'] = build_ext
             if Cython.__version__ < min_version:
+                print("Cython.__version__", Cython.__version__, Cython)
                 print(message_cython)
                 sys.exit(1)
         except ImportError:
