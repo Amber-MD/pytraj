@@ -9,10 +9,9 @@ except ImportError:
         Enum where members are also (and must be) strs.
         """
         def __new__(cls, value):
-            member = str.__new__(cls, value)  # Create a new instance of str with the given value
-            member._value_ = value  # Set the _value_ attribute to the given value
+            member = str.__new__(cls, value)
+            member._value_ = value
             return member
-
 
 from typing import Any, Callable, List, Union
 from functools import partial
@@ -597,7 +596,7 @@ def angle(traj=None,
     >>> angles = pt.angle(traj, ':1 :10 :20')
 
     >>> # calculate multiple angles between three residues, using amber mask
-    >>> # angle between residue 1, 10, 20, angle between residue 3, 20, 30
+    >>> # angle between residue 1 and 10, angle between residue 3 and 20
     >>> # (when using atom string mask, index starts from 1)
     >>> angles = pt.angle(traj, [':1 :10 :20', ':3 :20 :30'])
 
@@ -741,7 +740,7 @@ def mindist(traj=None,
     command = "mindist " + command
 
     action_datasets, _ = do_action(traj, command, c_action.Action_NativeContacts)
-    return get_data_from_dtype(action_datasets, dtype=dtype)[-1]
+    return get_data_from_dtype(action_datasets, dtype)[-1]
 
 
 @super_dispatch()
@@ -1322,10 +1321,10 @@ def mean_structure(traj,
     >>> frame = pt.mean_structure(traj, '@CA', frame_indices=range(2, 8, 2))
 
     >>> # get average structure but do autoimage and rmsfit to 1st Frame
-    >>> frame = pt.mean_structure(traj(autoimage=True, rmsfit=0))
+    >>> frame = pt.mean_structure(traj, autoimage=True, rmsfit=0)
 
     >>> # get average structure but do autoimage and rmsfit to 1st Frame.
-    >>> frame = pt.mean_structure(traj(autoimage=True, rmsfit=0, frame_indices=[0, 5, 6]))
+    >>> frame = pt.mean_structure(traj, autoimage=True, rmsfit=0, frame_indices=[0, 5, 6])
 
     Notes
     -----
