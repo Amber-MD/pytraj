@@ -239,8 +239,6 @@ if __name__ == "__main__":
         """Python API for cpptraj: a data analysis package for biomolecular simulation""",
         license="GPL v3",
         install_requires=['numpy'],
-        tests_require=['tqdm', 'traitlets', 'IPython', 'mpi4py', 'pytest', 'cclib',
-                       'ipywidgets', 'nglview', 'ipykernel'],
         classifiers=[
             'Development Status :: 5 - Production/Stable',
             'Operating System :: Unix',
