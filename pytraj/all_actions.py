@@ -2220,26 +2220,24 @@ def pucker(traj=None,
     if resrange is None:
         resrange = range(top_.n_residues)
 
-
-    _range360 = "range360" if range360 else ""
-    geom = "geom" if not use_com else ""
-    amp = "amplitude" if amplitude else ""
-    offset_ = "offset " + str(offset) if offset else ""
-
-
     c_dslist = CpptrajDatasetList()
 
-
     for res in resrange:
-        command = " ".join((":" + str(res + 1) + '@' + x for x in pucker_mask))
+        atom_mask = " ".join((":" + str(res + 1) + '@' + x for x in pucker_mask))
         name = "pucker_res" + str(res + 1)
-        command = " ".join((name, command, _range360, method, geom, amp,
-                            offset_))
 
+        command = (CommandBuilder()
+                   .add(name)
+                   .add(atom_mask)
+                   .add("range360", condition=range360)
+                   .add(method)
+                   .add("geom", condition=not use_com)
+                   .add("amplitude", condition=amplitude)
+                   .add("offset", str(offset), condition=offset is not None)
+                   .build())
 
         act = c_action.Action_Pucker()
         act(command, traj, top=top_, dslist=c_dslist)
-
 
     return get_data_from_dtype(c_dslist, dtype)
 
@@ -2676,15 +2674,17 @@ def gist(traj,
     out :  dict (or another data type based on dtype)
         User should always use the default dtype
     """
-    grid_center_command = f'gridcntr {" ".join(map(str, grid_center))}'
-    grid_dim_command = f'griddim {" ".join(map(str, grid_dim))}'
-    grid_spacing_command = f'gridspacn {grid_spacing}'
-    do_order_command = 'doorder' if do_order else ''
-    do_eij_command = 'doeij' if do_eij else ''
-    refdens_command = f'refdens {reference_density}'
-    temperature_command = f'temp {temperature}'
+    command = (CommandBuilder()
+               .add("doorder", condition=do_order)
+               .add("doeij", condition=do_eij)
+               .add("refdens", str(reference_density))
+               .add("gridcntr", " ".join(map(str, grid_center)))
+               .add("griddim", " ".join(map(str, grid_dim)))
+               .add("gridspacn", str(grid_spacing))
+               .add("temp", str(temperature))
+               .add(options, condition=bool(options))
+               .build())
 
-    command = ' '.join((do_order_command, do_eij_command, refdens_command, grid_center_command, grid_dim_command, grid_spacing_command, temperature_command, options))
     action_datasets, _ = do_action(traj, command, c_action.Action_GIST)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 

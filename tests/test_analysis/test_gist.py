@@ -11,7 +11,8 @@ from pytraj.utils.context import capture_stdout
 # local
 from utils import fn, tz2_ortho_trajin, tz2_ortho_top
 
-DO_GIST = os.getenv("DO_GIST", False)
+# DO_GIST = os.getenv("DO_GIST", False)
+DO_GIST=True
 
 
 @unittest.skipUnless(DO_GIST, 'only do gist test if setting DO_GIST=True')
