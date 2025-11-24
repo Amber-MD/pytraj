@@ -824,17 +824,16 @@ def watershell(traj=None,
     >>> data = pt.watershell(traj, solute_mask='!:WAT')
     >>> data = pt.watershell(traj, solute_mask='!:WAT', lower=5.0, upper=10.)
     """
-    solutemask_ = solute_mask
-
-    if solutemask_ in [None, '']:
+    if solute_mask in [None, '']:
         raise ValueError('must provide solute mask')
 
-    solventmask_ = solvent_mask if solvent_mask is not None else ''
-    noimage_ = 'noimage' if not image else ''
-
-    lower_ = 'lower ' + str(lower)
-    upper_ = 'upper ' + str(upper)
-    command = ' '.join((solutemask_, lower_, upper_, noimage_, solventmask_))
+    command = (CommandBuilder()
+               .add(solute_mask)
+               .add("lower", str(lower))
+               .add("upper", str(upper))
+               .add("noimage", condition=not image)
+               .add(solvent_mask, condition=solvent_mask is not None)
+               .build())
 
     action_datasets, _ = do_action(traj, command, c_action.Action_Watershell)
     return get_data_from_dtype(action_datasets, dtype=dtype)
