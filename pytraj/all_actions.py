@@ -1162,7 +1162,10 @@ def pairdist(traj,
     ----------
     traj : Trajectory-like
     mask : str, default all atoms
+    mask2 : str, default ''
+        second mask for pair distribution
     delta : float, default 0.1
+        bin spacing
     dtype : str, default 'ndarray'
         dtype of return data
     top : Topology, optional
@@ -1173,10 +1176,11 @@ def pairdist(traj,
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> data = pt.pairdist(traj)
     '''
-    mask_ = 'mask ' + mask
-    mask2_ = 'mask2 ' + str(mask2) if mask2 else ''
-    delta_ = 'delta ' + str(delta)
-    command = ' '.join((mask_, mask2_, delta_))
+    command = (CommandBuilder()
+               .add("mask", mask)
+               .add("mask2", mask2, condition=bool(mask2))
+               .add("delta", str(delta))
+               .build())
 
     action_datasets, _ = do_action(traj, command, c_action.Action_PairDist)
     return get_data_from_dtype(action_datasets, dtype=dtype)
@@ -1511,19 +1515,28 @@ def multidihedral(traj=None,
     >>> data = pt.multidihedral(traj, dihedral_types='phi psi', resrange='3-7')
     >>> data = pt.multidihedral(traj, dihedral_types='phi psi', resrange=[3, 4, 8])
     """
-    resrange_str = " "
+    # Process resrange
+    resrange_str = None
     if resrange:
         if isinstance(resrange, str):
-            resrange_str = "resrange " + str(resrange)
+            resrange_str = str(resrange)
         else:
             from pytraj.utils import convert as cv
-            resrange_str = "resrange " + str(cv.array_to_cpptraj_range(resrange))
+            resrange_str = str(cv.array_to_cpptraj_range(resrange))
 
-    dihedral_types_str = str(dihedral_types) if dihedral_types else " "
-    define_new_type_str = ' '.join(('dihtype', str(define_new_type))) if define_new_type else ''
-    range360_str = 'range360' if range360 else ''
+    # Process define_new_type
+    define_new_type_str = None
+    if define_new_type:
+        define_new_type_str = f"dihtype {str(define_new_type)}"
 
-    command = " ".join((dihedral_types_str, resrange_str, define_new_type_str, range360_str))
+    # Build command using CommandBuilder
+    command = (CommandBuilder()
+               .add(str(dihedral_types), condition=dihedral_types is not None)
+               .add("resrange", resrange_str, condition=resrange_str is not None)
+               .add(define_new_type_str, condition=define_new_type_str is not None)
+               .add("range360", condition=range360)
+               .build())
+
     action_datasets, _ = do_action(traj, command, c_action.Action_MultiDihedral)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
