@@ -3553,30 +3553,6 @@ def infraredspec(traj=None, mask="", out=None, maxlag=None, tstep=None, rawout=N
 
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
-@super_dispatch()
-def keep(traj=None, mask="", dtype='dataset', top=None, frame_indices=None):
-    """Keep specific atoms in the trajectory.
-
-    Parameters
-    ----------
-    traj : Trajectory-like
-    mask : str, atom mask
-    dtype : str, default 'dataset'
-        Output data type.
-    top : Topology, optional
-    frame_indices : array-like, optional
-
-    Returns
-    -------
-    DatasetList or ndarray
-    """
-    command = (CommandBuilder()
-               .add(mask)
-               .build())
-
-    action_datasets, _ = do_action(traj, command, c_action.Action_Keep)
-    return get_data_from_dtype(action_datasets, dtype=dtype)
-
 
 @super_dispatch()
 def min_max_dist(traj=None, mask="", dtype='dataset', top=None, frame_indices=None):
