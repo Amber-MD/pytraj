@@ -10,11 +10,10 @@ def test_infraredspec():
     trajin {traj_file}
     infraredspec IR out irspec.dat maxlag 5 tstep 0.1 rawout raw.dat
     """
-    pt._verbose()
     with tempfolder():
         # Run cpptraj state
         state = pt.datafiles.load_cpptraj_state(cm).run()
-        cpptraj_results = state.data[:]
+        cpptraj_results = state.data.to_dict()
 
         # Run pytraj's infraredspec
         traj = pt.iterload(traj_file, parm_file)
@@ -28,4 +27,5 @@ def test_infraredspec():
         )
 
         # Compare results
-        aa_eq(pytraj_results, cpptraj_results)
+        for k, v in pytraj_results.items():
+            aa_eq(v, cpptraj_results[k])

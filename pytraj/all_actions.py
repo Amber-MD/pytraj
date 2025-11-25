@@ -3498,7 +3498,7 @@ def ene_decomp(traj=None, mask="", savecomponents=False, out=None, dtype='datase
 
 
 @super_dispatch()
-def infraredspec(traj=None, mask="", out=None, maxlag=None, tstep=None, rawout=None, extra_options=None, dtype='dataset', top=None, frame_indices=None):
+def infraredspec(traj=None, mask="", out=None, maxlag=None, tstep=None, rawout=None, extra_options=None, dtype='dict', top=None, frame_indices=None):
     """Compute the infrared spectrum.
 
     Parameters
@@ -3524,6 +3524,7 @@ def infraredspec(traj=None, mask="", out=None, maxlag=None, tstep=None, rawout=N
     -------
     DatasetList or ndarray
     """
+    # Build the command string
     command = (CommandBuilder()
                .add(mask)
                .add("out", out, condition=out is not None)
@@ -3533,8 +3534,23 @@ def infraredspec(traj=None, mask="", out=None, maxlag=None, tstep=None, rawout=N
                .add(extra_options, condition=extra_options is not None)
                .build())
 
-    print("DEBUG command", command)
-    action_datasets, _ = do_action(traj, command, c_action.Action_InfraredSpectrum)
+    # Initialize the action
+    action = c_action.Action_InfraredSpectrum()
+    action_datasets = CpptrajDatasetList()
+    top = traj.top
+    action.read_input(command, top=top, dslist=action_datasets)
+
+    # Set up the action
+    crdinfo = dict(has_velocity=True)
+    action.setup(top, crdinfo=crdinfo)
+
+    # Execute the action for each frame
+    for frame in traj:
+        action.compute(frame)
+
+    # Finalize the action
+    action.post_process()
+
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
 @super_dispatch()
