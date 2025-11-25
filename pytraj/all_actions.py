@@ -81,8 +81,12 @@ __all__ = [
     'rotation_matrix', 'rotdif', 'scale', 'search_neighbors', 'set_dihedral',
     'set_velocity', 'strip', 'superpose', 'surf', 'symmrmsd', 'ti', 'timecorr',
     'transform', 'translate', 'velocityautocorr', 'vector', 'volmap', 'volume',
-    'watershell', 'wavelet', 'xcorr', 'xtalsymm', 'toroidal_diffusion'
-] # yapf: disable
+    'watershell', 'wavelet', 'xcorr', 'xtalsymm', 'toroidal_diffusion',
+    'multi_pucker', 'add_atom', 'avg_box', 'convert_to_frac', 'create_reservoir',
+    'dihedral_rms', 'ene_decomp', 'infrared_spectrum', 'keep', 'min_max_dist',
+    'time_analysis'
+]  # yapf: disable
+
 
 class DatasetType(StrEnum):
     COORDS = 'coords'
@@ -3277,6 +3281,7 @@ def permute_dihedrals(traj, filename, options=''):
     state.data._pop(0)
     state.data._pop(0)
 
+
 @super_dispatch()
 def toroidal_diffusion(traj=None, mask="", mass=False, out=None, diffout=None, time=1.0, options="", dtype='dataset', top=None, frame_indices=None):
     """Calculate diffusion using the toroidal-view-preserving scheme.
@@ -3315,4 +3320,313 @@ def toroidal_diffusion(traj=None, mask="", mass=False, out=None, diffout=None, t
                .build())
 
     action_datasets, _ = do_action(traj, command, c_action.Action_ToroidalDiffusion)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
+
+@super_dispatch()
+def multi_pucker(traj=None, mask="", resrange=None, method="altona", range360=False, amplitude=False, dtype='dataset', top=None, frame_indices=None):
+    """Perform multi-pucker analysis.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, atom mask
+        Mask to select atoms for the calculation.
+    resrange : str or array-like, optional
+        Residue range for the analysis. If not provided, all residues are used.
+    method : str, default "altona"
+        Pucker calculation method. Options: "altona" or "cremer".
+    range360 : bool, default False
+        Use 0-360 degree range if True, otherwise use 0-180.
+    amplitude : bool, default False
+        Include amplitude in the output if True.
+    dtype : str, default 'dataset'
+        Output data type.
+    top : Topology, optional
+    frame_indices : array-like, optional
+
+    Returns
+    -------
+    DatasetList or ndarray
+    """
+    # Convert resrange to cpptraj-compatible format
+    if resrange:
+        if isinstance(resrange, str):
+            resrange_str = resrange
+        else:
+            from pytraj.utils.convert import array_to_cpptraj_range
+            resrange_str = array_to_cpptraj_range(resrange)
+    else:
+        resrange_str = None
+
+    command = (CommandBuilder()
+               .add(mask)
+               .add("resrange", resrange_str, condition=resrange_str is not None)
+               .add(method)
+               .add("range360", condition=range360)
+               .add("amplitude", condition=amplitude)
+               .build())
+
+    action_datasets, _ = do_action(traj, command, c_action.Action_MultiPucker)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
+
+
+@super_dispatch()
+def add_atom(traj=None, aname="", elt="H", rname="TMP", xyz=None, mass=None, charge=None, dtype='dataset', top=None, frame_indices=None):
+    """Add an atom to the current topology/coordinates.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    aname : str, required
+        Name of the new atom.
+    elt : str, default "H"
+        Element of the new atom.
+    rname : str, default "TMP"
+        Residue name for the new atom.
+    xyz : tuple or list, optional
+        Coordinates of the new atom (default: (0.0, 0.0, 0.0)).
+    mass : float, optional
+        Mass of the new atom.
+    charge : float, optional
+        Charge of the new atom.
+    dtype : str, default 'dataset'
+        Output data type.
+    top : Topology, optional
+    frame_indices : array-like, optional
+
+    Returns
+    -------
+    DatasetList or ndarray
+    """
+    command = (CommandBuilder()
+               .add("aname", aname)
+               .add("elt", elt)
+               .add("rname", rname)
+               .add("xyz", " ".join(map(str, xyz)) if xyz else None)
+               .add("mass", str(mass), condition=mass is not None)
+               .add("charge", str(charge), condition=charge is not None)
+               .build())
+
+    action_datasets, _ = do_action(traj, command, c_action.Action_AddAtom)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
+
+
+@super_dispatch()
+def avg_box(traj=None, dtype='dataset', top=None, frame_indices=None):
+    """Compute the average box dimensions.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    dtype : str, default 'dataset'
+        Output data type.
+    top : Topology, optional
+    frame_indices : array-like, optional
+
+    Returns
+    -------
+    DatasetList or ndarray
+    """
+    command = "avgbox"
+    action_datasets, _ = do_action(traj, command, c_action.Action_AvgBox)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
+
+
+@super_dispatch()
+def convert_to_frac(traj=None, mask="", dtype='dataset', top=None, frame_indices=None):
+    """Convert coordinates to fractional values.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, atom mask
+    dtype : str, default 'dataset'
+        Output data type.
+    top : Topology, optional
+    frame_indices : array-like, optional
+
+    Returns
+    -------
+    DatasetList or ndarray
+    """
+    command = (CommandBuilder()
+               .add(mask)
+               .build())
+
+    action_datasets, _ = do_action(traj, command, c_action.Action_ConvertToFrac)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
+
+
+@super_dispatch()
+def create_reservoir(traj=None, mask="", dtype='dataset', top=None, frame_indices=None):
+    """Create a reservoir for the trajectory.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, atom mask
+    dtype : str, default 'dataset'
+        Output data type.
+    top : Topology, optional
+    frame_indices : array-like, optional
+
+    Returns
+    -------
+    DatasetList or ndarray
+    """
+    command = (CommandBuilder()
+               .add(mask)
+               .build())
+
+    action_datasets, _ = do_action(traj, command, c_action.Action_CreateReservoir)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
+
+
+@super_dispatch()
+def dihedral_rms(traj=None, mask="", dtype='dataset', top=None, frame_indices=None):
+    """Compute RMS of dihedral angles.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, atom mask
+    dtype : str, default 'dataset'
+        Output data type.
+    top : Topology, optional
+    frame_indices : array-like, optional
+
+    Returns
+    -------
+    DatasetList or ndarray
+    """
+    command = (CommandBuilder()
+               .add(mask)
+               .build())
+
+    action_datasets, _ = do_action(traj, command, c_action.Action_DihedralRMS)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
+
+
+@super_dispatch()
+def ene_decomp(traj=None, mask="", dtype='dataset', top=None, frame_indices=None):
+    """Perform energy decomposition analysis.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, atom mask
+    dtype : str, default 'dataset'
+        Output data type.
+    top : Topology, optional
+    frame_indices : array-like, optional
+
+    Returns
+    -------
+    DatasetList or ndarray
+    """
+    command = (CommandBuilder()
+               .add(mask)
+               .build())
+
+    action_datasets, _ = do_action(traj, command, c_action.Action_EneDecomp)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
+
+
+@super_dispatch()
+def infrared_spectrum(traj=None, mask="", dtype='dataset', top=None, frame_indices=None):
+    """Compute the infrared spectrum.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, atom mask
+    dtype : str, default 'dataset'
+        Output data type.
+    top : Topology, optional
+    frame_indices : array-like, optional
+
+    Returns
+    -------
+    DatasetList or ndarray
+    """
+    command = (CommandBuilder()
+               .add(mask)
+               .build())
+
+    action_datasets, _ = do_action(traj, command, c_action.Action_InfraredSpectrum)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
+
+
+@super_dispatch()
+def keep(traj=None, mask="", dtype='dataset', top=None, frame_indices=None):
+    """Keep specific atoms in the trajectory.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, atom mask
+    dtype : str, default 'dataset'
+        Output data type.
+    top : Topology, optional
+    frame_indices : array-like, optional
+
+    Returns
+    -------
+    DatasetList or ndarray
+    """
+    command = (CommandBuilder()
+               .add(mask)
+               .build())
+
+    action_datasets, _ = do_action(traj, command, c_action.Action_Keep)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
+
+
+@super_dispatch()
+def min_max_dist(traj=None, mask="", dtype='dataset', top=None, frame_indices=None):
+    """Compute the minimum and maximum distances.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, atom mask
+    dtype : str, default 'dataset'
+        Output data type.
+    top : Topology, optional
+    frame_indices : array-like, optional
+
+    Returns
+    -------
+    DatasetList or ndarray
+    """
+    command = (CommandBuilder()
+               .add(mask)
+               .build())
+
+    action_datasets, _ = do_action(traj, command, c_action.Action_MinMaxDist)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
+
+
+@super_dispatch()
+def time_analysis(traj=None, mask="", dtype='dataset', top=None, frame_indices=None):
+    """Perform time analysis.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, atom mask
+    dtype : str, default 'dataset'
+        Output data type.
+    top : Topology, optional
+    frame_indices : array-like, optional
+
+    Returns
+    -------
+    DatasetList or ndarray
+    """
+    command = (CommandBuilder()
+               .add(mask)
+               .build())
+
+    action_datasets, _ = do_action(traj, command, c_action.Action_Time)
     return get_data_from_dtype(action_datasets, dtype=dtype)

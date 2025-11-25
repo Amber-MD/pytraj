@@ -1,13 +1,14 @@
 import pytraj as pt
 from pytraj.testing import aa_eq, tempfolder
-from utils import tc5b_trajin, tc5b_top
+from utils import tz2_ortho_trajin, tz2_ortho_top
+
 
 def test_toroidal_diffusion():
     cm = """
     parm {}
     trajin {}
     toroidal_diffusion :1-10 out test_diff_avg.dat diffout test_diff_results.dat time 2.0
-    """.format(tc5b_top, tc5b_trajin)
+    """.format(tz2_ortho_top, tz2_ortho_trajin)
 
     with tempfolder():
         # Run cpptraj state
@@ -15,7 +16,8 @@ def test_toroidal_diffusion():
         cpptraj_results = state.data[:]
 
         # Run pytraj's toroidal_diffusion
-        traj = pt.iterload(tc5b_trajin, tc5b_top)
+        traj = pt.iterload(tz2_ortho_trajin, tz2_ortho_top)
+        pt._verbose()
         pytraj_results = pt.toroidal_diffusion(
             traj,
             mask=":1-10",
