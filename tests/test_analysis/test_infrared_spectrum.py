@@ -1,7 +1,7 @@
 import pytraj as pt
 from pytraj.testing import aa_eq, tempfolder, cpptraj_test_dir
 
-def test_infrared_spectrum():
+def test_infraredspec():
     parm_file = f"{cpptraj_test_dir}/Test_systemVF/systemVF.parm7"
     traj_file = f"{cpptraj_test_dir}/Test_systemVF/systemVF.nc"
 
@@ -16,9 +16,9 @@ def test_infrared_spectrum():
         state = pt.datafiles.load_cpptraj_state(cm).run()
         cpptraj_results = state.data[:]
 
-        # Run pytraj's infrared_spectrum
+        # Run pytraj's infraredspec
         traj = pt.iterload(traj_file, parm_file)
-        pytraj_results = pt.infrared_spectrum(
+        pytraj_results = pt.infraredspec(
             traj,
             mask="IR",
             out="irspec.dat",

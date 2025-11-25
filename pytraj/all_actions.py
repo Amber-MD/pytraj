@@ -83,7 +83,7 @@ __all__ = [
     'transform', 'translate', 'velocityautocorr', 'vector', 'volmap', 'volume',
     'watershell', 'wavelet', 'xcorr', 'xtalsymm', 'toroidal_diffusion',
     'multi_pucker', 'avg_box', 'convert_to_frac', 'create_reservoir',
-    'dihedral_rms', 'ene_decomp', 'infrared_spectrum', 'keep', 'min_max_dist',
+    'dihedral_rms', 'ene_decomp', 'infraredspec', 'keep', 'min_max_dist',
     'time_analysis'
 ]  # yapf: disable
 
@@ -3498,7 +3498,7 @@ def ene_decomp(traj=None, mask="", savecomponents=False, out=None, dtype='datase
 
 
 @super_dispatch()
-def infrared_spectrum(traj=None, mask="", out=None, maxlag=None, tstep=None, rawout=None, extra_options=None, dtype='dataset', top=None, frame_indices=None):
+def infraredspec(traj=None, mask="", out=None, maxlag=None, tstep=None, rawout=None, extra_options=None, dtype='dataset', top=None, frame_indices=None):
     """Compute the infrared spectrum.
 
     Parameters
@@ -3533,6 +3533,7 @@ def infrared_spectrum(traj=None, mask="", out=None, maxlag=None, tstep=None, raw
                .add(extra_options, condition=extra_options is not None)
                .build())
 
+    print("DEBUG command", command)
     action_datasets, _ = do_action(traj, command, c_action.Action_InfraredSpectrum)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
