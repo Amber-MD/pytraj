@@ -17,14 +17,14 @@ def test_ene_decomp():
     with tempfolder():
         # Run cpptraj state
         state = pt.datafiles.load_cpptraj_state(cm).run()
-        cpptraj_results = state.data[:]
+        cpptraj_results = state.data[-1].values
 
         # Run pytraj's ene_decomp
         traj = pt.iterload(traj_file, parm_file)
         pytraj_results = pt.ene_decomp(
             traj,
             mask="*",
-        )
+        )[-1]
 
         # Compare results
         aa_eq(pytraj_results, cpptraj_results)
@@ -39,7 +39,7 @@ def test_ene_decomp():
     with tempfolder():
         # Run cpptraj state
         state = pt.datafiles.load_cpptraj_state(cm_savecomponents).run()
-        cpptraj_results_savecomponents = state.data[:]
+        cpptraj_results_savecomponents = state.data[-1].values
 
         # Run pytraj's ene_decomp with savecomponents
         traj = pt.iterload(traj_file, parm_file)
@@ -47,7 +47,7 @@ def test_ene_decomp():
             traj,
             mask="*",
             savecomponents=True,
-        )
+        )[-1]
 
         # Compare results
         aa_eq(pytraj_results_savecomponents, cpptraj_results_savecomponents)
@@ -62,14 +62,14 @@ def test_ene_decomp():
     with tempfolder():
         # Run cpptraj state
         state = pt.datafiles.load_cpptraj_state(cm_mask).run()
-        cpptraj_results_mask = state.data[:]
+        cpptraj_results_mask = state.data[-1].values
 
         # Run pytraj's ene_decomp with a specific mask
         traj = pt.iterload(traj_file, parm_file)
         pytraj_results_mask = pt.ene_decomp(
             traj,
             mask="@4",
-        )
+        )[-1]
 
         # Compare results
         aa_eq(pytraj_results_mask, cpptraj_results_mask)
