@@ -83,7 +83,7 @@ __all__ = [
     'transform', 'translate', 'velocityautocorr', 'vector', 'volmap', 'volume',
     'watershell', 'wavelet', 'xcorr', 'xtalsymm', 'toroidal_diffusion',
     'multi_pucker', 'avg_box', 'convert_to_frac', 'create_reservoir',
-    'dihedral_rms', 'ene_decomp', 'infraredspec', 'keep', 'min_max_dist',
+    'dihedral_rms', 'ene_decomp', 'infraredspec',
     'time_analysis'
 ]  # yapf: disable
 
@@ -3551,31 +3551,6 @@ def infraredspec(traj=None, mask="", out=None, maxlag=None, tstep=None, rawout=N
     # Finalize the action
     action.post_process()
 
-    return get_data_from_dtype(action_datasets, dtype=dtype)
-
-
-@super_dispatch()
-def min_max_dist(traj=None, mask="", dtype='dataset', top=None, frame_indices=None):
-    """Compute the minimum and maximum distances.
-
-    Parameters
-    ----------
-    traj : Trajectory-like
-    mask : str, atom mask
-    dtype : str, default 'dataset'
-        Output data type.
-    top : Topology, optional
-    frame_indices : array-like, optional
-
-    Returns
-    -------
-    DatasetList or ndarray
-    """
-    command = (CommandBuilder()
-               .add(mask)
-               .build())
-
-    action_datasets, _ = do_action(traj, command, c_action.Action_MinMaxDist)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
