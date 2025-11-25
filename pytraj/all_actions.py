@@ -81,7 +81,7 @@ __all__ = [
     'rotation_matrix', 'rotdif', 'scale', 'search_neighbors', 'set_dihedral',
     'set_velocity', 'strip', 'superpose', 'surf', 'symmrmsd', 'ti', 'timecorr',
     'transform', 'translate', 'velocityautocorr', 'vector', 'volmap', 'volume',
-    'watershell', 'wavelet', 'xcorr', 'xtalsymm',
+    'watershell', 'wavelet', 'xcorr', 'xtalsymm', 'toroidal_diffusion'
 ] # yapf: disable
 
 class DatasetType(StrEnum):
