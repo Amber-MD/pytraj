@@ -82,7 +82,7 @@ __all__ = [
     'set_velocity', 'strip', 'superpose', 'surf', 'symmrmsd', 'ti', 'timecorr',
     'transform', 'translate', 'velocityautocorr', 'vector', 'volmap', 'volume',
     'watershell', 'wavelet', 'xcorr', 'xtalsymm', 'toroidal_diffusion',
-    'multi_pucker', 'add_atom', 'avg_box', 'convert_to_frac', 'create_reservoir',
+    'multi_pucker', 'avg_box', 'convert_to_frac', 'create_reservoir',
     'dihedral_rms', 'ene_decomp', 'infrared_spectrum', 'keep', 'min_max_dist',
     'time_analysis'
 ]  # yapf: disable
@@ -3367,47 +3367,6 @@ def multi_pucker(traj=None, mask="", resrange=None, method="altona", range360=Fa
                .build())
 
     action_datasets, _ = do_action(traj, command, c_action.Action_MultiPucker)
-    return get_data_from_dtype(action_datasets, dtype=dtype)
-
-
-@super_dispatch()
-def add_atom(traj=None, aname="", elt="H", rname="TMP", xyz=None, mass=None, charge=None, dtype='dataset', top=None, frame_indices=None):
-    """Add an atom to the current topology/coordinates.
-
-    Parameters
-    ----------
-    traj : Trajectory-like
-    aname : str, required
-        Name of the new atom.
-    elt : str, default "H"
-        Element of the new atom.
-    rname : str, default "TMP"
-        Residue name for the new atom.
-    xyz : tuple or list, optional
-        Coordinates of the new atom (default: (0.0, 0.0, 0.0)).
-    mass : float, optional
-        Mass of the new atom.
-    charge : float, optional
-        Charge of the new atom.
-    dtype : str, default 'dataset'
-        Output data type.
-    top : Topology, optional
-    frame_indices : array-like, optional
-
-    Returns
-    -------
-    DatasetList or ndarray
-    """
-    command = (CommandBuilder()
-               .add("aname", aname)
-               .add("elt", elt)
-               .add("rname", rname)
-               .add("xyz", " ".join(map(str, xyz)) if xyz else None)
-               .add("mass", str(mass), condition=mass is not None)
-               .add("charge", str(charge), condition=charge is not None)
-               .build())
-
-    action_datasets, _ = do_action(traj, command, c_action.Action_AddAtom)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
