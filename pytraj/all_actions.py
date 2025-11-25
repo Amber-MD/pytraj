@@ -84,7 +84,6 @@ __all__ = [
     'watershell', 'wavelet', 'xcorr', 'xtalsymm', 'toroidal_diffusion',
     'multi_pucker', 'avg_box', 'convert_to_frac', 'create_reservoir',
     'dihedral_rms', 'ene_decomp', 'infraredspec',
-    'time_analysis'
 ]  # yapf: disable
 
 
@@ -3551,29 +3550,4 @@ def infraredspec(traj=None, mask="", out=None, maxlag=None, tstep=None, rawout=N
     # Finalize the action
     action.post_process()
 
-    return get_data_from_dtype(action_datasets, dtype=dtype)
-
-
-@super_dispatch()
-def time_analysis(traj=None, mask="", dtype='dataset', top=None, frame_indices=None):
-    """Perform time analysis.
-
-    Parameters
-    ----------
-    traj : Trajectory-like
-    mask : str, atom mask
-    dtype : str, default 'dataset'
-        Output data type.
-    top : Topology, optional
-    frame_indices : array-like, optional
-
-    Returns
-    -------
-    DatasetList or ndarray
-    """
-    command = (CommandBuilder()
-               .add(mask)
-               .build())
-
-    action_datasets, _ = do_action(traj, command, c_action.Action_Time)
     return get_data_from_dtype(action_datasets, dtype=dtype)
