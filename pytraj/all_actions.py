@@ -128,6 +128,26 @@ class AnalysisRunner:
         return self.datasets
 
 
+class CommandBuilder:
+    def __init__(self):
+        self.parts = []
+
+    def add(self, key, value=None, condition=True):
+        if condition and value is not None:
+            if isinstance(value, bool):
+                if value:
+                    self.parts.append(key)
+            else:
+                self.parts.append(f"{key} {value}")
+        elif condition and value is None:
+            self.parts.append(key)
+        return self
+
+    def build(self, base_command=""):
+        command_parts = [base_command] + self.parts
+        return " ".join(filter(None, command_parts))
+
+
 def _assert_mutable(trajiter):
     """make sure the input is not TrajectoryIterator
     """
@@ -804,17 +824,16 @@ def watershell(traj=None,
     >>> data = pt.watershell(traj, solute_mask='!:WAT')
     >>> data = pt.watershell(traj, solute_mask='!:WAT', lower=5.0, upper=10.)
     """
-    solutemask_ = solute_mask
-
-    if solutemask_ in [None, '']:
+    if solute_mask in [None, '']:
         raise ValueError('must provide solute mask')
 
-    solventmask_ = solvent_mask if solvent_mask is not None else ''
-    noimage_ = 'noimage' if not image else ''
-
-    lower_ = 'lower ' + str(lower)
-    upper_ = 'upper ' + str(upper)
-    command = ' '.join((solutemask_, lower_, upper_, noimage_, solventmask_))
+    command = (CommandBuilder()
+               .add(solute_mask)
+               .add("lower", str(lower))
+               .add("upper", str(upper))
+               .add("noimage", condition=not image)
+               .add(solvent_mask, condition=solvent_mask is not None)
+               .build())
 
     action_datasets, _ = do_action(traj, command, c_action.Action_Watershell)
     return get_data_from_dtype(action_datasets, dtype=dtype)
@@ -1095,36 +1114,30 @@ def rdf(traj=None,
     - do not use this method with pytraj.pmap
     '''
 
-
     traj = get_fiterator(traj, frame_indices)
+
+    # Convert masks to string format if needed
     if not isinstance(solvent_mask, str):
         solvent_mask = array_to_cpptraj_atommask(solvent_mask)
-
 
     if not isinstance(solute_mask, str) and solute_mask is not None:
         solute_mask = array_to_cpptraj_atommask(solute_mask)
 
-
-    spacing_ = str(bin_spacing)
-    maximum_ = str(maximum)
-    solventmask_ = solvent_mask
-    solutemask_ = solute_mask
-    noimage_ = 'noimage' if not image else ''
-    density_ = 'density ' + str(density) if density is not None else ''
-    volume_ = 'volume' if volume else ''
-    center1_ = 'center1' if center_solvent else ''
-    center2_ = 'center2' if center_solute else ''
-    nointramol_ = 'nointramol' if not intramol else ''
-    raw_rdf_ = "rawrdf pytraj_tmp_output_raw.agr" if raw_rdf else ''
-
-
-    # order does matters
-    # the order between solventmask_ and solutemask_ is swapped compared
-    # to cpptraj's doc (to get correct result)
-    command = ' '.join(("pytraj_tmp_output.agr", spacing_, maximum_,
-                        solventmask_, solutemask_, noimage_, density_, volume_,
-                        center1_, center2_, nointramol_, raw_rdf_))
-
+    # Build command using CommandBuilder
+    command = (CommandBuilder()
+               .add("pytraj_tmp_output.agr")
+               .add(str(bin_spacing))
+               .add(str(maximum))
+               .add(solvent_mask)
+               .add(solute_mask, condition=solute_mask is not None)
+               .add("noimage", condition=not image)
+               .add("density", str(density), condition=density is not None)
+               .add("volume", condition=volume)
+               .add("center1", condition=center_solvent)
+               .add("center2", condition=center_solute)
+               .add("nointramol", condition=not intramol)
+               .add("rawrdf pytraj_tmp_output_raw.agr", condition=raw_rdf)
+               .build())
 
     c_dslist, _ = do_action(traj, command, c_action.Action_Radial)
     # make a copy sine c_dslist[-1].values return view of its data
@@ -1148,7 +1161,10 @@ def pairdist(traj,
     ----------
     traj : Trajectory-like
     mask : str, default all atoms
+    mask2 : str, default ''
+        second mask for pair distribution
     delta : float, default 0.1
+        bin spacing
     dtype : str, default 'ndarray'
         dtype of return data
     top : Topology, optional
@@ -1159,10 +1175,11 @@ def pairdist(traj,
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> data = pt.pairdist(traj)
     '''
-    mask_ = 'mask ' + mask
-    mask2_ = 'mask2 ' + str(mask2) if mask2 else ''
-    delta_ = 'delta ' + str(delta)
-    command = ' '.join((mask_, mask2_, delta_))
+    command = (CommandBuilder()
+               .add("mask", mask)
+               .add("mask2", mask2, condition=bool(mask2))
+               .add("delta", str(delta))
+               .build())
 
     action_datasets, _ = do_action(traj, command, c_action.Action_PairDist)
     return get_data_from_dtype(action_datasets, dtype=dtype)
@@ -1497,19 +1514,28 @@ def multidihedral(traj=None,
     >>> data = pt.multidihedral(traj, dihedral_types='phi psi', resrange='3-7')
     >>> data = pt.multidihedral(traj, dihedral_types='phi psi', resrange=[3, 4, 8])
     """
-    resrange_str = " "
+    # Process resrange
+    resrange_str = None
     if resrange:
         if isinstance(resrange, str):
-            resrange_str = "resrange " + str(resrange)
+            resrange_str = str(resrange)
         else:
             from pytraj.utils import convert as cv
-            resrange_str = "resrange " + str(cv.array_to_cpptraj_range(resrange))
+            resrange_str = str(cv.array_to_cpptraj_range(resrange))
 
-    dihedral_types_str = str(dihedral_types) if dihedral_types else " "
-    define_new_type_str = ' '.join(('dihtype', str(define_new_type))) if define_new_type else ''
-    range360_str = 'range360' if range360 else ''
+    # Process define_new_type
+    define_new_type_str = None
+    if define_new_type:
+        define_new_type_str = f"dihtype {str(define_new_type)}"
 
-    command = " ".join((dihedral_types_str, resrange_str, define_new_type_str, range360_str))
+    # Build command using CommandBuilder
+    command = (CommandBuilder()
+               .add(str(dihedral_types), condition=dihedral_types is not None)
+               .add("resrange", resrange_str, condition=resrange_str is not None)
+               .add(define_new_type_str, condition=define_new_type_str is not None)
+               .add("range360", condition=range360)
+               .build())
+
     action_datasets, _ = do_action(traj, command, c_action.Action_MultiDihedral)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
@@ -1902,13 +1928,16 @@ def native_contacts(traj=None,
         mask2 = array_to_cpptraj_atommask(mask2)
     mask_str = ' '.join((mask, mask2))
 
-    distance_str = f'distance {str(distance)}'
-    image_str = "noimage" if not image else ""
-    solvent_str = "includesolvent" if include_solvent else ""
-    byres_str = "byresidue" if byres else ""
+    command = (CommandBuilder()
+               .add("ref myframe")
+               .add(mask_str)
+               .add("distance", str(distance))
+               .add("noimage", condition=not image)
+               .add("includesolvent", condition=include_solvent)
+               .add("byresidue", condition=byres)
+               .add(options, condition=bool(options))
+               .build())
 
-    command = " ".join(('ref myframe', mask_str, distance_str, image_str,
-                         solvent_str, byres_str, options))
     action_datasets.add(DatasetType.REFERENCE_FRAME, 'myframe')
     action_datasets[0].top = top
     action_datasets[0].add_frame(ref)
@@ -2191,26 +2220,24 @@ def pucker(traj=None,
     if resrange is None:
         resrange = range(top_.n_residues)
 
-
-    _range360 = "range360" if range360 else ""
-    geom = "geom" if not use_com else ""
-    amp = "amplitude" if amplitude else ""
-    offset_ = "offset " + str(offset) if offset else ""
-
-
     c_dslist = CpptrajDatasetList()
 
-
     for res in resrange:
-        command = " ".join((":" + str(res + 1) + '@' + x for x in pucker_mask))
+        atom_mask = " ".join((":" + str(res + 1) + '@' + x for x in pucker_mask))
         name = "pucker_res" + str(res + 1)
-        command = " ".join((name, command, _range360, method, geom, amp,
-                            offset_))
 
+        command = (CommandBuilder()
+                   .add(name)
+                   .add(atom_mask)
+                   .add("range360", condition=range360)
+                   .add(method)
+                   .add("geom", condition=not use_com)
+                   .add("amplitude", condition=amplitude)
+                   .add("offset", str(offset), condition=offset is not None)
+                   .build())
 
         act = c_action.Action_Pucker()
         act(command, traj, top=top_, dslist=c_dslist)
-
 
     return get_data_from_dtype(c_dslist, dtype)
 
@@ -2647,15 +2674,17 @@ def gist(traj,
     out :  dict (or another data type based on dtype)
         User should always use the default dtype
     """
-    grid_center_command = f'gridcntr {" ".join(map(str, grid_center))}'
-    grid_dim_command = f'griddim {" ".join(map(str, grid_dim))}'
-    grid_spacing_command = f'gridspacn {grid_spacing}'
-    do_order_command = 'doorder' if do_order else ''
-    do_eij_command = 'doeij' if do_eij else ''
-    refdens_command = f'refdens {reference_density}'
-    temperature_command = f'temp {temperature}'
+    command = (CommandBuilder()
+               .add("doorder", condition=do_order)
+               .add("doeij", condition=do_eij)
+               .add("refdens", str(reference_density))
+               .add("gridcntr", " ".join(map(str, grid_center)))
+               .add("griddim", " ".join(map(str, grid_dim)))
+               .add("gridspacn", str(grid_spacing))
+               .add("temp", str(temperature))
+               .add(options, condition=bool(options))
+               .build())
 
-    command = ' '.join((do_order_command, do_eij_command, refdens_command, grid_center_command, grid_dim_command, grid_spacing_command, temperature_command, options))
     action_datasets, _ = do_action(traj, command, c_action.Action_GIST)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
