@@ -3493,19 +3493,28 @@ def ene_decomp(traj=None, mask="", savecomponents=False, out=None, dtype='datase
                .add("savecomponents", condition=savecomponents)
                .add("out", out, condition=out is not None)
                .build())
-
     action_datasets, _ = do_action(traj, command, c_action.Action_EneDecomp)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
 @super_dispatch()
-def infrared_spectrum(traj=None, mask="", dtype='dataset', top=None, frame_indices=None):
+def infrared_spectrum(traj=None, mask="", out=None, maxlag=None, tstep=None, rawout=None, extra_options=None, dtype='dataset', top=None, frame_indices=None):
     """Compute the infrared spectrum.
 
     Parameters
     ----------
     traj : Trajectory-like
     mask : str, atom mask
+    out : str, optional
+        Output filename for the IR spectrum.
+    maxlag : int, optional
+        Maximum lag for the calculation.
+    tstep : float, optional
+        Time step between frames.
+    rawout : str, optional
+        Output filename for raw data.
+    extra_options : str, optional
+        Additional cpptraj options for future extensibility.
     dtype : str, default 'dataset'
         Output data type.
     top : Topology, optional
@@ -3517,11 +3526,15 @@ def infrared_spectrum(traj=None, mask="", dtype='dataset', top=None, frame_indic
     """
     command = (CommandBuilder()
                .add(mask)
+               .add("out", out, condition=out is not None)
+               .add("maxlag", str(maxlag), condition=maxlag is not None)
+               .add("tstep", str(tstep), condition=tstep is not None)
+               .add("rawout", rawout, condition=rawout is not None)
+               .add(extra_options, condition=extra_options is not None)
                .build())
 
     action_datasets, _ = do_action(traj, command, c_action.Action_InfraredSpectrum)
     return get_data_from_dtype(action_datasets, dtype=dtype)
-
 
 @super_dispatch()
 def keep(traj=None, mask="", dtype='dataset', top=None, frame_indices=None):
