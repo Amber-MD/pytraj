@@ -82,7 +82,7 @@ __all__ = [
     'set_velocity', 'strip', 'superpose', 'surf', 'symmrmsd', 'ti', 'timecorr',
     'transform', 'translate', 'velocityautocorr', 'vector', 'volmap', 'volume',
     'watershell', 'wavelet', 'xcorr', 'xtalsymm', 'toroidal_diffusion',
-    'multi_pucker', 'avg_box', 'convert_to_frac', 'create_reservoir',
+    'multipucker', 'convert_to_frac', 'create_reservoir',
     'dihedral_rms', 'ene_decomp', 'infraredspec',
 ]  # yapf: disable
 
@@ -3322,22 +3322,30 @@ def toroidal_diffusion(traj=None, mask="", mass=False, out=None, diffout=None, t
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
 @super_dispatch()
-def multi_pucker(traj=None, mask="", resrange=None, method="altona", range360=False, amplitude=False, dtype='dataset', top=None, frame_indices=None):
+def multipucker(traj=None, resrange=None, method="altona", range360=False, amplitude=False, ampout=None, theta=False, thetaout=None, offset=None, out=None, dtype='dataset', top=None, frame_indices=None):
     """Perform multi-pucker analysis.
 
     Parameters
     ----------
     traj : Trajectory-like
-    mask : str, atom mask
-        Mask to select atoms for the calculation.
     resrange : str or array-like, optional
         Residue range for the analysis. If not provided, all residues are used.
     method : str, default "altona"
         Pucker calculation method. Options: "altona" or "cremer".
     range360 : bool, default False
-        Use 0-360 degree range if True, otherwise use 0-180.
+        Use 0-360 degree range if True, otherwise use -180 to 180.
     amplitude : bool, default False
         Include amplitude in the output if True.
+    ampout : str, optional
+        Output filename for amplitude values.
+    theta : bool, default False
+        Include theta values in the output if True.
+    thetaout : str, optional
+        Output filename for theta values.
+    offset : float, optional
+        Offset to add to pucker values (in degrees).
+    out : str, optional
+        Output filename for the results.
     dtype : str, default 'dataset'
         Output data type.
     top : Topology, optional
@@ -3357,36 +3365,21 @@ def multi_pucker(traj=None, mask="", resrange=None, method="altona", range360=Fa
     else:
         resrange_str = None
 
+    # Build the command string
     command = (CommandBuilder()
-               .add(mask)
                .add("resrange", resrange_str, condition=resrange_str is not None)
                .add(method)
                .add("range360", condition=range360)
                .add("amplitude", condition=amplitude)
+               .add("ampout", ampout, condition=ampout is not None)
+               .add("theta", condition=theta)
+               .add("thetaout", thetaout, condition=thetaout is not None)
+               .add("offset", str(offset), condition=offset is not None)
+               .add("out", out, condition=out is not None)
                .build())
 
+    # Execute the action
     action_datasets, _ = do_action(traj, command, c_action.Action_MultiPucker)
-    return get_data_from_dtype(action_datasets, dtype=dtype)
-
-
-@super_dispatch()
-def avg_box(traj=None, dtype='dataset', top=None, frame_indices=None):
-    """Compute the average box dimensions.
-
-    Parameters
-    ----------
-    traj : Trajectory-like
-    dtype : str, default 'dataset'
-        Output data type.
-    top : Topology, optional
-    frame_indices : array-like, optional
-
-    Returns
-    -------
-    DatasetList or ndarray
-    """
-    command = "avgbox"
-    action_datasets, _ = do_action(traj, command, c_action.Action_AvgBox)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
