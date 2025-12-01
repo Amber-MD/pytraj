@@ -11,22 +11,22 @@ __all__ = [
 
 def _calculate_distance(traj, int_2darr: np.ndarray, n_frames: int, dtype: str) -> Union[np.ndarray, DatasetList]:
     """Helper function to calculate distances"""
-    
+
     if dtype != 'ndarray':
         # Use standard pytraj approach for other dtypes
         dslist = CpptrajDatasetList()
-        
+
         for idx in int_2darr:
             command = f"distance :{idx[0]+1} :{idx[1]+1}"
             _distance = c_action.Action_Distance()
             _distance.read_input(command, top=traj.top, dslist=dslist)
             _distance.setup(traj.top)
-            
+
             for frame in traj:
                 _distance.compute(frame)
-            
+
             _distance.post_process()
-        
+
         return get_data_from_dtype(dslist, dtype=dtype)
     else:
         # Direct numpy calculation for speed
@@ -35,7 +35,7 @@ def _calculate_distance(traj, int_2darr: np.ndarray, n_frames: int, dtype: str) 
             traj_xyz_subset = traj.xyz[:, [idx0, idx1]]  # shape: (n_frames, 2, 3)
             diff = traj_xyz_subset[:, 0] - traj_xyz_subset[:, 1]  # shape: (n_frames, 3)
             distances[i] = np.sqrt(np.sum(diff**2, axis=1))  # shape: (n_frames,)
-        
+
         if len(int_2darr) == 1:
             return distances[0]
         else:
@@ -50,7 +50,7 @@ def distance(traj=None,
              dtype='ndarray',
              frame_indices=None):
     """Compute distance.
-    
+
     Parameters
     ----------
     traj : Trajectory-like
@@ -58,10 +58,10 @@ def distance(traj=None,
         cpptraj distance command
     mask : {str, array-like}, optional
         Atom mask(s)
-    indices : {None, array-like}, optional  
+    indices : {None, array-like}, optional
         If given, use array indices. If not given, use `mask`
     top : Topology, optional, default=None
-    dtype : str, default='ndarray' 
+    dtype : str, default='ndarray'
         return data type
     frame_indices : array-like, optional
         frame indices
@@ -79,7 +79,7 @@ def distance(traj=None,
     >>> data.shape
     (10,)
 
-    >>> # multiple distances, using masks  
+    >>> # multiple distances, using masks
     >>> data = pt.distance(traj, mask=[['@CA', '@CB'], ['@N', '@H']])
     >>> data.shape
     (2, 10)
@@ -89,32 +89,32 @@ def distance(traj=None,
     >>> data.shape
     (10,)
     """
-    
+
     top = traj.top.copy() if top is None else top
-    
+
     if indices is not None:
         int_2darr = np.asarray(indices, dtype=int)
         if int_2darr.ndim != 2:
             raise ValueError("indices must be 2D array")
         return _calculate_distance(traj, int_2darr, traj.n_frames, dtype)
-        
+
     elif mask:
         indices = get_list_of_commands(mask, top=top)
         int_2darr = np.asarray(indices, dtype=int)
         return _calculate_distance(traj, int_2darr, traj.n_frames, dtype)
-        
+
     elif command:
         dslist = CpptrajDatasetList()
         act = c_action.Action_Distance()
-        act.read_input(command, top=top, dslist=dslist) 
+        act.read_input(command, top=top, dslist=dslist)
         act.setup(top)
-        
+
         for frame in traj:
             act.compute(frame)
-        
+
         act.post_process()
         return get_data_from_dtype(dslist, dtype=dtype)
-        
+
     else:
         raise ValueError("Must provide command, mask, or indices")
 
@@ -128,7 +128,7 @@ def _distance_to_ref_or_point(traj=None,
                                frame_indices=None):
     """distance from atom (mask) to a given reference trajectory or a given point
 
-    Parameters  
+    Parameters
     ----------
     traj : Trajectory-like
     mask : str
@@ -157,49 +157,49 @@ def _distance_to_ref_or_point(traj=None,
     >>> pt.distance(traj, mask='@CA', point=(0, 0, 0), dtype='ndarray').shape
     (10, 12)
     """
-    
+
     top = top if top is not None else traj.top.copy()
     atom_indices = top.select(mask)
-    
+
     if ref is not None:
-        
+
         if hasattr(ref, 'xyz'):
             # single frame
             if ref.n_atoms == traj.n_atoms:
                 # same system
                 ref_xyz = ref.xyz[atom_indices]
                 distances = np.empty((traj.n_frames, len(atom_indices)))
-                
+
                 for i, frame in enumerate(traj):
-                    atom_xyz = frame.xyz[atom_indices] 
+                    atom_xyz = frame.xyz[atom_indices]
                     diff = atom_xyz - ref_xyz
                     distances[i] = np.sqrt(np.sum(diff**2, axis=1))
-                
+
                 return distances
             else:
                 # different systems - calculate distance to each atom in ref
                 ref_xyz = ref.xyz
                 distances = np.empty((traj.n_frames, len(atom_indices), ref.n_atoms))
-                
+
                 for i, frame in enumerate(traj):
                     atom_xyz = frame.xyz[atom_indices]
                     for j, atom_pos in enumerate(atom_xyz):
                         diff = ref_xyz - atom_pos
                         distances[i, j] = np.sqrt(np.sum(diff**2, axis=1))
-                
+
                 return distances
         else:
             raise ValueError("ref must be frame-like object with xyz attribute")
-            
+
     elif point is not None:
         point = np.asarray(point, dtype=float)
         distances = np.empty((traj.n_frames, len(atom_indices)))
-        
+
         for i, frame in enumerate(traj):
             atom_xyz = frame.xyz[atom_indices]
             diff = atom_xyz - point
             distances[i] = np.sqrt(np.sum(diff**2, axis=1))
-        
+
         return distances
     else:
         raise ValueError("Either ref or point must be provided")
@@ -214,7 +214,7 @@ def pairwise_distance(traj=None,
 
     Parameters
     ----------
-    traj : Trajectory-like  
+    traj : Trajectory-like
     mask : str
         mask to select atoms
     dtype : str, default 'ndarray'
@@ -233,10 +233,10 @@ def pairwise_distance(traj=None,
     >>> data.shape # distance of all atom pairs in residue 3
     (2, 66)
     """
-    
+
     c_dslist = CpptrajDatasetList()
     c_action = c_action.Action_Pairwise()
-    
+
     command = mask
     c_action.read_input(command, top=traj.top, dslist=c_dslist)
     c_action.setup(traj.top)
@@ -274,8 +274,8 @@ def _calculate_angles_for_int_array(traj, integer_array, n_frames, dtype):
     """
     angle_vals = np.empty((len(integer_array), n_frames))
     for i, (idx0, idx1, idx2) in enumerate(integer_array):
-        angle_vals[i] = vector.angle(traj.xyz[:, idx0], 
-                                   traj.xyz[:, idx1], 
+        angle_vals[i] = vector.angle(traj.xyz[:, idx0],
+                                   traj.xyz[:, idx1],
                                    traj.xyz[:, idx2])
     return angle_vals
 
@@ -335,14 +335,14 @@ def angle(traj=None,
     >>> data.shape
     (10,)
 
-    >>> # multiple commands  
+    >>> # multiple commands
     >>> data = pt.angle(traj, command=["angle :3 :7 :8", "angle :4 :8 :9"])
     >>> data.shape
     (2, 10)
 
     >>> # using mask
     >>> data = pt.angle(traj, mask=":3 :7 :8")
-    >>> data.shape  
+    >>> data.shape
     (10,)
 
     >>> # using indices
@@ -350,44 +350,44 @@ def angle(traj=None,
     >>> data.shape
     (10,)
     """
-    
+
     list_of_commands = _check_command_type(command)
     if len(list_of_commands) > 1 and not isinstance(command, str):
         # multiple commands
-        return _create_and_compute_action_list(list_of_commands, traj, 
+        return _create_and_compute_action_list(list_of_commands, traj,
                                              c_action.Action_Angle, dtype=dtype)
-    
+
     if indices is not None:
         integer_array = np.asarray(indices, dtype=int)
         if integer_array.ndim == 1:
             if len(integer_array) != 3:
                 raise ValueError("indices should have 3 items for angle")
             integer_array = integer_array.reshape(1, -1)
-        
-        angle_vals = _calculate_angles_for_int_array(traj, integer_array, 
+
+        angle_vals = _calculate_angles_for_int_array(traj, integer_array,
                                                    traj.n_frames, dtype)
         if len(integer_array) == 1:
             angle_vals = angle_vals.flatten()
-        
+
         return angle_vals
-        
+
     elif mask is not None:
         integer_array = get_list_of_commands(mask, top=traj.top)
         angle_vals = _calculate_angles_for_int_array(traj, integer_array,
                                                    traj.n_frames, dtype)
         if len(integer_array) == 1:
-            angle_vals = angle_vals.flatten() 
-            
+            angle_vals = angle_vals.flatten()
+
         return angle_vals
-        
+
     else:
-        # use command  
+        # use command
         c_dslist = CpptrajDatasetList()
         c_action = c_action.Action_Angle()
-        
+
         if command == '':
             raise ValueError("command can't be empty")
-            
+
         c_action.read_input(command, top=traj.top, dslist=c_dslist)
         c_action.setup(traj.top)
 
@@ -412,12 +412,12 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
     announcement.
     """
     # use list instead of tuple so the order does not change
-    dih_types = ['phi', 'psi', 'chi1', 'chi2', 'chi3', 'chi4', 'chi5', 
+    dih_types = ['phi', 'psi', 'chi1', 'chi2', 'chi3', 'chi4', 'chi5',
                 'omega', 'alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'nu1', 'nu2']
     arr = np.empty((len(mask), traj.n_frames))
 
     c_dslist = CpptrajDatasetList()
-    
+
     for i, m in enumerate(mask):
         if m in dih_types:
             if resid != 0:
@@ -426,7 +426,7 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
                 command = f"dihedral {m}"
         else:
             command = f"dihedral {m}"
-        
+
         c_action = c_action.Action_Dihedral()
         c_action.read_input(command, top=traj.top, dslist=c_dslist)
         c_action.setup(traj.top)
@@ -436,13 +436,13 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
 
         c_action.post_process()
         arr[i] = c_dslist[-1].values
-    
+
     return arr
 
 
 def _calculate_dihedrals_for_int_array(traj, integer_array, n_frames, dtype):
     """Calculate dihedrals for integer array indices
-    
+
     Parameters
     ----------
     traj : trajectory-like
@@ -459,7 +459,7 @@ def _calculate_dihedrals_for_int_array(traj, integer_array, n_frames, dtype):
     for i, (idx0, idx1, idx2, idx3) in enumerate(integer_array):
         dihedral_vals[i] = vector.dihedral(traj.xyz[:, idx0],
                                          traj.xyz[:, idx1],
-                                         traj.xyz[:, idx2], 
+                                         traj.xyz[:, idx2],
                                          traj.xyz[:, idx3])
     return dihedral_vals
 
@@ -484,7 +484,7 @@ def dihedral(traj=None,
     indices : array-like, shape (4,) or shape (n_dihedrals, 4)
         atom index
     resid : int, default 0
-        residue id, start from 1. This is used to specify 
+        residue id, start from 1. This is used to specify
         restraint for specific residue
     dtype : str, default 'ndarray'
         return data type
@@ -504,13 +504,13 @@ def dihedral(traj=None,
     >>> data.shape
     (10,)
 
-    >>> # calc psi of 1st residue  
+    >>> # calc psi of 1st residue
     >>> data = pt.dihedral(traj, resid=1, mask='psi')
     >>> data.shape
     (10,)
 
     >>> # calc multiple dihedrals
-    >>> data = pt.dihedral(traj, resid=1, mask=['phi', 'psi'])  
+    >>> data = pt.dihedral(traj, resid=1, mask=['phi', 'psi'])
     >>> data.shape
     (2, 10)
 
@@ -519,7 +519,7 @@ def dihedral(traj=None,
     >>> data.shape
     (10,)
     """
-    
+
     list_of_commands = _check_command_type(command)
     if len(list_of_commands) > 1 and not isinstance(command, str):
         # multiple commands
@@ -532,18 +532,18 @@ def dihedral(traj=None,
             if len(integer_array) != 4:
                 raise ValueError("indices should have 4 items for dihedral")
             integer_array = integer_array.reshape(1, -1)
-            
+
         dihedral_vals = _calculate_dihedrals_for_int_array(traj, integer_array,
                                                          traj.n_frames, dtype)
         if len(integer_array) == 1:
             dihedral_vals = dihedral_vals.flatten()
-            
+
         return dihedral_vals
-        
+
     elif mask is not None:
         if isinstance(mask, str):
             mask = [mask]
-        
+
         if len(mask) == 1 and resid == 0:
             # single dihedral with mask
             integer_array = get_list_of_commands(mask[0], top=traj.top)
@@ -557,10 +557,10 @@ def dihedral(traj=None,
         # use command
         c_dslist = CpptrajDatasetList()
         c_action = c_action.Action_Dihedral()
-        
+
         if command == '':
             raise ValueError("command can't be empty")
-            
+
         c_action.read_input(command, top=traj.top, dslist=c_dslist)
         c_action.setup(traj.top)
 
@@ -582,7 +582,7 @@ def mindist(traj=None,
     Parameters
     ----------
     traj : Trajectory-like
-    mask : str 
+    mask : str
     dtype : str, default 'ndarray'
     top : Topology, optional
     frame_indices : array-like, optional

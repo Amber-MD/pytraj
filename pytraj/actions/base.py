@@ -89,23 +89,23 @@ def _assert_mutable(trajiter):
         return Trajectory(trajiter)
     else:
         return trajiter
-        
+
 
 def in_voxel(voxel_cntr, xyz, delta):
     x0, y0, z0 = voxel_cntr
     x, y, z = xyz
-    
+
     return np.abs(x - x0) <= delta and np.abs(y - y0) <= delta and np.abs(z - z0) <= delta
 
 
 def count_in_voxel(traj=None, mask="", voxel_cntr=(0, 0, 0), voxel_size=5):
     """count number of atoms in given voxel
-    
+
     Parameters
     ----------
     traj : Trajectory-like
     mask : str
-        mask 
+        mask
     voxel_cntr : tuple of floats, default (0, 0, 0)
         box center
     voxel_size : float, default 5.0
@@ -131,7 +131,7 @@ def count_in_voxel(traj=None, mask="", voxel_cntr=(0, 0, 0), voxel_size=5):
             if in_voxel(voxel_cntr, xyz, half_size):
                 count += 1
         count_arr[n] = count
-    
+
     return count_arr
 
 
@@ -144,7 +144,7 @@ def pair_distance(p1, p2):
 
 def closest_atom(top=None, frame=None, point=(0, 0, 0), mask=""):
     """find closest atom to a given point
-    
+
     Parameters
     ----------
     top : Topology
@@ -170,15 +170,15 @@ def closest_atom(top=None, frame=None, point=(0, 0, 0), mask=""):
         indices = np.arange(0, top.n_atoms)
     else:
         indices = top.select(mask)
-    
-    min_dist = 1E6 
+
+    min_dist = 1E6
     min_index = 0
     point = np.asarray(point)
-    
+
     for index in indices:
         dist = pair_distance(frame.xyz[index], point)
         if dist < min_dist:
             min_dist = dist
             min_index = index
-    
+
     return dict(index=min_index, distance=min_dist)

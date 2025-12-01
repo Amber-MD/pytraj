@@ -1,6 +1,6 @@
 # Import all actions for backward compatibility
 from .base import *
-from .geometry import *  
+from .geometry import *
 from .structure import *
 from .diffusion import *
 from .energy import *

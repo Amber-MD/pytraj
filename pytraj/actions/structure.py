@@ -82,7 +82,7 @@ def surf(traj=None, mask="", dtype='ndarray', frame_indices=None, top=None):
     ----------
     traj : Trajectory-like
     mask : str
-        atom mask  
+        atom mask
     dtype : str, default 'ndarray'
         return data type
     top : Topology, optional
@@ -135,7 +135,7 @@ def molsurf(traj=None,
     command = f"{mask} probe {probe}"
     if radii_type:
         command += f" {radii_type}"
-    
+
     c_action = c_action.Action_Molsurf()
     c_dslist = CpptrajDatasetList()
     c_action.read_input(command, top=traj.top, dslist=c_dslist)
@@ -195,7 +195,7 @@ def watershell(traj=None,
     solvent_mask : str, default ':WAT@O'
         solvent mask
     lower : float, default 3.4
-        lower bound distance 
+        lower bound distance
     upper : float, default 5.0
         upper bound distance
     dtype : str, default 'ndarray'
@@ -234,7 +234,7 @@ def rmsf(traj=None,
     ----------
     traj : Trajectory-like
     mask : str
-        atom mask 
+        atom mask
     byres : bool, default False
         calculate RMSF per residue
     byatom : bool, default True
@@ -253,7 +253,7 @@ def rmsf(traj=None,
         command += " byres"
     if byatom:
         command += " byatom"
-    
+
     c_action = c_action.Action_AtomicFluct()
     c_dslist = CpptrajDatasetList()
     c_action.read_input(command, top=traj.top, dslist=c_dslist)
@@ -277,7 +277,7 @@ def bfactors(traj=None,
 
     Parameters
     ----------
-    traj : Trajectory-like  
+    traj : Trajectory-like
     mask : str
         atom mask
     byres : bool, default False
@@ -298,9 +298,9 @@ def bfactors(traj=None,
     command = mask or ""
     if byres:
         command += " byres"
-    if byatom: 
+    if byatom:
         command += " byatom bfactor"
-        
+
     c_action = c_action.Action_AtomicFluct()
     c_dslist = CpptrajDatasetList()
     c_action.read_input(command, top=traj.top, dslist=c_dslist)
@@ -330,7 +330,7 @@ def pucker(traj=None,
         pucker calculation method. Either 'altona' or 'cremer'
     dtype : str, default 'ndarray'
         return data type
-    top : Topology, optional  
+    top : Topology, optional
     frame_indices : array-like, optional
 
     Returns
@@ -344,7 +344,7 @@ def pucker(traj=None,
         command += " altona"
     else:
         raise ValueError("method must be either 'altona' or 'cremer'")
-        
+
     c_action = c_action.Action_Pucker()
     c_dslist = CpptrajDatasetList()
     c_action.read_input(command, top=traj.top, dslist=c_dslist)
