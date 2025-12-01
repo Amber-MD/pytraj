@@ -82,7 +82,7 @@ __all__ = [
     'set_velocity', 'strip', 'superpose', 'surf', 'symmrmsd', 'ti', 'timecorr',
     'transform', 'translate', 'velocityautocorr', 'vector', 'volmap', 'volume',
     'watershell', 'wavelet', 'xcorr', 'xtalsymm', 'toroidal_diffusion', 'tordiff',
-    'multipucker', 'convert_to_frac',
+    'multipucker',
     'dihedral_rms', 'ene_decomp', 'infraredspec',
 ]  # yapf: disable
 
@@ -3383,31 +3383,6 @@ def multipucker(traj=None, resrange=None, method="altona", range360=False, ampli
                .build())
 
     action_datasets, _ = do_action(traj, command, c_action.Action_MultiPucker)
-    return get_data_from_dtype(action_datasets, dtype=dtype)
-
-
-@super_dispatch()
-def convert_to_frac(traj=None, mask="", dtype='dataset', top=None, frame_indices=None):
-    """Convert coordinates to fractional values.
-
-    Parameters
-    ----------
-    traj : Trajectory-like
-    mask : str, atom mask
-    dtype : str, default 'dataset'
-        Output data type.
-    top : Topology, optional
-    frame_indices : array-like, optional
-
-    Returns
-    -------
-    DatasetList or ndarray
-    """
-    command = (CommandBuilder()
-               .add(mask)
-               .build())
-
-    action_datasets, _ = do_action(traj, command, c_action.Action_ConvertToFrac)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
