@@ -15,6 +15,13 @@ from ..analysis.rmsd import (
     distance_rmsd
 )
 
+# Import align function to provide superpose alias
+from ..actions.topology_manipulation import align
+
+def superpose(traj, *args, **kwd):
+    """alias of align method"""
+    return align(traj, *args, **kwd)
+
 __all__ = [
     'rotation_matrix',
     'pairwise_rmsd',
@@ -22,5 +29,6 @@ __all__ = [
     'rmsd_nofit',
     'rmsd',
     'symmrmsd',
-    'distance_rmsd'
+    'distance_rmsd',
+    'superpose'
 ]

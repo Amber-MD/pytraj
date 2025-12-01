@@ -2,6 +2,8 @@
 Topology manipulation functions: centering, alignment, imaging, etc.
 """
 from .base import *
+# Ensure _assert_mutable is available
+from .base import _assert_mutable
 
 __all__ = [
     'center_of_mass', 'center_of_geometry', 'align', 'align_principal_axis',
@@ -18,14 +20,17 @@ def _calc_vector_center(traj=None,
                         top=None,
                         frame_indices=None):
     """compute 'center' of selected atoms."""
-    command = f"{mask} origin"
+    command = "center " + mask
     if mass:
         command += " mass"
 
     dslist = CpptrajDatasetList()
     act = c_action.Action_Vector()
-    act.read_input(command, top=traj.top, dslist=dslist)
-    act.setup(traj.top)
+    # Ensure top is a valid Topology object
+    if top is None:
+        top = traj.top
+    act.read_input(command, top=top, dslist=dslist)
+    act.setup(top)
 
     for frame in traj:
         act.compute(frame)
@@ -173,17 +178,33 @@ def align(traj,
     # create mutable trajectory
     mut_traj = _assert_mutable(traj)
 
-    superpose(mut_traj, mask=mask, ref=ref_frame, mass=mass, frame_indices=frame_indices)
+    # Use the correct Action_Align implementation
+    reference_name = 'myref'
+    reference_command = 'ref {}'.format(reference_name)
+    command_parts = [reference_command, mask]
+    if mass:
+        command_parts.append('mass')
+    align_command = ' '.join(command_parts)
 
-    dslist = rmsd(mut_traj, mask=mask, ref=ref_frame, mass=mass, dtype='dataset',
-                  frame_indices=frame_indices)
+    reference_topology = ref_frame.top if hasattr(ref_frame, 'top') else top
 
-    dslist.add(DatasetType.COORDS, name='_DEFAULTCRD_')
-    dslist[-1].top = mut_traj.top
+    action_datasets = CpptrajDatasetList()
+    action_datasets.add(DatasetType.REFERENCE, name=reference_name)
+    action_datasets[0].top = reference_topology
+    action_datasets[0].add_frame(ref_frame)
+
+    align_action = c_action.Action_Align()
+    align_action.read_input(align_command, top=top, dslist=action_datasets)
+    align_action.setup(top)
+
     for frame in mut_traj:
-        dslist[-1].append(frame)
+        align_action.compute(frame)
+    align_action.post_process()
 
-    return dslist
+    # remove ref
+    action_datasets._pop(0)
+
+    return action_datasets
 
 
 @super_dispatch()
