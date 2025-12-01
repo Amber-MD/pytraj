@@ -66,25 +66,19 @@ def count_in_voxel(traj=None, mask="", voxel_cntr=(0, 0, 0), voxel_size=5):
     -------
     1D ndarray, one dimensional numpy array containing the counts for each frame.
     """
-    delta = voxel_size / 2.0
-    results = np.zeros(len(traj), dtype=int)
+    lives_in_voxel = []
+    population = traj.top.atom_indices(mask)
+    delta = voxel_size / 2
 
-    for fidx, frame in enumerate(traj):
-        indices = traj.top.atom_indices(mask)
-        n_in_voxel = 0
-        for i in indices:
-            x = frame.xyz[i][0]
-            y = frame.xyz[i][1]
-            z = frame.xyz[i][2]
+    for frame in traj:
+        frame_voxAtoms = []
+        for atm in population:
+            coord = frame.atom(atm)
+            if (in_voxel(voxel_cntr, coord, delta)):
+                frame_voxAtoms.append(atm)
+        lives_in_voxel.append(frame_voxAtoms)
 
-            if in_voxel(voxel_cntr, (x, y, z), delta):
-                n_in_voxel += 1
-
-        results[fidx] = n_in_voxel
-
-    return results
-
-
+    return lives_in_voxel
 def pair_distance(p1, p2):
     x1, y1, z1 = p1
     x2, y2, z2 = p2
@@ -734,51 +728,37 @@ def permute_dihedrals(traj, filename, options=''):
     return mut_traj
 
 
-@super_dispatch()
 def check_structure(traj,
-                    mask='*',
-                    out=None,
-                    offset=0.2,
-                    bondsearch=3.0,
-                    nobondcheck=False,
-                    dtype='dataset',
+                    mask='',
+                    options='',
+                    frame_indices=None,
                     top=None,
-                    frame_indices=None):
-    """check structure for problems (such as bad bonds, coordinates, etc)
+                    dtype='ndarray'):
+    """check if the structure is ok or not
 
     Parameters
     ----------
-    traj: Trajectory-like
-    mask: str, default '*'
-        atom mask
-    out: str, optional
-        output filename
-    offset: float, default 0.2
-        offset value
-    bondsearch: float, default 3.0
-        bond search distance
-    nobondcheck: bool, default False
-        skip bond checking
-    dtype: str, default 'dataset'
-        return data type
-    top: Topology, optional
-    frame_indices: array-like, optional
+    traj : Trajectory-like
+    mask: str, default all atoms
+    options : str, default ''
+        extra cpptraj options
+    dtype : str, default 'ndarray'
 
     Returns
     -------
-    DatasetList or ndarray
+    out : Tuple[np.ndarray, str]
+        number of problems for each frame and detail
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_rna()
+    >>> failures = pt.check_structure(traj[:1])
     """
-    command = (CommandBuilder()
-               .add(mask)
-               .add("out", out, condition=out is not None)
-               .add("offset", str(offset))
-               .add("bondsearch", str(bondsearch))
-               .add("nobondcheck", condition=nobondcheck)
-               .build())
-    action_datasets, _ = do_action(traj, command, c_action.Action_CheckStructure)
-    return get_data_from_dtype(action_datasets, dtype=dtype)
-
-
+    command = ' '.join((mask, options))
+    action_datasets, c_stdout = do_action(traj, command,
+                                   c_action.Action_CheckStructure)
+    return get_data_from_dtype(action_datasets, dtype=dtype), c_stdout
 def crank(data0, data1, mode='distance', dtype='ndarray'):
     """Crank-shaft analysis
 

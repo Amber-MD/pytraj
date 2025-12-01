@@ -8,7 +8,7 @@ __all__ = [
     'principal_axes', 'translate', 'rotate', 'autoimage', 'image', 'center',
     'strip', 'replicate_cell', 'rotate_dihedral', 'set_dihedral', 'set_velocity',
     'randomize_ions', 'fiximagedbonds', 'closest', 'atom_map', 'check_chirality',
-    'check_structure', 'scale', '_closest_iter'
+    'scale', '_closest_iter'
 ]
 
 
@@ -816,45 +816,6 @@ def check_chirality(traj, mask='', dtype='dict'):
     c_dslist = CpptrajDatasetList()
     c_action = c_action.Action_CheckChirality()
     c_action.read_input(mask, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
-
-    for frame in traj:
-        c_action.compute(frame)
-
-    c_action.post_process()
-    return get_data_from_dtype(c_dslist, dtype=dtype)
-
-
-@super_dispatch()
-def check_structure(traj,
-                    mask='',
-                    options='',
-                    dtype='dataset',
-                    frame_indices=None,
-                    top=None):
-    """check structure for problems
-
-    Parameters
-    ----------
-    traj : Trajectory-like
-    mask : str, optional
-        atom mask
-    options : str, optional
-        extra options
-    dtype : str, default 'dataset'
-        return data type
-    frame_indices : array-like, optional
-    top : Topology, optional
-
-    Returns
-    -------
-    out : DatasetList
-    """
-    command = mask + " " + options
-
-    c_dslist = CpptrajDatasetList()
-    c_action = c_action.Action_CheckStructure()
-    c_action.read_input(command, top=traj.top, dslist=c_dslist)
     c_action.setup(traj.top)
 
     for frame in traj:
