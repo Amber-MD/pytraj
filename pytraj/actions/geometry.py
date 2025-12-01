@@ -218,7 +218,7 @@ def distance(traj=None,
     """
 
     from ..utils.get_common_objects import get_fiterator, get_topology
-    
+
     traj = get_fiterator(traj, frame_indices)
     top = get_topology(traj, top)
 
@@ -234,12 +234,14 @@ def distance(traj=None,
         int_2darr = np.asarray(indices, dtype=int)
         if int_2darr.ndim != 2:
             raise ValueError("indices must be 2D array")
-        return _calculate_distance(traj, int_2darr, traj.n_frames, dtype)
+        frame_count = traj.n_frames if n_frames is None else n_frames
+        return _calculate_distance(traj, int_2darr, frame_count, dtype)
 
     elif mask:
         indices = get_list_of_commands(mask, top=top)
         int_2darr = np.asarray(indices, dtype=int)
-        return _calculate_distance(traj, int_2darr, traj.n_frames, dtype)
+        frame_count = traj.n_frames if n_frames is None else n_frames
+        return _calculate_distance(traj, int_2darr, frame_count, dtype)
 
     elif command and isinstance(command, str):
         if image:
