@@ -3282,7 +3282,7 @@ def permute_dihedrals(traj, filename, options=''):
 
 
 @super_dispatch()
-def tordiff(traj=None, mask="", mass=False, out=None, diffout=None, time=1.0, options="", dtype='dict', top=None, frame_indices=None):
+def tordiff(traj=None, mask="", mass=False, out=None, diffout=None, time=1.0, extra_options="", dtype='dict', top=None, frame_indices=None):
     """Calculate diffusion using the toroidal-view-preserving scheme.
 
     Parameters
@@ -3298,7 +3298,7 @@ def tordiff(traj=None, mask="", mass=False, out=None, diffout=None, time=1.0, op
         Output filename for diffusion results.
     time : float, default 1.0
         Time between frames (ps).
-    options : str, optional
+    extra_options : str, optional
         Additional cpptraj options for future extensibility.
     dtype : str, default 'dataset'
         Output data type.
@@ -3316,7 +3316,7 @@ def tordiff(traj=None, mask="", mass=False, out=None, diffout=None, time=1.0, op
                .add("diffout", diffout, condition=diffout is not None)
                .add("mass", condition=mass)
                .add("time", str(time), condition=time != 1.0)
-               .add(options, condition=bool(options))
+               .add(extra_options, condition=bool(extra_options))
                .build())
 
     action_datasets, _ = do_action(traj, command, c_action.Action_ToroidalDiffusion)
@@ -3325,7 +3325,7 @@ def tordiff(traj=None, mask="", mass=False, out=None, diffout=None, time=1.0, op
 toroidal_diffusion = tordiff
 
 @super_dispatch()
-def multipucker(traj=None, resrange=None, method="altona", range360=False, amplitude=False, ampout=None, theta=False, thetaout=None, offset=None, out=None, puckertype=None, dtype='dict', top=None, frame_indices=None):
+def multipucker(traj=None, resrange=None, method="altona", range360=False, amplitude=False, ampout=None, theta=False, thetaout=None, offset=None, out=None, puckertype=None, extra_options="", dtype='dict', top=None, frame_indices=None):
     """Perform multi-pucker analysis.
 
     Parameters
@@ -3351,6 +3351,8 @@ def multipucker(traj=None, resrange=None, method="altona", range360=False, ampli
         Output filename for the results.
     puckertype : str, optional
         Specific pucker type to calculate (e.g., "furanoid:C2:C3:C4:C5:O2", "pyranoid:C1:C2:C3:C4:C5:O5", "pyranose")
+    extra_options : str, optional
+        Additional cpptraj options for future extensibility.
     dtype : str, default 'dict'
         Output data type.
     top : Topology, optional
@@ -3380,6 +3382,7 @@ def multipucker(traj=None, resrange=None, method="altona", range360=False, ampli
                .add("thetaout", thetaout, condition=thetaout is not None)
                .add("offset", str(offset), condition=offset is not None)
                .add("out", out, condition=out is not None)
+               .add(extra_options, condition=bool(extra_options))
                .build())
 
     action_datasets, _ = do_action(traj, command, c_action.Action_MultiPucker)
@@ -3387,7 +3390,7 @@ def multipucker(traj=None, resrange=None, method="altona", range360=False, ampli
 
 
 @super_dispatch()
-def dihedral_rms(traj=None, mask="", dtype='ndarray', top=None, frame_indices=None, ref=None):
+def dihedral_rms(traj=None, mask="", dtype='ndarray', top=None, frame_indices=None, ref=None, extra_options=""):
     """Compute RMS of dihedral angles.
 
     Parameters
@@ -3400,6 +3403,8 @@ def dihedral_rms(traj=None, mask="", dtype='ndarray', top=None, frame_indices=No
     frame_indices : array-like, optional
     ref : int or Frame, optional
         Reference frame for the calculation.
+    extra_options : str, optional
+        Additional cpptraj options for future extensibility.
 
     Returns
     -------
@@ -3411,6 +3416,10 @@ def dihedral_rms(traj=None, mask="", dtype='ndarray', top=None, frame_indices=No
     if ref is not None:
         ref_name = "myref"
         command_builder.add(f"ref {ref_name}")
+
+    if extra_options:
+        command_builder.add(extra_options)
+
     command = command_builder.build()
 
     action_datasets = CpptrajDatasetList()
@@ -3430,7 +3439,7 @@ def dihedral_rms(traj=None, mask="", dtype='ndarray', top=None, frame_indices=No
 
 
 @super_dispatch()
-def ene_decomp(traj=None, mask="", savecomponents=False, out=None, dtype='dataset', top=None, frame_indices=None):
+def ene_decomp(traj=None, mask="", savecomponents=False, out=None, extra_options="", dtype='dataset', top=None, frame_indices=None):
     """Perform energy decomposition analysis.
 
     Parameters
@@ -3442,6 +3451,8 @@ def ene_decomp(traj=None, mask="", savecomponents=False, out=None, dtype='datase
         Save individual energy components if True.
     out : str, optional
         Output filename for the energy decomposition results.
+    extra_options : str, optional
+        Additional cpptraj options for future extensibility.
     dtype : str, default 'dataset'
         Output data type.
     top : Topology, optional
@@ -3455,6 +3466,7 @@ def ene_decomp(traj=None, mask="", savecomponents=False, out=None, dtype='datase
                .add(mask)
                .add("savecomponents", condition=savecomponents)
                .add("out", out, condition=out is not None)
+               .add(extra_options, condition=bool(extra_options))
                .build())
     action_datasets, _ = do_action(traj, command, c_action.Action_EneDecomp)
     return get_data_from_dtype(action_datasets, dtype=dtype)
