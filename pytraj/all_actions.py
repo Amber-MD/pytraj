@@ -81,7 +81,7 @@ __all__ = [
     'rotation_matrix', 'rotdif', 'scale', 'search_neighbors', 'set_dihedral',
     'set_velocity', 'strip', 'superpose', 'surf', 'symmrmsd', 'ti', 'timecorr',
     'transform', 'translate', 'velocityautocorr', 'vector', 'volmap', 'volume',
-    'watershell', 'wavelet', 'xcorr', 'xtalsymm', 'toroidal_diffusion',
+    'watershell', 'wavelet', 'xcorr', 'xtalsymm', 'toroidal_diffusion', 'tordiff',
     'multipucker', 'convert_to_frac', 'create_reservoir',
     'dihedral_rms', 'ene_decomp', 'infraredspec',
 ]  # yapf: disable
@@ -3282,7 +3282,7 @@ def permute_dihedrals(traj, filename, options=''):
 
 
 @super_dispatch()
-def toroidal_diffusion(traj=None, mask="", mass=False, out=None, diffout=None, time=1.0, options="", dtype='dataset', top=None, frame_indices=None):
+def tordiff(traj=None, mask="", mass=False, out=None, diffout=None, time=1.0, options="", dtype='dict', top=None, frame_indices=None):
     """Calculate diffusion using the toroidal-view-preserving scheme.
 
     Parameters
@@ -3307,19 +3307,22 @@ def toroidal_diffusion(traj=None, mask="", mass=False, out=None, diffout=None, t
 
     Returns
     -------
-    DatasetList or ndarray
+    dict or DatasetList depending on dtype
     """
     command = (CommandBuilder()
+               .add("TOR") # dataset name
+               .add(mask, condition=bool(mask))
                .add("out", out, condition=out is not None)
                .add("diffout", diffout, condition=diffout is not None)
                .add("mass", condition=mass)
                .add("time", str(time), condition=time != 1.0)
-               .add(mask, condition=bool(mask))
                .add(options, condition=bool(options))
                .build())
 
     action_datasets, _ = do_action(traj, command, c_action.Action_ToroidalDiffusion)
     return get_data_from_dtype(action_datasets, dtype=dtype)
+
+toroidal_diffusion = tordiff
 
 @super_dispatch()
 def multipucker(traj=None, resrange=None, method="altona", range360=False, amplitude=False, ampout=None, theta=False, thetaout=None, offset=None, out=None, dtype='dataset', top=None, frame_indices=None):
