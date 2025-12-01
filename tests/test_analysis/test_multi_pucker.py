@@ -1,6 +1,13 @@
 import pytraj as pt
-from pytraj.testing import aa_eq, tempfolder, cpptraj_test_dir
+from pytraj.testing import aa_eq, tempfolder, cpptraj_test_dir, assert_equal_dict
 
+
+def _get_dict_from_data(cpptraj_result, name):
+    out_dict = {}
+    for d in cpptraj_result:
+        if d.name == name:
+            out_dict[d.key] = d.values
+    return out_dict
 
 def test_multipucker():
     # Test 1: Nucleic pucker analysis
@@ -22,14 +29,14 @@ def test_multipucker():
             method="altona",
             out="nucleic.dat",
         )
-        aa_eq(pytraj_results_nucleic, cpptraj_results_nucleic[1])
+        assert_equal_dict(pytraj_results_nucleic, _get_dict_from_data(cpptraj_results_nucleic, name="ADHas"))
         pytraj_results_nucleic_cp = pt.multipucker(
             traj,
             resrange="1-3",
             method="cremer",
             out="nucleic.dat",
         )
-        aa_eq(pytraj_results_nucleic_cp, cpptraj_results_nucleic[2])
+        assert_equal_dict(pytraj_results_nucleic_cp, _get_dict_from_data(cpptraj_results_nucleic, name="ADHcp"))
 
     # Test 2: Furanoid pucker analysis
     parm_file_furanoid = f"{cpptraj_test_dir}/Test_Pucker/Furanoid.mol2"
@@ -53,7 +60,7 @@ def test_multipucker():
             ampout="furanoid.dat",
             range360=True,
         )
-        aa_eq(pytraj_results_furanoid, cpptraj_results_furanoid)
+        assert_equal_dict(pytraj_results_furanoid, _get_dict_from_data(cpptraj_results_furanoid, name="Furanoid"))
 
     # Test 3: Pyranoid pucker analysis
     parm_file_pyranoid = f"{cpptraj_test_dir}/Test_Pucker/Pyranoid.mol2"
@@ -85,4 +92,4 @@ def test_multipucker():
             thetaout="pyranoid.type.dat",
             range360=True,
         )
-        aa_eq(pytraj_results_pyranoid, cpptraj_results_pyranoid)
+        assert_equal_dict(pytraj_results_pyranoid, _get_dict_from_data(cpptraj_results_pyranoid, name="Pyranoid"))

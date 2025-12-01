@@ -3325,7 +3325,7 @@ def tordiff(traj=None, mask="", mass=False, out=None, diffout=None, time=1.0, op
 toroidal_diffusion = tordiff
 
 @super_dispatch()
-def multipucker(traj=None, resrange=None, method="altona", range360=False, amplitude=False, ampout=None, theta=False, thetaout=None, offset=None, out=None, dtype='dataset', top=None, frame_indices=None):
+def multipucker(traj=None, resrange=None, method="altona", range360=False, amplitude=False, ampout=None, theta=False, thetaout=None, offset=None, out=None, puckertype=None, dtype='dict', top=None, frame_indices=None):
     """Perform multi-pucker analysis.
 
     Parameters
@@ -3349,16 +3349,17 @@ def multipucker(traj=None, resrange=None, method="altona", range360=False, ampli
         Offset to add to pucker values (in degrees).
     out : str, optional
         Output filename for the results.
-    dtype : str, default 'dataset'
+    puckertype : str, optional
+        Specific pucker type to calculate (e.g., "furanoid:C2:C3:C4:C5:O2", "pyranoid:C1:C2:C3:C4:C5:O5", "pyranose")
+    dtype : str, default 'dict'
         Output data type.
     top : Topology, optional
     frame_indices : array-like, optional
 
     Returns
     -------
-    DatasetList or ndarray
+    dict or DatasetList depending on dtype
     """
-    # Convert resrange to cpptraj-compatible format
     if resrange:
         if isinstance(resrange, str):
             resrange_str = resrange
@@ -3368,9 +3369,9 @@ def multipucker(traj=None, resrange=None, method="altona", range360=False, ampli
     else:
         resrange_str = None
 
-    # Build the command string
     command = (CommandBuilder()
                .add("resrange", resrange_str, condition=resrange_str is not None)
+               .add("puckertype", puckertype, condition=puckertype is not None)
                .add(method)
                .add("range360", condition=range360)
                .add("amplitude", condition=amplitude)
@@ -3381,7 +3382,6 @@ def multipucker(traj=None, resrange=None, method="altona", range360=False, ampli
                .add("out", out, condition=out is not None)
                .build())
 
-    # Execute the action
     action_datasets, _ = do_action(traj, command, c_action.Action_MultiPucker)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
