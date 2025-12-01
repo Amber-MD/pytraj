@@ -5,8 +5,18 @@ from .base import *
 
 __all__ = [
     'distance', 'pairwise_distance', 'angle', 'dihedral', 'mindist',
-    'dihedral_rms'
+    'dihedral_rms', '_distance_to_ref_or_point'
 ]
+
+
+def distance_to_point(traj, mask, point, **kwargs):
+    """Calculate distance from atoms to a point"""
+    return _distance_to_ref_or_point(traj=traj, mask=mask, point=point, **kwargs)
+
+
+def distance_to_reference(traj, mask, ref, **kwargs):
+    """Calculate distance from atoms to a reference"""
+    return _distance_to_ref_or_point(traj=traj, mask=mask, ref=ref, **kwargs)
 
 
 def _calculate_distance(traj, int_2darr: np.ndarray, n_frames: int, dtype: str) -> Union[np.ndarray, DatasetList]:

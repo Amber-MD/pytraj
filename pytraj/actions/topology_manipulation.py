@@ -8,7 +8,7 @@ __all__ = [
     'principal_axes', 'translate', 'rotate', 'autoimage', 'image', 'center',
     'strip', 'replicate_cell', 'rotate_dihedral', 'set_dihedral', 'set_velocity',
     'randomize_ions', 'fiximagedbonds', 'closest', 'atom_map', 'check_chirality',
-    'check_structure'
+    'check_structure', 'scale'
 ]
 
 
@@ -370,7 +370,8 @@ def translate(traj=None, command="", top=None, frame_indices=None):
     return mut_traj
 
 
-def do_scaling(traj=None, command="", frame_indices=None, top=None):
+@super_dispatch()
+def scale(traj=None, command="", frame_indices=None, top=None):
     """do coordinate scaling"""
     mut_traj = _assert_mutable(traj)
 
@@ -861,3 +862,5 @@ def check_structure(traj,
 
     c_action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
+# Legacy alias
+do_scaling = scale
