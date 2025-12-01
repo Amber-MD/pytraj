@@ -2,8 +2,8 @@
 Utility and miscellaneous functions
 """
 from .base import *
-from ..trajectory.trajectory import TrajectoryIterator
-from ..trajectory.shared_methods import _get_atommask_indices
+from ..trajectory.trajectory_iterator import TrajectoryIterator
+
 
 __all__ = [
     'get_velocity', 'mean_structure', 'get_average_frame', 'multidihedral',
@@ -70,7 +70,7 @@ def count_in_voxel(traj=None, mask="", voxel_cntr=(0, 0, 0), voxel_size=5):
     results = np.zeros(len(traj), dtype=int)
 
     for fidx, frame in enumerate(traj):
-        indices = _get_atommask_indices(traj.top, mask)
+        indices = traj.top.atom_indices(mask)
         n_in_voxel = 0
         for i in indices:
             x = frame.xyz[i][0]
@@ -119,7 +119,7 @@ def closest_atom(top=None, frame=None, point=(0, 0, 0), mask=""):
     >>> traj = pt.load("test.nc", "test.parm7")
     >>> atom_index = pt.closest_atom(traj.top, traj[0], (1.0, 2.0, 0.5))
     """
-    indices = _get_atommask_indices(top, mask)
+    indices = top.atom_indices(mask)
     min_distance = float('inf')
     closest_index = -1
 
