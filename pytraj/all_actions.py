@@ -81,8 +81,11 @@ __all__ = [
     'rotation_matrix', 'rotdif', 'scale', 'search_neighbors', 'set_dihedral',
     'set_velocity', 'strip', 'superpose', 'surf', 'symmrmsd', 'ti', 'timecorr',
     'transform', 'translate', 'velocityautocorr', 'vector', 'volmap', 'volume',
-    'watershell', 'wavelet', 'xcorr', 'xtalsymm',
-] # yapf: disable
+    'watershell', 'wavelet', 'xcorr', 'xtalsymm', 'toroidal_diffusion', 'tordiff',
+    'multipucker',
+    'dihedral_rms', 'ene_decomp', 'infraredspec',
+]  # yapf: disable
+
 
 class DatasetType(StrEnum):
     COORDS = 'coords'
@@ -3276,3 +3279,251 @@ def permute_dihedrals(traj, filename, options=''):
 
     state.data._pop(0)
     state.data._pop(0)
+
+
+@super_dispatch()
+def tordiff(traj=None, mask="", mass=False, out=None, diffout=None, time=1.0, extra_options="", dtype='dict', top=None, frame_indices=None):
+    """Calculate diffusion using the toroidal-view-preserving scheme.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, atom mask
+        Mask to select molecules for the calculation.
+    mass : bool, default False
+        Use center of mass if True, else geometric center.
+    out : str, optional
+        Output filename for average diffusion sets.
+    diffout : str, optional
+        Output filename for diffusion results.
+    time : float, default 1.0
+        Time between frames (ps).
+    extra_options : str, optional
+        Additional cpptraj options for future extensibility.
+    dtype : str, default 'dataset'
+        Output data type.
+    top : Topology, optional
+    frame_indices : array-like, optional
+
+    Returns
+    -------
+    dict or DatasetList depending on dtype
+    """
+    command = (CommandBuilder()
+               .add("TOR") # dataset name
+               .add(mask, condition=bool(mask))
+               .add("out", out, condition=out is not None)
+               .add("diffout", diffout, condition=diffout is not None)
+               .add("mass", condition=mass)
+               .add("time", str(time), condition=time != 1.0)
+               .add(extra_options, condition=bool(extra_options))
+               .build())
+
+    action_datasets, _ = do_action(traj, command, c_action.Action_ToroidalDiffusion)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
+
+toroidal_diffusion = tordiff
+
+@super_dispatch()
+def multipucker(traj=None, resrange=None, method="altona", range360=False, amplitude=False, ampout=None, theta=False, thetaout=None, offset=None, out=None, puckertype=None, extra_options="", dtype='dict', top=None, frame_indices=None):
+    """Perform multi-pucker analysis.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    resrange : str or array-like, optional
+        Residue range for the analysis. If not provided, all residues are used.
+    method : str, default "altona"
+        Pucker calculation method. Options: "altona" or "cremer".
+    range360 : bool, default False
+        Use 0-360 degree range if True, otherwise use -180 to 180.
+    amplitude : bool, default False
+        Include amplitude in the output if True.
+    ampout : str, optional
+        Output filename for amplitude values.
+    theta : bool, default False
+        Include theta values in the output if True.
+    thetaout : str, optional
+        Output filename for theta values.
+    offset : float, optional
+        Offset to add to pucker values (in degrees).
+    out : str, optional
+        Output filename for the results.
+    puckertype : str, optional
+        Specific pucker type to calculate (e.g., "furanoid:C2:C3:C4:C5:O2", "pyranoid:C1:C2:C3:C4:C5:O5", "pyranose")
+    extra_options : str, optional
+        Additional cpptraj options for future extensibility.
+    dtype : str, default 'dict'
+        Output data type.
+    top : Topology, optional
+    frame_indices : array-like, optional
+
+    Returns
+    -------
+    dict or DatasetList depending on dtype
+    """
+    if resrange:
+        if isinstance(resrange, str):
+            resrange_str = resrange
+        else:
+            from pytraj.utils.convert import array_to_cpptraj_range
+            resrange_str = array_to_cpptraj_range(resrange)
+    else:
+        resrange_str = None
+
+    command = (CommandBuilder()
+               .add("resrange", resrange_str, condition=resrange_str is not None)
+               .add("puckertype", puckertype, condition=puckertype is not None)
+               .add(method)
+               .add("range360", condition=range360)
+               .add("amplitude", condition=amplitude)
+               .add("ampout", ampout, condition=ampout is not None)
+               .add("theta", condition=theta)
+               .add("thetaout", thetaout, condition=thetaout is not None)
+               .add("offset", str(offset), condition=offset is not None)
+               .add("out", out, condition=out is not None)
+               .add(extra_options, condition=bool(extra_options))
+               .build())
+
+    action_datasets, _ = do_action(traj, command, c_action.Action_MultiPucker)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
+
+
+@super_dispatch()
+def dihedral_rms(traj=None, mask="", dtype='ndarray', top=None, frame_indices=None, ref=None, extra_options=""):
+    """Compute RMS of dihedral angles.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, atom mask
+    dtype : str, default 'ndarray'
+        Output data type.
+    top : Topology, optional
+    frame_indices : array-like, optional
+    ref : int or Frame, optional
+        Reference frame for the calculation.
+    extra_options : str, optional
+        Additional cpptraj options for future extensibility.
+
+    Returns
+    -------
+    DatasetList or ndarray
+    """
+    command_builder = CommandBuilder().add(mask)
+
+    ref_name = None
+    if ref is not None:
+        ref_name = "myref"
+        command_builder.add(f"ref {ref_name}")
+
+    if extra_options:
+        command_builder.add(extra_options)
+
+    command = command_builder.build()
+
+    action_datasets = CpptrajDatasetList()
+
+    if ref is not None:
+        ref_frame = get_reference(traj, ref)
+        ref_dataset = action_datasets.add(DatasetType.REFERENCE_FRAME, name=ref_name)
+        ref_dataset.top = ref_frame.top or traj.top
+        ref_dataset.add_frame(ref_frame)
+
+    action_datasets, _ = do_action(traj, command, c_action.Action_DihedralRMS, dslist=action_datasets)
+
+    if ref is not None:
+        action_datasets._pop(0)
+
+    return get_data_from_dtype(action_datasets, dtype=dtype)
+
+
+@super_dispatch()
+def ene_decomp(traj=None, mask="", savecomponents=False, out=None, extra_options="", dtype='dataset', top=None, frame_indices=None):
+    """Perform energy decomposition analysis.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, atom mask
+        Mask to select atoms for energy decomposition.
+    savecomponents : bool, default False
+        Save individual energy components if True.
+    out : str, optional
+        Output filename for the energy decomposition results.
+    extra_options : str, optional
+        Additional cpptraj options for future extensibility.
+    dtype : str, default 'dataset'
+        Output data type.
+    top : Topology, optional
+    frame_indices : array-like, optional
+
+    Returns
+    -------
+    DatasetList or ndarray
+    """
+    command = (CommandBuilder()
+               .add(mask)
+               .add("savecomponents", condition=savecomponents)
+               .add("out", out, condition=out is not None)
+               .add(extra_options, condition=bool(extra_options))
+               .build())
+    action_datasets, _ = do_action(traj, command, c_action.Action_EneDecomp)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
+
+
+@super_dispatch()
+def infraredspec(traj=None, mask="", out=None, maxlag=None, tstep=None, rawout=None, extra_options=None, dtype='dict', top=None, frame_indices=None):
+    """Compute the infrared spectrum.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, atom mask
+    out : str, optional
+        Output filename for the IR spectrum.
+    maxlag : int, optional
+        Maximum lag for the calculation.
+    tstep : float, optional
+        Time step between frames.
+    rawout : str, optional
+        Output filename for raw data.
+    extra_options : str, optional
+        Additional cpptraj options for future extensibility.
+    dtype : str, default 'dataset'
+        Output data type.
+    top : Topology, optional
+    frame_indices : array-like, optional
+
+    Returns
+    -------
+    DatasetList or ndarray
+    """
+    # Build the command string
+    command = (CommandBuilder()
+               .add(mask)
+               .add("out", out, condition=out is not None)
+               .add("maxlag", str(maxlag), condition=maxlag is not None)
+               .add("tstep", str(tstep), condition=tstep is not None)
+               .add("rawout", rawout, condition=rawout is not None)
+               .add(extra_options, condition=extra_options is not None)
+               .build())
+
+    # Initialize the action
+    action = c_action.Action_InfraredSpectrum()
+    action_datasets = CpptrajDatasetList()
+    top = traj.top
+    action.read_input(command, top=top, dslist=action_datasets)
+
+    # Set up the action
+    crdinfo = dict(has_velocity=True)
+    action.setup(top, crdinfo=crdinfo)
+
+    # Execute the action for each frame
+    for frame in traj:
+        action.compute(frame)
+
+    # Finalize the action
+    action.post_process()
+
+    return get_data_from_dtype(action_datasets, dtype=dtype)

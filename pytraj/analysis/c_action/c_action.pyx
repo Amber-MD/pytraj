@@ -15,7 +15,7 @@ def _get_adict():
             actname = cname.split('Action_')[1]
             # create dict of action class
             ADICT[actname.lower()] = cls
-    
+
     # add some commond words to ADICT
     ADICT['surf_LCPO'] = _ALL['Action_Surf']
     ADICT['surf_lcpo'] = _ALL['Action_Surf']
@@ -1291,6 +1291,173 @@ cdef class Action_XtalSymm(Action):
     def __cinit__(self):
         self.baseptr = <_Action*> new _Action_XtalSymm()
         self.thisptr = <_Action_XtalSymm*> self.baseptr
+        self.own_memory = True
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL and self.own_memory:
+            del self.baseptr
+
+    def help(self):
+        self.thisptr.Help()
+
+cdef class Action_AddAtom(Action):
+    def __cinit__(self):
+        self.baseptr = <_Action*> new _Action_AddAtom()
+        self.thisptr = <_Action_AddAtom*> self.baseptr
+        self.own_memory = True
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL and self.own_memory:
+            del self.baseptr
+
+    def help(self):
+        self.thisptr.Help()
+
+
+cdef class Action_AvgBox(Action):
+    def __cinit__(self):
+        self.baseptr = <_Action*> new _Action_AvgBox()
+        self.thisptr = <_Action_AvgBox*> self.baseptr
+        self.own_memory = True
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL and self.own_memory:
+            del self.baseptr
+
+    def help(self):
+        self.thisptr.Help()
+
+
+cdef class Action_ConvertToFrac(Action):
+    def __cinit__(self):
+        self.baseptr = <_Action*> new _Action_ConvertToFrac()
+        self.thisptr = <_Action_ConvertToFrac*> self.baseptr
+        self.own_memory = True
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL and self.own_memory:
+            del self.baseptr
+
+    def help(self):
+        self.thisptr.Help()
+
+
+cdef class Action_CreateReservoir(Action):
+    def __cinit__(self):
+        self.baseptr = <_Action*> new _Action_CreateReservoir()
+        self.thisptr = <_Action_CreateReservoir*> self.baseptr
+        self.own_memory = True
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL and self.own_memory:
+            del self.baseptr
+
+    def help(self):
+        self.thisptr.Help()
+
+
+cdef class Action_DihedralRMS(Action):
+    def __cinit__(self):
+        self.baseptr = <_Action*> new _Action_DihedralRMS()
+        self.thisptr = <_Action_DihedralRMS*> self.baseptr
+        self.own_memory = True
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL and self.own_memory:
+            del self.baseptr
+
+    def help(self):
+        self.thisptr.Help()
+
+
+cdef class Action_EneDecomp(Action):
+    def __cinit__(self):
+        self.baseptr = <_Action*> new _Action_EneDecomp()
+        self.thisptr = <_Action_EneDecomp*> self.baseptr
+        self.own_memory = True
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL and self.own_memory:
+            del self.baseptr
+
+    def help(self):
+        self.thisptr.Help()
+
+
+cdef class Action_InfraredSpectrum(Action):
+    def __cinit__(self):
+        self.baseptr = <_Action*> new _Action_InfraredSpectrum()
+        self.thisptr = <_Action_InfraredSpectrum*> self.baseptr
+        self.own_memory = True
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL and self.own_memory:
+            del self.baseptr
+
+    def help(self):
+        self.thisptr.Help()
+
+
+cdef class Action_Keep(Action):
+    def __cinit__(self):
+        self.baseptr = <_Action*> new _Action_Keep()
+        self.thisptr = <_Action_Keep*> self.baseptr
+        self.own_memory = True
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL and self.own_memory:
+            del self.baseptr
+
+    def help(self):
+        self.thisptr.Help()
+
+
+cdef class Action_MinMaxDist(Action):
+    def __cinit__(self):
+        self.baseptr = <_Action*> new _Action_MinMaxDist()
+        self.thisptr = <_Action_MinMaxDist*> self.baseptr
+        self.own_memory = True
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL and self.own_memory:
+            del self.baseptr
+
+    def help(self):
+        self.thisptr.Help()
+
+
+cdef class Action_MultiPucker(Action):
+    def __cinit__(self):
+        self.baseptr = <_Action*> new _Action_MultiPucker()
+        self.thisptr = <_Action_MultiPucker*> self.baseptr
+        self.own_memory = True
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL and self.own_memory:
+            del self.baseptr
+
+    def help(self):
+        self.thisptr.Help()
+
+
+cdef class Action_Time(Action):
+    def __cinit__(self):
+        self.baseptr = <_Action*> new _Action_Time()
+        self.thisptr = <_Action_Time*> self.baseptr
+        self.own_memory = True
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL and self.own_memory:
+            del self.baseptr
+
+    def help(self):
+        self.thisptr.Help()
+
+
+cdef class Action_ToroidalDiffusion(Action):
+    def __cinit__(self):
+        self.baseptr = <_Action*> new _Action_ToroidalDiffusion()
+        self.thisptr = <_Action_ToroidalDiffusion*> self.baseptr
         self.own_memory = True
 
     def __dealloc__(self):
