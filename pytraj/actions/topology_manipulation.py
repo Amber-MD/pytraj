@@ -127,6 +127,7 @@ def center_of_geometry(traj=None,
 def align(traj,
           mask=None,
           ref=0,
+          ref_mask='',
           mass=False,
           rms_name='',
           frame_indices=None,
@@ -181,12 +182,14 @@ def align(traj,
     mut_traj = _assert_mutable(traj)
 
     # Use the correct Action_Align implementation
+    mask_str = mask if mask else ''
+    ref_mask_str = ref_mask
+    mass_str = 'mass' if mass else ''
+
     reference_name = 'myref'
     reference_command = 'ref {}'.format(reference_name)
-    command_parts = [reference_command, mask]
-    if mass:
-        command_parts.append('mass')
-    align_command = ' '.join(command_parts)
+
+    align_command = ' '.join((reference_command, mask_str, ref_mask_str, mass_str)).strip()
 
     reference_topology = ref_frame.top if hasattr(ref_frame, 'top') else top
 
