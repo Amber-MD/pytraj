@@ -54,6 +54,3 @@ __all__ = [
 
 # Legacy aliases for backward compatibility  
 atomicfluct = rmsf
-scale = do_scaling
-distance_to_point = _distance_to_ref_or_point  
-distance_to_reference = _distance_to_ref_or_point
