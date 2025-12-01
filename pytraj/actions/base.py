@@ -65,7 +65,26 @@ from ..analysis import (
     energy_analysis, )
 
 from ..core.c_core import CpptrajState, Command
-from ..utils.command_builder import CommandBuilder
+
+
+class CommandBuilder:
+    def __init__(self):
+        self.parts = []
+
+    def add(self, key, value=None, condition=True):
+        if condition and value is not None:
+            if isinstance(value, bool):
+                if value:
+                    self.parts.append(key)
+            else:
+                self.parts.append(f"{key} {value}")
+        elif condition and value is None:
+            self.parts.append(key)
+        return self
+
+    def build(self, base_command=""):
+        command_parts = [base_command] + self.parts
+        return " ".join(command_parts).strip()
 
 
 class DatasetType(StrEnum):

@@ -1,48 +1,6 @@
-from __future__ import absolute_import
-import numpy as np
-try:
-    from enum import StrEnum
-except ImportError:
-    from enum import Enum
-    class StrEnum(str, Enum):
-        """
-        Enum where members are also (and must be) strs.
-        """
-        def __new__(cls, value):
-            member = str.__new__(cls, value)  # Create a new instance of str with the given value
-            member._value_ = value  # Set the _value_ attribute to the given value
-            return member
+# Import all actions from the new modular structure for backward compatibility
 
-
-from typing import Any, Callable, List, Union
-from functools import partial
-
-from .utils.get_common_objects import (
-    get_topology,
-    get_data_from_dtype,
-    get_list_of_commands,
-    get_reference,
-    get_fiterator,
-    super_dispatch, )
-from .utils import ensure_not_none_or_string
-from .utils import is_int
-from .utils.context import tempfolder
-from .utils.context import capture_stdout
-from .utils.convert import array_to_cpptraj_atommask
-from .utils.convert import array2d_to_cpptraj_maskgroup
-from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
-from .datasets.datasetlist import DatasetList
-from .trajectory.shared_methods import iterframe_master
-from .trajectory.frame import Frame
-from .trajectory.trajectory import Trajectory
-from .trajectory.trajectory_iterator import TrajectoryIterator
-from .utils.decorators import register_pmap, register_openmp
-from .analysis.c_action import c_action
-from .analysis.c_action import do_action
-from .analysis.c_analysis import c_analysis
-from .analysis.c_action.actionlist import ActionList
-from .topology.topology import Topology
-from .builder.build import make_structure
+# Import from analysis modules that are still in the original locations
 from .analysis.rmsd import (
     rotation_matrix,
     pairwise_rmsd,
@@ -50,20 +8,29 @@ from .analysis.rmsd import (
     rmsd_nofit,
     rmsd,
     symmrmsd,
-    distance_rmsd, )
+    distance_rmsd
+)
+
 from .analysis.energy_analysis import (
     esander,
-    lie, )
+    lie
+)
+
 from .analysis import (
     matrix,
     vector,
     nmr,
     dssp_analysis,
     hbond_analysis,
-    energy_analysis, )
+    energy_analysis
+)
 
-from .core.c_core import CpptrajState, Command
+from .builder.build import make_structure
 
+# Import all actions from the new modular actions package
+from .actions import *
+
+# Define the __all__ list for backward compatibility
 __all__ = [
     'acorr', 'align', 'align_principal_axis', 'analyze_modes', 'angle',
     'atomiccorr', 'atomicfluct', 'atom_map', 'autoimage', 'bfactors',
@@ -82,9 +49,14 @@ __all__ = [
     'set_velocity', 'strip', 'superpose', 'surf', 'symmrmsd', 'ti', 'timecorr',
     'transform', 'translate', 'velocityautocorr', 'vector', 'volmap', 'volume',
     'watershell', 'wavelet', 'xcorr', 'xtalsymm', 'toroidal_diffusion', 'tordiff',
-    'multipucker',
-    'dihedral_rms', 'ene_decomp', 'infraredspec',
-]  # yapf: disable
+    'multipucker', 'dihedral_rms', 'ene_decomp', 'infraredspec',
+]
+
+# Legacy aliases for backward compatibility
+atomicfluct = rmsf
+scale = do_scaling
+distance_to_point = _distance_to_ref_or_point
+distance_to_reference = _distance_to_ref_or_point
 
 
 class DatasetType(StrEnum):
