@@ -9,7 +9,7 @@ __all__ = [
     'get_velocity', 'mean_structure', 'get_average_frame', 'multidihedral',
     'search_neighbors', 'native_contacts', 'grid', 'transform', 'lowestcurve',
     'superpose', 'rotdif', 'lipidscd', 'xtalsymm', 'analyze_modes', 'ti',
-    'hausdorff', 'permute_dihedrals', '_assert_mutable', 'in_voxel',
+    'hausdorff', 'permute_dihedrals', 'in_voxel',
     'count_in_voxel', 'pair_distance', 'closest_atom', 'crank', 'check_structure',
     'set_velocity'
 ]
