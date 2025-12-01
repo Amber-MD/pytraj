@@ -3434,27 +3434,45 @@ def create_reservoir(traj=None, mask="", dtype='dataset', top=None, frame_indice
 
 
 @super_dispatch()
-def dihedral_rms(traj=None, mask="", dtype='dataset', top=None, frame_indices=None):
+def dihedral_rms(traj=None, mask="", dtype='ndarray', top=None, frame_indices=None, ref=None):
     """Compute RMS of dihedral angles.
 
     Parameters
     ----------
     traj : Trajectory-like
     mask : str, atom mask
-    dtype : str, default 'dataset'
+    dtype : str, default 'ndarray'
         Output data type.
     top : Topology, optional
     frame_indices : array-like, optional
+    ref : int or Frame, optional
+        Reference frame for the calculation.
 
     Returns
     -------
     DatasetList or ndarray
     """
-    command = (CommandBuilder()
-               .add(mask)
-               .build())
+    command_builder = CommandBuilder().add(mask)
 
-    action_datasets, _ = do_action(traj, command, c_action.Action_DihedralRMS)
+    ref_name = None
+    if ref is not None:
+        ref_name = "myref"
+        command_builder.add(f"ref {ref_name}")
+    command = command_builder.build()
+
+    action_datasets = CpptrajDatasetList()
+
+    if ref is not None:
+        ref_frame = get_reference(traj, ref)
+        ref_dataset = action_datasets.add(DatasetType.REFERENCE_FRAME, name=ref_name)
+        ref_dataset.top = ref_frame.top or traj.top
+        ref_dataset.add_frame(ref_frame)
+
+    action_datasets, _ = do_action(traj, command, c_action.Action_DihedralRMS, dslist=action_datasets)
+
+    if ref is not None:
+        action_datasets._pop(0)
+
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
 

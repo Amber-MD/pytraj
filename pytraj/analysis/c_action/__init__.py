@@ -8,7 +8,7 @@ from ...trajectory.shared_methods import iterframe_master
 from io import StringIO
 
 
-def do_action(traj, command, action_class, post_process=True, top=None):
+def do_action(traj, command, action_class, post_process=True, top=None, dslist=None):
     ''' For internal use
 
     Parameters
@@ -20,7 +20,7 @@ def do_action(traj, command, action_class, post_process=True, top=None):
     assert inspect.isclass(
         action_class), 'must passing a derived class of c_action.Action'
     assert issubclass(action_class, c_action.Action)
-    c_dslist = CpptrajDatasetList()
+    c_dslist = CpptrajDatasetList() if dslist is None else dslist
     top = traj.top if top is None else top
     act = action_class(command=command, top=top, dslist=c_dslist)
     with capture_stdout() as (out, _):
