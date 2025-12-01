@@ -38,33 +38,9 @@ from ..datasets.c_datasetlist import DatasetList
 from ..utils.decorators import register_pmap, register_openmp
 from ..trajectory.shared_methods import iterframe_master
 # from ..utils.get_common_objects import do_action  # Not found
-# TODO: Implement proper do_action function
-def do_action(traj, command, action_class, dslist=None):
-    if dslist is None:
-        dslist = CpptrajDatasetList()
-    action = action_class()
-    action.read_input(command, top=traj.top, dslist=dslist)
-    action.setup(traj.top)
-    for frame in traj:
-        action.compute(frame)
-    action.post_process()
-    return dslist, ""
-# from ..utils.c_utils import capture_stdout  # Check if exists
-try:
-    from ..utils.c_utils import capture_stdout
-except ImportError:
-    # Fallback implementation
-    from contextlib import contextmanager
-    from io import StringIO
-    @contextmanager
-    def capture_stdout():
-        old_stdout = sys.stdout
-        sys.stdout = mystdout = StringIO()
-        try:
-            yield mystdout
-        finally:
-            sys.stdout = old_stdout
+# Import real implementations
 from ..utils.context import capture_stdout
+from ..analysis.c_action import do_action
 from ..utils.convert import array_to_cpptraj_atommask
 from ..utils.convert import array2d_to_cpptraj_maskgroup
 from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
@@ -75,7 +51,6 @@ from ..trajectory.trajectory import Trajectory
 from ..trajectory.trajectory_iterator import TrajectoryIterator
 from ..utils.decorators import register_pmap, register_openmp
 from ..analysis.c_action import c_action
-from ..analysis.c_action import do_action
 from ..analysis.c_analysis import c_analysis
 from ..analysis.c_action.actionlist import ActionList
 from ..topology.topology import Topology
