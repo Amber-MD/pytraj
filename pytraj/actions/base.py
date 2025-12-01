@@ -35,19 +35,8 @@ from ..analysis import c_analysis
 from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 from ..datasets.c_datasetlist import DatasetList
 # from ..core.c_core import ActionList  # Causes circular import
-# from ..utils.tools import register_pmap, register_openmp  # Not found
-# Dummy decorators for now
-def register_pmap(func):
-    return func
-def register_openmp(func):
-    return func
-# from ..utils.decorators import iterframe_master  # Check if exists
-try:
-    from ..utils.decorators import iterframe_master
-except ImportError:
-    # Fallback implementation
-    def iterframe_master(traj):
-        return traj
+from ..utils.decorators import register_pmap, register_openmp
+from ..trajectory.shared_methods import iterframe_master
 # from ..utils.get_common_objects import do_action  # Not found
 # TODO: Implement proper do_action function
 def do_action(traj, command, action_class, dslist=None):
