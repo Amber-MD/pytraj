@@ -209,7 +209,7 @@ def align(traj,
     # remove ref
     action_datasets._pop(0)
 
-    return action_datasets
+    return mut_traj
 
 
 @super_dispatch()

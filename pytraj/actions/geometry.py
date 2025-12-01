@@ -218,6 +218,13 @@ def distance(traj=None,
 
     top = traj.top.copy() if top is None else top
 
+    # Handle case where command is actually an array of indices (backward compatibility)
+    if isinstance(command, (list, tuple, np.ndarray)) and not isinstance(command, str):
+        int_2darr = np.asarray(command, dtype=int)
+        if int_2darr.ndim != 2:
+            raise ValueError("indices must be 2D array")
+        return _calculate_distance(traj, int_2darr, traj.n_frames, dtype)
+
     if indices is not None:
         int_2darr = np.asarray(indices, dtype=int)
         if int_2darr.ndim != 2:
@@ -229,7 +236,7 @@ def distance(traj=None,
         int_2darr = np.asarray(indices, dtype=int)
         return _calculate_distance(traj, int_2darr, traj.n_frames, dtype)
 
-    elif command:
+    elif command and isinstance(command, str):
         if image:
             command += " image"
         dslist = CpptrajDatasetList()
@@ -597,6 +604,7 @@ def dihedral(traj=None,
              mask=None,
              indices=None,
              resid=0,
+             range360=False,
              dtype='ndarray',
              top=None,
              frame_indices=None):
@@ -689,6 +697,8 @@ def dihedral(traj=None,
         if command == '':
             raise ValueError("command can't be empty")
 
+        if range360:
+            command += " range360"
         action.read_input(command, top=traj.top, dslist=c_dslist)
         action.setup(traj.top)
 

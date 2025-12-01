@@ -314,7 +314,7 @@ def rmsf(traj=None,
     -------
     out : ndarray
     """
-    command = mask or ""
+    command = mask if mask is not None else "*"
     if byres:
         command += " byres"
     if byatom:
