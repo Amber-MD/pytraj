@@ -8,7 +8,7 @@ __all__ = [
     'principal_axes', 'translate', 'rotate', 'autoimage', 'image', 'center',
     'strip', 'replicate_cell', 'rotate_dihedral', 'set_dihedral', 'set_velocity',
     'randomize_ions', 'fiximagedbonds', 'closest', 'atom_map', 'check_chirality',
-    'check_structure', 'scale'
+    'check_structure', 'scale', '_closest_iter'
 ]
 
 
@@ -862,5 +862,81 @@ def check_structure(traj,
 
     c_action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
-# Legacy alias
-do_scaling = scale
+
+
+def _closest_iter(act, traj):
+    '''Helper function for closest action
+
+    Parameters
+    ----------
+    act : Action object
+    traj : Trajectory-like
+    '''
+    for frame in iterframe_master(traj):
+        new_frame = act.compute(frame, get_new_frame=True)
+        yield new_frame
+
+
+@register_openmp
+@super_dispatch()
+def closest(traj=None,
+            mask='*',
+            solvent_mask=None,
+            n_solvents=10,
+            frame_indices=None,
+            dtype='iterator',
+            top=None):
+    """return either a new Trajectory or a frame iterator. Keep only ``n_solvents`` closest to mask
+
+    Parameters
+    ----------
+    traj : Trajectory-like | list of Trajectory-like/frames | frame iterator | chunk iterator
+    mask: str, default '*' (all solute atoms)
+    top : Topology-like object, default=None, optional
+    dtype : {'iterator', 'trajectory'}, default 'iterator'
+        if 'iterator', return a tuple of Frame iterator and new Toplogy. 'iterator' is good for streaming large trajectory.
+        if 'trajectory', return a new Trajectory.
+
+    Returns
+    -------
+    out : (check above)
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> # obtain new traj, keeping only closest 100 waters
+    >>> # to residues 1 to 13 (index starts from 1) by distance to the first atom of water
+    >>> t = pt.closest(traj, mask='@CA', n_solvents=10)
+    """
+    # check if top has solvent
+    c_dslist = CpptrajDatasetList()
+
+    command = str(n_solvents) + ' ' + mask
+
+    act = c_action.Action_Closest()
+
+    if solvent_mask is not None:
+        top = top.copy()
+        top.set_solvent(solvent_mask)
+
+    has_solvent = False
+    for mol in top.mols:
+        if mol.is_solvent():
+            has_solvent = True
+            break
+    if not has_solvent:
+        raise RuntimeError("Topology does not have solvent")
+
+    act.read_input(command, top, dslist=c_dslist)
+    new_top = act.setup(top, get_new_top=True)
+
+    fiter = _closest_iter(act, traj)
+
+    if dtype == 'trajectory':
+        return Trajectory(
+            xyz=np.array([frame.xyz.copy() for frame in fiter]),
+            top=new_top.copy())
+    else:
+        # iterator
+        return (fiter, new_top.copy())
