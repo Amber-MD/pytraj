@@ -31,11 +31,11 @@ def projection(traj,
     mode : int, default 0
         mode index
     beg : int, default 1
-        first mode  
+        first mode
     end : int, default -1
         last mode
     eigenfile : str, optional
-        eigenvalue file  
+        eigenvalue file
     efile : str, optional
         eigenvector file
     dtype : str, default 'ndarray'
@@ -88,7 +88,7 @@ def pca(traj,
     ----------
     traj : Trajectory-like
     mask : str, default '*' (all atoms)
-        atom mask 
+        atom mask
     n_vecs : int, default 2
         number of eigenvectors to save
     dtype : str, default 'ndarray'
@@ -106,12 +106,12 @@ def pca(traj,
 
     Examples
     --------
-    >>> import pytraj as pt  
+    >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> data = pt.pca(traj, mask='!@H=', n_vecs=2)
     >>> data[0].shape
     (2,)
-    >>> data[1].shape  
+    >>> data[1].shape
     (2, 7998)
     """
     # use matrix for PCA calculation
@@ -121,31 +121,31 @@ def pca(traj,
     mat = matrix(traj, mask=mask, byatom=True, dtype='dataset')
     covar_mat = mat['matrix_covar']
 
-    # perform eigenvalue decomposition  
+    # perform eigenvalue decomposition
     c_dslist = CpptrajDatasetList()
-    
+
     # add covariance matrix to dataset list
     mat_dataset = c_dslist.add('matrix_dbl', 'covar')
     mat_dataset.data = covar_mat
 
     command = f"covar out evecs.dat vecs {n_vecs}"
-    
+
     # run analysis
     c_analysis.Analysis_Matrix(command, dslist=c_dslist)
-    
+
     if dtype == 'dataset':
         return c_dslist
     else:
         # extract eigenvalues and eigenvectors
         eigenvals = None
         eigenvecs = None
-        
+
         for dataset in c_dslist:
             if 'eigenvalues' in dataset.legend:
                 eigenvals = dataset.values
             elif 'eigenvectors' in dataset.legend or 'evecs' in dataset.legend:
                 eigenvecs = dataset.values
-                
+
         if eigenvals is not None and eigenvecs is not None:
             return [eigenvals, eigenvecs]
         elif eigenvals is not None:

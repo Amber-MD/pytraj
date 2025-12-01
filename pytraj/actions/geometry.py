@@ -5,17 +5,132 @@ from .base import *
 
 __all__ = [
     'distance', 'pairwise_distance', 'angle', 'dihedral', 'mindist',
-    'dihedral_rms', '_distance_to_ref_or_point'
+    'dihedral_rms', 'distance_to_point', 'distance_to_reference', '_calculate_distance',
+    '_calculate_angles_for_int_array', '_calculate_dihedrals_for_int_array', '_dihedral_res'
 ]
 
 
+def _calculate_distance(traj, int_2darr: np.ndarray, n_frames: int, dtype: str) -> Union[np.ndarray, DatasetList]:
+    if int_2darr.ndim == 1:
+        int_2darr = np.atleast_2d(int_2darr)
+
+    arr = np.empty([n_frames, len(int_2darr)])
+
+    for idx, frame in enumerate(iterframe_master(traj)):
+        arr[idx] = frame._distance(int_2darr)
+
+    arr = arr.T
+    if dtype == 'ndarray':
+        return arr
+    else:
+        dslist = DatasetList({'distance': arr})
+        return get_data_from_dtype(dslist, dtype)
+
+
+def _calculate_angles_for_int_array(traj, integer_array, n_frames, dtype):
+    if integer_array.ndim == 1:
+        integer_array = np.atleast_2d(integer_array)
+
+    if integer_array.shape[1] != 3:
+        raise ValueError("require int-array with shape=(n_atoms, 3)")
+
+    arr = np.empty([n_frames, len(integer_array)])
+    for idx, frame in enumerate(iterframe_master(traj)):
+        arr[idx] = frame._angle(integer_array)
+
+    arr = arr.T
+    if dtype == 'ndarray':
+        return arr
+    else:
+        py_dslist = DatasetList({'angle': arr})
+        return get_data_from_dtype(py_dslist, dtype)
+
+
+def _calculate_dihedrals_for_int_array(traj, integer_array, n_frames, dtype):
+    if integer_array.ndim == 1:
+        integer_array = np.atleast_2d(integer_array)
+
+    if integer_array.shape[1] != 4:
+        raise ValueError("require int-array with shape=(n_atoms, 4)")
+
+    arr = np.empty([n_frames, len(integer_array)])
+    for idx, frame in enumerate(iterframe_master(traj)):
+        arr[idx] = frame._dihedral(integer_array)
+
+    arr = arr.T
+    if dtype == 'ndarray':
+        return arr
+    else:
+        py_dslist = DatasetList({'dihedral': arr})
+        return get_data_from_dtype(py_dslist, dtype)
+
+
+def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
+    '''compute dihedral within a single residue. For internal use only.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : tuple of strings
+    resid : str, resid
+    dtype
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> from pytraj.all_actions import _dihedral_res
+    >>> traj = pt.datafiles.load_tz2()
+    >>> data = _dihedral_res(traj, mask=('N', 'CA', 'C', 'O'), resid=0)
+    >>> # use string for resid
+    >>> data = _dihedral_res(traj, mask=('N', 'CA', 'C', 'O'), resid='1')
+    '''
+
+    if is_int(resid):
+        resid = str(resid + 1)
+    else:
+        resid = resid
+    m = ' :%s@' % resid
+    command = m + m.join(mask)
+    return dihedral(traj=traj, mask=command, top=top, dtype=dtype)
+
+
 def distance_to_point(traj, mask, point, **kwargs):
-    """Calculate distance from atoms to a point"""
+    """Calculate distance from atoms to a point
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str
+        atom mask
+    point : array-like or tuple
+        coordinates of the point
+    **kwargs : additional arguments
+        passed to _distance_to_ref_or_point
+
+    Returns
+    -------
+    ndarray : distances from atoms to point
+    """
     return _distance_to_ref_or_point(traj=traj, mask=mask, point=point, **kwargs)
 
 
 def distance_to_reference(traj, mask, ref, **kwargs):
-    """Calculate distance from atoms to a reference"""
+    """Calculate distance from atoms to a reference
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str
+        atom mask
+    ref : Trajectory-like or Frame
+        reference structure
+    **kwargs : additional arguments
+        passed to _distance_to_ref_or_point
+
+    Returns
+    -------
+    ndarray : distances from atoms to reference
+    """
     return _distance_to_ref_or_point(traj=traj, mask=mask, ref=ref, **kwargs)
 
 

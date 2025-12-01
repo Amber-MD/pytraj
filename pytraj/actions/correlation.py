@@ -4,7 +4,7 @@ Correlation and time series analysis functions
 from .base import *
 
 __all__ = [
-    'atomiccorr', 'acorr', 'xcorr', 'timecorr', 'velocity_autocorrelation', 
+    'atomiccorr', 'acorr', 'xcorr', 'timecorr', 'velocity_autocorrelation',
     'velocityautocorr', 'crank', 'wavelet'
 ]
 
@@ -26,11 +26,11 @@ def atomiccorr(traj,
     traj : Trajectory-like
     mask : str, optional
         first mask
-    mask2 : str, optional 
+    mask2 : str, optional
         second mask
     cut : float, default 0.0
         cutoff distance
-    min_spacing : float, default 1.0  
+    min_spacing : float, default 1.0
         minimum spacing between atoms
     dtype : str, default 'ndarray'
         return data type
@@ -81,7 +81,7 @@ def timecorr(vec0, vec1, order=2, tstep=1., tcorr=10000., norm=False, dtype='nda
         correlation time
     norm : bool, default False
         if True, normalize
-    dtype : str, default 'ndarray'  
+    dtype : str, default 'ndarray'
         return data type
 
     Returns
@@ -103,7 +103,7 @@ def timecorr(vec0, vec1, order=2, tstep=1., tcorr=10000., norm=False, dtype='nda
         max_frames = len(vec0) - 1
 
     result = np.zeros(max_frames + 1)
-    
+
     if order == 1:
         # first order: |v(i)|*|v(i+t)|*cos(theta(i, i+t))
         for t in range(max_frames + 1):
@@ -203,7 +203,7 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     ----------
     data0 : array-like
         first dataset
-    data1 : array-like  
+    data1 : array-like
         second dataset
     mode : str, default 'distance'
         calculation mode
@@ -218,30 +218,30 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     data1 = np.asarray(data1, dtype='f8')
 
     command = f"crank {mode}"
-    
+
     c_dslist = CpptrajDatasetList()
-    
-    # add datasets  
+
+    # add datasets
     dataset0 = c_dslist.add('double', 'data0')
     dataset0.data = data0
-    dataset1 = c_dslist.add('double', 'data1') 
+    dataset1 = c_dslist.add('double', 'data1')
     dataset1.data = data1
 
     # run analysis
     c_analysis.Analysis_CrankShaft(command, dslist=c_dslist)
-    
+
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
 def acorr(data, dtype='ndarray', option=''):
-    """compute autocorrelation 
+    """compute autocorrelation
 
     Parameters
     ----------
     data : array-like
         input data
     dtype : str, default 'ndarray'
-        return data type  
+        return data type
     option : str, optional
         extra options
 
@@ -250,25 +250,25 @@ def acorr(data, dtype='ndarray', option=''):
     out : ndarray
     """
     data = np.asarray(data, dtype='f8')
-    
+
     c_dslist = CpptrajDatasetList()
-    
+
     # add dataset
     dataset = c_dslist.add('double', 'data')
     dataset.data = data
 
     command = f"autocorr data {option}"
-    
+
     # run analysis
     c_analysis.Analysis_AutoCorr(command, dslist=c_dslist)
-    
+
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
 def xcorr(data0, data1, dtype='ndarray'):
     """compute cross correlation between two datasets
 
-    Parameters  
+    Parameters
     ----------
     data0 : array-like
         first dataset
@@ -281,11 +281,11 @@ def xcorr(data0, data1, dtype='ndarray'):
     -------
     out : ndarray
     """
-    data0 = np.asarray(data0, dtype='f8')  
+    data0 = np.asarray(data0, dtype='f8')
     data1 = np.asarray(data1, dtype='f8')
 
     c_dslist = CpptrajDatasetList()
-    
+
     # add datasets
     dataset0 = c_dslist.add('double', 'data0')
     dataset0.data = data0
@@ -293,10 +293,10 @@ def xcorr(data0, data1, dtype='ndarray'):
     dataset1.data = data1
 
     command = "corr data0 data1"
-    
-    # run analysis  
+
+    # run analysis
     c_analysis.Analysis_CrossCorr(command, dslist=c_dslist)
-    
+
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
@@ -314,8 +314,8 @@ def wavelet(traj, command):
     out : DatasetList
     """
     c_dslist = CpptrajDatasetList()
-    
+
     # wavelet is an analysis, not an action
     c_analysis.Analysis_Wavelet(command, dslist=c_dslist)
-    
+
     return c_dslist
