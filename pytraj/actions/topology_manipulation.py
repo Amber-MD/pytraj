@@ -67,11 +67,13 @@ def center_of_mass(traj=None,
                                        frame_indices=frame_indices)
         return com_data.reshape(traj.n_frames, 3)
     else:
-        command = f"{mask} origin mass"
+        command = "center " + mask + " mass"
         dslist = CpptrajDatasetList()
         act = c_action.Action_Vector()
-        act.read_input(command, top=traj.top, dslist=dslist)
-        act.setup(traj.top)
+        if top is None:
+            top = traj.top
+        act.read_input(command, top=top, dslist=dslist)
+        act.setup(top)
 
         for frame in traj:
             act.compute(frame)
