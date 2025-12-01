@@ -513,13 +513,13 @@ def angle(traj=None,
         if command == '':
             raise ValueError("command can't be empty")
 
-        c_action.read_input(command, top=traj.top, dslist=c_dslist)
-        c_action.setup(traj.top)
+        action.read_input(command, top=traj.top, dslist=c_dslist)
+        action.setup(traj.top)
 
         for frame in traj:
-            c_action.compute(frame)
+            action.compute(frame)
 
-        c_action.post_process()
+        action.post_process()
         return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
@@ -681,18 +681,18 @@ def dihedral(traj=None,
     else:
         # use command
         c_dslist = CpptrajDatasetList()
-        c_action = c_action.Action_Dihedral()
+        action = c_action.Action_Dihedral()
 
         if command == '':
             raise ValueError("command can't be empty")
 
-        c_action.read_input(command, top=traj.top, dslist=c_dslist)
-        c_action.setup(traj.top)
+        action.read_input(command, top=traj.top, dslist=c_dslist)
+        action.setup(traj.top)
 
         for frame in traj:
-            c_action.compute(frame)
+            action.compute(frame)
 
-        c_action.post_process()
+        action.post_process()
         return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
