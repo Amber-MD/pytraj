@@ -14,14 +14,7 @@ __all__ = [
     'set_velocity'
 ]
 
-
-def _assert_mutable(trajiter):
-    """make sure the input is not TrajectoryIterator
-    """
-    if isinstance(trajiter, TrajectoryIterator):
-        raise ValueError(
-            "This analysis does not support immutable object. Use `pytraj.Trajectory`"
-        )
+# _assert_mutable is imported from base.py
 
 
 # voxel center and xyz are tuples
@@ -265,14 +258,14 @@ def multidihedral(traj=None,
     if len(commands) == 1:
         # single dihedral
         c_dslist = CpptrajDatasetList()
-        c_action = c_action.Action_Dihedral()
-        c_action.read_input(commands[0], top=traj.top, dslist=c_dslist)
-        c_action.setup(traj.top)
+        action = c_action.Action_Dihedral()
+        action.read_input(commands[0], top=traj.top, dslist=c_dslist)
+        action.setup(traj.top)
 
         for frame in traj:
-            c_action.compute(frame)
+            action.compute(frame)
 
-        c_action.post_process()
+        action.post_process()
         return get_data_from_dtype(c_dslist, dtype=dtype)
     else:
         # multiple dihedrals
@@ -307,14 +300,14 @@ def search_neighbors(traj=None,
     command = f"{mask} {distance}"
 
     c_dslist = CpptrajDatasetList()
-    c_action = c_action.Action_SearchNeighbors()
-    c_action.read_input(command, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action = c_action.Action_SearchNeighbors()
+    action.read_input(command, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
     return get_data_from_dtype(c_dslist, dtype='dict')
 
 
@@ -361,14 +354,14 @@ def native_contacts(traj=None,
     ref_dataset.top = ref_frame.top or traj.top
     ref_dataset.add_frame(ref_frame)
 
-    c_action = c_action.Action_NativeContacts()
-    c_action.read_input(command + " ref ref", top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action = c_action.Action_NativeContacts()
+    action.read_input(command + " ref ref", top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
 
     # remove reference dataset
     c_dslist._pop(0)
@@ -393,14 +386,14 @@ def grid(traj=None, command="", top=None, dtype='dataset'):
     out : DatasetList
     """
     c_dslist = CpptrajDatasetList()
-    c_action = c_action.Action_Grid()
-    c_action.read_input(command, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action = c_action.Action_Grid()
+    action.read_input(command, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
@@ -422,12 +415,12 @@ def transform(traj, by, frame_indices=None):
 
     if isinstance(by, str):
         command = by
-        c_action = c_action.Action_Transform()
-        c_action.read_input(command, top=mut_traj.top)
-        c_action.setup(mut_traj.top)
+        action = c_action.Action_Transform()
+        action.read_input(command, top=mut_traj.top)
+        action.setup(mut_traj.top)
 
         for frame in mut_traj:
-            c_action.compute(frame)
+            action.compute(frame)
     else:
         # assume matrix transformation
         by = np.asarray(by, dtype='f8')
@@ -527,14 +520,14 @@ def lipidscd(traj, mask='', options='', dtype='dict'):
     command = mask + " " + options
 
     c_dslist = CpptrajDatasetList()
-    c_action = c_action.Action_LipidOrder()
-    c_action.read_input(command, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action = c_action.Action_LipidOrder()
+    action.read_input(command, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
@@ -570,14 +563,14 @@ def xtalsymm(traj, mask='', options='', ref=None, **kwargs):
         ref_dataset.add_frame(ref_frame)
         command += " ref ref"
 
-    c_action = c_action.Action_XtalSymm()
-    c_action.read_input(command, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action = c_action.Action_XtalSymm()
+    action.read_input(command, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
 
     if ref is not None:
         c_dslist._pop(0)  # remove reference
@@ -714,13 +707,13 @@ def permute_dihedrals(traj, filename, options=''):
     for frame in mut_traj:
         coords_data.append(frame)
 
-    c_action = c_action.Action_PermuteDihedrals()
-    c_action.read_input(command, top=mut_traj.top, dslist=c_dslist)
-    c_action.setup(mut_traj.top)
+    action = c_action.Action_PermuteDihedrals()
+    action.read_input(command, top=mut_traj.top, dslist=c_dslist)
+    action.setup(mut_traj.top)
 
     # permute
-    c_action.compute(None)
-    c_action.post_process()
+    action.compute(None)
+    action.post_process()
 
     c_dslist._pop(0)
     c_dslist._pop(0)

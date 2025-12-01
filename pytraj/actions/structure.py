@@ -93,15 +93,15 @@ def radgyr(traj=None,
     -------
     out : ndarray, shape (n_frames,)
     """
-    c_action = c_action.Action_RadGyr()
+    action = c_action.Action_RadGyr()
     c_dslist = CpptrajDatasetList()
-    c_action.read_input(mask, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action.read_input(mask, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
@@ -123,16 +123,16 @@ def radgyr_tensor(traj=None, mask='', dtype='ndarray', top=None, frame_indices=N
     -------
     out : ndarray
     """
-    c_action = c_action.Action_RadGyr()
+    action = c_action.Action_RadGyr()
     c_dslist = CpptrajDatasetList()
     tensor_command = mask + " tensor"
-    c_action.read_input(tensor_command, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action.read_input(tensor_command, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
@@ -154,15 +154,15 @@ def surf(traj=None, mask="", dtype='ndarray', frame_indices=None, top=None):
     -------
     out : ndarray, shape (n_frames,)
     """
-    c_action = c_action.Action_Surf()
+    action = c_action.Action_Surf()
     c_dslist = CpptrajDatasetList()
-    c_action.read_input(mask, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action.read_input(mask, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
@@ -198,15 +198,15 @@ def molsurf(traj=None,
     if radii_type:
         command += f" {radii_type}"
 
-    c_action = c_action.Action_Molsurf()
+    action = c_action.Action_Molsurf()
     c_dslist = CpptrajDatasetList()
-    c_action.read_input(command, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action.read_input(command, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
@@ -226,15 +226,15 @@ def volume(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None):
     -------
     out : ndarray, shape (n_frames,)
     """
-    c_action = c_action.Action_Volume()
+    action = c_action.Action_Volume()
     c_dslist = CpptrajDatasetList()
-    c_action.read_input(mask, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action.read_input(mask, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
@@ -270,15 +270,15 @@ def watershell(traj=None,
     out : ndarray, shape (n_frames,)
     """
     command = f"{solvent_mask} around {mask} lower {lower} upper {upper}"
-    c_action = c_action.Action_Watershell()
+    action = c_action.Action_Watershell()
     c_dslist = CpptrajDatasetList()
-    c_action.read_input(command, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action.read_input(command, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
@@ -316,15 +316,15 @@ def rmsf(traj=None,
     if byatom:
         command += " byatom"
 
-    c_action = c_action.Action_AtomicFluct()
+    action = c_action.Action_AtomicFluct()
     c_dslist = CpptrajDatasetList()
-    c_action.read_input(command, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action.read_input(command, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
@@ -363,15 +363,15 @@ def bfactors(traj=None,
     if byatom:
         command += " byatom bfactor"
 
-    c_action = c_action.Action_AtomicFluct()
+    action = c_action.Action_AtomicFluct()
     c_dslist = CpptrajDatasetList()
-    c_action.read_input(command, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action.read_input(command, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
@@ -407,15 +407,15 @@ def pucker(traj=None,
     else:
         raise ValueError("method must be either 'altona' or 'cremer'")
 
-    c_action = c_action.Action_Pucker()
+    action = c_action.Action_Pucker()
     c_dslist = CpptrajDatasetList()
-    c_action.read_input(command, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action.read_input(command, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 

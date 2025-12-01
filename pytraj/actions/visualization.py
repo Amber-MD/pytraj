@@ -54,14 +54,14 @@ def volmap(traj,
         command = f"{mask} {dx} {dy} {dz} {cx} {cy} {cz} buffer {buffer} radscale {radscale}"
 
     c_dslist = CpptrajDatasetList()
-    c_action = c_action.Action_VolMap()
-    c_action.read_input(command, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action = c_action.Action_VolMap()
+    action.read_input(command, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
@@ -128,14 +128,14 @@ def rdf(traj=None,
         command += " noimage"
 
     c_dslist = CpptrajDatasetList()
-    c_action = c_action.Action_Radial()
-    c_action.read_input(command, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action = c_action.Action_Radial()
+    action.read_input(command, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
@@ -169,14 +169,14 @@ def pairdist(traj,
         command += f" ref {ref_mask}"
 
     c_dslist = CpptrajDatasetList()
-    c_action = c_action.Action_Pairwise()
-    c_action.read_input(command, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action = c_action.Action_Pairwise()
+    action.read_input(command, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
@@ -228,14 +228,14 @@ def density(traj,
         command += f" zmin {z_range[0]} zmax {z_range[1]}"
 
     c_dslist = CpptrajDatasetList()
-    c_action = c_action.Action_Density()
-    c_action.read_input(command, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action = c_action.Action_Density()
+    action.read_input(command, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
@@ -283,14 +283,14 @@ def gist(traj,
         command = f"solvent {solvent_mask} " + command
 
     c_dslist = CpptrajDatasetList()
-    c_action = c_action.Action_Gist()
-    c_action.read_input(command, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action = c_action.Action_Gist()
+    action.read_input(command, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
@@ -339,12 +339,12 @@ def _grid(traj,
         command += " invert"
 
     c_dslist = CpptrajDatasetList()
-    c_action = c_action.Action_Grid()
-    c_action.read_input(command, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action = c_action.Action_Grid()
+    action.read_input(command, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
     return c_dslist[-1].values.reshape(-1, 3)

@@ -65,14 +65,14 @@ def projection(traj,
     command += f" {scalar_type} {options}"
 
     c_dslist = CpptrajDatasetList()
-    c_action = c_action.Action_Projection()
-    c_action.read_input(command, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action = c_action.Action_Projection()
+    action.read_input(command, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 

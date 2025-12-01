@@ -320,18 +320,18 @@ def closest(traj=None,
 
     if dtype == 'trajectory':
         traj_mut = traj[:]
-        c_action = c_action.Action_Closest()
-        c_action.read_input(command, top=traj_mut.top)
-        c_action.setup(traj_mut.top)
+        action = c_action.Action_Closest()
+        action.read_input(command, top=traj_mut.top)
+        action.setup(traj_mut.top)
 
         _closest_iter(c_action, traj_mut)
 
         return traj_mut
     else:
         c_dslist = CpptrajDatasetList()
-        c_action = c_action.Action_Closest()
-        c_action.read_input(command, top=traj.top, dslist=c_dslist)
-        c_action.setup(traj.top)
+        action = c_action.Action_Closest()
+        action.read_input(command, top=traj.top, dslist=c_dslist)
+        action.setup(traj.top)
 
         _closest_iter(c_action, traj)
         return get_data_from_dtype(c_dslist, dtype=dtype)
@@ -360,12 +360,12 @@ def translate(traj=None, command="", top=None, frame_indices=None):
     """
     mut_traj = _assert_mutable(traj)
 
-    c_action = c_action.Action_Translate()
-    c_action.read_input(command, top=mut_traj.top)
-    c_action.setup(mut_traj.top)
+    action = c_action.Action_Translate()
+    action.read_input(command, top=mut_traj.top)
+    action.setup(mut_traj.top)
 
     for frame in mut_traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
     return mut_traj
 
@@ -375,12 +375,12 @@ def scale(traj=None, command="", frame_indices=None, top=None):
     """do coordinate scaling"""
     mut_traj = _assert_mutable(traj)
 
-    c_action = c_action.Action_Scale()
-    c_action.read_input(command, top=mut_traj.top)
-    c_action.setup(mut_traj.top)
+    action = c_action.Action_Scale()
+    action.read_input(command, top=mut_traj.top)
+    action.setup(mut_traj.top)
 
     for frame in mut_traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
     return mut_traj
 
@@ -406,12 +406,12 @@ def rotate(traj=None, command="", frame_indices=None, top=None):
     """
     mut_traj = _assert_mutable(traj)
 
-    c_action = c_action.Action_Rotate()
-    c_action.read_input(command, top=mut_traj.top)
-    c_action.setup(mut_traj.top)
+    action = c_action.Action_Rotate()
+    action.read_input(command, top=mut_traj.top)
+    action.setup(mut_traj.top)
 
     for frame in mut_traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
     return mut_traj
 
@@ -436,12 +436,12 @@ def autoimage(traj, mask="", frame_indices=None, top=None):
     """
     mut_traj = _assert_mutable(traj)
 
-    c_action = c_action.Action_AutoImage()
-    c_action.read_input(mask, top=mut_traj.top)
-    c_action.setup(mut_traj.top)
+    action = c_action.Action_AutoImage()
+    action.read_input(mask, top=mut_traj.top)
+    action.setup(mut_traj.top)
 
     for frame in mut_traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
     return mut_traj
 
@@ -466,12 +466,12 @@ def image(traj, mask="", frame_indices=None, top=None):
     """
     mut_traj = _assert_mutable(traj)
 
-    c_action = c_action.Action_Image()
-    c_action.read_input(mask, top=mut_traj.top)
-    c_action.setup(mut_traj.top)
+    action = c_action.Action_Image()
+    action.read_input(mask, top=mut_traj.top)
+    action.setup(mut_traj.top)
 
     for frame in mut_traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
     return mut_traj
 
@@ -509,12 +509,12 @@ def center(traj=None,
     if mass:
         command += ' mass'
 
-    c_action = c_action.Action_Center()
-    c_action.read_input(command, top=mut_traj.top)
-    c_action.setup(mut_traj.top)
+    action = c_action.Action_Center()
+    action.read_input(command, top=mut_traj.top)
+    action.setup(mut_traj.top)
 
     for frame in mut_traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
     return mut_traj
 
@@ -595,12 +595,12 @@ def randomize_ions(traj,
 
     mut_traj = _assert_mutable(traj)
 
-    c_action = c_action.Action_RandomizeIons()
-    c_action.read_input(command, top=mut_traj.top)
-    c_action.setup(mut_traj.top)
+    action = c_action.Action_RandomizeIons()
+    action.read_input(command, top=mut_traj.top)
+    action.setup(mut_traj.top)
 
     for frame in mut_traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
     return mut_traj
 
@@ -635,14 +635,14 @@ def replicate_cell(traj=None,
 
     mut_traj = _assert_mutable(traj)
 
-    c_action = c_action.Action_ReplicateCell()
-    c_action.read_input(command, top=mut_traj.top)
-    c_action.setup(mut_traj.top)
+    action = c_action.Action_ReplicateCell()
+    action.read_input(command, top=mut_traj.top)
+    action.setup(mut_traj.top)
 
     for frame in mut_traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
 
     return mut_traj
 
@@ -651,12 +651,12 @@ def rotate_dihedral(traj=None, mask="", top=None):
     """rotate dihedral"""
     mut_traj = _assert_mutable(traj)
 
-    c_action = c_action.Action_RotateDihedral()
-    c_action.read_input(mask, top=mut_traj.top)
-    c_action.setup(mut_traj.top)
+    action = c_action.Action_RotateDihedral()
+    action.read_input(mask, top=mut_traj.top)
+    action.setup(mut_traj.top)
 
     for frame in mut_traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
     return mut_traj
 
@@ -676,12 +676,12 @@ def set_dihedral(traj, resid=0, dihedral_type=None, deg=0, top=None):
 
     mask += " {}".format(deg)
 
-    c_action = c_action.Action_SetDihedral()
-    c_action.read_input(mask, top=mut_traj.top)
-    c_action.setup(mut_traj.top)
+    action = c_action.Action_SetDihedral()
+    action.read_input(mask, top=mut_traj.top)
+    action.setup(mut_traj.top)
 
     for frame in mut_traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
     return mut_traj
 
@@ -711,12 +711,12 @@ def set_velocity(traj, temperature=298, ig=10, options=''):
 
     command = f"ig {ig} temp0 {temperature} " + options
 
-    c_action = c_action.Action_SetVelocity()
-    c_action.read_input(command, top=mut_traj.top)
-    c_action.setup(mut_traj.top)
+    action = c_action.Action_SetVelocity()
+    action.read_input(command, top=mut_traj.top)
+    action.setup(mut_traj.top)
 
     for frame in mut_traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
     return mut_traj
 
@@ -736,12 +736,12 @@ def fiximagedbonds(traj, mask=''):
     """
     mut_traj = _assert_mutable(traj)
 
-    c_action = c_action.Action_FixImagedBonds()
-    c_action.read_input(mask, top=mut_traj.top)
-    c_action.setup(mut_traj.top)
+    action = c_action.Action_FixImagedBonds()
+    action.read_input(mask, top=mut_traj.top)
+    action.setup(mut_traj.top)
 
     for frame in mut_traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
     return mut_traj
 
@@ -781,21 +781,21 @@ def atom_map(traj, ref, rmsfit=False):
     else:
         fit_command = ""
 
-    c_action = c_action.Action_AtomMap()
-    c_action.read_input(fit_command, top=mut_traj.top)
-    c_action.setup(mut_traj.top, crdinfo={'n_atoms': ref.top.n_atoms})
+    action = c_action.Action_AtomMap()
+    action.read_input(fit_command, top=mut_traj.top)
+    action.setup(mut_traj.top, crdinfo={'n_atoms': ref.top.n_atoms})
 
     # process reference
     for ref_frame in mut_ref:
-        c_action.compute(ref_frame)
+        action.compute(ref_frame)
 
     # process target
     for frame in mut_traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
 
-    return c_action.atom_map
+    return action.atom_map
 
 
 def check_chirality(traj, mask='', dtype='dict'):
@@ -814,14 +814,14 @@ def check_chirality(traj, mask='', dtype='dict'):
     out : dict or DatasetList
     """
     c_dslist = CpptrajDatasetList()
-    c_action = c_action.Action_CheckChirality()
-    c_action.read_input(mask, top=traj.top, dslist=c_dslist)
-    c_action.setup(traj.top)
+    action = c_action.Action_CheckChirality()
+    action.read_input(mask, top=traj.top, dslist=c_dslist)
+    action.setup(traj.top)
 
     for frame in traj:
-        c_action.compute(frame)
+        action.compute(frame)
 
-    c_action.post_process()
+    action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
