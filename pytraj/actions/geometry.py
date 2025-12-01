@@ -508,7 +508,7 @@ def angle(traj=None,
     else:
         # use command
         c_dslist = CpptrajDatasetList()
-        c_action = c_action.Action_Angle()
+        action = c_action.Action_Angle()
 
         if command == '':
             raise ValueError("command can't be empty")
