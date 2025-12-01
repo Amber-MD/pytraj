@@ -54,14 +54,14 @@ def atomiccorr(traj,
         command += " byres"
 
     c_dslist = CpptrajDatasetList()
-    action = c_action.Action_AtomicCorr()
-    action.read_input(command, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
+    c_action = c_action.Action_AtomicCorr()
+    c_action.read_input(command, top=traj.top, dslist=c_dslist)
+    c_action.setup(traj.top)
 
     for frame in traj:
-        action.compute(frame)
+        c_action.compute(frame)
 
-    action.post_process()
+    c_action.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
@@ -145,6 +145,7 @@ def velocity_autocorrelation(
         tcorr=10000.0,
         order=2,
         norm=False,
+        direct=False,
         dtype='ndarray',
         top=None,
         frame_indices=None):
@@ -179,6 +180,8 @@ def velocity_autocorrelation(
     command = mask + f" tstep {tstep} tcorr {tcorr} order {order}"
     if norm:
         command += " norm"
+    if direct:
+        command += " direct"
 
     c_dslist = CpptrajDatasetList()
     action = c_action.Action_VelocityAutoCorr()

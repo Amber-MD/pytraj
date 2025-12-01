@@ -11,6 +11,8 @@ __all__ = [
 @super_dispatch()
 def diffusion(traj,
               mask='',
+              tstep=1.0,
+              individual=False,
               dtype='dataset',
               top=None,
               frame_indices=None):
@@ -21,6 +23,10 @@ def diffusion(traj,
     traj : Trajectory-like
     mask : str, optional
         atom mask
+    tstep : float, default 1.0
+        time step between frames
+    individual : bool, default False
+        if True, compute individual diffusion
     dtype : str, default 'dataset'
         return data type
     top : Topology, optional
@@ -35,9 +41,15 @@ def diffusion(traj,
     This method is equal to `cpptraj` with command
     cpptraj.run('diffusion {}'.format(mask))
     """
+    command = mask
+    if tstep != 1.0:
+        command += f" tstep {tstep}"
+    if individual:
+        command += " individual"
+
     action = c_action.Action_Diffusion()
     c_dslist = CpptrajDatasetList()
-    action.read_input(mask, top=traj.top, dslist=c_dslist)
+    action.read_input(command, top=traj.top, dslist=c_dslist)
     action.setup(traj.top)
 
     for frame in traj:

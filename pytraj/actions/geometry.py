@@ -171,6 +171,7 @@ def distance(traj=None,
              command='',
              mask='',
              indices=None,
+             image=False,
              top=None,
              dtype='ndarray',
              frame_indices=None):
@@ -229,6 +230,8 @@ def distance(traj=None,
         return _calculate_distance(traj, int_2darr, traj.n_frames, dtype)
 
     elif command:
+        if image:
+            command += " image"
         dslist = CpptrajDatasetList()
         act = c_action.Action_Distance()
         act.read_input(command, top=top, dslist=dslist)
