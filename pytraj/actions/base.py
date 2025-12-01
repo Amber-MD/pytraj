@@ -201,3 +201,43 @@ def closest_atom(top=None, frame=None, point=(0, 0, 0), mask=""):
             min_index = index
 
     return dict(index=min_index, distance=min_dist)
+
+
+class CommandType(StrEnum):
+    INT = 'int'
+    STR = 'str'
+    LIST = 'list'
+
+
+def _check_command_type(command):
+    command_array = np.asarray(command)
+    if 'int' in command_array.dtype.name:
+        return CommandType.INT
+    elif isinstance(command, str):
+        return CommandType.STR
+    elif isinstance(command, (list, tuple, np.ndarray)):
+        return CommandType.LIST
+    else:
+        raise ValueError("command must be a string, a list/tuple of strings, or a numpy 2D array")
+
+
+def _create_and_compute_action_list(list_of_commands: List[str],
+                                    top,
+                                    traj: 'Trajectory',
+                                    action: Callable,
+                                    dtype: str,
+                                    args: tuple,
+                                    kwargs: dict) -> Any:
+    action_datasets = CpptrajDatasetList()
+    action_list = ActionList()
+
+    for command in list_of_commands:
+        action_list.add(
+            action(),
+            command,
+            top,
+            dslist=action_datasets,
+            *args,
+            **kwargs)
+    action_list.compute(traj)
+    return get_data_from_dtype(action_datasets, dtype)
