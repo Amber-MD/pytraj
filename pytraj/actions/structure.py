@@ -5,8 +5,70 @@ from .base import *
 
 __all__ = [
     'radgyr', 'radgyr_tensor', 'surf', 'molsurf', 'volume', 'pucker', 'multipucker',
-    'watershell', 'rmsf', 'bfactors'
+    'watershell', 'rmsf', 'bfactors', '_calc_vector_center', 'center_of_mass', 'center_of_geometry'
 ]
+
+
+def _calc_vector_center(traj=None,
+                        mask="",
+                        top=None,
+                        mass=False,
+                        dtype='ndarray',
+                        frame_indices=None):
+
+    action_datasets = CpptrajDatasetList()
+    action_datasets.set_own_memory(False)  # need this to avoid segmentation fault
+    execute_vector_action = c_action.Action_Vector()
+    command = "center " + mask
+
+    if mass:
+        command += " mass"
+
+    execute_vector_action(command, traj, top=top, dslist=action_datasets)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
+
+
+def center_of_mass(traj=None,
+                   mask='',
+                   top=None,
+                   dtype='ndarray',
+                   frame_indices=None):
+    '''compute center of mass
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()
+    >>> # compute center of mass residue 3 for first 2 frames.
+    array([[-0.661702  ,  6.69124347,  3.35159413],
+           [ 0.5620708 ,  7.82263042, -0.72707798]])
+    '''
+    # note: do not use super_dispatch for this method since
+    # we already use for _calc_vector_center
+    return _calc_vector_center(
+        traj=traj,
+        mask=mask,
+        top=top,
+        mass=True,
+        dtype=dtype,
+        frame_indices=frame_indices)
+
+
+@register_pmap
+@super_dispatch()
+def center_of_geometry(traj=None,
+                       mask="",
+                       top=None,
+                       dtype='ndarray',
+                       frame_indices=None):
+
+    atom_mask_obj = top(mask)
+    action_datasets = CpptrajDatasetList()
+    action_datasets.add(DatasetType.VECTOR)
+
+    for frame in iterframe_master(traj):
+        action_datasets[0].append(frame.center_of_geometry(atom_mask_obj))
+    return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
 @super_dispatch()
