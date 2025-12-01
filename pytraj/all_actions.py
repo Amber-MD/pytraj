@@ -82,7 +82,7 @@ __all__ = [
     'set_velocity', 'strip', 'superpose', 'surf', 'symmrmsd', 'ti', 'timecorr',
     'transform', 'translate', 'velocityautocorr', 'vector', 'volmap', 'volume',
     'watershell', 'wavelet', 'xcorr', 'xtalsymm', 'toroidal_diffusion', 'tordiff',
-    'multipucker', 'convert_to_frac', 'create_reservoir',
+    'multipucker', 'convert_to_frac',
     'dihedral_rms', 'ene_decomp', 'infraredspec',
 ]  # yapf: disable
 
@@ -3408,31 +3408,6 @@ def convert_to_frac(traj=None, mask="", dtype='dataset', top=None, frame_indices
                .build())
 
     action_datasets, _ = do_action(traj, command, c_action.Action_ConvertToFrac)
-    return get_data_from_dtype(action_datasets, dtype=dtype)
-
-
-@super_dispatch()
-def create_reservoir(traj=None, mask="", dtype='dataset', top=None, frame_indices=None):
-    """Create a reservoir for the trajectory.
-
-    Parameters
-    ----------
-    traj : Trajectory-like
-    mask : str, atom mask
-    dtype : str, default 'dataset'
-        Output data type.
-    top : Topology, optional
-    frame_indices : array-like, optional
-
-    Returns
-    -------
-    DatasetList or ndarray
-    """
-    command = (CommandBuilder()
-               .add(mask)
-               .build())
-
-    action_datasets, _ = do_action(traj, command, c_action.Action_CreateReservoir)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
