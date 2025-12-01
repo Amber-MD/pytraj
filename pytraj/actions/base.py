@@ -29,6 +29,15 @@ from ..utils.get_common_objects import (
 from ..utils import ensure_not_none_or_string
 from ..utils import is_int
 from ..utils.context import tempfolder
+from .. import c_action
+from ..analysis import c_analysis
+from ..datasetlist import CpptrajDatasetList
+from ..datasets.c_datasets import DatasetList
+from ..core.c_core import ActionList
+from ..utils.tools import register_pmap, register_openmp
+from ..utils.decorators import iterframe_master
+from ..utils.get_common_objects import do_action
+from ..utils.c_utils import capture_stdout
 from ..utils.context import capture_stdout
 from ..utils.convert import array_to_cpptraj_atommask
 from ..utils.convert import array2d_to_cpptraj_maskgroup
