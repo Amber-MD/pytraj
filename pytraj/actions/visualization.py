@@ -10,59 +10,90 @@ __all__ = [
 
 @super_dispatch()
 def volmap(traj,
-           mask='',
-           size=(0.5, 0.5, 0.5),
-           center=(0, 0, 0),
+           mask,
+           grid_spacing,
+           size=None,
+           center=None,
            buffer=3.0,
-           centermask='',
+           centermask='*',
            radscale=1.36,
-           dtype='ndarray',
+           peakcut=0.05,
            top=None,
-           frame_indices=None):
-    """compute volume map
+           dtype='ndarray',
+           frame_indices=None,
+           options=""):
+    '''(combined with cpptraj doc) Grid data as a volumetric map, similar to the
+    volmap command in VMD. The density is calculated by treating each atom as a
+    3-dimensional Gaussian function whose standard deviation is equal to the van der Waals radius
 
     Parameters
     ----------
-    traj : Trajectory-like
-    mask : str, optional
-        atom selection
-    size : tuple of floats, default (0.5, 0.5, 0.5)
-        grid spacing
-    center : tuple of floats, default (0, 0, 0)
-        center coordinates
-    buffer : float, default 3.0
-        buffer around the coordinates
-    centermask : str, optional
-        mask used to determine center
-    radscale : float, default 1.36
-        scaling factor for VDW radii
+    mask : {str, array-like}, default all atoms
+        the atom selection from which to calculate the number density
+    grid_spacing : tuple, grid spacing in X-, Y-, Z-dimensions, require
+    size : {None, tuple}, default None
+        if tuple, size must have length of 3
+    center : {None, tuple}, default None
+        if not None, center is tuple of (x, y, z) of center point
+    buffer : float, default 3.0 Angstrom
+        buffer distance (Angstrom), by which the edges of the grid should clear every atom
+        of the centermask (or default mask if centermask is omitted) in every direction.
+        The buffer is ignored if the center and size are specified.
+    centermask : str
+    radscale : float, default 1.36 (to match to VMD calculation)
+        factor by which to scale radii (by devision)
+    peakcut : float
     dtype : str, default 'ndarray'
-        return data type
-    top : Topology, optional
-    frame_indices : array-like, optional
+        Note: To get all the output from cpptraj, it would be better to specify
+        dtype='dict'
 
-    Returns
-    -------
-    out : ndarray
-    """
-    dx, dy, dz = size
-    cx, cy, cz = center
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> # load all frames to memory
+    >>> traj = pt.datafiles.load_tz2_ortho()[:]
+    >>> # do fitting and centering before perform volmap
+    >>> traj = traj.superpose(mask=':1-13').center(':1-13 mass origin')
+    >>> data = pt.volmap(traj, mask=':WAT@O', grid_spacing=(0.5, 0.5, 0.5), buffer=2.0, centermask='!:1-13', radscale=1.36)
+    '''
+    dummy_filename = 'dummy_fn.dat'
 
-    if centermask:
-        command = f"{mask} {dx} {dy} {dz} center {centermask} buffer {buffer} radscale {radscale}"
+    assert isinstance(grid_spacing, tuple) and len(grid_spacing) == 3, 'grid_spacing must be a tuple with length=3'
+
+    grid_spacing_str = ' '.join([str(x) for x in grid_spacing])
+    radscale_str = 'radscale ' + str(radscale)
+    buffer_str = 'buffer ' + str(buffer)
+    peakcut_str = 'peakcut ' + str(peakcut)
+    centermask_str = 'centermask ' + centermask
+
+    if isinstance(size, tuple):
+        assert len(size) == 3, 'length of size must be 3'
+    elif size is not None:
+        raise ValueError('size must be None or a tuple. Please check method doc')
+
+    size_str = '' if size is None else 'size ' + ','.join([str(x) for x in size])
+
+    if size_str:
+        # ignore buffer
+        buffer_str = ''
+        # add center
+        if center is not None:
+            center_str = 'center ' + ','.join([str(x) for x in center])
+        else:
+            center_str = ''
     else:
-        command = f"{mask} {dx} {dy} {dz} {cx} {cy} {cz} buffer {buffer} radscale {radscale}"
+        center_str = ''
 
-    c_dslist = CpptrajDatasetList()
-    action = c_action.Action_VolMap()
-    action.read_input(command, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
-
-    for frame in traj:
-        action.compute(frame)
-
-    action.post_process()
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    command = ' '.join((dummy_filename, grid_spacing_str, center_str, size_str, mask,
+                        radscale_str, buffer_str, centermask_str, peakcut_str, options))
+    action_datasets, _ = do_action(traj, command, c_action.Action_Volmap)
+    index = None
+    for i, volume_ds in enumerate(action_datasets):
+        if volume_ds.key.endswith("[totalvol]"):
+            index = i
+    if index is not None:
+        action_datasets._pop(index)
+    return get_data_from_dtype(action_datasets, dtype)
 
 
 def rdf(traj=None,
