@@ -97,77 +97,101 @@ def volmap(traj,
 
 
 def rdf(traj=None,
+        solvent_mask=':WAT@O',
         solute_mask='',
-        solvent_mask='',
+        maximum=10.,
         bin_spacing=0.5,
-        bin_max=10.0,
-        volume=False,
-        density=0.033456,
-        center1=False,
-        center2=False,
-        intramol=True,
         image=True,
-        dtype='ndarray',
+        density=0.033456,
+        volume=False,
+        center_solvent=False,
+        center_solute=False,
+        intramol=True,
+        frame_indices=None,
         top=None,
-        frame_indices=None):
-    """compute radial distribution functions
-
-    Parameters
-    ----------
-    traj : Trajectory-like
-    solute_mask : str
-        solute mask
-    solvent_mask : str
-        solvent mask
-    bin_spacing : float, default 0.5
-        histogram bin spacing
-    bin_max : float, default 10.0
-        histogram max distance
-    volume : bool, default False
-        if True, normalize by volume
-    density : float, default 0.033456
-        number density (molecules per cubic Angstrom)
-    center1 : bool, default False
-        if True, only calculate to center of first mask
-    center2 : bool, default False
-        if True, only calculate to center of second mask
-    intramol : bool, default True
-        if True, include intramolecular interactions
-    image : bool, default True
-        if True, use nearest image
-    dtype : str, default 'ndarray'
-        return data type
-    top : Topology, optional
-    frame_indices : array-like, optional
+        raw_rdf=False):
+    '''compute radial distribtion function. Doc was adapted lightly from cpptraj doc
 
     Returns
     -------
-    out : ndarray, shape (n_bins, 2)
-    """
-    command = f"{solute_mask} {solvent_mask} {bin_spacing} {bin_max}"
+    a tuple of bin_centers, rdf values
 
-    if volume:
-        command += " volume"
-    command += f" density {density}"
-    if center1:
-        command += " center1"
-    if center2:
-        command += " center2"
-    if not intramol:
-        command += " nointramol"
-    if not image:
-        command += " noimage"
+    Parameters
+    ----------
+    traj : Trajectory-like, require
+    solvent_mask : solvent mask, default None, required
+    bin_spacing : float, default 0.5, optional
+        bin spacing
+    maximum : float, default 10., optional
+        max bin value
+    solute_mask: str, default None, optional
+        if specified, calculate RDF of all atoms in solvent_mask to each atom in solute_mask
+    image : bool, default True, optional
+        if False, do not image distance
+    density : float, default 0.033456 molecules / A^3, optional
+    volume : determine density for normalization from average volume of input frames
+    center_solvent : bool, default False, optional
+        if True, calculate RDF from geometric center of atoms in solvent_mask to all atoms in solute_mask
+    center_solute : bool, default False, optional
+        if True, calculate RDF from geometric center of atoms in solute_mask to all atoms in solvent_mask
+    intramol : bool, default True, optional
+        if False, ignore intra-molecular distances
+    frame_indices : array-like, default None, optional
+    raw_rdf : bool, default False, optional
+        if True, return the raw (non-normalized) RDF values
 
-    c_dslist = CpptrajDatasetList()
-    action = c_action.Action_Radial()
-    action.read_input(command, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> data = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5, maximum=10.0, solute_mask=':WAT@O')
+    >>> data[0]
+    array([ 0.25,  0.75,  1.25, ...,  8.75,  9.25,  9.75])
+    >>> data[1]
+    array([ 0.        ,  0.        ,  0.        , ...,  0.95620052,
+            0.95267934,  0.95135242])
 
-    for frame in traj:
-        action.compute(frame)
+    >>> # use array-like mask
+    >>> atom_indices = pt.select(':WAT@O', traj.top)
+    >>> data = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5, maximum=10.0, solute_mask=atom_indices)
 
-    action.post_process()
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    Notes
+    -----
+    - install ``pytraj`` and ``libcpptraj`` with openmp to speed up calculation
+    - do not use this method with pytraj.pmap
+    '''
+
+    traj = get_fiterator(traj, frame_indices)
+
+    # Convert masks to string format if needed
+    if not isinstance(solvent_mask, str):
+        solvent_mask = array_to_cpptraj_atommask(solvent_mask)
+
+    if not isinstance(solute_mask, str) and solute_mask is not None:
+        solute_mask = array_to_cpptraj_atommask(solute_mask)
+
+    # Build command using CommandBuilder
+    command = (CommandBuilder()
+               .add("pytraj_tmp_output.agr")
+               .add(str(bin_spacing))
+               .add(str(maximum))
+               .add(solvent_mask)
+               .add(solute_mask, condition=solute_mask is not None)
+               .add("noimage", condition=not image)
+               .add("density", str(density), condition=density is not None)
+               .add("volume", condition=volume)
+               .add("center1", condition=center_solvent)
+               .add("center2", condition=center_solute)
+               .add("nointramol", condition=not intramol)
+               .add("rawrdf pytraj_tmp_output_raw.agr", condition=raw_rdf)
+               .build())
+
+    c_dslist, _ = do_action(traj, command, c_action.Action_Radial)
+    # make a copy sine c_dslist[-1].values return view of its data
+    # c_dslist will be freed
+    values = np.array(c_dslist[-1].values)
+    # return (bin_centers, values)
+    return (np.arange(bin_spacing / 2., maximum, bin_spacing), values)
 
 
 @super_dispatch()

@@ -344,47 +344,58 @@ def bfactors(traj=None,
 
 
 def pucker(traj=None,
-           mask=None,
-           method="altona",
-           dtype='ndarray',
+           pucker_mask=("C1'", "C2'", "C3'", "C4'", "O4'"),
+           resrange=None,
            top=None,
-           frame_indices=None):
+           dtype='dataset',
+           range360=False,
+           method='altona',
+           use_com=True,
+           amplitude=False,
+           offset=None):
     """compute pucker
 
     Parameters
     ----------
     traj : Trajectory-like
-    mask : str, optional
-        atom mask
-    method : str, default 'altona'
-        pucker calculation method. Either 'altona' or 'cremer'
-    dtype : str, default 'ndarray'
-        return data type
+    pucker_mask : str
+    resrange : None or array of int
     top : Topology, optional
-    frame_indices : array-like, optional
+    dtype : str, return type
+    range360: bool, use 360 or 180 scale
+    method : {'altona', 'cremer'}, default 'altona'
+    use_com : bool
+    amplitude : bool, default False
+    offset : None or float
 
     Returns
     -------
-    out : ndarray, shape (n_frames,)
+    Dataset
     """
-    command = mask or ""
-    if method == 'cremer':
-        command += " cremer"
-    elif method == 'altona':
-        command += " altona"
-    else:
-        raise ValueError("method must be either 'altona' or 'cremer'")
+    top_ = get_topology(traj, top)
+    if resrange is None:
+        resrange = range(top_.n_residues)
 
-    action = c_action.Action_Pucker()
     c_dslist = CpptrajDatasetList()
-    action.read_input(command, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
 
-    for frame in traj:
-        action.compute(frame)
+    for res in resrange:
+        atom_mask = " ".join((":" + str(res + 1) + '@' + x for x in pucker_mask))
+        name = "pucker_res" + str(res + 1)
 
-    action.post_process()
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+        command = (CommandBuilder()
+                   .add(name)
+                   .add(atom_mask)
+                   .add("range360", condition=range360)
+                   .add(method)
+                   .add("geom", condition=not use_com)
+                   .add("amplitude", condition=amplitude)
+                   .add("offset", str(offset), condition=offset is not None)
+                   .build())
+
+        act = c_action.Action_Pucker()
+        act(command, traj, top=top_, dslist=c_dslist)
+
+    return get_data_from_dtype(c_dslist, dtype)
 
 
 @super_dispatch()

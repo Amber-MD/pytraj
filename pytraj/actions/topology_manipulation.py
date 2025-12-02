@@ -560,53 +560,37 @@ def strip(obj, mask):
 
 @super_dispatch()
 def randomize_ions(traj,
-                   mask='',
-                   around_mask='',
-                   min_dist=5.0,
-                   options='',
-                   dtype='ndarray',
-                   frame_indices=None,
-                   top=None):
-    """randomize ions coordinates
+                   mask,
+                   around,
+                   by,
+                   overlap,
+                   seed=1,
+                   top=None,
+                   frame_indices=None):
+    """randomize_ions for given Frame with Topology
 
     Parameters
     ----------
-    traj : Trajectory-like
-    mask : str, optional
-        atom mask
-    around_mask : str, optional
-        around mask
-    min_dist : float, default 5.0
-        minimum distance
-    options : str, optional
-        extra options
-    dtype : str, default 'ndarray'
-        return data type
-    frame_indices : array-like, optional
-    top : Topology, optional
+    traj : Trajectory-like or a Frame
+        ``traj`` must be mutable
+    mask : str
+        cpptraj command
+    frame_indices : {None, array-like}, optional
+    top : Topology, optional (only needed if ``traj`` does not have it)
 
-    Returns
-    -------
-    out : Trajectory
+    Examples
+    --------
+    >>> pt.randomize_ions(traj, mask='@Na+', around=':1-16', by=5.0, overlap=3.0, seed=113698) # doctest: +SKIP
     """
-    command = mask
-    if around_mask:
-        command += f" around {around_mask}"
-    if min_dist != 5.0:
-        command += f" by {min_dist}"
-    if options:
-        command += f" {options}"
+    _assert_mutable(traj)
+    around_ = 'around ' + str(around)
+    by_ = 'by ' + str(by)
+    overlap_ = 'overlap ' + str(overlap)
+    seed_ = 'seed ' + str(seed)
+    command = ' '.join((mask, around_, by_, overlap_, seed_))
 
-    mut_traj = _assert_mutable(traj)
-
-    action = c_action.Action_RandomizeIons()
-    action.read_input(command, top=mut_traj.top)
-    action.setup(mut_traj.top)
-
-    for frame in mut_traj:
-        action.compute(frame)
-
-    return mut_traj
+    do_action(traj, command, c_action.Action_RandomizeIons, top=top)
+    return traj
 
 
 @super_dispatch()
