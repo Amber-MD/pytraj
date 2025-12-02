@@ -182,61 +182,69 @@ def pairdist(traj,
 
 @super_dispatch()
 def density(traj,
-            mask='',
-            delta=(0.25, 0.25, 0.25),
-            counter=1,
-            x_range=None,
-            y_range=None,
-            z_range=None,
-            dtype='ndarray',
-            top=None,
-            frame_indices=None):
-    """compute density
+            mask='*',
+            density_type='number',
+            delta=0.25,
+            direction='z',
+            dtype='dict',
+            top=None):
+    """Compute density (number, mass, charge, electron) along a coordinate
+
+    Notes
+    -----
+    Syntax might be changed
 
     Parameters
     ----------
     traj : Trajectory-like
-    mask : str, optional
-        atom selection
-    delta : tuple of floats, default (0.25, 0.25, 0.25)
-        grid spacing
-    counter : int, default 1
-        what to count (1=number, 2=mass, 3=charge, 4=electron)
-    x_range : tuple, optional
-        x range (min, max)
-    y_range : tuple, optional
-        y range (min, max)
-    z_range : tuple, optional
-        z range (min, max)
-    dtype : str, default 'ndarray'
-        return data type
-    top : Topology, optional
-    frame_indices : array-like, optional
+    mask : str or list of str, default '*'
+        required mask
+    density_type : str, {'number', 'mass', 'charge', 'electron'}, default 'number'
+    delta : float, default 0.25
+        resolution (Angstrom)
+    direction : str, default 'z'
+    dtype : str, default 'dict'
+        return data type. Please always using default value, others are for debugging.
 
     Returns
     -------
-    out : ndarray
+    out : dict of average density and std for each frame
+
+    Examples
+    --------
+
+    >>> def func():
+    ...     import pytraj as pt
+    ...     fn = "data/DOPC.rst7"
+    ...     tn = "data/DOPC.parm7"
+    ...     traj = pt.load("data/DOPC.rst7", "data/DOPC.parm7")
+
+    ...     delta = '0.25'
+    ...     density_type = 'charge'
+    ...     masks = [":PC@P31", ":PC@N31", ":PC@C2", ":PC | :OL | :OL2"]
+    ...     density_dict = pt.density(traj, mask=masks, density_type=density_type, delta=delta)
+    ...     return density_dict
+    >>> density_dict = func() # doctest: +SKIP
     """
-    dx, dy, dz = delta
-    command = f"{mask} {dx} {dy} {dz} {counter}"
 
-    if x_range:
-        command += f" xmin {x_range[0]} xmax {x_range[1]}"
-    if y_range:
-        command += f" ymin {y_range[0]} ymax {y_range[1]}"
-    if z_range:
-        command += f" zmin {z_range[0]} zmax {z_range[1]}"
+    assert density_type.lower() in {'number', 'mass', 'charge', 'electron'}, \
+        f'{density_type} must be one of number, mass, charge, electron'
 
-    c_dslist = CpptrajDatasetList()
-    action = c_action.Action_Density()
-    action.read_input(command, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
+    if isinstance(mask, str):
+        formatted_mask = f'"{mask}"'
+    elif isinstance(mask, (list, tuple)):
+        formatted_mask = ' '.join(f'"{m}"' for m in mask)
+    else:
+        raise ValueError("mask must be either string or list/tuple of string")
 
-    for frame in traj:
-        action.compute(frame)
+    command = f'delta {delta} {direction} {density_type} {formatted_mask}'
+    action_datasets, _ = do_action(traj, command, c_action.Action_Density)
 
-    action.post_process()
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    result = get_data_from_dtype(action_datasets, dtype=dtype)
+    if isinstance(result, dict):
+        result.update({direction: action_datasets[0]._coord(dim=0)})
+
+    return result
 
 
 @super_dispatch()
