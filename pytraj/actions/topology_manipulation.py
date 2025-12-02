@@ -651,17 +651,38 @@ def replicate_cell(traj=None,
 
 
 def rotate_dihedral(traj=None, mask="", top=None):
-    """rotate dihedral"""
-    mut_traj = _assert_mutable(traj)
+    # change to pt.rotate_dihedral(traj, res=0,
+    #              mask=("O4'", "C1'", "N9", "C4"), deg=120)?
+    """
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_rna()[:]
+    >>> traj = pt.rotate_dihedral(traj, "3:chin:120") # rotate chin of res 3 to 120 deg
+    >>> traj = pt.rotate_dihedral(traj, "1:O4':C1':N9:C4:120") # rotate dihedral with given mask
 
-    action = c_action.Action_RotateDihedral()
-    action.read_input(mask, top=mut_traj.top)
-    action.setup(mut_traj.top)
+    Returns
+    -------
+    updated traj
 
-    for frame in mut_traj:
-        action.compute(frame)
+    Notes
+    -----
+    Syntax and method's name might be changed
+    """
+    from ..utils.get_common_objects import get_topology
+    
+    _assert_mutable(traj)
+    top_ = get_topology(traj, top)
 
-    return mut_traj
+    if "custom:" in mask:
+        command = mask
+    else:
+        command = "custom:" + mask
+
+    act = c_action.Action_MakeStructure()
+
+    act(command, traj, top=top_)
+    return traj
 
 
 def set_dihedral(traj, resid=0, dihedral_type=None, deg=0, top=None):
