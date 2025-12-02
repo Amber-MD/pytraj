@@ -91,59 +91,86 @@ def timecorr(vec0, vec1, order=2, tstep=1., tcorr=10000., norm=False, dtype='nda
 @super_dispatch()
 def velocity_autocorrelation(
         traj,
-        mask='*',
+        mask='',
+        maxlag=-1,
         tstep=1.0,
-        tcorr=10000.0,
-        order=2,
+        direct=True,
         norm=False,
-        direct=False,
+        usecoords=False,
         dtype='ndarray',
         top=None,
-        frame_indices=None):
-    """compute velocity autocorrelation <v(0).v(t)>
-
+        velocity_arr=None):
+    """
     Parameters
     ----------
     traj : Trajectory-like
-    mask : str, default '*'
+    mask : str
         atom mask
+    maxlag : int, default -1
+        maximum lag. If -1, using half of total number of frame
+        if given, use it.
     tstep : float, default 1.0
-        time step between frames (ps)
-    tcorr : float, default 10000.0
-        correlation time (ps)
-    order : int, default 2
-        1: |v(0)|*|v(t)|*cos(theta)  2: v(0).v(t)
+    direct : bool, default True
+        if True, use direct method
+        else, use FFT to compute autocorrelation function
     norm : bool, default False
-        if True, normalize correlation function
+        if True, normalize autocorrelation function to 1.0
+    usecoords : bool, default False
+        if True, use velocity info in Frame
     dtype : str, default 'ndarray'
         return data type
-    top : Topology, optional
-    frame_indices : array-like, optional
-
-    Returns
-    -------
-    out : ndarray, shape (n_time_points,)
+    top : None or Topology, default None, optional
+    velocity_arr : None or 3D like array, default None
+        only use `velocity_arr` if usecoords is True
 
     Notes
     -----
-    need velocity information
+    If you create Trajectory by `pytraj.load` method, there is no velocity information.
+    So if you want to use `usecoords=True`, you need to provide 3D-array velocity_arr
     """
-    command = mask + f" tstep {tstep} tcorr {tcorr} order {order}"
-    if norm:
-        command += " norm"
-    if direct:
-        command += " direct"
+    from pytraj import Frame
 
-    c_dslist = CpptrajDatasetList()
-    action = c_action.Action_VelocityAutoCorr()
-    action.read_input(command, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
+    if velocity_arr is not None:
+        velocity_arr = np.asarray(velocity_arr)
 
-    for frame in traj:
-        action.compute(frame)
+        if len(velocity_arr.shape) != 3:
+            raise ValueError(
+                'provided velocity_arr must be 3D array-like, shape=(n_frames, n_atoms, 3)'
+            )
 
-    action.post_process()
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    velocity_autocorrelation_action = c_action.Action_VelocityAutoCorr()
+    action_datasets = CpptrajDatasetList()
+
+    command = f"maxlag {maxlag} tstep {tstep} {'direct' if direct else ''} {'norm' if norm else ''} {'usecoords' if usecoords else ''}"
+    crdinfo = dict(has_velocity=True)
+
+    velocity_autocorrelation_action.read_input(command, top, dslist=action_datasets)
+    velocity_autocorrelation_action.setup(top, crdinfo=crdinfo)
+
+    frame_template = Frame()
+
+    if usecoords and velocity_arr is not None:
+        frame_template._allocate_force_and_velocity(
+            top, crdinfo=dict(has_velocity=True))
+        use_template = True
+    else:
+        use_template = False
+
+    for idx, frame in enumerate(traj):
+        if not use_template:
+            if usecoords and not frame.has_velocity():
+                raise ValueError(
+                    "Frame must have velocity if specify 'usecoords'")
+            velocity_autocorrelation_action.compute(frame)
+        else:
+            vel = velocity_arr[idx]
+            frame_template.xyz[:] = frame.xyz[:]
+            frame_template.velocity[:] = vel
+            velocity_autocorrelation_action.compute(frame_template)
+
+    velocity_autocorrelation_action.post_process()
+
+    return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
 # create an alias

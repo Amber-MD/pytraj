@@ -220,59 +220,37 @@ def align_principal_axis(traj=None,
 
 
 def principal_axes(traj=None, mask='*', dorotation=False, mass=True, top=None):
+    # TODO: update doc please
     """compute principal axes
 
     Parameters
     ----------
     traj : Trajectory-like
-    mask : str, default '*'
-        atom mask
-    dorotation : bool, default False
-        if True, return array of aligned coordinates
-        if False, return DatasetList storing principal axis vectors
-    mass : bool, default True
-        if True, use mass weighting
+    mask : str, default '*' (all atoms)
+    mass: bool, defaul True
+    if `dorotation`, the system will be aligned along principal axes (apply for mutable system)
     top : Topology, optional
 
     Returns
     -------
-    output : ndarray or DatasetList
+    out_0 : numpy array, shape=(n_frames, 3, 3)
+    out_1: numpy array with shape=(n_frames, 3)
     """
-
+    command_elements = [mask]
+    if 'name' not in mask:
+        command_elements.append('name pout')
     if dorotation:
-        # return aligned coordinate arrays
-        mutraj = _assert_mutable(traj)
-        command = mask
+        command_elements.append('dorotation')
+    if mass:
+        command_elements.append('mass')
 
-        if mass:
-            command += " mass dorotation"
-        else:
-            command += " dorotation"
+    command = ' '.join(command_elements)
+    action_datasets, _ = do_action(traj, command, c_action.Action_Principal)
 
-        action = c_action.Action_Principal()
-        action.read_input(command, top=mutraj.top)
-        action.setup(mutraj.top)
+    principal_axes = action_datasets[0].values
+    principal_values = action_datasets[1].values
 
-        for frame in mutraj:
-            action.compute(frame)
-
-        return mutraj.xyz
-    else:
-        # return dataset with principal axis vectors
-        command = mask
-        if mass:
-            command += " mass"
-
-        dslist = CpptrajDatasetList()
-        action = c_action.Action_Principal()
-        action.read_input(command, top=traj.top, dslist=dslist)
-        action.setup(traj.top)
-
-        for frame in traj:
-            action.compute(frame)
-
-        action.post_process()
-        return get_data_from_dtype(dslist, dtype='dataset')
+    return principal_axes, principal_values
 
 
 def _closest_iter(act, traj):
