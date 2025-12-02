@@ -125,91 +125,68 @@ def center_of_geometry(traj=None,
 
 @super_dispatch()
 def align(traj,
-          mask=None,
+          mask='',
           ref=0,
           ref_mask='',
           mass=False,
-          rms_name='',
-          frame_indices=None,
-          top=None):
-    """align trajectory to a reference frame
+          top=None,
+          frame_indices=None):
+    """align (superpose) trajectory to given reference
 
     Parameters
     ----------
     traj : Trajectory-like
-    mask : str
-        mask to select atoms for fitting
-    ref : {int, Frame, Trajectory}, default 0 (first frame)
-        Reference frame
-    mass : bool, default False
-        if True, use mass-weighted alignment
-    rms_name : str, optional
-        root mean squared name to be written to DatasetList
-    frame_indices : array-like, optional
-        frame indices
-    top : Topology, optional
-
-    Returns
-    -------
-    dslist : DatasetList
+    mask : str, default '' (all atoms)
+    ref : {int, Frame}, default 0 (first frame)
+    ref_mask : str, default ''
+        if not given, use traj's mask
+        if given, use it
+    mass : Bool, default False
+        if True, mass-weighted
+        if False, no mas-weighted
+    frame_indices : {None, array-like}, default None
+       if given, only compute RMSD for those
 
     Examples
     --------
-    >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_tz2()
-    >>> traj.xyz[0, 0]
-    array([-1.88900006,  9.1590004 ,  0.24699999], dtype=float32)
-    >>> _ = pt.align(traj, mask='!@H=', ref=traj[2])
-    >>> traj.xyz[0, 0]  # coordinates changed
-    array([ 6.97324038, -8.83906818,  5.22135925], dtype=float32)
+
+    Notes
+    -----
+    versionadded: 1.0.6
     """
-    from .rmsd import rmsd
+    if isinstance(traj, TrajectoryIterator):
+        return traj.superpose(mask=mask, ref=ref, ref_mask=ref_mask, mass=mass)
+    else:
+        mask_str = mask
+        ref_mask_str = ref_mask
+        reference_topology = ref.top if hasattr(ref, 'top') else top
+        mass_str = 'mass' if mass else ''
 
-    if mask is None:
-        mask = "*"
+        reference_name = 'myref'
+        reference_command = 'ref {}'.format(reference_name)
 
-    # make a copy of reference
-    ref_frame = get_reference(traj, ref)
+        command = ' '.join((reference_command, mask_str, ref_mask_str, mass_str))
 
-    command = 'rms2d'
+        if reference_topology is None:
+            reference_topology = traj.top
 
-    if rms_name:
-        command = command + ' ' + rms_name
-    if mass:
-        command = command + ' mass'
+        action_datasets = CpptrajDatasetList()
+        action_datasets.add(DatasetType.REFERENCE, name=reference_name)
+        action_datasets[0].top = reference_topology
+        action_datasets[0].add_frame(ref)
 
-    # create mutable trajectory
-    mut_traj = _assert_mutable(traj)
+        align_action = c_action.Action_Align()
+        align_action.read_input(command, top=top, dslist=action_datasets)
+        align_action.setup(top)
 
-    # Use the correct Action_Align implementation
-    mask_str = mask if mask else ''
-    ref_mask_str = ref_mask
-    mass_str = 'mass' if mass else ''
+        for frame in traj:
+            align_action.compute(frame)
+        align_action.post_process()
 
-    reference_name = 'myref'
-    reference_command = 'ref {}'.format(reference_name)
+        # remove ref
+        action_datasets._pop(0)
 
-    align_command = ' '.join((reference_command, mask_str, ref_mask_str, mass_str)).strip()
-
-    reference_topology = ref_frame.top if hasattr(ref_frame, 'top') else top
-
-    action_datasets = CpptrajDatasetList()
-    action_datasets.add(DatasetType.REFERENCE, name=reference_name)
-    action_datasets[0].top = reference_topology
-    action_datasets[0].add_frame(ref_frame)
-
-    align_action = c_action.Action_Align()
-    align_action.read_input(align_command, top=top, dslist=action_datasets)
-    align_action.setup(top)
-
-    for frame in mut_traj:
-        align_action.compute(frame)
-    align_action.post_process()
-
-    # remove ref
-    action_datasets._pop(0)
-
-    return mut_traj
+        return traj
 
 
 @super_dispatch()

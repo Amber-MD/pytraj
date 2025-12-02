@@ -288,95 +288,79 @@ def watershell(traj=None,
 
 @super_dispatch()
 def rmsf(traj=None,
-         mask=None,
-         byres=False,
-         byatom=True,
-         dtype='ndarray',
+         mask="",
          top=None,
-         frame_indices=None):
-    """compute root-mean-square fluctuation
+         dtype='ndarray',
+         frame_indices=None,
+         options=''):
+    '''compute atomicfluct (RMSF)
 
     Parameters
     ----------
     traj : Trajectory-like
-    mask : str
-        atom mask
-    byres : bool, default False
-        calculate RMSF per residue
-    byatom : bool, default True
-        calculate RMSF per atom
-    dtype : str, default 'ndarray'
-        return data type
-    top : Topology, optional
-    frame_indices : array-like, optional
+    mask : str or 1D-array
+        atom mask. If not given, use all atoms
+    options : str, additional cpptraj options ('byres', 'bymask', 'byatom', 'calcadp')
 
-    Returns
-    -------
-    out : ndarray
-    """
-    command = mask if mask is not None else "*"
-    if byres:
-        command += " byres"
-    if byatom:
-        command += " byatom"
-
-    action = c_action.Action_AtomicFluct()
-    c_dslist = CpptrajDatasetList()
-    action.read_input(command, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
-
-    for frame in traj:
-        action.compute(frame)
-
-    action.post_process()
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> data = pt.rmsf(traj, '@CA') # or pt.atomicfluct
+    >>> data[:3]
+    array([[  5.        ,   0.61822273],
+           [ 16.        ,   0.5627449 ],
+           [ 40.        ,   0.53717119]])
+    '''
+    command = ' '.join((mask, options))
+    action_datasets, _ = do_action(traj, command, c_action.Action_AtomicFluct)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
 def bfactors(traj=None,
-             mask=None,
-             byres=False,
-             byatom=True,
-             dtype='ndarray',
+             mask="",
+             byres=True,
              top=None,
+             dtype='ndarray',
              frame_indices=None):
-    """compute B factors (or temperature factors)
+    """calculate pseudo bfactor
+
+    Notes
+    -----
+    This is **NOT** getting bfactor from xray, but computing bfactor from simulation.
 
     Parameters
     ----------
-    traj : Trajectory-like
-    mask : str
-        atom mask
-    byres : bool, default False
-        calculate B factors per residue
-    byatom : bool, default True
-        calculate B factors per atom
-    dtype : str, default 'ndarray'
-        return data type
-    top : Topology, optional
-    frame_indices : array-like, optional
+    traj: Trajectory-like
+    mask: str, mask
 
     Returns
     -------
-    out : ndarray
+    if dtype is 'ndarray' (default), return a numpy array
+    with shape=(n_atoms/n_residues, 2) ([atom_or_residue_idx, value])
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> from pytraj.testing import get_fn
+    >>> fn, tn = get_fn('tz2')
+    >>> traj = pt.load(fn, tn, mask='!:WAT')
+    >>> traj = pt.superpose(traj)
+    >>> bfactor = pt.bfactors(traj, byres=True)
     """
-    # B factor is 8 * pi^2 / 3 * RMSF^2
-    # cpptraj automatically does this conversion with bfactor command
-    command = mask or ""
-    if byres:
-        command += " byres"
-    if byatom:
-        command += " byatom bfactor"
+    byres_text = "byres" if byres else ""
 
-    action = c_action.Action_AtomicFluct()
-    c_dslist = CpptrajDatasetList()
-    action.read_input(command, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
-
-    for frame in traj:
-        action.compute(frame)
-
-    action.post_process()
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    # need to convert to string mask
+    # do not use super_dispatch again
+    if not isinstance(mask, str):
+        mask = array_to_cpptraj_atommask(mask)
+    command_ = " ".join((mask, byres_text, "bfactor"))
+    return rmsf(
+        traj=traj,
+        mask=command_,
+        top=top,
+        dtype=dtype,
+        frame_indices=frame_indices)
 
 
 def pucker(traj=None,
