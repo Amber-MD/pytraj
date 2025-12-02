@@ -4,6 +4,7 @@ Topology manipulation functions: centering, alignment, imaging, etc.
 from .base import *
 # Ensure _assert_mutable is available
 from .base import _assert_mutable
+from ..builder.build import make_structure
 
 __all__ = [
     'center_of_mass', 'center_of_geometry', 'align', 'align_principal_axis',
@@ -686,31 +687,30 @@ def rotate_dihedral(traj=None, mask="", top=None):
 
 
 def set_dihedral(traj, resid=0, dihedral_type=None, deg=0, top=None):
-    """set specific dihedral angle to specific value"""
+    '''
 
-    if dihedral_type is None:
-        dihedral_type = 'phi'
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()
+    >>> # make mutable traj by loading all frames to disk
+    >>> traj = traj[:]
+    >>> traj = pt.set_dihedral(traj, resid=2, dihedral_type='phi', deg=60)
 
-    mut_traj = _assert_mutable(traj)
+    Returns
+    -------
+    updated traj
+    '''
+    if not isinstance(resid, str):
+        resid = str(resid + 1)
+    deg = str(deg)
 
-    if resid != 0:
-        mask = ":{:d}@{:s}".format(resid, dihedral_type)
-    else:
-        mask = dihedral_type
-
-    mask += " {}".format(deg)
-
-    action = c_action.Action_SetDihedral()
-    action.read_input(mask, top=mut_traj.top)
-    action.setup(mut_traj.top)
-
-    for frame in mut_traj:
-        action.compute(frame)
-
-    return mut_traj
+    command = ':'.join((dihedral_type, resid, dihedral_type, deg))
+    make_structure(traj, command)
+    return traj
 
 
-def set_velocity(traj, temperature=298, ig=10, options=''):
+def set_velocity(traj, temperature=298, ig=10, options='', top=None):
     """assign Maxwell-Boltzmann velocities
 
     Parameters

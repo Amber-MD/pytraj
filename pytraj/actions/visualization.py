@@ -172,43 +172,40 @@ def rdf(traj=None,
 
 @super_dispatch()
 def pairdist(traj,
-             mask='',
-             ref_mask='',
-             dtype='dataset',
+             mask="*",
+             mask2='',
+             delta=0.1,
+             dtype='ndarray',
              top=None,
              frame_indices=None):
-    """compute pairwise distances
+    '''compute pair distribution function
 
     Parameters
     ----------
     traj : Trajectory-like
-    mask : str, optional
-        atom selection
-    ref_mask : str, optional
-        reference mask to compute distances to
-    dtype : str, default 'dataset'
-        return data type
+    mask : str, default all atoms
+    mask2 : str, default ''
+        second mask for pair distribution
+    delta : float, default 0.1
+        bin spacing
+    dtype : str, default 'ndarray'
+        dtype of return data
     top : Topology, optional
-    frame_indices : array-like, optional
 
-    Returns
-    -------
-    out : DatasetList or ndarray
-    """
-    command = mask
-    if ref_mask:
-        command += f" ref {ref_mask}"
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> data = pt.pairdist(traj)
+    '''
+    command = (CommandBuilder()
+               .add("mask", mask)
+               .add("mask2", mask2, condition=bool(mask2))
+               .add("delta", str(delta))
+               .build())
 
-    c_dslist = CpptrajDatasetList()
-    action = c_action.Action_Pairwise()
-    action.read_input(command, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
-
-    for frame in traj:
-        action.compute(frame)
-
-    action.post_process()
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    action_datasets, _ = do_action(traj, command, c_action.Action_PairDist)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
 @super_dispatch()

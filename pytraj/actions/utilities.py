@@ -409,41 +409,27 @@ def grid(traj=None, command="", top=None, dtype='dataset'):
 
 
 def transform(traj, by, frame_indices=None):
-    """transform trajectory coordinates
+    '''transform pytraj.Trajectory by a series of cpptraj's commands
 
     Parameters
     ----------
-    traj : Trajectory-like
-    by : str or array-like
-        transformation matrix or cpptraj transform command
-    frame_indices : array-like, optional
+    traj : Mutable Trajectory
+    by : list of cpptraj commands
+    frame_indices : {None, array-like}, default None
+        if not None, perform tranformation for specific frames.
 
     Returns
     -------
-    traj : transformed trajectory
-    """
-    mut_traj = _assert_mutable(traj)
+    transformed Trajectory. Trajectory's coordinates will be inplace-updated
 
-    if isinstance(by, str):
-        command = by
-        action = c_action.Action_Transform()
-        action.read_input(command, top=mut_traj.top)
-        action.setup(mut_traj.top)
-
-        for frame in mut_traj:
-            action.compute(frame)
-    else:
-        # assume matrix transformation
-        by = np.asarray(by, dtype='f8')
-        if by.shape != (4, 4):
-            raise ValueError("transformation matrix must be 4x4")
-
-        for frame in mut_traj:
-            # apply transformation matrix to coordinates
-            xyz_homo = np.column_stack([frame.xyz, np.ones(frame.n_atoms)])
-            frame.xyz = xyz_homo.dot(by.T)[:, :3]
-
-    return mut_traj
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> # perform 'autoimage', then 'rms', then 'center'
+    >>> traj = pt.transform(traj[:], by=['autoimage', 'rms', 'center :1-5'])
+    '''
+    return traj.transform(by, frame_indices=frame_indices)
 
 
 def lowestcurve(data, points=10, step=0.2):
@@ -791,7 +777,7 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
 
 
 @super_dispatch()
-def set_velocity(traj, temperature=298, ig=10, options=''):
+def set_velocity(traj, temperature=298, ig=10, options='', top=None):
     """set velocity for atoms
 
     Parameters
