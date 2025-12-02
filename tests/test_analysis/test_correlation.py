@@ -51,5 +51,7 @@ def test_correlation_cpptraj_reference():
     # Load cpptraj reference data
     ref_data = load_cpptraj_reference_data('Test_Corr', 'corr.dat.save')
 
+    assert ref_data is not None, "cpptraj reference data Test_Corr/corr.dat.save must be available"
+
     # Compare correlation results
     aa_eq(corr_result, ref_data, decimal=4)

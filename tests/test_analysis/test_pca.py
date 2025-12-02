@@ -265,15 +265,14 @@ class TestPCA(unittest.TestCase):
         import os
         from pytraj.testing import cpptraj_test_dir
 
-        if not cpptraj_test_dir:
-            pytest.skip("cpptraj test directory not available")
+        assert cpptraj_test_dir, "cpptraj test directory must be available for reference validation"
 
         # Load 1IEE_A trajectory - same as cpptraj Test_Principal
         prmtop_file = os.path.join(cpptraj_test_dir, 'Test_IRED', '1IEE_A_prot.prmtop')
         mdcrd_file = os.path.join(cpptraj_test_dir, 'Test_IRED', '1IEE_A_test.mdcrd')
 
-        if not (os.path.exists(prmtop_file) and os.path.exists(mdcrd_file)):
-            pytest.skip("1IEE_A test files not available")
+        assert os.path.exists(prmtop_file) and os.path.exists(mdcrd_file), \
+            f"1IEE_A test files must be available: {prmtop_file}, {mdcrd_file}"
 
         # Load trajectory with frames 1-10 to match cpptraj test
         traj = pt.iterload(mdcrd_file, prmtop_file, frame_slice=(0, 10))

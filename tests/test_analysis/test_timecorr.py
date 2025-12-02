@@ -82,5 +82,7 @@ def test_timecorr_cpptraj_reference():
     # Load cpptraj reference data - v1.auto.dat.save
     ref_data = load_cpptraj_reference_data('Test_Timecorr', 'v1.auto.dat.save')
 
+    assert ref_data is not None, "cpptraj reference data Test_Timecorr/v1.auto.dat.save must be available"
+
     # Compare time correlation results
     aa_eq(timecorr_result, ref_data, decimal=4)
