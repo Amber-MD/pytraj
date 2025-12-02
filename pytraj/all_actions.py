@@ -77,9 +77,9 @@ Example: pytraj.distance_to_reference(traj, ':1', ref=ref_frame)
 # Helper function for getting average frame
 def get_average_frame(traj, mask='*', top=None, **kwargs):
     """Get average structure as a single frame.
-    
+
     This is a convenience function that returns mean_structure as a single Frame.
-    
+
     Parameters
     ----------
     traj : Trajectory-like
@@ -88,7 +88,7 @@ def get_average_frame(traj, mask='*', top=None, **kwargs):
     top : Topology, optional
     **kwargs : additional keyword arguments
         passed to mean_structure (e.g., autoimage, frame_indices)
-    
+
     Returns
     -------
     Frame

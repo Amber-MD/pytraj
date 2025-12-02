@@ -153,13 +153,14 @@ class AnalysisRunner:
 
 
 def _assert_mutable(trajiter):
-    """if pytraj.Trajectory : do nothing
-    if pytraj.TrajReadOnly: copy to Trajectory
+    """Make sure the input is not TrajectoryIterator
     """
+    from pytraj import TrajectoryIterator
+
     if isinstance(trajiter, TrajectoryIterator):
-        return Trajectory(trajiter)
-    else:
-        return trajiter
+        raise ValueError(
+            "This analysis does not support immutable object. Use `pytraj.Trajectory`"
+        )
 
 
 def in_voxel(voxel_cntr, xyz, delta):
