@@ -2,8 +2,8 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from utils import fn
-from pytraj.testing import aa_eq, tempfolder
-from utils import tc5b_trajin, tc5b_top
+from pytraj.testing import aa_eq, tempfolder, load_cpptraj_reference_data
+from utils import tc5b_trajin, tc5b_top, fn
 
 
 def test_corr():
@@ -35,3 +35,21 @@ def test_corr():
         # autocorr d0, d0
         pout = pt.acorr(dslist[0])
         aa_eq(pout, cout[4])
+
+
+def test_correlation_cpptraj_reference():
+    """Test correlation against cpptraj reference using tz2 data"""
+    # Load tz2 trajectory - same as cpptraj Test_Corr
+    traj = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
+
+    # Calculate distance :2 :12 (cpptraj: distance d1 :2 :12)
+    distances = pt.calc_distance(traj, ':2 :12')
+
+    # Calculate auto-correlation (cpptraj: corr d1 d1 out corr.dat)
+    corr_result = pt.acorr(distances)
+
+    # Load cpptraj reference data
+    ref_data = load_cpptraj_reference_data('Test_Corr', 'corr.dat.save')
+
+    # Compare correlation results
+    aa_eq(corr_result, ref_data, decimal=4)

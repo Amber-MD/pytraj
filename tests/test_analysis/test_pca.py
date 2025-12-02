@@ -5,7 +5,7 @@ import unittest
 import numpy as np
 import pytraj as pt
 from utils import fn
-from pytraj.testing import aa_eq
+from pytraj.testing import aa_eq, load_cpptraj_reference_data
 import pytest
 
 from utils import tz2_trajin, tz2_top
@@ -14,8 +14,8 @@ from utils import tz2_trajin, tz2_top
 class TestPCA(unittest.TestCase):
     def test_pca_noref(self):
         '''test_pca_noref: no reference
-        
-        pytraj: pt.pca(traj, mask, n_vecs=2) 
+
+        pytraj: pt.pca(traj, mask, n_vecs=2)
         '''
 
         command = '''
@@ -58,8 +58,8 @@ class TestPCA(unittest.TestCase):
 
     def test_pca_noref_nofit(self):
         '''test_pca_noref_nofit:  no reference and do not do fitting
-        
-        from drroe: " Also, not fitting at all should be considered a legitimate option - 
+
+        from drroe: " Also, not fitting at all should be considered a legitimate option -
         you may want to include global rotational and translational motion in your eigenvectors."
 
         pytraj: pt.pca(traj, mask, n_vecs=2, fit=False)
@@ -255,6 +255,47 @@ class TestPCA(unittest.TestCase):
         with pytest.raises(ValueError):
             pt.pca(frame, mask='@CA')
 
+    def test_pca_cpptraj_reference(self):
+        """Test PCA functionality using the same data as cpptraj Test_Principal
 
+        Note: This test verifies PCA runs correctly on the same data used by cpptraj
+        but doesn't do exact numerical comparison since pytraj and cpptraj may use
+        different PCA implementations with different conventions.
+        """
+        import os
+        from pytraj.testing import cpptraj_test_dir
+
+        if not cpptraj_test_dir:
+            pytest.skip("cpptraj test directory not available")
+
+        # Load 1IEE_A trajectory - same as cpptraj Test_Principal
+        prmtop_file = os.path.join(cpptraj_test_dir, 'Test_IRED', '1IEE_A_prot.prmtop')
+        mdcrd_file = os.path.join(cpptraj_test_dir, 'Test_IRED', '1IEE_A_test.mdcrd')
+
+        if not (os.path.exists(prmtop_file) and os.path.exists(mdcrd_file)):
+            pytest.skip("1IEE_A test files not available")
+
+        # Load trajectory with frames 1-10 to match cpptraj test
+        traj = pt.iterload(mdcrd_file, prmtop_file, frame_slice=(0, 10))
+
+        # Calculate PCA similar to cpptraj test
+        # cpptraj: principal * dorotation mass out principal.dat name All
+        pca_data = pt.pca(traj, mask='*', n_vecs=2)
+
+        # Verify PCA calculation produces expected structure
+        projections, matrix_data = pca_data
+        eigenvalues, eigenvectors = matrix_data
+
+        # Basic validation - eigenvalues should be positive and sorted descending
+        assert len(eigenvalues) == 2, "Should have 2 eigenvalues"
+        assert all(ev > 0 for ev in eigenvalues), "All eigenvalues should be positive"
+        assert eigenvalues[0] >= eigenvalues[1], "Eigenvalues should be sorted descending"
+
+        # Projections should have correct dimensions (2 components x 10 frames)
+        assert projections.shape == (2, 10), "Should have 2 components x 10 frames"
+
+        # Eigenvectors should be orthonormal (dot product check)
+        dot_product = np.abs(np.dot(eigenvectors[0], eigenvectors[1]))
+        assert dot_product < 0.1, "Eigenvectors should be nearly orthogonal"
 if __name__ == "__main__":
     unittest.main()
