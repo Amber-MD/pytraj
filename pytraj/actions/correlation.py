@@ -241,31 +241,23 @@ def acorr(data, dtype='ndarray', option=''):
 
     Parameters
     ----------
-    data : array-like
-        input data
-    dtype : str, default 'ndarray'
-        return data type
-    option : str, optional
-        extra options
+    data : 1d array-like
+    dtype: return type, default 'ndarray'
+    covar : bool, default True
+    option : str
+        more cpptraj options
 
-    Returns
-    -------
-    out : ndarray
+    Notes
+    -----
+    Same as `autocorr` in cpptraj
     """
-    data = np.asarray(data, dtype='f8')
+    runner = AnalysisRunner(c_analysis.Analysis_AutoCorr)
+    runner.add_dataset(DatasetType.DOUBLE, "d0", np.asarray(data))
 
-    c_dslist = CpptrajDatasetList()
+    command = "d0 out _tmp.out"
+    runner.run_analysis(command)
 
-    # add dataset
-    dataset = c_dslist.add('double', 'data')
-    dataset.data = data
-
-    command = f"autocorr data {option}"
-
-    # run analysis
-    c_analysis.Analysis_AutoCorr(command, dslist=c_dslist)
-
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    return get_data_from_dtype(runner.datasets[1:], dtype=dtype)
 
 
 def xcorr(data0, data1, dtype='ndarray'):
@@ -273,34 +265,22 @@ def xcorr(data0, data1, dtype='ndarray'):
 
     Parameters
     ----------
-    data0 : array-like
-        first dataset
-    data1 : array-like
-        second dataset
-    dtype : str, default 'ndarray'
-        return data type
+    data0 and data1: 1D-array like
+    dtype : return datatype, default 'ndarray'
 
-    Returns
-    -------
-    out : ndarray
+
+    Notes
+    -----
+    Same as `corr` in cpptraj
     """
-    data0 = np.asarray(data0, dtype='f8')
-    data1 = np.asarray(data1, dtype='f8')
+    runner = AnalysisRunner(c_analysis.Analysis_Corr)
+    runner.add_dataset(DatasetType.DOUBLE, "d0", np.asarray(data0))
+    runner.add_dataset(DatasetType.DOUBLE, "d1", np.asarray(data1))
 
-    c_dslist = CpptrajDatasetList()
+    command = "d0 d1 out _tmp.out"
+    runner.run_analysis(command)
 
-    # add datasets
-    dataset0 = c_dslist.add('double', 'data0')
-    dataset0.data = data0
-    dataset1 = c_dslist.add('double', 'data1')
-    dataset1.data = data1
-
-    command = "corr data0 data1"
-
-    # run analysis
-    c_analysis.Analysis_CrossCorr(command, dslist=c_dslist)
-
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    return get_data_from_dtype(runner.datasets[2:3], dtype=dtype)
 
 
 def wavelet(traj, command):
