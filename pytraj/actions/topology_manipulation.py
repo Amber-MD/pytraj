@@ -773,55 +773,50 @@ def fiximagedbonds(traj, mask=''):
 
 
 def atom_map(traj, ref, rmsfit=False):
-    """compute atom mapping
+    ''' Limited support for cpptraj atommap
 
     Parameters
     ----------
     traj : Trajectory-like
-    ref : Trajectory-like
-        reference trajectory
+    ref : Trajectory-like with one frame
     rmsfit : bool, default False
-        if True, perform RMS fitting
+        if True, compute rmsfit
+
+    Notes
+    -----
+    This method in pytraj is not mature yet.
 
     Returns
     -------
-    out : ndarray, mapping array
+    out : Tuple[str, np.ndarray]
+        (mask_out, rmsd data if rmsfit=True)
+    '''
+    act = c_action.Action_AtomMap()
+    options = 'rmsfit rmsout rmsout.dat' if rmsfit else ''
+    command = ' '.join(('my_target my_ref', options))
+    dataset_list = CpptrajDatasetList()
 
-    Examples
-    --------
-    >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_tz2()
-    >>> ref = pt.datafiles.load_tz2_ortho()
-    >>> atom_indices = pt.atom_map(traj, ref)
-    >>> assert len(atom_indices) == traj.top.n_atoms
-    """
-    if traj.n_atoms != ref.n_atoms:
-        raise ValueError("number of atoms must be the same")
+    target = dataset_list.add('reference', name='my_target')
+    target.top = traj.top
+    target.append(traj[0])
 
-    # create mutable trajectory
-    mut_traj = _assert_mutable(traj)
-    mut_ref = _assert_mutable(ref) if hasattr(ref, 'xyz') else ref
-
-    if rmsfit:
-        fit_command = "rmsfit"
+    refset = dataset_list.add('reference', name='my_ref')
+    refset.top = ref.top if ref.top is not None else traj.top
+    if not isinstance(ref, Frame):
+        ref_frame = ref[0]
     else:
-        fit_command = ""
+        ref_frame = ref
+    refset.append(ref_frame)
 
-    action = c_action.Action_AtomMap()
-    action.read_input(fit_command, top=mut_traj.top)
-    action.setup(mut_traj.top, crdinfo={'n_atoms': ref.top.n_atoms})
+    with capture_stdout() as (out, err):
+        act(command, traj, top=traj.top, dslist=dataset_list)
+    act.post_process()
 
-    # process reference
-    for ref_frame in mut_ref:
-        action.compute(ref_frame)
+    # free memory of two reference
+    dataset_list._pop(0)
+    dataset_list._pop(0)
 
-    # process target
-    for frame in mut_traj:
-        action.compute(frame)
-
-    action.post_process()
-
-    return action.atom_map
+    return (out.read(), get_data_from_dtype(dataset_list, dtype='ndarray'))
 
 
 def check_chirality(traj, mask='', dtype='dict'):
