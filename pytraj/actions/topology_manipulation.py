@@ -61,16 +61,39 @@ def center_of_mass(traj=None,
     -------
     output : ndarray, shape (n_frames, 3)
         center of mass coordinates
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()
+    >>> # compute center of mass residue 3 for first 2 frames.
+    array([[-0.661702  ,  6.69124347,  3.35159413],
+           [ 0.5620708 ,  7.82263042, -0.72707798]])
     """
     # note: do not use super_dispatch for this method since
     # we already use for _calc_vector_center
-    com_data = _calc_vector_center(
-        traj=traj,
-        mask=mask,
-        top=top,
-        mass=True,
-        frame_indices=frame_indices)
-    return com_data.reshape(traj.n_frames, 3)
+    if dtype == 'ndarray':
+        com_data = _calc_vector_center(
+            traj=traj,
+            mask=mask,
+            top=top,
+            mass=True,
+            frame_indices=frame_indices)
+        return com_data.reshape(traj.n_frames, 3)
+    else:
+        command = "center " + mask + " mass"
+        dslist = CpptrajDatasetList()
+        act = c_action.Action_Vector()
+        if top is None:
+            top = traj.top
+        act.read_input(command, top=top, dslist=dslist)
+        act.setup(top)
+
+        for frame in traj:
+            act.compute(frame)
+
+        act.post_process()
+        return get_data_from_dtype(dslist, dtype=dtype)
 
 
 @register_pmap
