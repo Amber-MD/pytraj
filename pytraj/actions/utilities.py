@@ -319,59 +319,64 @@ def search_neighbors(traj=None,
 
 @super_dispatch(refindex=3)
 def native_contacts(traj=None,
-                    mask='',
-                    mask2='',
-                    ref=None,
+                    mask="",
+                    mask2="",
+                    ref=0,
+                    dtype='dataset',
                     distance=7.0,
+                    image=True,
+                    include_solvent=False,
+                    byres=False,
                     frame_indices=None,
+                    options='',
                     top=None):
-    """compute native contacts
+    """Compute native contacts.
 
     Parameters
     ----------
-    traj : Trajectory-like
-    mask : str, optional
-        first mask
-    mask2 : str, optional
-        second mask
-    ref : int or Frame, default None
-        reference for native contacts, default first frame
-    distance : float, default 7.0
-        cutoff distance
-    frame_indices : array-like, optional
-    top : Topology, optional
+    options : str
+        Extra cpptraj command(s).
 
-    Returns
-    -------
-    out : ndarray, shape (n_frames,)
-        fraction of native contacts
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> # use 1st frame as reference, don't need specify ref Frame
+    >>> data = pt.native_contacts(traj)
+
+    >>> # explicitly specify reference, specify distance cutoff
+    >>> ref = traj[3]
+    >>> data = pt.native_contacts(traj, ref=ref, distance=8.0)
+
+    >>> # use integer array for mask
+    >>> data = pt.native_contacts(traj, mask=range(100), mask2=[200, 201], ref=ref, distance=8.0)
     """
-    if ref is None:
-        ref = traj[0]
+    ref = get_reference(traj, ref)
+    native_contacts_action = c_action.Action_NativeContacts()
+    action_datasets = CpptrajDatasetList()
 
-    command = f"{mask} {mask2} distance {distance}"
+    if not isinstance(mask2, str):
+        # [1, 3, 5] to "@1,3,5
+        mask2 = array_to_cpptraj_atommask(mask2)
+    mask_str = ' '.join((mask, mask2))
 
-    # setup reference
-    c_dslist = CpptrajDatasetList()
+    command = (CommandBuilder()
+               .add("ref myframe")
+               .add(mask_str)
+               .add("distance", str(distance))
+               .add("noimage", condition=not image)
+               .add("includesolvent", condition=include_solvent)
+               .add("byresidue", condition=byres)
+               .add(options, condition=bool(options))
+               .build())
 
-    # add reference frame
-    ref_frame = get_reference(traj, ref)
-    ref_dataset = c_dslist.add('reference', 'ref')
-    ref_dataset.top = ref_frame.top or traj.top
-    ref_dataset.add_frame(ref_frame)
+    action_datasets.add(DatasetType.REFERENCE_FRAME, 'myframe')
+    action_datasets[0].top = top
+    action_datasets[0].add_frame(ref)
+    native_contacts_action(command, traj, top=top, dslist=action_datasets)
+    action_datasets._pop(0)
 
-    action = c_action.Action_NativeContacts()
-    action.read_input(command + " ref ref", top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
-
-    for frame in traj:
-        action.compute(frame)
-
-    action.post_process()
-
-    # remove reference dataset
-    c_dslist._pop(0)
-    return get_data_from_dtype(c_dslist, dtype='ndarray')
+    return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
 @super_dispatch()
