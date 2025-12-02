@@ -40,18 +40,17 @@ def _calc_vector_center(traj=None,
     return dslist[0].values
 
 
-@super_dispatch()
 def center_of_mass(traj=None,
-                   mask='*',
-                   dtype='ndarray',
+                   mask='',
                    top=None,
+                   dtype='ndarray',
                    frame_indices=None):
     """compute center of mass
 
     Parameters
     ----------
     traj : Trajectory-like
-    mask : str, default '*' (all atoms)
+    mask : str, default '' (all atoms)
         atom mask
     dtype : str, default 'ndarray'
         return data type
@@ -63,41 +62,30 @@ def center_of_mass(traj=None,
     output : ndarray, shape (n_frames, 3)
         center of mass coordinates
     """
-    if dtype == 'ndarray':
-        com_data = _calc_vector_center(traj,
-                                       mask=mask,
-                                       mass=True,
-                                       top=top,
-                                       frame_indices=frame_indices)
-        return com_data.reshape(traj.n_frames, 3)
-    else:
-        command = "center " + mask + " mass"
-        dslist = CpptrajDatasetList()
-        act = c_action.Action_Vector()
-        if top is None:
-            top = traj.top
-        act.read_input(command, top=top, dslist=dslist)
-        act.setup(top)
-
-        for frame in traj:
-            act.compute(frame)
-
-        act.post_process()
-        return get_data_from_dtype(dslist, dtype=dtype)
+    # note: do not use super_dispatch for this method since
+    # we already use for _calc_vector_center
+    com_data = _calc_vector_center(
+        traj=traj,
+        mask=mask,
+        top=top,
+        mass=True,
+        frame_indices=frame_indices)
+    return com_data.reshape(traj.n_frames, 3)
 
 
+@register_pmap
 @super_dispatch()
 def center_of_geometry(traj=None,
-                       mask='*',
-                       dtype='ndarray',
+                       mask="",
                        top=None,
+                       dtype='ndarray',
                        frame_indices=None):
     """compute center of geometry (center of selected atoms coordinates)
 
     Parameters
     ----------
     traj : Trajectory-like
-    mask : str, default '*' (all atoms)
+    mask : str, default '' (all atoms)
         atom mask
     dtype : str, default 'ndarray'
         return data type
@@ -109,25 +97,13 @@ def center_of_geometry(traj=None,
     output : ndarray, shape (n_frames, 3)
         center of geometry coordinates
     """
-    if dtype == 'ndarray':
-        com_data = _calc_vector_center(traj,
-                                       mask=mask,
-                                       mass=False,
-                                       top=top,
-                                       frame_indices=frame_indices)
-        return com_data.reshape(traj.n_frames, 3)
-    else:
-        command = f"{mask} origin"
-        dslist = CpptrajDatasetList()
-        act = c_action.Action_Vector()
-        act.read_input(command, top=traj.top, dslist=dslist)
-        act.setup(traj.top)
+    atom_mask_obj = top(mask)
+    action_datasets = CpptrajDatasetList()
+    action_datasets.add(DatasetType.VECTOR)
 
-        for frame in traj:
-            act.compute(frame)
-
-        act.post_process()
-        return get_data_from_dtype(dslist, dtype=dtype)
+    for frame in iterframe_master(traj):
+        action_datasets[0].append(frame.center_of_geometry(atom_mask_obj))
+    return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
 @super_dispatch()
@@ -485,8 +461,6 @@ def center(traj=None,
     --------
     pytraj.translate
     """
-    from ..trajectory.trajectory_iterator import TrajectoryIterator
-
     valid_centers = ['box', 'origin']
 
     if isinstance(center, (list, tuple)):
