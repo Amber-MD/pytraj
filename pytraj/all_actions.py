@@ -52,5 +52,5 @@ __all__ = [
     'multipucker', 'dihedral_rms', 'ene_decomp', 'infraredspec',
 ]
 
-# Legacy aliases for backward compatibility  
+# Legacy aliases for backward compatibility
 atomicfluct = rmsf

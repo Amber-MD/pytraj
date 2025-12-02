@@ -10,6 +10,35 @@ __all__ = [
 ]
 
 
+def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
+    '''compute dihedral within a single residue. For internal use only.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : tuple of strings
+    resid : str, resid
+    dtype
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> from pytraj.all_actions import _dihedral_res
+    >>> traj = pt.datafiles.load_tz2()
+    >>> data = _dihedral_res(traj, mask=('N', 'CA', 'C', 'O'), resid=0)
+    >>> # use string for resid
+    >>> data = _dihedral_res(traj, mask=('N', 'CA', 'C', 'O'), resid='1')
+    '''
+
+    if is_int(resid):
+        resid = str(resid + 1)
+    else:
+        resid = resid
+    m = ' :%s@' % resid
+    command = m + m.join(mask)
+    return dihedral(traj=traj, mask=command, top=top, dtype=dtype)
+
+
 def _calculate_distance(traj, int_2darr: np.ndarray, n_frames: int, dtype: str) -> Union[np.ndarray, DatasetList]:
     if int_2darr.ndim == 1:
         int_2darr = np.atleast_2d(int_2darr)
