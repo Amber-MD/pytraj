@@ -2,6 +2,7 @@
 Utility and miscellaneous functions
 """
 from .base import *
+from .base import _assert_mutable
 from ..trajectory.trajectory_iterator import TrajectoryIterator
 
 
@@ -494,7 +495,7 @@ def rotdif(matrices, command):
         matrix_dataset._append_from_array(mat.flatten())
 
     # run analysis
-    c_analysis.Analysis_RotDif(command + " matrices", dslist=c_dslist)
+    c_analysis.Analysis_Rotdif(command + " matrices", dslist=c_dslist)
 
     return c_dslist
 

@@ -75,38 +75,28 @@ def center_of_geometry(traj=None,
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
+@register_pmap
 @super_dispatch()
 def radgyr(traj=None,
-           mask='',
-           dtype='ndarray',
+           mask="",
            top=None,
-           frame_indices=None):
-    """compute radgyr
+           nomax=True,
+           frame_indices=None,
+           dtype='ndarray'):
+    '''compute radius of gyration
 
-    Parameters
-    ----------
-    traj : Trajectory-like
-    mask : str
-        atom mask
-    dtype : str, default 'ndarray'
-        return data type
-    top : Topology, optional
-    frame_indices : array-like, optional
-
-    Returns
-    -------
-    out : ndarray, shape (n_frames,)
-    """
-    action = c_action.Action_RadGyr()
-    c_dslist = CpptrajDatasetList()
-    action.read_input(mask, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
-
-    for frame in traj:
-        action.compute(frame)
-
-    action.post_process()
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> data = pt.radgyr(traj, '@CA')
+    >>> data = pt.radgyr(traj, '!:WAT', nomax=False)
+    >>> data = pt.radgyr(traj, '@CA', frame_indices=[2, 4, 6])
+    '''
+    nomax_ = 'nomax' if nomax else ""
+    command = " ".join((mask, nomax_))
+    action_datasets, _ = do_action(traj, command, c_action.Action_Radgyr)
+    return get_data_from_dtype(action_datasets, dtype)
 
 
 @super_dispatch()
@@ -243,47 +233,55 @@ def volume(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None):
 
 
 @super_dispatch()
+@register_pmap
+@register_openmp
+@super_dispatch()
 def watershell(traj=None,
-               mask='',
-               solvent_mask=':WAT@O',
+               solute_mask='',
+               solvent_mask=':WAT',
                lower=3.4,
                upper=5.0,
-               dtype='ndarray',
+               image=True,
+               dtype='dataset',
                frame_indices=None,
                top=None):
-    """compute waterhell
+    """(adapted from cpptraj doc): Calculate numbers of waters in 1st and 2nd solvation shells
+    (defined by <lower cut> (default 3.4 Ang.) and <upper cut> (default 5.0 Ang.)
 
     Parameters
     ----------
     traj : Trajectory-like
-    mask : str
-        atom mask for finding nearest atoms
-    solvent_mask : str, default ':WAT@O'
-        solvent mask
-    lower : float, default 3.4
-        lower bound distance
-    upper : float, default 5.0
-        upper bound distance
-    dtype : str, default 'ndarray'
-        return data type
-    frame_indices : array-like, optional
+    solute_mask: solute mask
+    solvent_mask: solvent mask
+    lower : double, default 3.4
+        lower cut distance
+    upper : double, default 5.0
+        upper cut distance
+    image : bool, defaul True
+        do autoimage if True
+    dtype : return type, defaul 'dataset'
     top : Topology, optional
 
-    Returns
-    -------
-    out : ndarray, shape (n_frames,)
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> data = pt.watershell(traj, solute_mask='!:WAT')
+    >>> data = pt.watershell(traj, solute_mask='!:WAT', lower=5.0, upper=10.)
     """
-    command = f"{solvent_mask} around {mask} lower {lower} upper {upper}"
-    action = c_action.Action_Watershell()
-    c_dslist = CpptrajDatasetList()
-    action.read_input(command, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
+    if solute_mask in [None, '']:
+        raise ValueError('must provide solute mask')
 
-    for frame in traj:
-        action.compute(frame)
+    command = (CommandBuilder()
+               .add(solute_mask)
+               .add("lower", str(lower))
+               .add("upper", str(upper))
+               .add("noimage", condition=not image)
+               .add(solvent_mask, condition=solvent_mask is not None)
+               .build())
 
-    action.post_process()
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    action_datasets, _ = do_action(traj, command, c_action.Action_Watershell)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
 @super_dispatch()

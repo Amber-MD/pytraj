@@ -110,6 +110,38 @@ class DatasetType(StrEnum):
     MATRIX_DBL = 'matrix_dbl'
 
 
+class AnalysisRunner:
+    def __init__(self, analysis_class):
+        self.datasets = CpptrajDatasetList()
+        self.analysis = analysis_class()
+
+    def add_dataset(self, dataset_type, dataset_name, data, aspect=None):
+        if dataset_type == DatasetType.COORDS:
+            crdname = '_DEFAULTCRD_'
+            self.datasets.add(dataset_type.value, name=crdname)
+            self.datasets[0].top = data.top
+            for frame in data:
+                self.datasets[0].append(frame)
+        else:
+            dataset = self.datasets.add(dataset_type, dataset_name)
+            if dataset_type == DatasetType.XYMESH:
+                dataset._append_from_array(data)
+            elif dataset_type == DatasetType.MATRIX_DBL:
+                dataset.data = np.asarray(data).astype('f8')
+            elif dataset_type == DatasetType.MODES:
+                # For MODES, we don't set the data immediately
+                pass
+            elif dataset_type == DatasetType.MATRIX3x3:
+                dataset.aspect = aspect
+                dataset._append_from_array(data)
+            else:
+                dataset.data = np.asarray(data).astype('f8')
+
+    def run_analysis(self, command):
+        self.analysis(command, dslist=self.datasets)
+        return self.datasets
+
+
 def _assert_mutable(trajiter):
     """if pytraj.Trajectory : do nothing
     if pytraj.TrajReadOnly: copy to Trajectory
