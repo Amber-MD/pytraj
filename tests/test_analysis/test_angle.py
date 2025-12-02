@@ -1,35 +1,9 @@
 import unittest
 import numpy as np
-import os
 
 import pytraj as pt
 from utils import fn
-from pytraj.testing import aa_eq
-
-
-def load_cpptraj_reference_data(test_name, data_file):
-    """Load reference data from cpptraj test files"""
-    cpptraj_ref_file = os.path.join(os.path.dirname(__file__),
-                                   f'../../cpptraj/test/{test_name}/{data_file}')
-
-    if not os.path.exists(cpptraj_ref_file):
-        return None
-
-    values = []
-    with open(cpptraj_ref_file, 'r') as f:
-        for line in f:
-            if line.startswith('#') or not line.strip():
-                continue
-            parts = line.strip().split()
-            if len(parts) >= 2:
-                try:
-                    values.append(float(parts[1]))  # Second column is typically the data
-                except ValueError:
-                    continue
-
-    return np.array(values) if values else None
-
-
+from pytraj.testing import aa_eq, load_cpptraj_reference_data
 def test_angle_cpptraj_reference():
     """Test angle calculations against cpptraj Test_General reference data"""
     # Load the same trajectory as cpptraj Test_General
