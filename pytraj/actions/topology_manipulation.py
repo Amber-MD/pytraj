@@ -190,33 +190,23 @@ def align(traj,
         return traj
 
 
-@super_dispatch()
 def align_principal_axis(traj=None,
-                         mask='',
-                         dtype='ndarray',
+                         mask="*",
                          top=None,
-                         frame_indices=None):
-    """align trajectory along principal axis
-
-    Parameters
-    ----------
-    traj : Trajectory-like
-    mask : str, optional
-        atom mask
-    dtype : str, default 'ndarray'
-        return data type
-    top : Topology, optional
-    frame_indices : array-like, optional
-
-    Returns
-    -------
-    output : aligned trajectory
+                         frame_indices=None,
+                         mass=False):
+    # TODO : does not match with cpptraj output
+    # rmsd_nofit ~ 0.5 for md1_prod.Tc5b.x, 1st frame
     """
-    mut_traj = _assert_mutable(traj)
-
-    for frame in mut_traj:
-        pa = principal_axes(frame, mask, dorotation=True)
-        frame.xyz = pa
+    Notes
+    -----
+    apply for mutatble traj (Trajectory, Frame)
+    """
+    _assert_mutable(traj)
+    mass_ = 'mass' if mass else ''
+    command = ' '.join((mask, " dorotation", mass_))
+    do_action(traj, command, c_action.Action_Principal)
+    return traj
 
 
 def principal_axes(traj=None, mask='*', dorotation=False, mass=True, top=None):

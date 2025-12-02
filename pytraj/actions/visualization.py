@@ -232,14 +232,12 @@ def pairdist(traj,
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
-@super_dispatch()
 def density(traj,
             mask='*',
             density_type='number',
             delta=0.25,
             direction='z',
-            dtype='dict',
-            top=None):
+            dtype='dict'):
     """Compute density (number, mass, charge, electron) along a coordinate
 
     Notes
