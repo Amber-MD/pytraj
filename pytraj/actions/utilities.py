@@ -192,92 +192,139 @@ get_average_frame = mean_structure
 
 
 def get_velocity(traj, mask=None, frame_indices=None):
-    """get velocity
+    '''get velocity for specify frames with given mask
 
     Parameters
     ----------
-    traj : Trajectory-like
-    mask : str or array-like, optional
-        if given, use this mask to select atoms
-    frame_indices : array-like, optional
+    traj : Trajectory-like or iterable that produces Frame
+    mask : str, default None (use all atoms), optional
+        atom mask
+    frame_indices : iterable that produces integer, default None, optional
+        if not None, only get velocity for given frame indices
 
     Returns
     -------
-    out : ndarray, shape (n_frames, n_atoms, 3)
+    out : 3D numpy array, shape (n_frames, n_atoms, 3)
+
+    Examples
+    --------
+    >>> vels = pt.get_velocity(traj, frame_indices=[0, 3]) # doctest: +SKIP
 
     Notes
     -----
-    This method will return 3D array with shape=(n_frames, n_atoms, 3).
-    If there is no velocity information, return None
-    """
-    if hasattr(traj, 'xyz_v'):
-        if mask is None:
-            return traj.xyz_v
-        else:
-            if isinstance(mask, str):
-                atom_indices = traj.top.select(mask)
-            else:
-                atom_indices = mask
-            return traj.xyz_v[:, atom_indices]
+    Since pytraj has limited support for force and velocity info, if user wants to
+    load both from disk, should iterate the TrajectoryIterator (got by pytraj.iterload method)
+
+    .. code-block:: python
+
+        import pytraj as pt
+        forces = []
+        velocities = []
+
+        traj = pt.iterload(filename, topology_filename)
+
+        for frame in traj:
+            forces.append(frame.force)
+            velocities.append(frame.velocity)
+
+        # Note: pytraj can efficiently load arbitary frame indices to memory
+        for frame in pt.iterframe(traj, frame_indices=[0, 8, 8, 100, 1000]): pass
+    '''
+    if mask is None:
+        atm_indices = None
     else:
-        return None
+        if not isinstance(mask, str):
+            # array-like
+            atm_indices = mask
+        else:
+            atm_indices = traj.top.select(mask)
+
+    fi = traj.iterframe(frame_indices=frame_indices)
+    n_atoms = traj.n_atoms if mask is None else len(atm_indices)
+    n_frames = fi.n_frames
+
+    data = np.empty((n_frames, n_atoms, 3), dtype='f8')
+    for idx, frame in enumerate(fi):
+        if not frame.has_velocity():
+            raise ValueError('frame does not have velocity')
+        data[idx] = frame.velocity if mask is None else frame.velocity[
+            atm_indices]
+    return data
 
 
 @super_dispatch()
 def multidihedral(traj=None,
-                  mask='',
-                  resrange=None,
                   dihedral_types=None,
+                  resrange=None,
+                  define_new_type=None,
+                  range360=False,
                   dtype='dataset',
                   top=None,
                   frame_indices=None):
-    """compute multiple dihedrals
+    """perform dihedral search
 
     Parameters
     ----------
-    traj : Trajectory-like
-    mask : str, optional
-        atom mask
-    resrange : array-like, optional
-        residue range
-    dihedral_types : array-like, optional
-        dihedral types to calculate
-    dtype : str, default 'dataset'
-        return data type
-    top : Topology, optional
-    frame_indices : array-like, optional
+    traj : Trajectory-like object
+    dihedral_types : dihedral type, default None
+        if None, calculate all supported dihedrals
+    resrange : str | array-like
+        residue range for searching. If `resrange` is string, use index starting with 1
+        (cpptraj convertion)
+        if `resrange` is array-like, use index starting from 0 (python convention)
+    define_new_type : str
+        define new type for searching
+    range360 : bool, default False
+        if True: use 0-360
+    top : Topology | str, optional
+        only need to have 'top' if can not find it in `traj`
+
 
     Returns
     -------
-    out : DatasetList or ndarray
+    pytraj.DatasetList (use `values` attribute to get raw `numpy` array)
+
+    Notes
+    -----
+        Dataset lables show residue number in 1-based index
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> data = pt.multidihedral(traj)
+    >>> data = pt.multidihedral(traj, 'phi psi')
+    >>> data = pt.multidihedral(traj, resrange=range(8))
+    >>> data = pt.multidihedral(traj, range360=True)
+    >>> data = pt.multidihedral(traj, resrange='1,3,5')
+    >>> data = pt.multidihedral(traj, dihedral_types='phi psi')
+    >>> data = pt.multidihedral(traj, dihedral_types='phi psi', resrange='3-7')
+    >>> data = pt.multidihedral(traj, dihedral_types='phi psi', resrange=[3, 4, 8])
     """
-    if dihedral_types is None:
-        dihedral_types = ['phi', 'psi']
-    if resrange is None:
-        resrange = range(1, traj.top.n_residues + 1)
+    # Process resrange
+    resrange_str = None
+    if resrange:
+        if isinstance(resrange, str):
+            resrange_str = str(resrange)
+        else:
+            from pytraj.utils import convert as cv
+            resrange_str = str(cv.array_to_cpptraj_range(resrange))
 
-    commands = []
-    for resid in resrange:
-        for dih_type in dihedral_types:
-            commands.append(f"dihedral :{resid}@{dih_type}")
+    # Process define_new_type
+    define_new_type_str = None
+    if define_new_type:
+        define_new_type_str = f"dihtype {str(define_new_type)}"
 
-    if len(commands) == 1:
-        # single dihedral
-        c_dslist = CpptrajDatasetList()
-        action = c_action.Action_Dihedral()
-        action.read_input(commands[0], top=traj.top, dslist=c_dslist)
-        action.setup(traj.top)
+    # Build command using CommandBuilder
+    command = (CommandBuilder()
+               .add(str(dihedral_types), condition=dihedral_types is not None)
+               .add("resrange", resrange_str, condition=resrange_str is not None)
+               .add(define_new_type_str, condition=define_new_type_str is not None)
+               .add("range360", condition=range360)
+               .build())
 
-        for frame in traj:
-            action.compute(frame)
-
-        action.post_process()
-        return get_data_from_dtype(c_dslist, dtype=dtype)
-    else:
-        # multiple dihedrals
-        from .geometry import _create_and_compute_action_list
-        return _create_and_compute_action_list(commands, traj,
-                                             c_action.Action_Dihedral, dtype=dtype)
+    action_datasets, _ = do_action(traj, command, c_action.Action_MultiDihedral)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
 @super_dispatch()

@@ -66,75 +66,26 @@ def atomiccorr(traj,
 
 
 def timecorr(vec0, vec1, order=2, tstep=1., tcorr=10000., norm=False, dtype='ndarray'):
-    """compute time correlation: <v(i).v(i+t)>
+    """Compute time correlation.
 
     Parameters
     ----------
-    vec0 : array-like, shape=(n_frames, 3)
-    vec1 : array-like, shape=(n_frames, 3)
+    vec0 : 2D array-like, shape=(n_frames, 3)
+    vec1 : 2D array-like, shape=(n_frames, 3)
     order : int, default 2
-        1 : first order (|v(i)|*|v(i+t)|*cos(theta(i, i+t)))
-        2 : second order (v(i) . v(i+t))
     tstep : float, default 1.
-        time step between frames
     tcorr : float, default 10000.
-        correlation time
     norm : bool, default False
-        if True, normalize
     dtype : str, default 'ndarray'
-        return data type
-
-    Returns
-    -------
-    out : ndarray
     """
-    vec0 = np.asarray(vec0, dtype='f8')
-    vec1 = np.asarray(vec1, dtype='f8')
+    runner = AnalysisRunner(c_analysis.Analysis_Timecorr)
+    runner.add_dataset(DatasetType.VECTOR, "_vec0", vec0)
+    runner.add_dataset(DatasetType.VECTOR, "_vec1", vec1)
 
-    if vec0.ndim != 2:
-        raise ValueError("vec0 must be 2D array")
-    if vec1.ndim != 2:
-        raise ValueError("vec1 must be 2D array")
-    if vec0.shape != vec1.shape:
-        raise ValueError("vec0 and vec1 must have same shape")
+    command = f"vec1 _vec0 vec2 _vec1 order {order} tstep {tstep} tcorr {tcorr} {'norm' if norm else ''}"
+    runner.run_analysis(command)
 
-    max_frames = int(tcorr / tstep)
-    if max_frames >= len(vec0):
-        max_frames = len(vec0) - 1
-
-    result = np.zeros(max_frames + 1)
-
-    if order == 1:
-        # first order: |v(i)|*|v(i+t)|*cos(theta(i, i+t))
-        for t in range(max_frames + 1):
-            corr_sum = 0.0
-            count = 0
-            for i in range(len(vec0) - t):
-                v_i = vec0[i]
-                v_j = vec1[i + t]
-                mag_i = np.linalg.norm(v_i)
-                mag_j = np.linalg.norm(v_j)
-                if mag_i > 0 and mag_j > 0:
-                    cos_theta = np.dot(v_i, v_j) / (mag_i * mag_j)
-                    corr_sum += mag_i * mag_j * cos_theta
-                    count += 1
-            if count > 0:
-                result[t] = corr_sum / count
-    else:
-        # second order: v(i) . v(i+t)
-        for t in range(max_frames + 1):
-            corr_sum = 0.0
-            count = 0
-            for i in range(len(vec0) - t):
-                corr_sum += np.dot(vec0[i], vec1[i + t])
-                count += 1
-            if count > 0:
-                result[t] = corr_sum / count
-
-    if norm and result[0] != 0:
-        result /= result[0]
-
-    return result
+    return get_data_from_dtype(runner.datasets[2:], dtype=dtype)
 
 
 @super_dispatch()
@@ -284,21 +235,39 @@ def xcorr(data0, data1, dtype='ndarray'):
 
 
 def wavelet(traj, command):
-    """perform wavelet analysis
+    """wavelet analysis
 
     Parameters
     ----------
     traj : Trajectory-like
-    command : str
-        cpptraj wavelet command
+    command : str, cpptraj command
 
     Returns
     -------
-    out : DatasetList
+    out : dict
+
+    Notes
+    -----
+    - This method is not well-supported in pytraj. It means that
+    you need to type cpptraj command. Please check cpptraj manual for further
+    info if you really want to use it.
+
+    - Currently pytraj will create a new copy of Trajectory for cpptraj in memory,
+    so this method is only good for small trajectory that fit to your RAM.
+
+    version added: 1.0.6
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_dpdp()
+    >>> c0 = 'nb 10 s0 2 ds 0.25 type morlet correction 1.01 chival 0.25 :1-22'
+    >>> c1 = 'cluster minpoints 66 epsilon 10.0'
+    >>> command = ' '.join((c0, c1))
+    >>> wavelet_dict = pt.wavelet(traj, command)
     """
-    c_dslist = CpptrajDatasetList()
-
-    # wavelet is an analysis, not an action
-    c_analysis.Analysis_Wavelet(command, dslist=c_dslist)
-
-    return c_dslist
+    runner = AnalysisRunner(c_analysis.Analysis_Wavelet)
+    runner.add_dataset(DatasetType.COORDS, "_DEFAULTCRD_", traj)
+    runner.run_analysis(command)
+    runner.datasets.remove_set(runner.datasets["_DEFAULTCRD_"])
+    return get_data_from_dtype(runner.datasets, dtype='dict')

@@ -96,34 +96,34 @@ def radgyr(traj=None,
 
 
 @super_dispatch()
-def radgyr_tensor(traj=None, mask='', dtype='ndarray', top=None, frame_indices=None):
-    """compute radius of gyration tensor
+def radgyr_tensor(traj=None,
+                  mask="",
+                  top=None,
+                  frame_indices=None,
+                  dtype='ndarray'):
+    '''compute radius of gyration with tensore
 
-    Parameters
-    ----------
-    traj : Trajectory-like
-    mask : str
-        atom mask
-    dtype : str, default 'ndarray'
-        return data type
-    top : Topology, optional
-    frame_indices : array-like, optional
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> data = pt.radgyr_tensor(traj, '@CA',)
+    >>> data = pt.radgyr_tensor(traj, '@CA', frame_indices=[2, 4, 6])
 
     Returns
     -------
-    out : ndarray
-    """
-    action = c_action.Action_Radgyr()
-    c_dslist = CpptrajDatasetList()
-    tensor_command = mask + " tensor"
-    action.read_input(tensor_command, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
-
-    for frame in traj:
-        action.compute(frame)
-
-    action.post_process()
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    out : Dict[str, np.ndarray]
+    '''
+    nomax_ = 'nomax'
+    command = " ".join((mask, nomax_, "tensor"))
+    action_datasets, _ = do_action(traj, command, c_action.Action_Radgyr)
+    k0, v0 = action_datasets[0].key, action_datasets[
+        0].values.copy()  # use copy to avoid early memory free
+    k1, v1 = action_datasets[1].key, action_datasets[1].possible_data6
+    if dtype == 'dict':
+        return {k0: v0, k1: v1}
+    elif dtype == 'ndarray':
+        return v0, v1
 
 
 @super_dispatch()
