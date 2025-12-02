@@ -660,39 +660,27 @@ def set_dihedral(traj, resid=0, dihedral_type=None, deg=0, top=None):
     return traj
 
 
-def set_velocity(traj, temperature=298, ig=10, options='', top=None):
-    """assign Maxwell-Boltzmann velocities
-
-    Parameters
-    ----------
-    traj : Trajectory-like
-    temperature : float, default 298
-        temperature in K
-    ig : int, default 10
-        random seed for Maxwell-Boltzmann distribution
-    options : str, optional
-        extra options
-
-    Returns
-    -------
-    traj : Trajectory with velocities assigned
+def set_velocity(traj, temperature=298, ig=10, options=''):
+    """
 
     Notes
     -----
-    Need velocity information
+    Added in v2.0.1
     """
-    mut_traj = _assert_mutable(traj)
+    command = "tempi {} ig {} {}".format(temperature, ig, options)
 
-    command = f"ig {ig} temp0 {temperature} " + options
+    top = traj.top
 
-    action = c_action.Action_SetVelocity()
-    action.read_input(command, top=mut_traj.top)
-    action.setup(mut_traj.top)
+    act = c_action.Action_SetVelocity()
+    act.read_input(command, top=top)
+    act.setup(top)
 
-    for frame in mut_traj:
-        action.compute(frame)
-
-    return mut_traj
+    if traj.velocities is None:
+        traj.velocities = np.empty(traj.xyz.shape)
+    for index, frame in enumerate(traj):
+        new_frame = act.compute(frame, get_new_frame=True)
+        traj.velocities[index] = new_frame.velocity
+    return traj
 
 
 def fiximagedbonds(traj, mask=''):

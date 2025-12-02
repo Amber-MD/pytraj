@@ -808,24 +808,24 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     return out.read()
 
 
-@super_dispatch()
-def set_velocity(traj, temperature=298, ig=10, options='', top=None):
-    """set velocity for atoms
-
-    Parameters
-    ----------
-    traj: Trajectory object
-    temperature: float, default 298 K
-        temperature for Maxwell-Boltzmann distribution
-    ig: int, default 10
-        random seed
-    options: str, optional
-        additional options
-
-    Returns
-    -------
-    None (modify `traj` inplace)
+def set_velocity(traj, temperature=298, ig=10, options=''):
     """
-    if hasattr(traj, 'top'):
-        command = f"setvelocity temp {temperature} ig {ig} {options}"
-        do_action(traj, command, c_action.Action_SetVelocity)
+
+    Notes
+    -----
+    Added in v2.0.1
+    """
+    command = "tempi {} ig {} {}".format(temperature, ig, options)
+
+    top = traj.top
+
+    act = c_action.Action_SetVelocity()
+    act.read_input(command, top=top)
+    act.setup(top)
+
+    if traj.velocities is None:
+        traj.velocities = np.empty(traj.xyz.shape)
+    for index, frame in enumerate(traj):
+        new_frame = act.compute(frame, get_new_frame=True)
+        traj.velocities[index] = new_frame.velocity
+    return traj
