@@ -24,10 +24,6 @@ def _calc_vector_center(traj=None,
     if mass:
         command += " mass"
 
-    # Ensure top is a valid Topology object
-    if top is None:
-        top = traj.top
-
     execute_vector_action(command, traj, top=top, dslist=action_datasets)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
