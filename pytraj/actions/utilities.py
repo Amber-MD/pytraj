@@ -480,32 +480,28 @@ def transform(traj, by, frame_indices=None):
 
 
 def lowestcurve(data, points=10, step=0.2):
-    """find lowest curve
+    '''compute lowest curve for data
 
     Parameters
     ----------
-    data : array-like
-        input data
-    points : int, default 10
-        number of points
-    step : float, default 0.2
-        step size
+    data : 2D array-like
+    points : number of lowest points in each bin, default 10
+    step : step size, default 0.2
 
     Returns
     -------
-    out : ndarray
-        lowest curve data
-    """
-    data = np.asarray(data, dtype='f8')
+    2d array
+    '''
+    command = f'mydata points {points} step {step}'
 
-    c_dslist = CpptrajDatasetList()
-    dataset = c_dslist.add('double', 'data')
-    dataset.data = data
+    data = np.asarray(data).T
 
-    command = f"lowestcurve data points {points} step {step}"
-    c_analysis.Analysis_LowestCurve(command, dslist=c_dslist)
+    runner = AnalysisRunner(c_analysis.Analysis_LowestCurve)
+    runner.add_dataset(DatasetType.XYMESH, 'mydata', data)
 
-    return c_dslist[-1].values
+    runner.run_analysis(command)
+
+    return np.array([runner.datasets[-1]._xcrd(), np.array(runner.datasets[-1].values)])
 
 
 def superpose(traj, *args, **kwd):
@@ -695,35 +691,31 @@ def ti(fn, options=''):
 
 
 def hausdorff(matrix, options='', dtype='ndarray'):
-    """compute Hausdorff distance
-
+    """
     Parameters
     ----------
-    matrix : array-like
-        distance matrix
-    options : str, optional
-        extra options
-    dtype : str, default 'ndarray'
-        return data type
+    matrix : 2D array
+    option : str
+        cpptraj options
 
     Returns
     -------
-    out : ndarray or DatasetList
+    out : 1D numpy array
+
+    Notes
+    -----
+        - cpptraj help: pytraj.info('hausdorff')
     """
-    matrix = np.asarray(matrix, dtype='f8')
+    runner = AnalysisRunner(c_analysis.Analysis_Hausdorff)
+    runner.add_dataset(DatasetType.MATRIX_DBL, "my_matrix", matrix)
 
-    c_dslist = CpptrajDatasetList()
+    command = f"my_matrix {options}"
+    runner.run_analysis(command)
 
-    # add matrix
-    matrix_dataset = c_dslist.add('matrix_dbl', 'matrix')
-    matrix_dataset.data = matrix
+    runner.datasets._pop(0)
 
-    command = f"hausdorff matrix {options}"
-
-    # run analysis
-    c_analysis.Analysis_Hausdorff(command, dslist=c_dslist)
-
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    data = get_data_from_dtype(runner.datasets, dtype)
+    return data
 
 
 def permute_dihedrals(traj, filename, options=''):

@@ -398,34 +398,19 @@ def rotate(traj=None, command="", frame_indices=None, top=None):
     return mut_traj
 
 
-@super_dispatch()
 def autoimage(traj, mask="", frame_indices=None, top=None):
-    """autoimage for trajectories
+    '''perform autoimage and return the updated-coordinate traj
 
-    Parameters
-    ----------
-    traj : Trajectory-like
-    mask : str, optional
-        atom mask
-    frame_indices : array-like, optional
-    top : Topology, optional
-
-    Examples
-    --------
     >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> _ = pt.autoimage(traj)
-    """
-    mut_traj = _assert_mutable(traj)
-
-    action = c_action.Action_AutoImage()
-    action.read_input(mask, top=mut_traj.top)
-    action.setup(mut_traj.top)
-
-    for frame in mut_traj:
-        action.compute(frame)
-
-    return mut_traj
+    >>> traj = pt.datafiles.load_tz2_ortho()[:]
+    >>> traj = pt.autoimage(traj)
+    '''
+    top = top or traj.top
+    assert top.has_box(), "Topology must have box information"
+    _assert_mutable(traj)
+    command = mask
+    do_action(traj, command, c_action.Action_AutoImage, top=top)
+    return traj
 
 
 @super_dispatch()

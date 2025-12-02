@@ -10,53 +10,46 @@ __all__ = [
 
 @super_dispatch()
 def diffusion(traj,
-              mask='',
+              mask="",
               tstep=1.0,
               individual=False,
-              dtype='dataset',
               top=None,
+              dtype='dataset',
               frame_indices=None):
-    """compute diffusion
+    '''compute diffusion
 
     Parameters
     ----------
-    traj : Trajectory-like
-    mask : str, optional
-        atom mask
-    tstep : float, default 1.0
-        time step between frames
+    traj : Trajectory-like or iterator
+    mask : str, default '' (all atoms)
+    tstep : float, time step between frames, default 1.0 ps
     individual : bool, default False
-        if True, compute individual diffusion
-    dtype : str, default 'dataset'
-        return data type
     top : Topology, optional
-    frame_indices : array-like, optional
+    dtype : str, default 'dataset'
+    frame_indices : array or None
 
-    Returns
-    -------
-    out : DatasetList or ndarray
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> data = pt.diffusion(traj, dtype='dict')
+    >>> data['X']
+    array([ 0.        ,  0.87027302,  1.64626022,  2.26262651,  2.98068114,
+            3.57075535,  4.07030655,  4.71894512,  5.42302306,  6.01310377])
+    '''
+    time_step = 'time ' + str(tstep)
+    individual_option = 'individual' if individual else ''
 
-    Notes
-    -----
-    This method is equal to `cpptraj` with command
-    cpptraj.run('diffusion {}'.format(mask))
-    """
-    command = mask
-    if tstep != 1.0:
-        command += f" tstep {tstep}"
-    if individual:
-        command += " individual"
+    # add 'df' as label
+    label = 'df'
+    command = ' '.join((mask, label, time_step, individual_option))
 
-    action = c_action.Action_Diffusion()
-    c_dslist = CpptrajDatasetList()
-    action.read_input(command, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
+    action_datasets, _ = do_action(traj, command, c_action.Action_Diffusion)
 
-    for frame in traj:
-        action.compute(frame)
-
-    action.post_process()
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    # make the label nicer
+    for dataset in action_datasets:
+        dataset.key = dataset.key.replace('[', '').replace(']', '').replace(label, '')
+    return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
 @super_dispatch()
