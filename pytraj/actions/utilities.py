@@ -104,24 +104,29 @@ def closest_atom(top=None, frame=None, point=(0, 0, 0), mask=""):
     Examples
     --------
     >>> import pytraj as pt
-    >>> traj = pt.load("test.nc", "test.parm7")
-    >>> atom_index = pt.closest_atom(traj.top, traj[0], (1.0, 2.0, 0.5))
+    >>> # find closest atom to origin in a given trajectory
+    >>> traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
+    >>> frame = traj[0]
+    >>> pt.closest_atom(traj.top, traj[0], (0, 0, 0))
+    205
     """
-    indices = top.atom_indices(mask)
-    min_distance = float('inf')
-    closest_index = -1
 
-    for i in indices:
-        x = frame.xyz[i][0]
-        y = frame.xyz[i][1]
-        z = frame.xyz[i][2]
+    if (len(top.atom_indices(mask)) == 0):
+        raise ValueError(
+            "Please pass in a topology file with atoms that match the mask in it"
+        )
 
-        distance = pair_distance(point, (x, y, z))
-        if distance < min_distance:
-            min_distance = distance
-            closest_index = i
+    closest_dist = None
+    closest_idx = None
+    atoms = top.atom_indices(mask)
+    for atm in atoms:
+        coord = frame.atom(atm)
+        if ((closest_dist is None)
+                or (pair_distance(coord, point) < closest_dist)):
+            closest_dist = pair_distance(coord, point)
+            closest_idx = atm
 
-    return closest_index
+    return closest_idx
 
 
 def mean_structure(traj,
