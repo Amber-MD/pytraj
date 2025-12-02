@@ -670,7 +670,7 @@ def rotate_dihedral(traj=None, mask="", top=None):
     Syntax and method's name might be changed
     """
     from ..utils.get_common_objects import get_topology
-    
+
     _assert_mutable(traj)
     top_ = get_topology(traj, top)
 

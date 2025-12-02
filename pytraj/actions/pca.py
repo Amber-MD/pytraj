@@ -160,7 +160,7 @@ def pca(traj,
     from ..analysis import matrix
     from .utilities import mean_structure
     from ..utils.get_common_objects import get_reference
-    
+
     ref_mask = ref_mask if ref_mask is not None else mask
 
     if not isinstance(traj, (Trajectory, TrajectoryIterator)):

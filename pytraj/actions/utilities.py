@@ -506,7 +506,7 @@ def rotdif(matrices, command):
 
 
 @super_dispatch()
-def lipidscd(traj, mask='', options='', dtype='dict'):
+def lipidscd(traj, mask='', options='', dtype='dict', top=None):
     """compute lipid order parameters
 
     Parameters
@@ -518,6 +518,7 @@ def lipidscd(traj, mask='', options='', dtype='dict'):
         extra options
     dtype : str, default 'dict'
         return data type
+    top : Topology, optional
 
     Returns
     -------
@@ -702,7 +703,7 @@ def permute_dihedrals(traj, filename, options=''):
     """
     from ..core.c_core import CpptrajState, Command
     from .base import DatasetType
-    
+
     state = CpptrajState()
 
     top_data = state.data.add(DatasetType.TOPOLOGY, name='my_top')

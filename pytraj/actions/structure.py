@@ -113,7 +113,7 @@ def radgyr_tensor(traj=None, mask='', dtype='ndarray', top=None, frame_indices=N
     -------
     out : ndarray
     """
-    action = c_action.Action_RadGyr()
+    action = c_action.Action_Radgyr()
     c_dslist = CpptrajDatasetList()
     tensor_command = mask + " tensor"
     action.read_input(tensor_command, top=traj.top, dslist=c_dslist)
@@ -158,46 +158,32 @@ def surf(traj=None, mask="", dtype='ndarray', frame_indices=None, top=None):
 
 @super_dispatch()
 def molsurf(traj=None,
-            mask='',
+            mask="",
             probe=1.4,
-            radii_type='',
+            offset=0.0,
             dtype='ndarray',
             frame_indices=None,
             top=None):
-    """compute molecular surface area
+    '''calc molsurf
 
-    Parameters
-    ----------
-    traj : Trajectory-like
-    mask : str, optional
-        atom mask
-    probe : float, default 1.4
-        probe radius
-    radii_type : str, optional
-        VDW radii to use for calculation
-    dtype : str, default 'ndarray'
-        return data type
-    frame_indices : array-like, optional
-    top : Topology, optional
-
-    Returns
-    -------
-    out : ndarray, shape (n_frames,)
-    """
-    command = f"{mask} probe {probe}"
-    if radii_type:
-        command += f" {radii_type}"
-
-    action = c_action.Action_Molsurf()
-    c_dslist = CpptrajDatasetList()
-    action.read_input(command, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
-
-    for frame in traj:
-        action.compute(frame)
-
-    action.post_process()
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> pt.molsurf(traj, '@CA')
+    array([ 458.51409637,  459.64784573,  456.54690793,  467.72939574,
+            462.45908781,  458.70327554,  454.40514806,  455.15015576,
+            468.70566447,  456.0058624 ])
+    >>> pt.molsurf(traj, '!:WAT')
+    array([ 1079.1395679 ,  1090.79759341,  1069.65127413,  1096.0810919 ,
+            1091.65862234,  1091.68906298,  1085.53105392,  1069.22510187,
+            1079.70803583,  1075.8151414 ])
+    '''
+    probe_value = 'probe ' + str(probe)
+    offset_value = 'offset ' + str(offset) if offset != 0. else ''
+    command = ' '.join((mask, probe_value, offset_value))
+    action_datasets, _ = do_action(traj, command, c_action.Action_Molsurf)
+    return get_data_from_dtype(action_datasets, dtype)
 
 
 @super_dispatch()
