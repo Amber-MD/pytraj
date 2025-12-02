@@ -129,62 +129,80 @@ def closest_atom(top=None, frame=None, point=(0, 0, 0), mask=""):
     return closest_idx
 
 
+@register_pmap
 def mean_structure(traj,
-                   mask='*',
+                   mask='',
                    frame_indices=None,
-                   dtype='trajectory',
+                   dtype='frame',
+                   autoimage=False,
+                   rmsfit=None,
                    top=None):
-    """compute mean structure
+    '''get mean structure for a given mask and given frame_indices
 
     Parameters
     ----------
-    traj : Trajectory-like
-    mask : str, default '*'
-        atom mask
-    frame_indices : array-like, optional
+    traj : Trajectory-like or iterable that produces Frame
+    mask : None or str, default None (all atoms)
+    frame_indices : iterable that produces integer, default None, optional
         frame indices
-    dtype : str, default 'trajectory'
-        return data type
-    top : Topology, optional
-
-    Returns
-    -------
-    out : Trajectory (with 1 frame) or Frame
+    dtype: str, {'frame', 'traj'}, default 'frame'
+        return type, either Frame (does not have Topology information) or 'traj'
+    autoimage : bool, default False
+        if True, performa autoimage
+    rmsfit : object, {Frame, int, tuple, None}, default None
+        if rmsfit is not None, perform rms fit to reference.
 
     Examples
     --------
     >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_tz2()
-    >>> meanframe = pt.mean_structure(traj)
-    >>> meanframe.n_frames
-    1
-    """
-    if frame_indices is not None:
-        traj = traj[frame_indices]
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> # get average structure from whole traj, all atoms
+    >>> frame = pt.mean_structure(traj)
 
-    if mask == '*':
-        xyz = np.mean(traj.xyz, axis=0)
-    else:
-        atom_indices = traj.top.select(mask)
-        xyz = np.mean(traj.xyz[:, atom_indices], axis=0)
+    >>> # get average structure from several frames, '@CA' atoms"
+    >>> frame = pt.mean_structure(traj, '@CA', frame_indices=range(2, 8, 2))
 
-    if dtype == 'trajectory':
-        # create new trajectory with mean coordinates
-        mean_traj = traj[:1].copy()
-        if mask == '*':
-            mean_traj.xyz[0] = xyz
-        else:
-            mean_traj.xyz[0, atom_indices] = xyz
-        return mean_traj
-    elif dtype == 'frame':
-        mean_frame = traj[0].copy()
-        if mask == '*':
-            mean_frame.xyz = xyz
-        else:
-            mean_frame.xyz[atom_indices] = xyz
-        return mean_frame
+    >>> # get average structure but do autoimage and rmsfit to 1st Frame
+    >>> frame = pt.mean_structure(traj(autoimage=True, rmsfit=0))
+
+    >>> # get average structure but do autoimage and rmsfit to 1st Frame.
+    >>> frame = pt.mean_structure(traj(autoimage=True, rmsfit=0, frame_indices=[0, 5, 6]))
+
+    Notes
+    -----
+    if autoimage=True and having rmsfit, perform autoimage first and do rmsfit
+    '''
+    # note: we not yet use @super_dispatch due to extra 'rmsfit'
+    # TODO: do it.
+    topology = get_topology(traj, top)
+    try:
+        frame_iterator = traj.iterframe(
+            autoimage=autoimage, rmsfit=rmsfit, frame_indices=frame_indices)
+    except AttributeError:
+        frame_iterator = get_fiterator(traj, frame_indices)
+
+    action_datasets = CpptrajDatasetList()
+    if not isinstance(mask, str):
+        mask = array_to_cpptraj_atommask(mask)
+
+    # add "crdset s1" to trick cpptraj dump coords to DatSetList
+    command = mask + " crdset s1"
+
+    action_average = c_action.Action_Average()
+    action_average(command, frame_iterator, topology, dslist=action_datasets)
+
+    # need to call this method so cpptraj will write
+    action_average.post_process()
+
+    frame = action_datasets[0].get_frame()
+    if dtype.lower() == 'frame':
+        return frame
+    elif dtype.lower() in ['traj', 'trajectory']:
+        new_topology = topology if mask == '' else topology[mask]
+        return Trajectory(
+            xyz=frame.xyz.reshape(1, frame.n_atoms, 3).copy(), top=new_topology)
     else:
-        return xyz
+        raise ValueError('dtype must be frame or trajectory')
 
 
 # create alias
@@ -620,51 +638,26 @@ def xtalsymm(traj, mask='', options='', ref=None, **kwargs):
 
 
 def analyze_modes(mode_type,
-                  eigenvalues,
                   eigenvectors,
+                  eigenvalues,
                   scalar_type='mwcovar',
                   options='',
-                  mask='*'):
-    """analyze normal modes
+                  dtype='dict'):
+    runner = AnalysisRunner(c_analysis.Analysis_Modes)
+    my_modes = 'my_modes'
+    runner.add_dataset(DatasetType.MODES, my_modes, None)
 
-    Parameters
-    ----------
-    mode_type : str
-        type of analysis (fluct, displ, corr)
-    eigenvalues : array-like
-        eigenvalues
-    eigenvectors : array-like
-        eigenvectors
-    scalar_type : str, default 'mwcovar'
-        scalar type
-    options : str, optional
-        extra options
-    mask : str, default '*'
-        atom mask
+    modes = runner.datasets[-1]
+    modes.scalar_type = scalar_type
+    modes._allocate_avgcoords(eigenvectors.shape[1])
+    modes._set_modes(False, eigenvectors.shape[0], eigenvectors.shape[1],
+                     eigenvalues, eigenvectors.flatten())
 
-    Returns
-    -------
-    out : DatasetList
-    """
-    eigenvalues = np.asarray(eigenvalues, dtype='f8')
-    eigenvectors = np.asarray(eigenvectors, dtype='f8')
+    command = ' '.join((mode_type, 'name {}'.format(my_modes), options))
+    runner.run_analysis(command)
 
-    c_dslist = CpptrajDatasetList()
-
-    # add eigenvalues
-    eval_dataset = c_dslist.add('modes', 'eigenvalues')
-    eval_dataset.data = eigenvalues
-
-    # add eigenvectors
-    evec_dataset = c_dslist.add('modes', 'eigenvectors')
-    evec_dataset.data = eigenvectors
-
-    command = f"{mode_type} eigenvalues eigenvectors {scalar_type} {mask} {options}"
-
-    # run analysis
-    c_analysis.Analysis_Modes(command, dslist=c_dslist)
-
-    return c_dslist
+    runner.datasets._pop(0)
+    return get_data_from_dtype(runner.datasets, dtype=dtype)
 
 
 def ti(fn, options=''):
