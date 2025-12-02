@@ -435,45 +435,69 @@ def image(traj, mask="", frame_indices=None, top=None):
 
 @super_dispatch()
 def center(traj=None,
-           mask='origin',
+           mask="",
+           center='box',
            mass=False,
-           frame_indices=None,
-           top=None):
-    """center atoms
+           top=None,
+           frame_indices=None):
+    """Center coordinates in `mask` to specified point.
 
     Parameters
     ----------
-    traj : Trajectory-like
-    mask : str, default 'origin'
-        cpptraj command
-    mass : bool, default False
-        if True, use mass-weighted centering
-    frame_indices : array-like, optional
-    top : Topology, optional
+    traj : Trajectory-like or Frame iterator
+    mask : str, mask
+    center : str, {'box', 'origin', array-like}, default 'box'
+        if 'origin', center on coordinate origin (0, 0, 0)
+        if 'box', center on box center
+        if array-like, center on that point
+    mass : bool, default: False
+        if True, use mass weighted
+    top : Topology, optional, default: None
 
     Examples
     --------
     >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_tz2()
-    >>> xyz_old = traj.xyz[0].copy()
-    >>> _ = pt.center(traj, mask='origin')
-    >>> (traj.xyz[0] == xyz_old).all()
-    False
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> # load all frames to memory so we can 'mutate' them
+    >>> traj = traj[:]
+    >>> # all atoms, center to box center (x/2, y/2, z/2)
+    >>> traj = pt.center(traj)
+
+    >>> # center at origin, use @CA
+    >>> traj = pt.center(traj, '@CA', center='origin')
+
+    >>> # center to box center, use mass weighted
+    >>> traj = pt.center(traj, mass=True)
+    >>> traj = pt.center(traj, ':1', mass=True)
+
+    Returns
+    -------
+    updated traj
+
+    See also
+    --------
+    pytraj.translate
     """
-    mut_traj = _assert_mutable(traj)
+    from ..trajectory.trajectory_iterator import TrajectoryIterator
+    
+    valid_centers = ['box', 'origin']
 
-    command = mask
-    if mass:
-        command += ' mass'
+    if isinstance(center, (list, tuple)):
+        center = 'point ' + ' '.join(map(str, center))
+    elif center.lower() not in valid_centers:
+        raise ValueError(f'center must be one of {valid_centers}')
 
-    action = c_action.Action_Center()
-    action.read_input(command, top=mut_traj.top)
-    action.setup(mut_traj.top)
+    center_option = '' if center == 'box' else center
+    mass_option = 'mass' if mass else ''
+    command = ' '.join((mask, center_option, mass_option))
 
-    for frame in mut_traj:
-        action.compute(frame)
+    if isinstance(traj, TrajectoryIterator):
+        return traj.center(command)
 
-    return mut_traj
+    action_center = c_action.Action_Center()
+    action_center(command, traj, top=top)
+
+    return traj
 
 
 def strip(obj, mask):
