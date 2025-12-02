@@ -19,29 +19,37 @@ def atomiccorr(traj,
                byres=False,
                top=None,
                frame_indices=None):
-    """compute atomic correlation
+    """compute average correlations between the motion of atoms in mask.
 
     Parameters
     ----------
     traj : Trajectory-like
     mask : str, optional
-        first mask
+        first atom mask
     mask2 : str, optional
-        second mask
+        second atom mask (if not provided, correlations within mask will be computed)
     cut : float, default 0.0
-        cutoff distance
+        if greater than 0, only print correlations with absolute value greater than cut
     min_spacing : float, default 1.0
-        minimum spacing between atoms
+        only calculate correlations for motion vectors spaced min_spacing apart
     dtype : str, default 'ndarray'
         return data type
     byres : bool, default False
-        if True, compute per residue
+        if False, compute atomic motion vector
+        if True, calculate motion vectors for entire residues (selected atoms in residues only).
     top : Topology, optional
     frame_indices : array-like, optional
 
     Returns
     -------
     out : ndarray or DatasetList
+        correlation matrix between atomic motions
+
+    Notes
+    -----
+    This function computes correlations between atomic motion vectors. The implementation
+    has been updated from the original backup version to support two-mask correlations
+    and different default parameter values.
     """
     command = mask
     if mask2:

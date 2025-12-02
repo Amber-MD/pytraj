@@ -128,7 +128,7 @@ def radgyr_tensor(traj=None,
 
 @super_dispatch()
 def surf(traj=None, mask="", dtype='ndarray', frame_indices=None, top=None):
-    """compute solvent accessible surface area
+    """calc surf (LCPO method) - compute solvent accessible surface area
 
     Parameters
     ----------
@@ -137,12 +137,19 @@ def surf(traj=None, mask="", dtype='ndarray', frame_indices=None, top=None):
         atom mask
     dtype : str, default 'ndarray'
         return data type
-    top : Topology, optional
     frame_indices : array-like, optional
+    top : Topology, optional
 
     Returns
     -------
     out : ndarray, shape (n_frames,)
+        surface area values for each frame
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> data = pt.surf(traj, '@CA')
     """
     action = c_action.Action_Surf()
     c_dslist = CpptrajDatasetList()
@@ -201,6 +208,13 @@ def volume(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None):
     Returns
     -------
     out : ndarray, shape (n_frames,)
+        volume values for each frame
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> vol = pt.volume(traj, '@CA')
     """
     action = c_action.Action_Volume()
     c_dslist = CpptrajDatasetList()

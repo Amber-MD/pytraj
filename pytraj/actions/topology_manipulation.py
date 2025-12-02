@@ -479,7 +479,7 @@ def center(traj=None,
     pytraj.translate
     """
     from ..trajectory.trajectory_iterator import TrajectoryIterator
-    
+
     valid_centers = ['box', 'origin']
 
     if isinstance(center, (list, tuple)):

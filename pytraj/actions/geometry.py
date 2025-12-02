@@ -170,45 +170,55 @@ def distance(traj=None,
              top=None,
              image=False,
              n_frames=None):
-    """Compute distance.
+    """compute distance between two maskes
 
     Parameters
     ----------
-    traj : Trajectory-like
-    command : str
-        cpptraj distance command
-    mask : {str, array-like}, optional
-        Atom mask(s)
-    indices : {None, array-like}, optional
-        If given, use array indices. If not given, use `mask`
-    top : Topology, optional, default=None
-    dtype : str, default='ndarray'
-        return data type
-    frame_indices : array-like, optional
-        frame indices
+    traj : Trajectory-like, list of Trajectory, list of Frames
+    mask : str or a list of string or a 2D array-like of integers.
+        If `mask` is a 2D-array, the `image` option is always `False`.
+        In this case, make sure to `autoimage` your trajectory before
+        calling `distance`.
+    frame_indices : array-like, optional, default None
+    dtype : return type, default 'ndarray'
+    top : Topology, optional
+    image : bool, default False
+    n_frames : int, optional, default None
+        only need to provide n_frames if ``traj`` does not have this info
 
     Returns
     -------
-    distances : ndarray or list of 1D ndarray if has more than one distance
+    1D ndarray if mask is a string
+    2D ndarray, shape (n_atom_pairs, n_frames) if mask is a list of strings or an array
+
+    Notes
+    -----
+    Be careful with Topology. If your topology has Box info but your traj does not, you
+    would get weird output ([0.0, ...]). Make sure to use `image=False` in this method or
+    set_nobox for Topology.
+
 
     Examples
     --------
     >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_tz2()
-    >>> # single distance, using masks
-    >>> data = pt.distance(traj, mask=['@CA', '@CB'])
-    >>> data.shape
-    (10,)
+    >>> # calculate distance for two atoms, using amber mask
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> dist = pt.distance(traj, '@1 @3')
 
-    >>> # multiple distances, using masks
-    >>> data = pt.distance(traj, mask=[['@CA', '@CB'], ['@N', '@H']])
-    >>> data.shape
-    (2, 10)
+    >>> # calculate distance for two groups of atoms, using amber mask
+    >>> dist = pt.distance(traj, '@1,37,8 @2,4,6')
 
-    >>> # using cpptraj command
-    >>> data = pt.distance(traj, command="distance :1 :2")
-    >>> data.shape
-    (10,)
+    >>> # calculate distance between two residues, using amber mask
+    >>> dist = pt.distance(traj, ':1 :10')
+
+    >>> # calculate multiple distances between two residues, using amber mask
+    >>> # distance between residue 1 and 10, distance between residue 3 and 20
+    >>> # (when using atom string mask, index starts from 1)
+    >>> dist = pt.distance(traj, [':1 :10', ':3 :20'])
+
+    >>> # calculate distance for a series of atoms, using array for atom mask
+    >>> # distance between atom 1 and 5, distance between atom 4 and 10 (index starts from 0)
+    >>> dist = pt.distance(traj, [[1, 5], [4, 10]])
     """
     ensure_not_none_or_string(traj)
     command = mask

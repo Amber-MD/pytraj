@@ -26,6 +26,10 @@ from .analysis import (
 )
 
 from .builder.build import make_structure
+from .actions.geometry import _distance_to_ref_or_point
+from .actions.correlation import velocity_autocorrelation
+from .actions.topology_manipulation import scale as do_scaling
+from functools import partial
 
 # Import all actions from the new modular actions package
 from .actions import *
@@ -54,3 +58,43 @@ __all__ = [
 
 # Legacy aliases for backward compatibility
 atomicfluct = rmsf
+scale = do_scaling
+velocityautocorr = velocity_autocorrelation
+
+# Partial functions for distance calculations
+distance_to_point = partial(_distance_to_ref_or_point, ref=None)
+distance_to_point.__doc__ = """
+Compute distance from atoms in mask to a specified point.
+Example: pytraj.distance_to_point(traj, ':1', point=[0., 0., 0.])
+"""
+
+distance_to_reference = partial(_distance_to_ref_or_point, point=None)
+distance_to_reference.__doc__ = """
+Compute distance from atoms in mask to a reference structure.
+Example: pytraj.distance_to_reference(traj, ':1', ref=ref_frame)
+"""
+
+# Helper function for getting average frame
+def get_average_frame(traj, mask='*', top=None, **kwargs):
+    """Get average structure as a single frame.
+    
+    This is a convenience function that returns mean_structure as a single Frame.
+    
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, default '*'
+        atom mask
+    top : Topology, optional
+    **kwargs : additional keyword arguments
+        passed to mean_structure (e.g., autoimage, frame_indices)
+    
+    Returns
+    -------
+    Frame
+        average frame
+    """
+    return mean_structure(traj, mask=mask, top=top, **kwargs)
+
+# Alias for toroidal diffusion (same as tordiff)
+toroidal_diffusion = tordiff
