@@ -11,146 +11,195 @@ __all__ = [
 @super_dispatch()
 def projection(traj,
                mask='',
-               mode=0,
-               beg=1,
-               end=-1,
-               eigenfile='',
-               efile='',
-               dtype='ndarray',
+               eigenvectors=None,
+               eigenvalues=None,
                scalar_type='covar',
-               options='',
-               top=None,
-               frame_indices=None):
-    """compute projection
+               average_coords=None,
+               frame_indices=None,
+               dtype='ndarray',
+               top=None):
+    '''compute projection along given eigenvectors
 
     Parameters
     ----------
     traj : Trajectory-like
-    mask : str, optional
-        atom mask
-    mode : int, default 0
-        mode index
-    beg : int, default 1
-        first mode
-    end : int, default -1
-        last mode
-    eigenfile : str, optional
-        eigenvalue file
-    efile : str, optional
-        eigenvector file
-    dtype : str, default 'ndarray'
-        return data type
-    scalar_type : str, default 'covar'
-        scalar type (covar, mwcovar, correl, distcovar, idea, ired)
-    options : str, optional
-        extra options
-    top : Topology, optional
-    frame_indices : array-like, optional
+    mask : atom mask, either string or array-like
+    eigenvalues : 1D array-like
+    eigenvectors : 2D array-like
+    scalar_type : str, {'covar', 'mwcovar', }, default 'covar'
+        make sure to provide correct scalar_type.
+        Note: not yet support 'dihcovar' and 'idea'
+    average_coords : 3D array-like, optional, default None
+        average coordinates. If 'None', pytraj will compute mean_structure with given mask
+    frame_indices : array-like
+        If not None, compute projection for given frames.
+    dtype : str, return data type, default 'ndarray'
+    top : Topology, optional, default None
 
     Returns
     -------
-    out : ndarray or DatasetList
-    """
-    command = mask
-    if mode != 0:
-        command += f" mode {mode}"
-    if beg != 1:
-        command += f" beg {beg}"
-    if end != -1:
-        command += f" end {end}"
-    if eigenfile:
-        command += f" eigenfile {eigenfile}"
-    if efile:
-        command += f" efile {efile}"
-    command += f" {scalar_type} {options}"
-
-    c_dslist = CpptrajDatasetList()
-    action = c_action.Action_Projection()
-    action.read_input(command, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
-
-    for frame in traj:
-        action.compute(frame)
-
-    action.post_process()
-    return get_data_from_dtype(c_dslist, dtype=dtype)
-
-
-def pca(traj,
-        mask='*',
-        n_vecs=2,
-        dtype='ndarray',
-        top=None,
-        frame_indices=None):
-    """perform principle component analysis
-
-    Parameters
-    ----------
-    traj : Trajectory-like
-    mask : str, default '*' (all atoms)
-        atom mask
-    n_vecs : int, default 2
-        number of eigenvectors to save
-    dtype : str, default 'ndarray'
-        return data type
-    top : Topology, optional
-    frame_indices : array-like, optional
-
-    Returns
-    -------
-    out : DatasetList if dtype is 'dataset', otherwise return ndarray
-
-    Notes
-    -----
-    return eigenvalues and eigenvectors
+    projection_data : ndarray, shape=(n_vecs, n_frames)
 
     Examples
     --------
     >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> data = pt.pca(traj, mask='!@H=', n_vecs=2)
-    >>> data[0].shape
-    (2,)
-    >>> data[1].shape
-    (2, 7998)
-    """
-    # use matrix for PCA calculation
-    from .matrix import matrix
+    >>> traj = pt.datafiles.load_tz2()
+    >>> mat = pt.matrix.covar(traj, '@CA')
+    >>> eigenvectors, eigenvalues = pt.matrix.diagonalize(mat, 2)
 
-    # get covariance matrix
-    mat = matrix(traj, mask=mask, byatom=True, dtype='dataset')
-    covar_mat = mat['matrix_covar']
+    >>> # since we compute covariance matrix, we need to specify
+    >>> # scalar_type = 'covar'
+    >>> scalar_type = 'covar'
+    >>> data = pt.projection(traj, '@CA', eigenvalues=eigenvalues, eigenvectors=eigenvectors, scalar_type=scalar_type)
+    >>> data.shape
+    (2, 101)
+    '''
+    from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
+    from .base import DatasetType
+    from ..analysis.c_action import c_action
+    from .utilities import mean_structure
+    from ..utils.get_common_objects import get_data_from_dtype
 
-    # perform eigenvalue decomposition
-    c_dslist = CpptrajDatasetList()
+    projection_action = c_action.Action_Projection()
+    action_datasets = CpptrajDatasetList()
 
-    # add covariance matrix to dataset list
-    mat_dataset = c_dslist.add('matrix_dbl', 'covar')
-    mat_dataset.data = covar_mat
+    mode_name = 'my_modes'
+    action_datasets.add(DatasetType.MODES, mode_name)
 
-    command = f"covar out evecs.dat vecs {n_vecs}"
+    is_reduced = False
+    dataset_mode = action_datasets[-1]
+    n_vectors = len(eigenvalues)
+    dataset_mode._set_modes(is_reduced, n_vectors, eigenvectors.shape[1],
+                            eigenvalues, eigenvectors.flatten())
+    dataset_mode.scalar_type = scalar_type
 
-    # run analysis
-    c_analysis.Analysis_Matrix(command, dslist=c_dslist)
+    if average_coords is None:
+        frame = mean_structure(traj, mask)
+        average_coords = frame.xyz
 
-    if dtype == 'dataset':
-        return c_dslist
-    else:
-        # extract eigenvalues and eigenvectors
-        eigenvals = None
-        eigenvecs = None
+    dataset_mode._allocate_avgcoords(3 * average_coords.shape[0])
+    dataset_mode._set_avg_frame(average_coords.flatten())
 
-        for dataset in c_dslist:
-            if 'eigenvalues' in dataset.legend:
-                eigenvals = dataset.values
-            elif 'eigenvectors' in dataset.legend or 'evecs' in dataset.legend:
-                eigenvecs = dataset.values
+    command = f"evecs {mode_name} {mask} beg 1 end {n_vectors}"
+    projection_action(command, traj, top=top, dslist=action_datasets)
 
-        if eigenvals is not None and eigenvecs is not None:
-            return [eigenvals, eigenvecs]
-        elif eigenvals is not None:
-            return eigenvals
-        elif eigenvecs is not None:
-            return eigenvecs
+    action_datasets._pop(0)
+
+    return get_data_from_dtype(action_datasets, dtype=dtype)
+
+
+def pca(traj,
+        mask,
+        n_vecs=2,
+        fit=True,
+        ref=None,
+        ref_mask=None,
+        dtype='ndarray',
+        top=None):
+    '''perform PCA analysis by following below steps:
+
+    - (optional) perform rmsfit to reference if needed
+    - compute covariance matrix
+    - diagonalize the matrix to get eigenvectors and eigenvalues
+    - perform projection of each frame with mask to each eigenvector
+
+    Parameters
+    ----------
+    traj : Trajectory
+        traj must be ``pytraj.Trajectory``, which can be created by ``pytraj.load`` method.
+    mask : str
+        atom mask for covariance matrix and projection
+    n_vecs : int, default 2
+        number of eigenvectors. If user want to compute projection for all eigenvectors,
+        should specify n_vecs=-1 (or a negative number)
+    fit : bool, default True
+        if True, perform fitting before compute covariance matrix
+        if False, no fitting (keep rotation and translation). In this case, `pytraj` will ignore `ref` argument.
+    ref : {None, Frame, int}, default None
+        if None, trajectory will be superposed to average structure
+        if is Frame or integer value, trajectory will be superposed to given reference
+    ref_mask : {None, str}, default None (use `mask`)
+        if None, use `mask` for fitting
+        if str, use this given mask for fitting
+    dtype : return datatype
+    top : Topology, optional
+
+    Returns
+    -------
+    out1: projection_data, ndarray with shape=(n_vecs, n_frames)
+    out2: tuple of (eigenvalues, eigenvectors)
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()[:]
+
+    >>> # compute pca for first and second modes
+    >>> pca_data = pt.pca(traj, '!@H=', n_vecs=2)
+    >>> # get projection values
+    >>> pca_data[0] # doctest: +SKIP
+    array([[  4.93425131,  13.80002308,  20.61605835, ..., -57.92280579,
+            -61.25728607, -52.85142136],
+           [  4.03333616,  -6.9132452 , -14.53991318, ...,  -6.757936  ,
+              2.1086719 ,  -3.60922861]], dtype=float32)
+    >>> # get eigenvalues for first 2 modes
+    >>> pca_data[1][0] # doctest: +SKIP
+    array([ 1399.36472919,   240.42342439])
+
+    >>> # compute pca for all modes
+    >>> pca_data = pt.pca(traj, '!@H=', n_vecs=-1)
+
+    >>> # does not perform fitting
+    >>> data = pt.pca(traj, mask='!@H=', fit=False)
+
+    >>> # provide different mask for fitting
+    >>> data = pt.pca(traj, mask='!@H=', fit=True, ref=0, ref_mask='@CA')
+    '''
+    from ..trajectory.trajectory import Trajectory
+    from ..trajectory.trajectory_iterator import TrajectoryIterator
+    from ..analysis import matrix
+    from .utilities import mean_structure
+    from ..utils.get_common_objects import get_reference
+    
+    ref_mask = ref_mask if ref_mask is not None else mask
+
+    if not isinstance(traj, (Trajectory, TrajectoryIterator)):
+        raise ValueError('must be Trajectory-like')
+
+    if fit:
+        if ref is None:
+            traj.superpose(ref=0, mask=ref_mask)
+            avg = mean_structure(traj)
+            traj.superpose(ref=avg, mask=ref_mask)
+            n_refs = 2
         else:
-            return get_data_from_dtype(c_dslist, dtype=dtype)
+            ref = get_reference(traj, ref)
+            traj.superpose(ref=ref, mask=ref_mask)
+            n_refs = 1
+
+    avg2 = mean_structure(traj, mask=mask)
+
+    covariance_matrix = matrix.covar(traj, mask)
+    n_vecs = covariance_matrix.shape[0] if n_vecs < 0 else n_vecs
+
+    eigenvectors, eigenvalues = matrix.diagonalize(covariance_matrix, n_vecs=n_vecs, dtype='tuple')
+
+    projection_data = projection(
+        traj,
+        mask=mask,
+        average_coords=avg2.xyz,
+        eigenvalues=eigenvalues,
+        eigenvectors=eigenvectors,
+        scalar_type='covar',
+        dtype=dtype
+    )
+
+    if fit and hasattr(traj, '_transform_commands'):
+        for _ in range(n_refs):
+            traj._transform_commands.pop()
+        if traj._transform_commands:
+            traj._reset_transformation()
+        else:
+            traj._remove_transformations()
+
+    return projection_data, (eigenvalues, eigenvectors)

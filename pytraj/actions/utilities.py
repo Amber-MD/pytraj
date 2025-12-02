@@ -688,43 +688,38 @@ def hausdorff(matrix, options='', dtype='ndarray'):
 
 
 def permute_dihedrals(traj, filename, options=''):
-    """permute dihedral angles
-
+    """
     Parameters
     ----------
-    traj : Trajectory-like
+    traj : Trajectory like
     filename : str
-        output filename
-    options : str, optional
-        extra options
+        Output filename for resulted trajectory
+    options: str
+        cpptraj's option. Do not specify `outtraj` here since
+        it's specified in `filename`.
 
-    Returns
-    -------
-    traj : Trajectory with permuted dihedrals
+    This function returns None.
     """
-    mut_traj = _assert_mutable(traj)
+    from ..core.c_core import CpptrajState, Command
+    from .base import DatasetType
+    
+    state = CpptrajState()
 
-    command = f"crdout {filename} {options}"
+    top_data = state.data.add(DatasetType.TOPOLOGY, name='my_top')
+    top_data.data = traj.top
 
-    # create data to hold trajectory
-    c_dslist = CpptrajDatasetList()
-    coords_data = c_dslist.add('coords', name='_DEFAULTCRD_')
-    coords_data.top = mut_traj.top
-    for frame in mut_traj:
-        coords_data.append(frame)
+    ref_data = state.data.add(DatasetType.COORDS, name='my_coords')
+    ref_data.top = traj.top
+    for frame in traj:
+        ref_data.add_frame(frame)
 
-    action = c_action.Action_PermuteDihedrals()
-    action.read_input(command, top=mut_traj.top, dslist=c_dslist)
-    action.setup(mut_traj.top)
+    command = f'permutedihedrals crdset my_coords {options} outtraj {filename}'
 
-    # permute
-    action.compute(None)
-    action.post_process()
+    with Command() as executor:
+        executor.dispatch(state, command)
 
-    c_dslist._pop(0)
-    c_dslist._pop(0)
-
-    return mut_traj
+    state.data._pop(0)
+    state.data._pop(0)
 
 
 def check_structure(traj,
