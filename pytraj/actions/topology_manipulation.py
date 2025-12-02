@@ -611,44 +611,47 @@ def randomize_ions(traj,
 
 @super_dispatch()
 def replicate_cell(traj=None,
-                   replicates=(1, 1, 1),
-                   mask='*',
-                   dtype='ndarray',
+                   mask="",
+                   direction='all',
                    frame_indices=None,
                    top=None):
-    """replicate unit cell
+    '''create a trajectory where the unit cell is replicated in 1 or more direction (up to 27)
 
     Parameters
     ----------
-    traj : Trajectory-like
-    replicates : tuple of ints, default (1, 1, 1)
-        how many times to replicate along each dimension
-    mask : str, default '*'
-        atom mask
-    dtype : str, default 'ndarray'
-        return data type
-    frame_indices : array-like, optional
-    top : Topology, optional
+    traj : Trajectory-like or Frame iterator
+    mask : str, default: ""
+    direction : str or array-like, default: "all"
+        how to replicate.
 
     Returns
     -------
-    out : Trajectory
-    """
-    nx, ny, nz = replicates
-    command = f"{mask} {nx}x{ny}x{nz}"
+    traj : pytraj.Trajectory
 
-    mut_traj = _assert_mutable(traj)
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> new_traj = pt.replicate_cell(traj, direction='all')
+    >>> new_traj = pt.replicate_cell(traj, direction='dir 001 dir 111')
+    >>> new_traj = pt.replicate_cell(traj, direction='dir 001 dir 1-10')
+    >>> new_traj = pt.replicate_cell(traj, direction='dir 001 dir 1-10')
 
-    action = c_action.Action_ReplicateCell()
-    action.read_input(command, top=mut_traj.top)
-    action.setup(mut_traj.top)
+    >>> # similiar usage
+    >>> new_traj = pt.replicate_cell(traj, direction=('001', '0-10'))
+    >>> new_traj = pt.replicate_cell(traj, direction=['001', '0-10'])
+    '''
+    if isinstance(direction, str):
+        formatted_direction = direction
+    elif isinstance(direction, (list, tuple)):
+        formatted_direction = 'dir ' + ' dir '.join(direction)
+    else:
+        raise ValueError('direction must be a string or list/tuple of strings')
 
-    for frame in mut_traj:
-        action.compute(frame)
+    command = f'name tmp_cell {formatted_direction} {mask}'
+    action_datasets, _ = do_action(traj, command, c_action.Action_ReplicateCell)
 
-    action.post_process()
-
-    return mut_traj
+    return Trajectory(xyz=action_datasets[0].xyz, top=action_datasets[0].top)
 
 
 def rotate_dihedral(traj=None, mask="", top=None):
