@@ -5,14 +5,12 @@ from .base import *
 from .base import _assert_mutable
 from ..trajectory.trajectory_iterator import TrajectoryIterator
 
-
 __all__ = [
     'get_velocity', 'mean_structure', 'get_average_frame', 'multidihedral',
     'search_neighbors', 'native_contacts', 'grid', 'transform', 'lowestcurve',
     'superpose', 'rotdif', 'lipidscd', 'xtalsymm', 'analyze_modes', 'ti',
-    'hausdorff', 'permute_dihedrals', 'in_voxel',
-    'count_in_voxel', 'pair_distance', 'closest_atom', 'crank', 'check_structure',
-    'set_velocity'
+    'hausdorff', 'permute_dihedrals', 'in_voxel', 'count_in_voxel',
+    'pair_distance', 'closest_atom', 'crank', 'check_structure', 'set_velocity'
 ]
 
 # _assert_mutable is imported from base.py
@@ -20,11 +18,10 @@ __all__ = [
 
 # voxel center and xyz are tuples
 def in_voxel(voxel_cntr, xyz, delta):
-    return (xyz[0] >= voxel_cntr[0] - delta and xyz[0] <= voxel_cntr[0] +
-            delta) and (xyz[1] >= voxel_cntr[1] - delta
-                        and xyz[1] <= voxel_cntr[1] + delta) and (
-                            xyz[2] >= voxel_cntr[2] - delta
-                            and xyz[2] <= voxel_cntr[2] + delta)
+    return (xyz[0] >= voxel_cntr[0] - delta and xyz[0] <= voxel_cntr[0] + delta
+           ) and (xyz[1] >= voxel_cntr[1] - delta and xyz[1] <= voxel_cntr[1] +
+                  delta) and (xyz[2] >= voxel_cntr[2] - delta and
+                              xyz[2] <= voxel_cntr[2] + delta)
 
 
 @register_pmap
@@ -73,6 +70,8 @@ def count_in_voxel(traj=None, mask="", voxel_cntr=(0, 0, 0), voxel_size=5):
         lives_in_voxel.append(frame_voxAtoms)
 
     return lives_in_voxel
+
+
 def pair_distance(p1, p2):
     x1, y1, z1 = p1
     x2, y2, z2 = p2
@@ -121,8 +120,8 @@ def closest_atom(top=None, frame=None, point=(0, 0, 0), mask=""):
     atoms = top.atom_indices(mask)
     for atm in atoms:
         coord = frame.atom(atm)
-        if ((closest_dist is None)
-                or (pair_distance(coord, point) < closest_dist)):
+        if ((closest_dist is None) or
+            (pair_distance(coord, point) < closest_dist)):
             closest_dist = pair_distance(coord, point)
             closest_idx = atm
 
@@ -176,8 +175,9 @@ def mean_structure(traj,
     # TODO: do it.
     topology = get_topology(traj, top)
     try:
-        frame_iterator = traj.iterframe(
-            autoimage=autoimage, rmsfit=rmsfit, frame_indices=frame_indices)
+        frame_iterator = traj.iterframe(autoimage=autoimage,
+                                        rmsfit=rmsfit,
+                                        frame_indices=frame_indices)
     except AttributeError:
         frame_iterator = get_fiterator(traj, frame_indices)
 
@@ -199,8 +199,8 @@ def mean_structure(traj,
         return frame
     elif dtype.lower() in ['traj', 'trajectory']:
         new_topology = topology if mask == '' else topology[mask]
-        return Trajectory(
-            xyz=frame.xyz.reshape(1, frame.n_atoms, 3).copy(), top=new_topology)
+        return Trajectory(xyz=frame.xyz.reshape(1, frame.n_atoms, 3).copy(),
+                          top=new_topology)
     else:
         raise ValueError('dtype must be frame or trajectory')
 
@@ -334,12 +334,13 @@ def multidihedral(traj=None,
         define_new_type_str = f"dihtype {str(define_new_type)}"
 
     # Build command using CommandBuilder
-    command = (CommandBuilder()
-               .add(str(dihedral_types), condition=dihedral_types is not None)
-               .add("resrange", resrange_str, condition=resrange_str is not None)
-               .add(define_new_type_str, condition=define_new_type_str is not None)
-               .add("range360", condition=range360)
-               .build())
+    command = (CommandBuilder().add(
+        str(dihedral_types), condition=dihedral_types is not None).add(
+            "resrange", resrange_str, condition=resrange_str
+            is not None).add(define_new_type_str,
+                             condition=define_new_type_str
+                             is not None).add("range360",
+                                              condition=range360).build())
 
     action_datasets, _ = do_action(traj, command, c_action.Action_MultiDihedral)
     return get_data_from_dtype(action_datasets, dtype=dtype)
@@ -425,15 +426,11 @@ def native_contacts(traj=None,
         mask2 = array_to_cpptraj_atommask(mask2)
     mask_str = ' '.join((mask, mask2))
 
-    command = (CommandBuilder()
-               .add("ref myframe")
-               .add(mask_str)
-               .add("distance", str(distance))
-               .add("noimage", condition=not image)
-               .add("includesolvent", condition=include_solvent)
-               .add("byresidue", condition=byres)
-               .add(options, condition=bool(options))
-               .build())
+    command = (CommandBuilder().add("ref myframe").add(mask_str).add(
+        "distance", str(distance)).add("noimage", condition=not image).add(
+            "includesolvent",
+            condition=include_solvent).add("byresidue", condition=byres).add(
+                options, condition=bool(options)).build())
 
     action_datasets.add(DatasetType.REFERENCE_FRAME, 'myframe')
     action_datasets[0].top = top
@@ -519,7 +516,9 @@ def lowestcurve(data, points=10, step=0.2):
 
     runner.run_analysis(command)
 
-    return np.array([runner.datasets[-1]._xcrd(), np.array(runner.datasets[-1].values)])
+    return np.array(
+        [runner.datasets[-1]._xcrd(),
+         np.array(runner.datasets[-1].values)])
 
 
 def superpose(traj, *args, **kwd):
@@ -775,8 +774,10 @@ def check_structure(traj,
     """
     command = ' '.join((mask, options))
     action_datasets, c_stdout = do_action(traj, command,
-                                   c_action.Action_CheckStructure)
+                                          c_action.Action_CheckStructure)
     return get_data_from_dtype(action_datasets, dtype=dtype), c_stdout
+
+
 def crank(data0, data1, mode='distance', dtype='ndarray'):
     """Crank-shaft analysis
 

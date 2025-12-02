@@ -8,14 +8,18 @@ try:
     from enum import StrEnum
 except ImportError:
     from enum import Enum
+
     class StrEnum(str, Enum):
         """
         Enum where members are also (and must be) strs.
         """
+
         def __new__(cls, value):
-            member = str.__new__(cls, value)  # Create a new instance of str with the given value
+            member = str.__new__(
+                cls, value)  # Create a new instance of str with the given value
             member._value_ = value  # Set the _value_ attribute to the given value
             return member
+
 
 from typing import Any, Callable, List, Union
 from functools import partial
@@ -26,7 +30,8 @@ from ..utils.get_common_objects import (
     get_list_of_commands,
     get_reference,
     get_fiterator,
-    super_dispatch, )
+    super_dispatch,
+)
 from ..utils import ensure_not_none_or_string
 from ..utils import is_int
 from ..utils.context import tempfolder
@@ -62,22 +67,26 @@ from ..analysis.rmsd import (
     rmsd_nofit,
     rmsd,
     symmrmsd,
-    distance_rmsd, )
+    distance_rmsd,
+)
 from ..analysis.energy_analysis import (
     esander,
-    lie, )
+    lie,
+)
 from ..analysis import (
     matrix,
     vector,
     nmr,
     dssp_analysis,
     hbond_analysis,
-    energy_analysis, )
+    energy_analysis,
+)
 
 from ..core.c_core import CpptrajState, Command
 
 
 class CommandBuilder:
+
     def __init__(self):
         self.parts = []
 
@@ -111,6 +120,7 @@ class DatasetType(StrEnum):
 
 
 class AnalysisRunner:
+
     def __init__(self, analysis_class):
         self.datasets = CpptrajDatasetList()
         self.analysis = analysis_class()
@@ -156,7 +166,8 @@ def in_voxel(voxel_cntr, xyz, delta):
     x0, y0, z0 = voxel_cntr
     x, y, z = xyz
 
-    return np.abs(x - x0) <= delta and np.abs(y - y0) <= delta and np.abs(z - z0) <= delta
+    return np.abs(x - x0) <= delta and np.abs(y - y0) <= delta and np.abs(
+        z - z0) <= delta
 
 
 def count_in_voxel(traj=None, mask="", voxel_cntr=(0, 0, 0), voxel_size=5):
@@ -260,7 +271,9 @@ def _check_command_type(command):
     elif isinstance(command, (list, tuple, np.ndarray)):
         return CommandType.LIST
     else:
-        raise ValueError("command must be a string, a list/tuple of strings, or a numpy 2D array")
+        raise ValueError(
+            "command must be a string, a list/tuple of strings, or a numpy 2D array"
+        )
 
 
 # def _create_and_compute_action_list(list_of_commands: List[str],

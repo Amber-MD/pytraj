@@ -3,13 +3,20 @@ Spectroscopy analysis functions
 """
 from .base import *
 
-__all__ = [
-    'infraredspec'
-]
+__all__ = ['infraredspec']
 
 
 @super_dispatch()
-def infraredspec(traj=None, mask="", out=None, maxlag=None, tstep=None, rawout=None, extra_options=None, dtype='dict', top=None, frame_indices=None):
+def infraredspec(traj=None,
+                 mask="",
+                 out=None,
+                 maxlag=None,
+                 tstep=None,
+                 rawout=None,
+                 extra_options=None,
+                 dtype='dict',
+                 top=None,
+                 frame_indices=None):
     """Compute the infrared spectrum.
 
     Parameters
@@ -36,14 +43,14 @@ def infraredspec(traj=None, mask="", out=None, maxlag=None, tstep=None, rawout=N
     DatasetList or ndarray
     """
     # Build the command string
-    command = (CommandBuilder()
-               .add(mask)
-               .add("out", out, condition=out is not None)
-               .add("maxlag", str(maxlag), condition=maxlag is not None)
-               .add("tstep", str(tstep), condition=tstep is not None)
-               .add("rawout", rawout, condition=rawout is not None)
-               .add(extra_options, condition=extra_options is not None)
-               .build())
+    command = (CommandBuilder().add(mask).add(
+        "out", out, condition=out is not None).add(
+            "maxlag", str(maxlag), condition=maxlag is not None).add(
+                "tstep", str(tstep), condition=tstep
+                is not None).add("rawout", rawout, condition=rawout
+                                 is not None).add(extra_options,
+                                                  condition=extra_options
+                                                  is not None).build())
 
     # Initialize the action
     action = c_action.Action_InfraredSpectrum()

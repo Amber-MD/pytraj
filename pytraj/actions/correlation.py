@@ -73,7 +73,13 @@ def atomiccorr(traj,
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
-def timecorr(vec0, vec1, order=2, tstep=1., tcorr=10000., norm=False, dtype='ndarray'):
+def timecorr(vec0,
+             vec1,
+             order=2,
+             tstep=1.,
+             tcorr=10000.,
+             norm=False,
+             dtype='ndarray'):
     """Compute time correlation.
 
     Parameters
@@ -97,17 +103,16 @@ def timecorr(vec0, vec1, order=2, tstep=1., tcorr=10000., norm=False, dtype='nda
 
 
 @super_dispatch()
-def velocity_autocorrelation(
-        traj,
-        mask='',
-        maxlag=-1,
-        tstep=1.0,
-        direct=True,
-        norm=False,
-        usecoords=False,
-        dtype='ndarray',
-        top=None,
-        velocity_arr=None):
+def velocity_autocorrelation(traj,
+                             mask='',
+                             maxlag=-1,
+                             tstep=1.0,
+                             direct=True,
+                             norm=False,
+                             usecoords=False,
+                             dtype='ndarray',
+                             top=None,
+                             velocity_arr=None):
     """
     Parameters
     ----------
@@ -152,7 +157,9 @@ def velocity_autocorrelation(
     command = f"maxlag {maxlag} tstep {tstep} {'direct' if direct else ''} {'norm' if norm else ''} {'usecoords' if usecoords else ''}"
     crdinfo = dict(has_velocity=True)
 
-    velocity_autocorrelation_action.read_input(command, top, dslist=action_datasets)
+    velocity_autocorrelation_action.read_input(command,
+                                               top,
+                                               dslist=action_datasets)
     velocity_autocorrelation_action.setup(top, crdinfo=crdinfo)
 
     frame_template = Frame()

@@ -5,8 +5,9 @@ from .base import *
 
 __all__ = [
     'distance', 'pairwise_distance', 'angle', 'dihedral', 'mindist',
-    'dihedral_rms', 'distance_to_point', 'distance_to_reference', '_calculate_distance',
-    '_calculate_angles_for_int_array', '_calculate_dihedrals_for_int_array', '_dihedral_res'
+    'dihedral_rms', 'distance_to_point', 'distance_to_reference',
+    '_calculate_distance', '_calculate_angles_for_int_array',
+    '_calculate_dihedrals_for_int_array', '_dihedral_res'
 ]
 
 
@@ -39,7 +40,8 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
     return dihedral(traj=traj, mask=command, top=top, dtype=dtype)
 
 
-def _calculate_distance(traj, int_2darr: np.ndarray, n_frames: int, dtype: str) -> Union[np.ndarray, DatasetList]:
+def _calculate_distance(traj, int_2darr: np.ndarray, n_frames: int,
+                        dtype: str) -> Union[np.ndarray, DatasetList]:
     if int_2darr.ndim == 1:
         int_2darr = np.atleast_2d(int_2darr)
 
@@ -140,7 +142,10 @@ def distance_to_point(traj, mask, point, **kwargs):
     -------
     ndarray : distances from atoms to point
     """
-    return _distance_to_ref_or_point(traj=traj, mask=mask, point=point, **kwargs)
+    return _distance_to_ref_or_point(traj=traj,
+                                     mask=mask,
+                                     point=point,
+                                     **kwargs)
 
 
 def distance_to_reference(traj, mask, ref, **kwargs):
@@ -225,7 +230,9 @@ def distance(traj=None,
 
     traj = get_fiterator(traj, frame_indices)
     topology = get_topology(traj, top)
-    noimage_str = 'noimage' if not image or (hasattr(traj, 'crdinfo') and not traj.crdinfo['has_box'] and topology.has_box()) else ''
+    noimage_str = 'noimage' if not image or (hasattr(traj, 'crdinfo') and
+                                             not traj.crdinfo['has_box'] and
+                                             topology.has_box()) else ''
 
     command_array = np.asarray(command)
 
@@ -235,14 +242,18 @@ def distance(traj=None,
             frame_count = traj.n_frames if n_frames is None else n_frames
             return _calculate_distance(traj, integer_array, frame_count, dtype)
         else:
-            command_list = get_list_of_commands(command) if not isinstance(command, np.ndarray) else command
+            command_list = get_list_of_commands(command) if not isinstance(
+                command, np.ndarray) else command
             cpptraj_action_datasets = CpptrajDatasetList()
             action_list = ActionList()
 
             for command in command_list:
                 if noimage_str:
                     command = ' '.join((command, noimage_str))
-                action_list.add(c_action.Action_Distance(), command, topology, dslist=cpptraj_action_datasets)
+                action_list.add(c_action.Action_Distance(),
+                                command,
+                                topology,
+                                dslist=cpptraj_action_datasets)
 
             action_list.compute(traj)
             return get_data_from_dtype(cpptraj_action_datasets, dtype)
@@ -253,12 +264,12 @@ def distance(traj=None,
 
 
 def _distance_to_ref_or_point(traj=None,
-                               mask=None,
-                               ref=None,
-                               point=None,
-                               dtype='ndarray',
-                               top=None,
-                               frame_indices=None):
+                              mask=None,
+                              ref=None,
+                              point=None,
+                              dtype='ndarray',
+                              top=None,
+                              frame_indices=None):
     """distance from atom (mask) to a given reference trajectory or a given point
 
     Parameters
@@ -312,7 +323,8 @@ def _distance_to_ref_or_point(traj=None,
             else:
                 # different systems - calculate distance to each atom in ref
                 ref_xyz = ref.xyz
-                distances = np.empty((traj.n_frames, len(atom_indices), ref.n_atoms))
+                distances = np.empty(
+                    (traj.n_frames, len(atom_indices), ref.n_atoms))
 
                 for i, frame in enumerate(traj):
                     atom_xyz = frame.xyz[atom_indices]
@@ -371,13 +383,14 @@ def pairwise_distance(traj=None,
     from itertools import product
 
     top_ = get_topology(traj, top)
-    indices_1 = top_.select(mask_1) if isinstance(mask_1,
-                                                  str) else mask_1
-    indices_2 = top_.select(mask_2) if isinstance(mask_2,
-                                                  str) else mask_2
+    indices_1 = top_.select(mask_1) if isinstance(mask_1, str) else mask_1
+    indices_2 = top_.select(mask_2) if isinstance(mask_2, str) else mask_2
     arr = np.array(list(product(indices_1, indices_2)))
-    mat = distance(
-        traj, mask=arr, dtype=dtype, top=top_, frame_indices=frame_indices)
+    mat = distance(traj,
+                   mask=arr,
+                   dtype=dtype,
+                   top=top_,
+                   frame_indices=frame_indices)
     mat = mat.T
     return (mat.reshape(mat.shape[0], len(indices_1), len(indices_2)),
             arr.reshape(len(indices_1), len(indices_2), 2))
@@ -388,6 +401,7 @@ class CommandType(StrEnum):
     STR = 'str'
     LIST = 'list'
 
+
 def _check_command_type(command):
     command_array = np.asarray(command)
     if 'int' in command_array.dtype.name:
@@ -397,32 +411,28 @@ def _check_command_type(command):
     elif isinstance(command, (list, tuple, np.ndarray)):
         return CommandType.LIST
     else:
-        raise ValueError("command must be a string, a list/tuple of strings, or a numpy 2D array")
+        raise ValueError(
+            "command must be a string, a list/tuple of strings, or a numpy 2D array"
+        )
 
 
-
-
-
-def _create_and_compute_action_list(list_of_commands: List[str],
-                                    top,
-                                    traj,
-                                    action: Callable,
-                                    dtype: str,
-                                    args: tuple,
+def _create_and_compute_action_list(list_of_commands: List[str], top, traj,
+                                    action: Callable, dtype: str, args: tuple,
                                     kwargs: dict):
     action_datasets = CpptrajDatasetList()
     action_list = ActionList()
 
     for command in list_of_commands:
-        action_list.add(
-            action(),
-            command,
-            top,
-            dslist=action_datasets,
-            *args,
-            **kwargs)
+        action_list.add(action(),
+                        command,
+                        top,
+                        dslist=action_datasets,
+                        *args,
+                        **kwargs)
     action_list.compute(traj)
     return get_data_from_dtype(action_datasets, dtype)
+
+
 def angle(traj=None,
           mask="",
           frame_indices=None,
@@ -491,15 +501,14 @@ def angle(traj=None,
         return get_data_from_dtype(action_datasets, dtype)
     elif command_type == CommandType.LIST:
         return _create_and_compute_action_list(command, top, traj,
-                                            c_action.Action_Angle, dtype, args, kwargs)
+                                               c_action.Action_Angle, dtype,
+                                               args, kwargs)
     elif command_type == CommandType.INT:
         integer_array = np.asarray(command)
         n_frames = kwargs.get('n_frames')
         n_frames = traj.n_frames if n_frames is None else n_frames
-        return _calculate_angles_for_int_array(traj, integer_array, n_frames, dtype)
-
-
-
+        return _calculate_angles_for_int_array(traj, integer_array, n_frames,
+                                               dtype)
 
 
 def dihedral(traj=None,
@@ -537,7 +546,8 @@ def dihedral(traj=None,
         integer_array = np.asarray(command)
         n_frames = kwargs.get('n_frames')
         n_frames = traj.n_frames if n_frames is None else n_frames
-        return _calculate_dihedrals_for_int_array(traj, integer_array, n_frames, dtype)
+        return _calculate_dihedrals_for_int_array(traj, integer_array, n_frames,
+                                                  dtype)
 
 
 @super_dispatch()
@@ -558,12 +568,19 @@ def mindist(traj=None,
         command = array2d_to_cpptraj_maskgroup(command)
     command = "mindist " + command
 
-    action_datasets, _ = do_action(traj, command, c_action.Action_NativeContacts)
+    action_datasets, _ = do_action(traj, command,
+                                   c_action.Action_NativeContacts)
     return get_data_from_dtype(action_datasets, dtype=dtype)[-1]
 
 
 @super_dispatch()
-def dihedral_rms(traj=None, mask="", dtype='ndarray', top=None, frame_indices=None, ref=None, extra_options=""):
+def dihedral_rms(traj=None,
+                 mask="",
+                 dtype='ndarray',
+                 top=None,
+                 frame_indices=None,
+                 ref=None,
+                 extra_options=""):
     """Compute RMS of dihedral angles.
 
     Parameters
@@ -599,11 +616,15 @@ def dihedral_rms(traj=None, mask="", dtype='ndarray', top=None, frame_indices=No
 
     if ref is not None:
         ref_frame = get_reference(traj, ref)
-        ref_dataset = action_datasets.add(DatasetType.REFERENCE_FRAME, name=ref_name)
+        ref_dataset = action_datasets.add(DatasetType.REFERENCE_FRAME,
+                                          name=ref_name)
         ref_dataset.top = ref_frame.top or traj.top
         ref_dataset.add_frame(ref_frame)
 
-    action_datasets, _ = do_action(traj, command, c_action.Action_DihedralRMS, dslist=action_datasets)
+    action_datasets, _ = do_action(traj,
+                                   command,
+                                   c_action.Action_DihedralRMS,
+                                   dslist=action_datasets)
 
     if ref is not None:
         action_datasets._pop(0)

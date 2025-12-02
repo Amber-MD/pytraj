@@ -4,8 +4,9 @@ Structure analysis functions: RMSD, surfaces, volumes, pucker analysis
 from .base import *
 
 __all__ = [
-    'radgyr', 'radgyr_tensor', 'surf', 'molsurf', 'volume', 'pucker', 'multipucker',
-    'watershell', 'rmsf', 'bfactors', '_calc_vector_center', 'center_of_mass', 'center_of_geometry'
+    'radgyr', 'radgyr_tensor', 'surf', 'molsurf', 'volume', 'pucker',
+    'multipucker', 'watershell', 'rmsf', 'bfactors', '_calc_vector_center',
+    'center_of_mass', 'center_of_geometry'
 ]
 
 
@@ -17,7 +18,8 @@ def _calc_vector_center(traj=None,
                         frame_indices=None):
 
     action_datasets = CpptrajDatasetList()
-    action_datasets.set_own_memory(False)  # need this to avoid segmentation fault
+    action_datasets.set_own_memory(
+        False)  # need this to avoid segmentation fault
     execute_vector_action = c_action.Action_Vector()
     command = "center " + mask
 
@@ -45,13 +47,12 @@ def center_of_mass(traj=None,
     '''
     # note: do not use super_dispatch for this method since
     # we already use for _calc_vector_center
-    return _calc_vector_center(
-        traj=traj,
-        mask=mask,
-        top=top,
-        mass=True,
-        dtype=dtype,
-        frame_indices=frame_indices)
+    return _calc_vector_center(traj=traj,
+                               mask=mask,
+                               top=top,
+                               mass=True,
+                               dtype=dtype,
+                               frame_indices=frame_indices)
 
 
 @register_pmap
@@ -117,8 +118,8 @@ def radgyr_tensor(traj=None,
     nomax_ = 'nomax'
     command = " ".join((mask, nomax_, "tensor"))
     action_datasets, _ = do_action(traj, command, c_action.Action_Radgyr)
-    k0, v0 = action_datasets[0].key, action_datasets[
-        0].values.copy()  # use copy to avoid early memory free
+    k0, v0 = action_datasets[0].key, action_datasets[0].values.copy(
+    )  # use copy to avoid early memory free
     k1, v1 = action_datasets[1].key, action_datasets[1].possible_data6
     if dtype == 'dict':
         return {k0: v0, k1: v1}
@@ -268,13 +269,11 @@ def watershell(traj=None,
     if solute_mask in [None, '']:
         raise ValueError('must provide solute mask')
 
-    command = (CommandBuilder()
-               .add(solute_mask)
-               .add("lower", str(lower))
-               .add("upper", str(upper))
-               .add("noimage", condition=not image)
-               .add(solvent_mask, condition=solvent_mask is not None)
-               .build())
+    command = (CommandBuilder().add(solute_mask).add("lower", str(lower)).add(
+        "upper", str(upper)).add("noimage",
+                                 condition=not image).add(solvent_mask,
+                                                          condition=solvent_mask
+                                                          is not None).build())
 
     action_datasets, _ = do_action(traj, command, c_action.Action_Watershell)
     return get_data_from_dtype(action_datasets, dtype=dtype)
@@ -349,12 +348,11 @@ def bfactors(traj=None,
     if not isinstance(mask, str):
         mask = array_to_cpptraj_atommask(mask)
     command_ = " ".join((mask, byres_text, "bfactor"))
-    return rmsf(
-        traj=traj,
-        mask=command_,
-        top=top,
-        dtype=dtype,
-        frame_indices=frame_indices)
+    return rmsf(traj=traj,
+                mask=command_,
+                top=top,
+                dtype=dtype,
+                frame_indices=frame_indices)
 
 
 def pucker(traj=None,
@@ -393,18 +391,17 @@ def pucker(traj=None,
     c_dslist = CpptrajDatasetList()
 
     for res in resrange:
-        atom_mask = " ".join((":" + str(res + 1) + '@' + x for x in pucker_mask))
+        atom_mask = " ".join(
+            (":" + str(res + 1) + '@' + x for x in pucker_mask))
         name = "pucker_res" + str(res + 1)
 
-        command = (CommandBuilder()
-                   .add(name)
-                   .add(atom_mask)
-                   .add("range360", condition=range360)
-                   .add(method)
-                   .add("geom", condition=not use_com)
-                   .add("amplitude", condition=amplitude)
-                   .add("offset", str(offset), condition=offset is not None)
-                   .build())
+        command = (CommandBuilder().add(name).add(atom_mask).add(
+            "range360", condition=range360).add(method).add(
+                "geom", condition=not use_com).add(
+                    "amplitude", condition=amplitude).add("offset",
+                                                          str(offset),
+                                                          condition=offset
+                                                          is not None).build())
 
         act = c_action.Action_Pucker()
         act(command, traj, top=top_, dslist=c_dslist)
@@ -413,7 +410,21 @@ def pucker(traj=None,
 
 
 @super_dispatch()
-def multipucker(traj=None, resrange=None, method="altona", range360=False, amplitude=False, ampout=None, theta=False, thetaout=None, offset=None, out=None, puckertype=None, extra_options="", dtype='dict', top=None, frame_indices=None):
+def multipucker(traj=None,
+                resrange=None,
+                method="altona",
+                range360=False,
+                amplitude=False,
+                ampout=None,
+                theta=False,
+                thetaout=None,
+                offset=None,
+                out=None,
+                puckertype=None,
+                extra_options="",
+                dtype='dict',
+                top=None,
+                frame_indices=None):
     """Perform multi-pucker analysis.
 
     Parameters
@@ -459,19 +470,20 @@ def multipucker(traj=None, resrange=None, method="altona", range360=False, ampli
     else:
         resrange_str = None
 
-    command = (CommandBuilder()
-               .add("resrange", resrange_str, condition=resrange_str is not None)
-               .add("puckertype", puckertype, condition=puckertype is not None)
-               .add(method)
-               .add("range360", condition=range360)
-               .add("amplitude", condition=amplitude)
-               .add("ampout", ampout, condition=ampout is not None)
-               .add("theta", condition=theta)
-               .add("thetaout", thetaout, condition=thetaout is not None)
-               .add("offset", str(offset), condition=offset is not None)
-               .add("out", out, condition=out is not None)
-               .add(extra_options, condition=bool(extra_options))
-               .build())
+    command = (CommandBuilder().add(
+        "resrange", resrange_str, condition=resrange_str is not None).add(
+            "puckertype", puckertype, condition=puckertype
+            is not None).add(method).add("range360", condition=range360).add(
+                "amplitude", condition=amplitude).add(
+                    "ampout", ampout, condition=ampout
+                    is not None).add("theta", condition=theta).add(
+                        "thetaout", thetaout, condition=thetaout
+                        is not None).add(
+                            "offset", str(offset), condition=offset
+                            is not None).add(
+                                "out", out, condition=out is not None).add(
+                                    extra_options,
+                                    condition=bool(extra_options)).build())
 
     action_datasets, _ = do_action(traj, command, c_action.Action_MultiPucker)
     return get_data_from_dtype(action_datasets, dtype=dtype)

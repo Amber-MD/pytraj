@@ -3,9 +3,7 @@ Visualization and mapping functions
 """
 from .base import *
 
-__all__ = [
-    'volmap', 'rdf', 'pairdist', 'density', 'gist'
-]
+__all__ = ['volmap', 'rdf', 'pairdist', 'density', 'gist']
 
 
 @super_dispatch()
@@ -58,7 +56,8 @@ def volmap(traj,
     '''
     dummy_filename = 'dummy_fn.dat'
 
-    assert isinstance(grid_spacing, tuple) and len(grid_spacing) == 3, 'grid_spacing must be a tuple with length=3'
+    assert isinstance(grid_spacing, tuple) and len(
+        grid_spacing) == 3, 'grid_spacing must be a tuple with length=3'
 
     grid_spacing_str = ' '.join([str(x) for x in grid_spacing])
     radscale_str = 'radscale ' + str(radscale)
@@ -69,9 +68,11 @@ def volmap(traj,
     if isinstance(size, tuple):
         assert len(size) == 3, 'length of size must be 3'
     elif size is not None:
-        raise ValueError('size must be None or a tuple. Please check method doc')
+        raise ValueError(
+            'size must be None or a tuple. Please check method doc')
 
-    size_str = '' if size is None else 'size ' + ','.join([str(x) for x in size])
+    size_str = '' if size is None else 'size ' + ','.join(
+        [str(x) for x in size])
 
     if size_str:
         # ignore buffer
@@ -84,8 +85,9 @@ def volmap(traj,
     else:
         center_str = ''
 
-    command = ' '.join((dummy_filename, grid_spacing_str, center_str, size_str, mask,
-                        radscale_str, buffer_str, centermask_str, peakcut_str, options))
+    command = ' '.join(
+        (dummy_filename, grid_spacing_str, center_str, size_str, mask,
+         radscale_str, buffer_str, centermask_str, peakcut_str, options))
     action_datasets, _ = do_action(traj, command, c_action.Action_Volmap)
     index = None
     for i, volume_ds in enumerate(action_datasets):
@@ -171,20 +173,17 @@ def rdf(traj=None,
         solute_mask = array_to_cpptraj_atommask(solute_mask)
 
     # Build command using CommandBuilder
-    command = (CommandBuilder()
-               .add("pytraj_tmp_output.agr")
-               .add(str(bin_spacing))
-               .add(str(maximum))
-               .add(solvent_mask)
-               .add(solute_mask, condition=solute_mask is not None)
-               .add("noimage", condition=not image)
-               .add("density", str(density), condition=density is not None)
-               .add("volume", condition=volume)
-               .add("center1", condition=center_solvent)
-               .add("center2", condition=center_solute)
-               .add("nointramol", condition=not intramol)
-               .add("rawrdf pytraj_tmp_output_raw.agr", condition=raw_rdf)
-               .build())
+    command = (CommandBuilder().add("pytraj_tmp_output.agr").add(
+        str(bin_spacing)).add(str(maximum)).add(solvent_mask).add(
+            solute_mask, condition=solute_mask
+            is not None).add("noimage", condition=not image).add(
+                "density", str(density), condition=density
+                is not None).add("volume", condition=volume).add(
+                    "center1", condition=center_solvent).add(
+                        "center2", condition=center_solute).add(
+                            "nointramol", condition=not intramol).add(
+                                "rawrdf pytraj_tmp_output_raw.agr",
+                                condition=raw_rdf).build())
 
     c_dslist, _ = do_action(traj, command, c_action.Action_Radial)
     # make a copy sine c_dslist[-1].values return view of its data
@@ -222,11 +221,11 @@ def pairdist(traj,
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> data = pt.pairdist(traj)
     '''
-    command = (CommandBuilder()
-               .add("mask", mask)
-               .add("mask2", mask2, condition=bool(mask2))
-               .add("delta", str(delta))
-               .build())
+    command = (CommandBuilder().add("mask",
+                                    mask).add("mask2",
+                                              mask2,
+                                              condition=bool(mask2)).add(
+                                                  "delta", str(delta)).build())
 
     action_datasets, _ = do_action(traj, command, c_action.Action_PairDist)
     return get_data_from_dtype(action_datasets, dtype=dtype)

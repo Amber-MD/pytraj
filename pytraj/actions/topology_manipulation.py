@@ -9,9 +9,9 @@ from ..builder.build import make_structure
 __all__ = [
     'center_of_mass', 'center_of_geometry', 'align', 'align_principal_axis',
     'principal_axes', 'translate', 'rotate', 'autoimage', 'image', 'center',
-    'strip', 'replicate_cell', 'rotate_dihedral', 'set_dihedral', 'set_velocity',
-    'randomize_ions', 'fiximagedbonds', 'closest', 'atom_map', 'check_chirality',
-    'scale', '_closest_iter'
+    'strip', 'replicate_cell', 'rotate_dihedral', 'set_dihedral',
+    'set_velocity', 'randomize_ions', 'fiximagedbonds', 'closest', 'atom_map',
+    'check_chirality', 'scale', '_closest_iter'
 ]
 
 
@@ -64,7 +64,10 @@ def center_of_mass(traj=None,
         center of mass coordinates
     """
     if dtype == 'ndarray':
-        com_data = _calc_vector_center(traj, mask=mask, mass=True, top=top,
+        com_data = _calc_vector_center(traj,
+                                       mask=mask,
+                                       mass=True,
+                                       top=top,
                                        frame_indices=frame_indices)
         return com_data.reshape(traj.n_frames, 3)
     else:
@@ -107,7 +110,10 @@ def center_of_geometry(traj=None,
         center of geometry coordinates
     """
     if dtype == 'ndarray':
-        com_data = _calc_vector_center(traj, mask=mask, mass=False, top=top,
+        com_data = _calc_vector_center(traj,
+                                       mask=mask,
+                                       mass=False,
+                                       top=top,
                                        frame_indices=frame_indices)
         return com_data.reshape(traj.n_frames, 3)
     else:
@@ -166,7 +172,8 @@ def align(traj,
         reference_name = 'myref'
         reference_command = 'ref {}'.format(reference_name)
 
-        command = ' '.join((reference_command, mask_str, ref_mask_str, mass_str))
+        command = ' '.join(
+            (reference_command, mask_str, ref_mask_str, mass_str))
 
         if reference_topology is None:
             reference_topology = traj.top
@@ -866,9 +873,8 @@ def closest(traj=None,
     fiter = _closest_iter(act, traj)
 
     if dtype == 'trajectory':
-        return Trajectory(
-            xyz=np.array([frame.xyz.copy() for frame in fiter]),
-            top=new_top.copy())
+        return Trajectory(xyz=np.array([frame.xyz.copy() for frame in fiter]),
+                          top=new_top.copy())
     else:
         # iterator
         return (fiter, new_top.copy())

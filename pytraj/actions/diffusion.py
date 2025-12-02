@@ -3,9 +3,7 @@ Diffusion and transport analysis functions
 """
 from .base import *
 
-__all__ = [
-    'diffusion', 'tordiff', 'toroidal_diffusion'
-]
+__all__ = ['diffusion', 'tordiff', 'toroidal_diffusion']
 
 
 @super_dispatch()
@@ -48,12 +46,23 @@ def diffusion(traj,
 
     # make the label nicer
     for dataset in action_datasets:
-        dataset.key = dataset.key.replace('[', '').replace(']', '').replace(label, '')
+        dataset.key = dataset.key.replace('[',
+                                          '').replace(']',
+                                                      '').replace(label, '')
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
 @super_dispatch()
-def tordiff(traj=None, mask="", mass=False, out=None, diffout=None, time=1.0, extra_options="", dtype='dict', top=None, frame_indices=None):
+def tordiff(traj=None,
+            mask="",
+            mass=False,
+            out=None,
+            diffout=None,
+            time=1.0,
+            extra_options="",
+            dtype='dict',
+            top=None,
+            frame_indices=None):
     """Calculate diffusion using the toroidal-view-preserving scheme.
 
     Parameters
@@ -80,17 +89,18 @@ def tordiff(traj=None, mask="", mass=False, out=None, diffout=None, time=1.0, ex
     -------
     dict or DatasetList depending on dtype
     """
-    command = (CommandBuilder()
-               .add("TOR") # dataset name
-               .add(mask, condition=bool(mask))
-               .add("out", out, condition=out is not None)
-               .add("diffout", diffout, condition=diffout is not None)
-               .add("mass", condition=mass)
-               .add("time", str(time), condition=time != 1.0)
-               .add(extra_options, condition=bool(extra_options))
-               .build())
+    command = (
+        CommandBuilder().add("TOR")  # dataset name
+        .add(mask, condition=bool(mask)).add(
+            "out", out, condition=out
+            is not None).add("diffout", diffout, condition=diffout
+                             is not None).add("mass", condition=mass).add(
+                                 "time", str(time), condition=time != 1.0).add(
+                                     extra_options,
+                                     condition=bool(extra_options)).build())
 
-    action_datasets, _ = do_action(traj, command, c_action.Action_ToroidalDiffusion)
+    action_datasets, _ = do_action(traj, command,
+                                   c_action.Action_ToroidalDiffusion)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
 

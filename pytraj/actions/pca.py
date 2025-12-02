@@ -3,9 +3,7 @@ Principal Component Analysis functions
 """
 from .base import *
 
-__all__ = [
-    'pca', 'projection'
-]
+__all__ = ['pca', 'projection']
 
 
 @super_dispatch()
@@ -208,17 +206,17 @@ def pca(traj,
     covariance_matrix = matrix.covar(traj, mask)
     n_vecs = covariance_matrix.shape[0] if n_vecs < 0 else n_vecs
 
-    eigenvectors, eigenvalues = matrix.diagonalize(covariance_matrix, n_vecs=n_vecs, dtype='tuple')
+    eigenvectors, eigenvalues = matrix.diagonalize(covariance_matrix,
+                                                   n_vecs=n_vecs,
+                                                   dtype='tuple')
 
-    projection_data = projection(
-        traj,
-        mask=mask,
-        average_coords=avg2.xyz,
-        eigenvalues=eigenvalues,
-        eigenvectors=eigenvectors,
-        scalar_type='covar',
-        dtype=dtype
-    )
+    projection_data = projection(traj,
+                                 mask=mask,
+                                 average_coords=avg2.xyz,
+                                 eigenvalues=eigenvalues,
+                                 eigenvectors=eigenvectors,
+                                 scalar_type='covar',
+                                 dtype=dtype)
 
     if fit and hasattr(traj, '_transform_commands'):
         for _ in range(n_refs):
