@@ -369,7 +369,7 @@ def rmsd(traj=None,
     alist.compute(fi)
 
     # pop Reference Dataset
-    c_dslist._pop(0)
+    c_dslist.remove_at(0)
 
     dnew = DatasetList(c_dslist)
     return get_data_from_dtype(dnew, dtype=dtype)
@@ -453,7 +453,7 @@ def symmrmsd(traj,
     act.post_process()
 
     # remove ref
-    c_dslist._pop(0)
+    c_dslist.remove_at(0)
 
     return get_data_from_dtype(c_dslist, dtype=dtype)
 

@@ -2,6 +2,7 @@
 Topology manipulation functions: centering, alignment, imaging, etc.
 """
 from .base import *
+from .base import add_reference_dataset
 # Ensure _assert_mutable is available
 from .base import _assert_mutable, _ensure_mutable
 from ..builder.build import make_structure
@@ -177,9 +178,7 @@ def align(traj,
             reference_topology = traj.top
 
         action_datasets = CpptrajDatasetList()
-        action_datasets.add(DatasetType.REFERENCE, name=reference_name)
-        action_datasets[0].top = reference_topology
-        action_datasets[0].add_frame(ref)
+        add_reference_dataset(action_datasets, reference_name, ref, reference_topology)
 
         align_action = c_action.Action_Align()
         align_action.read_input(command, top=top, dslist=action_datasets)
@@ -190,7 +189,7 @@ def align(traj,
         align_action.post_process()
 
         # remove ref
-        action_datasets._pop(0)
+        action_datasets.remove_at(0)
 
         return traj
 
@@ -322,13 +321,8 @@ def closest(traj=None,
 
         return traj_mut
     else:
-        c_dslist = CpptrajDatasetList()
-        action = c_action.Action_Closest()
-        action.read_input(command, top=traj.top, dslist=c_dslist)
-        action.setup(traj.top)
-
-        _closest_iter(c_action, traj)
-        return get_data_from_dtype(c_dslist, dtype=dtype)
+        action_datasets, _ = do_action(traj, command, c_action.Action_Closest)
+        return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
 @super_dispatch()
@@ -774,25 +768,21 @@ def atom_map(traj, ref, rmsfit=False):
     command = ' '.join(('my_target my_ref', options))
     dataset_list = CpptrajDatasetList()
 
-    target = dataset_list.add('reference', name='my_target')
-    target.top = traj.top
-    target.append(traj[0])
+    add_reference_dataset(dataset_list, 'my_target', traj[0], traj.top)
 
-    refset = dataset_list.add('reference', name='my_ref')
-    refset.top = ref.top if ref.top is not None else traj.top
     if not isinstance(ref, Frame):
         ref_frame = ref[0]
     else:
         ref_frame = ref
-    refset.append(ref_frame)
+    add_reference_dataset(dataset_list, 'my_ref', ref_frame, ref.top if ref.top is not None else traj.top)
 
     with capture_stdout() as (out, err):
         act(command, traj, top=traj.top, dslist=dataset_list)
     act.post_process()
 
     # free memory of two reference
-    dataset_list._pop(0)
-    dataset_list._pop(0)
+    dataset_list.remove_at(0)
+    dataset_list.remove_at(0)
 
     return (out.read(), get_data_from_dtype(dataset_list, dtype='ndarray'))
 

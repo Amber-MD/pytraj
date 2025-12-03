@@ -2,7 +2,7 @@
 Utility and miscellaneous functions
 """
 from .base import *
-from .base import _assert_mutable
+from .base import _assert_mutable, add_reference_dataset
 from ..trajectory.trajectory_iterator import TrajectoryIterator
 
 __all__ = [
@@ -444,11 +444,9 @@ def native_contacts(traj=None,
             condition=include_solvent).add("byresidue", condition=byres).add(
                 options, condition=bool(options)).build())
 
-    action_datasets.add(DatasetType.REFERENCE_FRAME, 'myframe')
-    action_datasets[0].top = top
-    action_datasets[0].add_frame(ref)
+    add_reference_dataset(action_datasets, 'myframe', ref, top)
     native_contacts_action(command, traj, top=top, dslist=action_datasets)
-    action_datasets._pop(0)
+    action_datasets.remove_at(0)
 
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
@@ -470,16 +468,8 @@ def grid(traj=None, command="", top=None, dtype='dataset'):
     -------
     out : DatasetList
     """
-    c_dslist = CpptrajDatasetList()
-    action = c_action.Action_Grid()
-    action.read_input(command, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
-
-    for frame in traj:
-        action.compute(frame)
-
-    action.post_process()
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    action_datasets, _ = do_action(traj, command, c_action.Action_Grid, top=top)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
 def transform(traj, by, frame_indices=None):
@@ -588,17 +578,8 @@ def lipidscd(traj, mask='', options='', dtype='dict', top=None):
     out : dict or DatasetList
     """
     command = mask + " " + options
-
-    c_dslist = CpptrajDatasetList()
-    action = c_action.Action_LipidOrder()
-    action.read_input(command, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
-
-    for frame in traj:
-        action.compute(frame)
-
-    action.post_process()
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    action_datasets, _ = do_action(traj, command, c_action.Action_LipidOrder, top=top)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
 @super_dispatch()
@@ -628,22 +609,13 @@ def xtalsymm(traj, mask='', options='', ref=None, **kwargs):
 
     if ref is not None:
         ref_frame = get_reference(traj, ref)
-        ref_dataset = c_dslist.add('reference', 'ref')
-        ref_dataset.top = ref_frame.top or traj.top
-        ref_dataset.add_frame(ref_frame)
+        add_reference_dataset(c_dslist, 'ref', ref_frame, ref_frame.top or traj.top)
         command += " ref ref"
 
-    action = c_action.Action_XtalSymm()
-    action.read_input(command, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
-
-    for frame in traj:
-        action.compute(frame)
-
-    action.post_process()
+    do_action(traj, command, c_action.Action_XtalSymm, dslist=c_dslist)
 
     if ref is not None:
-        c_dslist._pop(0)  # remove reference
+        c_dslist.remove_at(0)  # remove reference
 
     return c_dslist
 
@@ -667,7 +639,7 @@ def analyze_modes(mode_type,
     command = ' '.join((mode_type, 'name {}'.format(my_modes), options))
     runner.run_analysis(command)
 
-    runner.datasets._pop(0)
+    runner.datasets.remove_at(0)
     return get_data_from_dtype(runner.datasets, dtype=dtype)
 
 
@@ -712,14 +684,9 @@ def hausdorff(matrix, options='', dtype='ndarray'):
     """
     runner = AnalysisRunner(c_analysis.Analysis_Hausdorff)
     runner.add_dataset(DatasetType.MATRIX_DBL, "my_matrix", matrix)
-
-    command = f"my_matrix {options}"
-    runner.run_analysis(command)
-
-    runner.datasets._pop(0)
-
-    data = get_data_from_dtype(runner.datasets, dtype)
-    return data
+    runner.run_analysis(f"my_matrix {options}")
+    runner.datasets.remove_at(0)  # Remove input matrix
+    return get_data_from_dtype(runner.datasets, dtype)
 
 
 def permute_dihedrals(traj, filename, options=''):
@@ -753,8 +720,8 @@ def permute_dihedrals(traj, filename, options=''):
     with Command() as executor:
         executor.dispatch(state, command)
 
-    state.data._pop(0)
-    state.data._pop(0)
+    state.data.remove_at(0)
+    state.data.remove_at(0)
 
 
 def check_structure(traj,

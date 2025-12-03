@@ -81,7 +81,7 @@ def projection(traj,
     command = f"evecs {mode_name} {mask} beg 1 end {n_vectors}"
     projection_action(command, traj, top=top, dslist=action_datasets)
 
-    action_datasets._pop(0)
+    action_datasets.remove_at(0)
 
     return get_data_from_dtype(action_datasets, dtype=dtype)
 

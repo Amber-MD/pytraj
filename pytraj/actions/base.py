@@ -85,6 +85,31 @@ from ..analysis import (
 from ..core.c_core import CpptrajState, Command
 
 
+def add_reference_dataset(dslist, name, frame, topology=None):
+    """Helper function to add reference dataset consistently
+
+    Parameters
+    ----------
+    dslist : CpptrajDatasetList
+        Dataset list to add reference to
+    name : str
+        Name for the reference dataset
+    frame : Frame
+        Reference frame
+    topology : Topology, optional
+        Topology for the reference, defaults to frame.top
+
+    Returns
+    -------
+    dataset : Dataset
+        The created reference dataset
+    """
+    dataset = dslist.add('reference', name)
+    dataset.top = topology or getattr(frame, 'top', None)
+    dataset.add_frame(frame)
+    return dataset
+
+
 class CommandBuilder:
 
     def __init__(self):
@@ -146,6 +171,13 @@ class AnalysisRunner:
                 dataset._append_from_array(data)
             else:
                 dataset.data = np.asarray(data).astype('f8')
+
+    def add_reference(self, name, frame, topology=None):
+        """Convenience method to add reference dataset"""
+        dataset = self.datasets.add(DatasetType.REFERENCE, name)
+        dataset.top = topology or getattr(frame, 'top', None)
+        dataset.add_frame(frame)
+        return dataset
 
     def run_analysis(self, command):
         self.analysis(command, dslist=self.datasets)

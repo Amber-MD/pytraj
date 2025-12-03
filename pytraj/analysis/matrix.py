@@ -183,7 +183,7 @@ def diagonalize(mat, n_vecs, dtype='tuple', scalar_type='covar', mass=None):
         assert 3 * np.asarray(mass).shape[0] == dslist[-1].eigenvectors.shape[
             1], message
         dslist[-1]._compute_mw_eigenvectors()
-    dslist._pop(0)
+    dslist.remove_at(0)
 
     if dtype == 'tuple':
         return (dslist[-1].eigenvectors, dslist[-1].eigenvalues)
