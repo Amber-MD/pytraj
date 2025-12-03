@@ -470,7 +470,7 @@ cdef class Topology:
                 incr(it)
 
     def summary(self):
-        """basic info. This information only appears in Ipython or Python shell. 
+        """basic info. This information only appears in Ipython or Python shell.
         It does not appear in Jupyter notebook (due to C++ stdout)
         """
         with capture_stdout() as (out, _):
@@ -511,6 +511,21 @@ cdef class Topology:
     property n_solvents:
         def __get__(self):
             return self.thisptr.Nsolvent()
+
+    property n_heavy_atoms:
+        """Number of heavy atoms (non-hydrogen, non-extra point)"""
+        def __get__(self):
+            return self.thisptr.HeavyAtomCount()
+
+    property n_atom_types:
+        """Number of unique atom types"""
+        def __get__(self):
+            return self.thisptr.NatomTypes()
+
+    property has_charges:
+        """True if any atom has non-zero charge"""
+        def __get__(self):
+            return self.thisptr.HasChargeInfo()
 
     def _set_integer_mask(self, AtomMask atm, Frame frame=Frame()):
         if frame.n_atoms == 0:
@@ -839,6 +854,297 @@ cdef class Topology:
         '''
         mask = mask.encode()
         self.thisptr.SetSolvent(mask)
+
+    # New high-priority API methods
+    def heavy_atom_count(self):
+        """Return count of heavy atoms (non-hydrogen, non-extra point)
+
+        Returns
+        -------
+        int
+            Number of heavy atoms
+        """
+        return self.thisptr.HeavyAtomCount()
+
+    def has_charge_info(self):
+        """Check if any atom has non-zero charge
+
+        Returns
+        -------
+        bool
+            True if any charge is non-zero
+        """
+        return self.thisptr.HasChargeInfo()
+
+    def get_vdw_sigma(self, int atom_idx):
+        """Get van der Waals sigma parameter for atom
+
+        Parameters
+        ----------
+        atom_idx : int
+            Atom index
+
+        Returns
+        -------
+        float
+            VDW sigma parameter
+        """
+        return self.thisptr.GetVDWsigma(atom_idx)
+
+    def get_vdw_depth(self, int atom_idx):
+        """Get van der Waals depth parameter for atom
+
+        Parameters
+        ----------
+        atom_idx : int
+            Atom index
+
+        Returns
+        -------
+        float
+            VDW depth parameter
+        """
+        return self.thisptr.GetVDWdepth(atom_idx)
+
+    def get_vdw_radius(self, int atom_idx):
+        """Get van der Waals radius for atom
+
+        Parameters
+        ----------
+        atom_idx : int
+            Atom index
+
+        Returns
+        -------
+        float
+            VDW radius
+        """
+        return self.thisptr.GetVDWradius(atom_idx)
+
+    def mask_has_zero_mass(self, mask):
+        """Check if atoms selected by mask have zero total mass
+
+        Parameters
+        ----------
+        mask : str or AtomMask
+            Atom selection mask
+
+        Returns
+        -------
+        bool
+            True if total mass of selected atoms is zero
+        """
+        cdef AtomMask atm
+        if isinstance(mask, str):
+            atm = AtomMask(mask)
+            self._set_integer_mask(atm)
+        else:
+            atm = mask
+        return self.thisptr.MaskHasZeroMass(atm.thisptr[0])
+
+    def trunc_resname_atomname(self, int atom_idx):
+        """Get residue name and atom name for atom
+
+        Parameters
+        ----------
+        atom_idx : int
+            Atom index
+
+        Returns
+        -------
+        str
+            Format: '<resname>@<atomname>'
+        """
+        return self.thisptr.TruncResNameAtomName(atom_idx)
+
+    def trunc_atom_name_num(self, int atom_idx):
+        """Get atom name and number
+
+        Parameters
+        ----------
+        atom_idx : int
+            Atom index
+
+        Returns
+        -------
+        str
+            Format: '<atomname>_<atomnum>'
+        """
+        return self.thisptr.TruncAtomNameNum(atom_idx)
+
+    def trunc_resname_onum_id(self, int res_idx):
+        """Get residue name, original number and chain ID
+
+        Parameters
+        ----------
+        res_idx : int
+            Residue index
+
+        Returns
+        -------
+        str
+            Format: '<resname>_<onum>[_<id>]'
+        """
+        return self.thisptr.TruncResNameOnumId(res_idx)
+
+    def resname_num_atomname_num(self, int atom_idx):
+        """Get residue and atom info with spaces
+
+        Parameters
+        ----------
+        atom_idx : int
+            Atom index
+
+        Returns
+        -------
+        str
+            Format: '<resname> <resnum> <atomname> <atomnum>'
+        """
+        return self.thisptr.ResNameNumAtomNameNum(atom_idx)
+
+    def nres_in_mol(self, int mol_idx):
+        """Get number of residues in molecule
+
+        Parameters
+        ----------
+        mol_idx : int
+            Molecule index
+
+        Returns
+        -------
+        int
+            Number of residues in molecule
+        """
+        return self.thisptr.NresInMol(mol_idx)
+
+    def solute_residues(self):
+        """Get range of solute residues (non-solvent)
+
+        Returns
+        -------
+        list
+            List of solute residue indices
+
+        Note
+        ----
+        This is a simplified implementation that identifies solute residues
+        by checking if they are not marked as solvent molecules.
+        """
+        # Simple implementation: find residues that are not in solvent molecules
+        cdef list solute_res = []
+        cdef int res_idx
+        cdef int mol_idx
+
+        for res_idx in range(self.n_residues):
+            # Get the first atom of this residue
+            res = self.residue(res_idx)
+            if res.n_atoms > 0:
+                first_atom = res.first_atom_index
+                atom = self[first_atom]
+                mol_idx = atom.molnum
+
+                # Check if molecule is solvent (simple heuristic: single residue water-like molecules)
+                if mol_idx < self.n_mols:
+                    mol = list(self.mols)[mol_idx]
+                    if mol.n_atoms > 1:  # Not a single atom (likely not ion)
+                        solute_res.append(res_idx)
+
+        return solute_res
+
+    def resnums_selected_by(self, mask):
+        """Get residue numbers selected by mask
+
+        Parameters
+        ----------
+        mask : str or AtomMask
+            Atom selection mask
+
+        Returns
+        -------
+        numpy.ndarray
+            Array of residue numbers
+        """
+        cdef AtomMask atm
+        if isinstance(mask, str):
+            atm = AtomMask(mask)
+            self._set_integer_mask(atm)
+        else:
+            atm = mask
+        cdef vector[int] resnums = self.thisptr.ResnumsSelectedBy(atm.thisptr[0])
+        return np.array([resnums[i] for i in range(resnums.size())], dtype=int)
+
+    def molnums_selected_by(self, mask):
+        """Get molecule numbers selected by mask
+
+        Parameters
+        ----------
+        mask : str or AtomMask
+            Atom selection mask
+
+        Returns
+        -------
+        numpy.ndarray
+            Array of molecule numbers
+        """
+        cdef AtomMask atm
+        if isinstance(mask, str):
+            atm = AtomMask(mask)
+            self._set_integer_mask(atm)
+        else:
+            atm = mask
+        cdef vector[int] molnums = self.thisptr.MolnumsSelectedBy(atm.thisptr[0])
+        return np.array([molnums[i] for i in range(molnums.size())], dtype=int)
+
+    def merge_residues(self, int start_res, int stop_res):
+        """Merge consecutive residues into a single residue
+
+        Parameters
+        ----------
+        start_res : int
+            Starting residue index (0-based)
+        stop_res : int
+            Stopping residue index (0-based, inclusive)
+
+        Returns
+        -------
+        int
+            0 on success, 1 on error
+        """
+        return self.thisptr.MergeResidues(start_res, stop_res)
+
+    def set_single_molecule(self):
+        """Designate all atoms as part of a single molecule
+
+        Returns
+        -------
+        int
+            0 on success
+        """
+        return self.thisptr.SetSingleMolecule()
+
+    def split_residue(self, mask, new_resname):
+        """Split selected atoms in a residue into a new residue
+
+        Parameters
+        ----------
+        mask : str or AtomMask
+            Atom selection mask
+        new_resname : str
+            Name for the new residue
+
+        Returns
+        -------
+        int
+            0 on success, 1 on error
+        """
+        cdef AtomMask atm
+        if isinstance(mask, str):
+            atm = AtomMask(mask)
+            self._set_integer_mask(atm)
+        else:
+            atm = mask
+        cdef NameType resname = NameType(new_resname)
+        return self.thisptr.SplitResidue(atm.thisptr[0], resname.thisptr[0])
 
     def residue(self, int idx, bint atom=False):
         '''
