@@ -203,6 +203,7 @@ packages = [
     'pytraj',
     'pytraj.utils',
     'pytraj.builder',
+    'pytraj.actions',
     'pytraj.analysis',
     'pytraj.analysis.c_action',
     'pytraj.analysis.c_analysis',

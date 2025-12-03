@@ -1,7 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
-from pytraj.testing import aa_eq, tempfolder
+from pytraj.testing import aa_eq, tempfolder, load_cpptraj_reference_data
 
 # local
 from utils import fn
@@ -66,3 +66,23 @@ def test_timecorr():
         data1 = pt.timecorr(dslist1[0], dslist1[1])
         aa_eq(data0, cpptraj_output[-1].values)
         aa_eq(data1, cpptraj_output[-1].values)
+
+
+def test_timecorr_cpptraj_reference():
+    """Test timecorr against cpptraj reference using tz2 data"""
+    # Load tz2 trajectory - same as cpptraj Test_Timecorr
+    traj = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
+
+    # Calculate vector :2 :4 (cpptraj: vector v1 :2 :4)
+    vectors = pt.vector.vector(traj, ':2 :4')
+
+    # Calculate auto time correlation (cpptraj: analyze timecorr vec1 v1)
+    timecorr_result = pt.timecorr(vectors, vectors)
+
+    # Load cpptraj reference data - v1.auto.dat.save
+    ref_data = load_cpptraj_reference_data('Test_Timecorr', 'v1.auto.dat.save')
+
+    assert ref_data is not None, "cpptraj reference data Test_Timecorr/v1.auto.dat.save must be available"
+
+    # Compare time correlation results
+    aa_eq(timecorr_result, ref_data, decimal=4)
