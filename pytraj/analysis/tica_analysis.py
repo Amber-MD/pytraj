@@ -11,6 +11,17 @@ from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 __all__ = ['tica', 'tica_msm_features']
 
 
+def _is_angular_data(data):
+    """Check if data appears to be angular (dihedral) data in degrees"""
+    data = np.asarray(data)
+    # Heuristic for detecting dihedral angles - adjusted for typical dihedral ranges
+    return (
+        data.min() >= -180 and data.max() <= 180 and  # Strict dihedral range
+        (data.max() - data.min()) > 30 and  # Some angular variation (lowered threshold)
+        np.abs(data).max() > 30  # Must have moderate angles (lowered threshold)
+    )
+
+
 def tica(traj=None,
          mask='@CA',
          data=None,
@@ -120,8 +131,8 @@ def _tica_coordinate_based_cpptraj(traj, mask, lag, n_components, evector_scale,
     c_dslist, top_, command = get_iterator_from_dslist(
         traj, mask, frame_indices, top, crdname=crdname)
 
-    # Build TICA command for cpptraj
-    tica_command_parts = [f"crdset {crdname}", f"lag {lag}"]
+    # Build TICA command for cpptraj - include mask and crdset
+    tica_command_parts = [command, f"crdset {crdname}", f"lag {lag}"]
 
     if n_components is not None:
         tica_command_parts.append(f"evecs {n_components}")
@@ -154,14 +165,31 @@ def _tica_dataset_based_cpptraj(data, lag, n_components, evector_scale, dtype):
     c_dslist = CpptrajDatasetList()
 
     if isinstance(data, (list, tuple)):
-        # Add each data array as a separate dataset
+        processed_datasets = []
+
+        # Process each dataset - convert angular data to sin/cos components
         for i, dataset in enumerate(data):
+            dataset_array = np.asarray(dataset, dtype='f8')
+
+            # Check if this looks like angular data (degrees, typical dihedral range)
+            if _is_angular_data(dataset_array):
+                # Convert to radians and create sin/cos components
+                rad_data = np.deg2rad(dataset_array)
+                sin_component = np.sin(rad_data)
+                cos_component = np.cos(rad_data)
+                processed_datasets.extend([sin_component, cos_component])
+            else:
+                # Keep non-angular data as-is
+                processed_datasets.append(dataset_array)
+
+        # Add processed datasets to cpptraj dataset list
+        for i, proc_data in enumerate(processed_datasets):
             name = f'data_{i}'
             c_dslist.add('double', name)
-            c_dslist[-1].data = np.asarray(dataset, dtype='f8')
+            c_dslist[-1].data = proc_data
 
         # Build data command referencing all datasets
-        data_refs = ' '.join([f'data data_{i}' for i in range(len(data))])
+        data_refs = ' '.join([f'data data_{i}' for i in range(len(processed_datasets))])
     else:
         raise ValueError("Data must be a list or tuple of arrays for dataset-based TICA")
 
