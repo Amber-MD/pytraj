@@ -3,16 +3,12 @@ Time-Independent Component Analysis (TICA) using cpptraj
 """
 import numpy as np
 from ..utils.get_common_objects import (
-    get_topology,
     get_data_from_dtype,
-    get_fiterator,
-    super_dispatch,
 )
 from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
-from ..analysis.c_analysis import c_analysis
 
 
-__all__ = ['tica', 'tica_transform', 'tica_msm_features']
+__all__ = ['tica', 'tica_msm_features']
 
 
 def tica(traj=None,
@@ -232,46 +228,6 @@ def _extract_tica_results(c_dslist, dtype):
         return c_dslist
     else:
         return get_data_from_dtype(c_dslist, dtype)
-# cpptraj-based TICA implementation complete - scipy implementation removed
-
-
-def tica_transform(traj=None, tica_data=None, mask='@CA', top=None, frame_indices=None):
-    """Transform trajectory coordinates using pre-computed TICA results
-
-    Parameters
-    ----------
-    traj : Trajectory-like
-        Input trajectory to transform
-    tica_data : CpptrajDatasetList
-        Pre-computed TICA results from previous tica() analysis
-    mask : str, default '@CA'
-        Atom selection mask (must match the one used for computing TICA)
-    top : Topology, optional
-        Topology object
-    frame_indices : array-like, optional
-        Specific frame indices to transform
-
-    Returns
-    -------
-    CpptrajDatasetList
-        Transformed coordinates using cpptraj's projection capabilities
-
-    Examples
-    --------
-    >>> import pytraj as pt
-    >>>
-    >>> # Compute TICA on training trajectory
-    >>> train_traj = pt.load('train.nc', 'topology.prmtop')
-    >>> tica_results = pt.tica(train_traj, mask='@CA', lag=10)
-    >>>
-    >>> # Transform test trajectory using TICA results
-    >>> test_traj = pt.load('test.nc', 'topology.prmtop')
-    >>> projected = pt.tica_transform(test_traj, tica_results, mask='@CA')
-    """
-    # This is a placeholder - full implementation would require cpptraj projection
-    # For now, refer users to use the TICA results directly
-    raise NotImplementedError("tica_transform will be implemented in future version. "
-                            "Use tica() results directly for now.")
 
 
 def tica_msm_features(traj=None, mask='@CA', lag=10, n_components=10, top=None):

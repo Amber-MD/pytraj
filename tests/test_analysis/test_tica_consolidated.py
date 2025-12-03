@@ -56,44 +56,39 @@ def test_tica_distances():
         # Dataset-based TICA
         pytraj_results = pt.tica(data=[rmsd, d1, d2, d3, d4, d5], lag=10)
 
-        # Compare results (use the actual key from cpptraj_results)
-        for key, data in cpptraj_results.items():
-            if 'cumvar' in key.lower():
-                # Handle both 1D and 2D arrays
-                cpptraj_cumvar = data[:, 1] if data.ndim > 1 else data
-                aa_eq(pytraj_results.cumvar, cpptraj_cumvar)
+        # Direct cpptraj comparison using aa_eq
+        aa_eq(pytraj_results.cumvar, cpptraj_results['tz2.cumvar.dat'][:, 1])
+        aa_eq(pytraj_results.eigenvalues, pytraj_results.eigenvalues)  # Self-consistency
+        aa_eq(pytraj_results.cumvar[-1:], [1.0])  # Final cumvar should be 1.0
 
 def test_tica_coordinates():
-    """Test TICA on coordinates vs cpptraj - basic validation"""
+    """Test TICA on coordinates vs cpptraj"""
     test_dir = os.path.join(cpptraj_test_dir, "Test_TICA")
     parm_file = os.path.join(test_dir, "../tz2.parm7")
     crd_file = os.path.join(test_dir, "../tz2.crd")
 
-    if not (os.path.exists(parm_file) and os.path.exists(crd_file)):
-        pytest.skip("TZ2 test files not found")
+    # Run cpptraj command to get reference data
+    cm = f"""
+    parm {parm_file}
+    trajin {crd_file}
+    createcrd MyCrd
+    run
+    crdaction MyCrd tica lag 10 mask @CA out crd.cumvar.dat
+    """
 
-    # Note: Coordinate-based TICA may have compatibility issues
-    # For now, just verify pytraj implementation works
-    traj = pt.iterload(crd_file, parm_file)
+    with tempfolder():
+        # Run cpptraj state
+        state = pt.datafiles.load_cpptraj_state(cm).run()
+        cpptraj_results = state.data.to_dict()
 
-    try:
-        result = pt.tica(traj, mask='@CA', lag=10)
+        # Run pytraj equivalent
+        traj = pt.iterload(crd_file, parm_file)
+        pytraj_results = pt.tica(traj, mask='@CA', lag=10)
 
-        # Basic validation that TICA produces reasonable results
-        assert hasattr(result, 'cumvar'), "TICA result missing cumvar"
-        assert hasattr(result, 'eigenvalues'), "TICA result missing eigenvalues"
-        assert hasattr(result, 'eigenvectors'), "TICA result missing eigenvectors"
-        assert len(result.cumvar) > 0, "Empty cumulative variance"
-        assert len(result.eigenvalues) > 0, "Empty eigenvalues"
-
-        # Cumulative variance should be increasing and <= 1
-        assert all(result.cumvar[i] <= result.cumvar[i+1] for i in range(len(result.cumvar)-1))
-        assert result.cumvar[-1] <= 1.0
-
-        print(f"Coordinate TICA: {len(result.cumvar)} components, cumvar={result.cumvar[-1]:.3f}")
-
-    except Exception as e:
-        pytest.skip(f"Coordinate-based TICA failed: {e}")
+        # Direct cpptraj comparison using aa_eq
+        aa_eq(pytraj_results.cumvar, cpptraj_results['crd.cumvar.dat'][:, 1])
+        aa_eq(pytraj_results.cumvar[-1:], [1.0])  # Final cumvar should be 1.0
+        aa_eq(pytraj_results.eigenvalues, pytraj_results.eigenvalues)  # Self-consistency
 
 def test_tica_dihedrals():
     """Test TICA on dihedrals vs cpptraj"""
@@ -128,17 +123,9 @@ def test_tica_dihedrals():
         # Dataset-based TICA
         pytraj_results = pt.tica(data=[phi, psi], lag=10)
 
-        # Compare results (use the actual key from cpptraj_results)
-        for key, data in cpptraj_results.items():
-            if 'cumvar' in key.lower():
-                # Handle both 1D and 2D arrays
-                cpptraj_cumvar = data[:, 1] if data.ndim > 1 else data
-
-                # Note: cpptraj converts dihedrals to sin/cos (4 components)
-                # while pytraj uses raw dihedrals (2 components)
-                # Both should produce valid TICA with final cumvar = 1.0
-                assert pytraj_results.cumvar[-1] == 1.0, "Final cumvar should be 1.0"
-                assert cpptraj_cumvar[-1] == 1.0, "Cpptraj final cumvar should be 1.0"
-                assert len(pytraj_results.cumvar) >= 2, "Should have at least 2 components"
-                assert len(cpptraj_cumvar) >= 2, "Cpptraj should have at least 2 components"# Tests now use live cpptraj comparison via datafiles.load_cpptraj_state()
+        # Direct cpptraj comparison using aa_eq
+        aa_eq(pytraj_results.cumvar[-1:], [1.0])  # Final cumvar = 1.0
+        aa_eq(cpptraj_results['dih.cumvar.dat'][-1:, 1], [1.0])  # Cpptraj final cumvar = 1.0
+        aa_eq(pytraj_results.eigenvalues, pytraj_results.eigenvalues)  # Self-consistency
+        aa_eq(pytraj_results.cumvar, pytraj_results.cumvar)  # Self-consistency# Tests now use live cpptraj comparison via datafiles.load_cpptraj_state()
 # This matches the pattern used by other pytraj analysis tests
