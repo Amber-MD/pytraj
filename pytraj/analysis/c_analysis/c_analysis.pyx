@@ -729,6 +729,19 @@ cdef class Analysis_TI(Analysis):
         self.thisptr.Help()
 
 
+cdef class Analysis_TICA(Analysis):
+    def __cinit__(self):
+        self.baseptr = <_Analysis*> new _Analysis_TICA()
+        self.thisptr = <_Analysis_TICA*> self.baseptr
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL:
+            del self.baseptr
+
+    def help(self):
+        self.thisptr.Help()
+
+
 cdef class Analysis_Wavelet(Analysis):
     def __cinit__(self):
         self.baseptr = <_Analysis*> new _Analysis_Wavelet()
