@@ -87,7 +87,7 @@ from ..core.c_core import CpptrajState, Command
 
 def add_reference_dataset(dslist, name, frame, topology=None):
     """Helper function to add reference dataset consistently
-    
+
     Parameters
     ----------
     dslist : CpptrajDatasetList
@@ -98,7 +98,7 @@ def add_reference_dataset(dslist, name, frame, topology=None):
         Reference frame
     topology : Topology, optional
         Topology for the reference, defaults to frame.top
-        
+
     Returns
     -------
     dataset : Dataset
@@ -112,7 +112,7 @@ def add_reference_dataset(dslist, name, frame, topology=None):
 
 def execute_action_with_setup(traj, command, action_class, dslist=None, top=None):
     """Execute action with manual setup pattern for cases where do_action is insufficient
-    
+
     Parameters
     ----------
     traj : Trajectory-like
@@ -124,7 +124,7 @@ def execute_action_with_setup(traj, command, action_class, dslist=None, top=None
         Pre-existing dataset list
     top : Topology, optional
         Topology to use
-        
+
     Returns
     -------
     dslist : CpptrajDatasetList
@@ -134,14 +134,14 @@ def execute_action_with_setup(traj, command, action_class, dslist=None, top=None
         dslist = CpptrajDatasetList()
     if top is None:
         top = traj.top
-        
+
     action = action_class()
     action.read_input(command, top=top, dslist=dslist)
     action.setup(top)
-    
+
     for frame in traj:
         action.compute(frame)
-    
+
     action.post_process()
     return dslist
 
