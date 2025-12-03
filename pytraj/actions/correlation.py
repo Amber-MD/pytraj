@@ -61,7 +61,7 @@ def atomiccorr(traj,
     if byres:
         command += " byres"
 
-    action_datasets, _ = do_action(traj, command, c_action.Action_Corr)
+    action_datasets, _ = do_action(traj, command, c_action.Action_AtomicCorr)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
