@@ -18,7 +18,7 @@ MATRIX_TYPES = [
     'dihcovar',
 ]
 
-__all__ = MATRIX_TYPES
+__all__ = MATRIX_TYPES + ['matrix']
 
 
 @super_dispatch()

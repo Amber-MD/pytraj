@@ -15,7 +15,7 @@ aa_eq = partial(assert_almost_equal, decimal=4)
 __all__ = [
     'load_sample_data', 'eq', 'aa_eq', 'duplicate_traj', 'Timer', 'tempfolder',
     'amberhome', 'cpptraj_test_dir', 'get_fn', 'get_remd_fn',
-    'assert_equal_topology', 'assert_equal_dict'
+    'assert_equal_topology', 'assert_equal_dict', 'load_cpptraj_reference_data'
 ]
 
 # find cpptraj test dir
@@ -123,6 +123,53 @@ def get_remd_fn(txt):
     from pytraj import load_sample_data
     traj = load_sample_data(txt)
     return traj.filelist, traj.top.filename
+
+
+def load_cpptraj_reference_data(test_name, data_file, column=1):
+    """Load reference data from cpptraj test files
+
+    Parameters
+    ----------
+    test_name : str
+        Name of the cpptraj test directory (e.g., 'Test_Distance', 'Test_RMSD')
+    data_file : str
+        Name of the reference data file (e.g., 'dist.dat.save', 'rmsd.dat.save')
+    column : int, optional
+        Column index to extract (0-based), default is 1 (second column)
+
+    Returns
+    -------
+    np.ndarray or None
+        Array of reference values, or None if file not found
+
+    Examples
+    --------
+    >>> # Load distance reference data
+    >>> distances = load_cpptraj_reference_data('Test_Distance', 'dist.dat.save')
+    >>> # Load RMS fluctuations (5th column)
+    >>> fluct = load_cpptraj_reference_data('Test_Analyze_Modes', 'fluct.dat.save', column=4)
+    """
+    if not cpptraj_test_dir:
+        return None
+
+    cpptraj_ref_file = os.path.join(cpptraj_test_dir, test_name, data_file)
+
+    if not os.path.exists(cpptraj_ref_file):
+        return None
+
+    values = []
+    with open(cpptraj_ref_file, 'r') as f:
+        for line in f:
+            if line.startswith('#') or not line.strip():
+                continue
+            parts = line.strip().split()
+            if len(parts) > column:
+                try:
+                    values.append(float(parts[column]))
+                except ValueError:
+                    continue
+
+    return np.array(values) if values else None
 
 
 if __name__ == "__main__":

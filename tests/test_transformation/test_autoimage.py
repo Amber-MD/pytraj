@@ -20,12 +20,12 @@ class TestRegular(unittest.TestCase):
         aa_eq(fsaved.xyz, f0.xyz, decimal=3)
 
     def test_2(self):
-        from pytraj.all_actions import do_autoimage
-        # test do_autoimage
+        from pytraj.all_actions import autoimage
+        # test autoimage
         traj = pt.iterload(fn('tz2.truncoct.nc'), fn('tz2.truncoct.parm7'))
         f0 = traj[0]
         f0.copy()
-        do_autoimage(traj=f0, top=traj.top)
+        autoimage(traj=f0, top=traj.top)
 
         fsaved = pt.iterload(
             fn('tz2.truncoct.autoiamge.save.r'), fn('tz2.truncoct.parm7'))[0]
