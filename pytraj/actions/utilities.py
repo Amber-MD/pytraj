@@ -2,7 +2,7 @@
 Utility and miscellaneous functions
 """
 from .base import *
-from .base import _assert_mutable, add_reference_dataset
+from .base import _assert_mutable, add_reference_dataset, execute_action_with_setup
 from ..trajectory.trajectory_iterator import TrajectoryIterator
 
 __all__ = [
@@ -612,14 +612,7 @@ def xtalsymm(traj, mask='', options='', ref=None, **kwargs):
         add_reference_dataset(c_dslist, 'ref', ref_frame, ref_frame.top or traj.top)
         command += " ref ref"
 
-    action = c_action.Action_XtalSymm()
-    action.read_input(command, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
-
-    for frame in traj:
-        action.compute(frame)
-
-    action.post_process()
+    execute_action_with_setup(traj, command, c_action.Action_XtalSymm, c_dslist)
 
     if ref is not None:
         c_dslist.remove_at(0)  # remove reference
