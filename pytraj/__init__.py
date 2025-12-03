@@ -107,6 +107,9 @@ from .analysis import energy_analysis
 from .analysis import hbond_analysis
 from .analysis import nucleic_acid_analysis
 from .analysis import topology_analysis
+from .analysis.tica_analysis import tica
+from .analysis.tica_analysis import tica_transform
+from .analysis.tica_analysis import tica_msm_features
 
 from . import all_actions
 from .all_actions import *
