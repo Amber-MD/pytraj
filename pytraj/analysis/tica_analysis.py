@@ -31,7 +31,9 @@ def tica(traj=None,
          dtype='dataset',
          top=None,
          frame_indices=None,
-         debug=0):
+         debug=0,
+         commute=False,
+         cumvarout=None):
     """Perform Time-Independent Component Analysis (TICA) using cpptraj
 
     TICA finds the slowest-relaxing collective coordinates in molecular dynamics
@@ -111,49 +113,59 @@ def tica(traj=None,
     if data is not None and traj is not None:
         raise ValueError("Cannot specify both 'data' and 'traj'. Use one or the other.")
     elif data is not None:
-        return _tica_dataset_based_cpptraj(data, lag, n_components, evector_scale, dtype)
+        return _tica_dataset_based_cpptraj(data, lag, n_components, evector_scale, dtype, commute, cumvarout)
     elif traj is not None:
-        return _tica_coordinate_based_cpptraj(traj, mask, lag, n_components, evector_scale, dtype, top, frame_indices)
+        return _tica_coordinate_based_cpptraj(traj, mask, lag, n_components, evector_scale, dtype, top, frame_indices, commute, cumvarout)
     else:
         raise ValueError("Must specify either 'data' or 'traj' parameter.")
 
 
-def _tica_coordinate_based_cpptraj(traj, mask, lag, n_components, evector_scale, dtype, top, frame_indices):
+def _tica_coordinate_based_cpptraj(traj, mask, lag, n_components, evector_scale, dtype, top, frame_indices, commute, cumvarout):
     """Coordinate-based TICA using cpptraj Analysis_TICA"""
-    from ..utils.get_common_objects import get_iterator_from_dslist, get_data_from_dtype
+    from ..actions.base import AnalysisRunner, DatasetType
     from ..analysis.c_analysis.c_analysis import Analysis_TICA
+    from ..utils.get_common_objects import get_data_from_dtype
 
-    # Create cpptraj Analysis_TICA object
-    act = Analysis_TICA()
+    # Use AnalysisRunner pattern for coordinate-based analysis
+    runner = AnalysisRunner(Analysis_TICA)
 
-    # Set up coordinate dataset for cpptraj
-    crdname = 'tica_coords'
-    c_dslist, top_, command = get_iterator_from_dslist(
-        traj, mask, frame_indices, top, crdname=crdname)
+    # Apply frame_indices if specified
+    if frame_indices is not None:
+        subset_traj = traj[frame_indices]
+    else:
+        subset_traj = traj
 
-    # Build TICA command for cpptraj - include mask and crdset
-    tica_command_parts = [command, f"crdset {crdname}", f"lag {lag}"]
+    # Add trajectory as coordinate dataset
+    # Note: AnalysisRunner always uses '_DEFAULTCRD_' for coordinate datasets
+    runner.add_dataset(DatasetType.COORDS, "_DEFAULTCRD_", subset_traj)
+
+    # Build TICA command for coordinate-based analysis
+    # The coordinate dataset is automatically named '_DEFAULTCRD_'
+    command_parts = [f"crdset _DEFAULTCRD_ mask {mask} lag {lag}"]
 
     if n_components is not None:
-        tica_command_parts.append(f"evecs {n_components}")
+        command_parts.append(f"evecs {n_components}")
 
     if evector_scale != 'none':
-        tica_command_parts.append(f"scale {evector_scale}")
+        command_parts.append(f"scale {evector_scale}")
 
-    tica_command_parts.append("out tica_output.dat")
+    if commute:
+        command_parts.append("map commute")
 
-    tica_command = ' '.join(tica_command_parts)
+    if cumvarout is not None:
+        command_parts.append(f"cumvarout {cumvarout}")
+    else:
+        command_parts.append("out tica_output.dat")
 
-    # Run cpptraj TICA analysis
-    act(tica_command, dslist=c_dslist)
+    command = ' '.join(command_parts)
 
-    # Remove coordinate dataset to free memory
-    c_dslist.remove_set(c_dslist[0])
+    # Run the analysis
+    runner.run_analysis(command)
 
-    return _extract_tica_results(c_dslist, dtype)
+    return _extract_tica_results(runner.datasets, dtype, n_components)
 
 
-def _tica_dataset_based_cpptraj(data, lag, n_components, evector_scale, dtype):
+def _tica_dataset_based_cpptraj(data, lag, n_components, evector_scale, dtype, commute, cumvarout):
     """Dataset-based TICA using cpptraj Analysis_TICA"""
     from ..analysis.c_analysis.c_analysis import Analysis_TICA
     from ..utils.get_common_objects import get_data_from_dtype
@@ -202,17 +214,23 @@ def _tica_dataset_based_cpptraj(data, lag, n_components, evector_scale, dtype):
     if evector_scale != 'none':
         tica_command_parts.append(f"scale {evector_scale}")
 
-    tica_command_parts.append("out tica_output.dat")
+    if commute:
+        tica_command_parts.append("map commute")
+
+    if cumvarout is not None:
+        tica_command_parts.append(f"cumvarout {cumvarout}")
+    else:
+        tica_command_parts.append("out tica_output.dat")
 
     tica_command = ' '.join(tica_command_parts)
 
     # Run cpptraj TICA analysis
     act(tica_command, dslist=c_dslist)
 
-    return _extract_tica_results(c_dslist, dtype)
+    return _extract_tica_results(c_dslist, dtype, n_components)
 
 
-def _extract_tica_results(c_dslist, dtype):
+def _extract_tica_results(c_dslist, dtype, n_components=None):
     """Extract TICA results from cpptraj dataset list and return in expected format"""
 
     # Create a simple result object that mimics the old TICAResult class
@@ -221,6 +239,7 @@ def _extract_tica_results(c_dslist, dtype):
             self.cumvar = None
             self.eigenvalues = None
             self.eigenvectors = None
+            self.modes = None  # Add modes attribute
 
     result = TICAResult()
 
@@ -243,6 +262,17 @@ def _extract_tica_results(c_dslist, dtype):
                         if isinstance(modes_data, tuple) and len(modes_data) == 2:
                             result.eigenvalues = np.asarray(modes_data[0])
                             result.eigenvectors = np.asarray(modes_data[1])
+                            # modes should have shape (n_features, n_components)
+                            result.modes = result.eigenvectors if result.eigenvectors is not None else None
+
+                            # Apply n_components slicing if specified
+                            if n_components is not None:
+                                if result.eigenvalues is not None and len(result.eigenvalues) > n_components:
+                                    result.eigenvalues = result.eigenvalues[:n_components]
+                                if result.modes is not None and result.modes.shape[1] > n_components:
+                                    result.modes = result.modes[:, :n_components]
+                                if result.eigenvectors is not None and result.eigenvectors.shape[1] > n_components:
+                                    result.eigenvectors = result.eigenvectors[:, :n_components]
                     except (ValueError, TypeError) as e:
                         # Skip problematic eigenvector data for now
                         pass

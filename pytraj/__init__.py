@@ -179,6 +179,7 @@ calc_pairdist = pair_distribution = pairdist
 calc_jcoupling = jcoupling
 calc_dssp = dssp
 calc_distance_rmsd = drmsd = distance_rmsd
+rms = rmsd  # Add rms alias for rmsd
 calc_radgyr = radgyr
 calc_mindist = mindist
 calc_diffusion = diffusion
