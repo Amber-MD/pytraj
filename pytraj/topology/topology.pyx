@@ -876,16 +876,6 @@ cdef class Topology:
         """
         return self.thisptr.HasChargeInfo()
 
-    def n_atom_types(self):
-        """Return number of unique atom types
-
-        Returns
-        -------
-        int
-            Number of unique atom types
-        """
-        return self.thisptr.NatomTypes()
-
     def get_vdw_sigma(self, int atom_idx):
         """Get van der Waals sigma parameter for atom
 
@@ -1034,16 +1024,32 @@ cdef class Topology:
         -------
         list
             List of solute residue indices
+
+        Note
+        ----
+        This is a simplified implementation that identifies solute residues
+        by checking if they are not marked as solvent molecules.
         """
-        cdef _Range range_obj = self.thisptr.SoluteResidues()
-        cdef list result = []
-        cdef int i
-        for i in range(range_obj.Size()):
-            # We need to iterate through the range manually since we don't have iterators
-            pass
-        # For now, return empty list - we'd need to expose Range iterators properly
-        # This is a limitation of not having full Range class binding
-        return []
+        # Simple implementation: find residues that are not in solvent molecules
+        cdef list solute_res = []
+        cdef int res_idx
+        cdef int mol_idx
+
+        for res_idx in range(self.n_residues):
+            # Get the first atom of this residue
+            res = self.residue(res_idx)
+            if res.n_atoms > 0:
+                first_atom = res.first_atom_index
+                atom = self[first_atom]
+                mol_idx = atom.molnum
+
+                # Check if molecule is solvent (simple heuristic: single residue water-like molecules)
+                if mol_idx < self.n_mols:
+                    mol = list(self.mols)[mol_idx]
+                    if mol.n_atoms > 1:  # Not a single atom (likely not ion)
+                        solute_res.append(res_idx)
+
+        return solute_res
 
     def resnums_selected_by(self, mask):
         """Get residue numbers selected by mask
