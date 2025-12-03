@@ -110,42 +110,6 @@ def add_reference_dataset(dslist, name, frame, topology=None):
     return dataset
 
 
-def execute_action_with_setup(traj, command, action_class, dslist=None, top=None):
-    """Execute action with manual setup pattern for cases where do_action is insufficient
-
-    Parameters
-    ----------
-    traj : Trajectory-like
-    command : str
-        Command string
-    action_class : Action class
-        Action class to instantiate
-    dslist : CpptrajDatasetList, optional
-        Pre-existing dataset list
-    top : Topology, optional
-        Topology to use
-
-    Returns
-    -------
-    dslist : CpptrajDatasetList
-        Dataset list with results
-    """
-    if dslist is None:
-        dslist = CpptrajDatasetList()
-    if top is None:
-        top = traj.top
-
-    action = action_class()
-    action.read_input(command, top=top, dslist=dslist)
-    action.setup(top)
-
-    for frame in traj:
-        action.compute(frame)
-
-    action.post_process()
-    return dslist
-
-
 class CommandBuilder:
 
     def __init__(self):

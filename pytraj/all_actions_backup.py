@@ -3045,8 +3045,8 @@ def atom_map(traj, ref, rmsfit=False):
     act.post_process()
 
     # free memory of two reference
-    dataset_list..remove_at(0)
-    dataset_list..remove_at(0)
+    dataset_list.remove_at(0)
+    dataset_list.remove_at(0)
 
     return (out.read(), get_data_from_dtype(dataset_list, dtype='ndarray'))
 
@@ -3249,8 +3249,8 @@ def permute_dihedrals(traj, filename, options=''):
     with Command() as executor:
         executor.dispatch(state, command)
 
-    state.data..remove_at(0)
-    state.data..remove_at(0)
+    state.data.remove_at(0)
+    state.data.remove_at(0)
 
 
 @super_dispatch()
