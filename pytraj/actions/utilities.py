@@ -351,6 +351,7 @@ def search_neighbors(traj=None,
                      mask='',
                      distance=3.0,
                      frame_indices=None,
+                     dtype='dataset',
                      top=None):
     """find neighbors within a cutoff
 
@@ -362,25 +363,34 @@ def search_neighbors(traj=None,
     distance : float, default 3.0
         cutoff distance
     frame_indices : array-like, optional
+    dtype : str, default 'dataset'
+        return data type
     top : Topology, optional
 
     Returns
     -------
-    out : dict
+    out : DatasetList
         neighbors information
     """
-    command = f"{mask} {distance}"
+    action_datasets = DatasetList()
+    topology = get_topology(traj, top)
 
-    c_dslist = CpptrajDatasetList()
-    action = c_action.Action_SearchNeighbors()
-    action.read_input(command, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
+    # Handle frame_indices by filtering frames
+    if frame_indices is not None:
+        selected_frames = []
+        for idx, frame in enumerate(iterframe_master(traj)):
+            if idx in frame_indices:
+                selected_frames.append((idx, frame))
+        frame_list = selected_frames
+    else:
+        frame_list = [(idx, frame) for idx, frame in enumerate(iterframe_master(traj))]
 
-    for frame in traj:
-        action.compute(frame)
+    for frame_idx, frame in frame_list:
+        topology.set_reference(frame)
+        selected_indices = topology.select(mask)
+        action_datasets.append({str(frame_idx): np.asarray(selected_indices)})
 
-    action.post_process()
-    return get_data_from_dtype(c_dslist, dtype='dict')
+    return get_data_from_dtype(action_datasets, dtype)
 
 
 @super_dispatch(refindex=3)

@@ -529,14 +529,22 @@ def strip(obj, mask):
     >>> traj.n_atoms
     5293
     """
-    if hasattr(obj, 'top'):
-        # Trajectory-like
-        indices = obj.top.select(mask, invert=True)
-        return obj[indices]
+    if isinstance(obj, str) and not isinstance(mask, str):
+        obj, mask = mask, obj
+
+    kept_mask = '!(' + mask + ')'
+
+    if isinstance(obj, (Topology, Trajectory)):
+        # return new Topology or new Trajectory
+        return obj[kept_mask]
+    elif isinstance(obj, TrajectoryIterator):
+        # return a FrameIterator
+        return obj(mask=kept_mask)
+    elif hasattr(obj, 'mask'):
+        obj.mask = kept_mask
+        return obj
     else:
-        # Topology
-        indices = obj.select(mask, invert=True)
-        return obj[indices]
+        raise ValueError('object must be either Trajectory or Topology')
 
 
 @super_dispatch()
