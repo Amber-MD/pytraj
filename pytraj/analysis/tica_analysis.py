@@ -8,7 +8,7 @@ from ..utils.get_common_objects import (
 from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
 
-__all__ = ['tica', 'tica_msm_features']
+__all__ = ['tica']
 
 
 def _is_angular_data(data):
@@ -31,7 +31,6 @@ def tica(traj=None,
          dtype='dataset',
          top=None,
          frame_indices=None,
-         debug=0,
          commute=False,
          cumvarout=None):
     """Perform Time-Independent Component Analysis (TICA) using cpptraj
@@ -61,8 +60,6 @@ def tica(traj=None,
         Topology object
     frame_indices : array-like, optional
         Specific frame indices to analyze
-    debug : int, default 0
-        Debug level for detailed output
 
     Returns
     -------
@@ -270,35 +267,3 @@ def _extract_tica_results(c_dslist, dtype, n_components=None):
         return c_dslist
     else:
         return get_data_from_dtype(c_dslist, dtype)
-
-
-def tica_msm_features(traj=None, mask='@CA', lag=10, n_components=10, top=None):
-    """Compute TICA features using cpptraj for MSM construction
-
-    Parameters
-    ----------
-    traj : Trajectory-like
-        Input trajectory
-    mask : str, default '@CA'
-        Atom selection for feature extraction
-    lag : int, default 10
-        TICA lag time
-    n_components : int, default 10
-        Number of TICA components to retain
-    top : Topology, optional
-        Topology object
-
-    Returns
-    -------
-    CpptrajDatasetList
-        TICA results from cpptraj
-
-    Examples
-    --------
-    >>> import pytraj as pt
-    >>>
-    >>> traj = pt.load('md.nc', 'system.prmtop')
-    >>> tica_results = pt.tica_msm_features(traj, lag=20, n_components=5)
-    """
-    return tica(traj, mask=mask, lag=lag, n_components=n_components,
-                evector_scale='kinetic', dtype='dataset', top=top)
