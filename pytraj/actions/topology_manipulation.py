@@ -3,7 +3,7 @@ Topology manipulation functions: centering, alignment, imaging, etc.
 """
 from .base import *
 # Ensure _assert_mutable is available
-from .base import _assert_mutable
+from .base import _assert_mutable, _ensure_mutable
 from ..builder.build import make_structure
 
 __all__ = [
@@ -336,7 +336,7 @@ def translate(traj=None, command="", top=None, frame_indices=None):
     >>> (traj.xyz[0, 0] - xyz_old) # doctest: +SKIP
     array([ 1.20000005,  0.        ,  0.        ], dtype=float32)
     """
-    mut_traj = _assert_mutable(traj)
+    mut_traj = _ensure_mutable(traj)
 
     action = c_action.Action_Translate()
     action.read_input(command, top=mut_traj.top)
@@ -351,7 +351,7 @@ def translate(traj=None, command="", top=None, frame_indices=None):
 @super_dispatch()
 def scale(traj=None, command="", frame_indices=None, top=None):
     """do coordinate scaling"""
-    mut_traj = _assert_mutable(traj)
+    mut_traj = _ensure_mutable(traj)
 
     action = c_action.Action_Scale()
     action.read_input(command, top=mut_traj.top)
@@ -382,7 +382,7 @@ def rotate(traj=None, command="", frame_indices=None, top=None):
     >>> # rotate along x, y, z by 30 degree
     >>> _ = pt.rotate(traj, "x 30 y 30 z 30")
     """
-    mut_traj = _assert_mutable(traj)
+    mut_traj = _ensure_mutable(traj)
 
     action = c_action.Action_Rotate()
     action.read_input(command, top=mut_traj.top)
@@ -427,7 +427,7 @@ def image(traj, mask="", frame_indices=None, top=None):
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> _ = pt.image(traj, "origin")
     """
-    mut_traj = _assert_mutable(traj)
+    mut_traj = _ensure_mutable(traj)
 
     action = c_action.Action_Image()
     action.read_input(mask, top=mut_traj.top)
@@ -714,7 +714,7 @@ def fiximagedbonds(traj, mask=''):
     -------
     traj : modified trajectory
     """
-    mut_traj = _assert_mutable(traj)
+    mut_traj = _ensure_mutable(traj)
 
     action = c_action.Action_FixImagedBonds()
     action.read_input(mask, top=mut_traj.top)

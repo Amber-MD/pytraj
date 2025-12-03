@@ -100,4 +100,4 @@ def get_average_frame(traj, mask='*', top=None, **kwargs):
 toroidal_diffusion = tordiff
 
 # Import utility functions
-from .actions.base import _assert_mutable
+from .actions.base import _assert_mutable, _ensure_mutable
