@@ -383,7 +383,9 @@ def search_neighbors(traj=None,
                 selected_frames.append((idx, frame))
         frame_list = selected_frames
     else:
-        frame_list = [(idx, frame) for idx, frame in enumerate(iterframe_master(traj))]
+        frame_list = [
+            (idx, frame) for idx, frame in enumerate(iterframe_master(traj))
+        ]
 
     for frame_idx, frame in frame_list:
         topology.set_reference(frame)
@@ -391,6 +393,8 @@ def search_neighbors(traj=None,
         action_datasets.append({str(frame_idx): np.asarray(selected_indices)})
 
     return get_data_from_dtype(action_datasets, dtype)
+
+
 @super_dispatch(refindex=3)
 def native_contacts(traj=None,
                     mask="",

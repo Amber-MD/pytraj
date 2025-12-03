@@ -73,12 +73,11 @@ def center_of_mass(traj=None,
     # note: do not use super_dispatch for this method since
     # we already use for _calc_vector_center
     if dtype == 'ndarray':
-        com_data = _calc_vector_center(
-            traj=traj,
-            mask=mask,
-            top=top,
-            mass=True,
-            frame_indices=frame_indices)
+        com_data = _calc_vector_center(traj=traj,
+                                       mask=mask,
+                                       top=top,
+                                       mass=True,
+                                       frame_indices=frame_indices)
         return com_data.reshape(traj.n_frames, 3)
     else:
         command = "center " + mask + " mass"
