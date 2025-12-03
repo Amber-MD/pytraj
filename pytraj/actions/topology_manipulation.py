@@ -208,11 +208,28 @@ def align_principal_axis(traj=None,
     -----
     apply for mutatble traj (Trajectory, Frame)
     """
-    _assert_mutable(traj)
+    mut_traj = _ensure_mutable(traj)
     mass_ = 'mass' if mass else ''
     command = ' '.join((mask, " dorotation", mass_))
-    do_action(traj, command, c_action.Action_Principal)
-    return traj
+
+    # Handle frame_indices manually since do_action doesn't support it
+    c_dslist = CpptrajDatasetList()
+    topology = get_topology(mut_traj, top)
+    action = c_action.Action_Principal()
+    action.read_input(command, top=topology)
+    action.setup(topology)
+
+    # Process only specified frames or all frames
+    if frame_indices is not None:
+        for idx, frame in enumerate(mut_traj):
+            if idx in frame_indices:
+                action.compute(frame)
+    else:
+        for frame in mut_traj:
+            action.compute(frame)
+
+    action.post_process()
+    return mut_traj
 
 
 def principal_axes(traj=None, mask='*', dorotation=False, mass=True, top=None):

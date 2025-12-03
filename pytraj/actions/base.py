@@ -181,6 +181,8 @@ def _ensure_mutable(trajiter):
     if isinstance(trajiter, TrajectoryIterator):
         return Trajectory(trajiter)
     return trajiter
+
+
 def in_voxel(voxel_cntr, xyz, delta):
     x0, y0, z0 = voxel_cntr
     x, y, z = xyz

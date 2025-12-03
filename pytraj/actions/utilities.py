@@ -391,8 +391,6 @@ def search_neighbors(traj=None,
         action_datasets.append({str(frame_idx): np.asarray(selected_indices)})
 
     return get_data_from_dtype(action_datasets, dtype)
-
-
 @super_dispatch(refindex=3)
 def native_contacts(traj=None,
                     mask="",
