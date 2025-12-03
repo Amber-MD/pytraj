@@ -448,7 +448,7 @@ def native_contacts(traj=None,
     action_datasets[0].top = top
     action_datasets[0].add_frame(ref)
     native_contacts_action(command, traj, top=top, dslist=action_datasets)
-    action_datasets._pop(0)
+    action_datasets.remove_at(0)
 
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
@@ -643,7 +643,7 @@ def xtalsymm(traj, mask='', options='', ref=None, **kwargs):
     action.post_process()
 
     if ref is not None:
-        c_dslist._pop(0)  # remove reference
+        c_dslist.remove_at(0)  # remove reference
 
     return c_dslist
 
@@ -667,7 +667,7 @@ def analyze_modes(mode_type,
     command = ' '.join((mode_type, 'name {}'.format(my_modes), options))
     runner.run_analysis(command)
 
-    runner.datasets._pop(0)
+    runner.datasets.remove_at(0)
     return get_data_from_dtype(runner.datasets, dtype=dtype)
 
 
@@ -716,7 +716,7 @@ def hausdorff(matrix, options='', dtype='ndarray'):
     command = f"my_matrix {options}"
     runner.run_analysis(command)
 
-    runner.datasets._pop(0)
+    runner.datasets.remove_at(0)
 
     data = get_data_from_dtype(runner.datasets, dtype)
     return data
@@ -753,8 +753,8 @@ def permute_dihedrals(traj, filename, options=''):
     with Command() as executor:
         executor.dispatch(state, command)
 
-    state.data._pop(0)
-    state.data._pop(0)
+    state.data.remove_at(0)
+    state.data.remove_at(0)
 
 
 def check_structure(traj,

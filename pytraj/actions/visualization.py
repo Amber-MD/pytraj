@@ -94,7 +94,7 @@ def volmap(traj,
         if volume_ds.key.endswith("[totalvol]"):
             index = i
     if index is not None:
-        action_datasets._pop(index)
+        action_datasets.remove_at(index)
     return get_data_from_dtype(action_datasets, dtype)
 
 

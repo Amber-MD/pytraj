@@ -190,7 +190,7 @@ def align(traj,
         align_action.post_process()
 
         # remove ref
-        action_datasets._pop(0)
+        action_datasets.remove_at(0)
 
         return traj
 
@@ -791,8 +791,8 @@ def atom_map(traj, ref, rmsfit=False):
     act.post_process()
 
     # free memory of two reference
-    dataset_list._pop(0)
-    dataset_list._pop(0)
+    dataset_list.remove_at(0)
+    dataset_list.remove_at(0)
 
     return (out.read(), get_data_from_dtype(dataset_list, dtype='ndarray'))
 

@@ -110,7 +110,7 @@ cdef class DatasetList:
     def remove_set(self, Dataset dset):
         self.thisptr.RemoveSet(dset.baseptr0)
 
-    def _pop(self, int i):
+    def remove_at(self, int i):
         self.remove_set(self[i])
 
     def __getitem__(self, idx):

@@ -627,6 +627,6 @@ def dihedral_rms(traj=None,
                                    dslist=action_datasets)
 
     if ref is not None:
-        action_datasets._pop(0)
+        action_datasets.remove_at(0)
 
     return get_data_from_dtype(action_datasets, dtype=dtype)

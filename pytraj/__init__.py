@@ -107,6 +107,7 @@ from .analysis import energy_analysis
 from .analysis import hbond_analysis
 from .analysis import nucleic_acid_analysis
 from .analysis import topology_analysis
+from .analysis.tica_analysis import tica
 
 from . import all_actions
 from .all_actions import *
@@ -177,6 +178,7 @@ calc_pairdist = pair_distribution = pairdist
 calc_jcoupling = jcoupling
 calc_dssp = dssp
 calc_distance_rmsd = drmsd = distance_rmsd
+rms = rmsd  # Add rms alias for rmsd
 calc_radgyr = radgyr
 calc_mindist = mindist
 calc_diffusion = diffusion

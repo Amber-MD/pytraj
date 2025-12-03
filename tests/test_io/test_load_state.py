@@ -25,7 +25,7 @@ class TestState(unittest.TestCase):
 
             rmsd0 = pt.rmsd(traj, '@CA', ref=0)
             r0 = pt.radgyr(traj, '@CA')
-            s.data._pop(0)
+            s.data.remove_at(0)
             aa_eq(rmsd0, s.data[0])
             aa_eq(r0, s.data[1])
             assert len(s.data[0]) == traj.n_frames
@@ -35,7 +35,7 @@ class TestState(unittest.TestCase):
 
             s = load_batch(traj, lines)
             s.run()
-            s.data._pop(0)
+            s.data.remove_at(0)
 
             rmsd0 = pt.rmsd(traj, '@CA', ref=0)
             r0 = pt.radgyr(traj, '@CA')
