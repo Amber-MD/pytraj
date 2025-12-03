@@ -152,16 +152,8 @@ def surf(traj=None, mask="", dtype='ndarray', frame_indices=None, top=None):
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> data = pt.surf(traj, '@CA')
     """
-    action = c_action.Action_Surf()
-    c_dslist = CpptrajDatasetList()
-    action.read_input(mask, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
-
-    for frame in traj:
-        action.compute(frame)
-
-    action.post_process()
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    action_datasets, _ = do_action(traj, mask, c_action.Action_Surf)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
 @super_dispatch()
@@ -217,16 +209,8 @@ def volume(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None):
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> vol = pt.volume(traj, '@CA')
     """
-    action = c_action.Action_Volume()
-    c_dslist = CpptrajDatasetList()
-    action.read_input(mask, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
-
-    for frame in traj:
-        action.compute(frame)
-
-    action.post_process()
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    action_datasets, _ = do_action(traj, mask, c_action.Action_Volume)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
 @super_dispatch()

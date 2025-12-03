@@ -147,6 +147,13 @@ class AnalysisRunner:
             else:
                 dataset.data = np.asarray(data).astype('f8')
 
+    def add_reference(self, name, frame, topology=None):
+        """Convenience method to add reference dataset"""
+        dataset = self.datasets.add(DatasetType.REFERENCE, name)
+        dataset.top = topology or getattr(frame, 'top', None)
+        dataset.add_frame(frame)
+        return dataset
+
     def run_analysis(self, command):
         self.analysis(command, dslist=self.datasets)
         return self.datasets

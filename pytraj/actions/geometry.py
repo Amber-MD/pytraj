@@ -2,6 +2,7 @@
 Geometric analysis functions: distances, angles, dihedrals
 """
 from .base import *
+from .base import add_reference_dataset
 
 __all__ = [
     'distance', 'pairwise_distance', 'angle', 'dihedral', 'mindist',
@@ -616,10 +617,7 @@ def dihedral_rms(traj=None,
 
     if ref is not None:
         ref_frame = get_reference(traj, ref)
-        ref_dataset = action_datasets.add(DatasetType.REFERENCE_FRAME,
-                                          name=ref_name)
-        ref_dataset.top = ref_frame.top or traj.top
-        ref_dataset.add_frame(ref_frame)
+        add_reference_dataset(action_datasets, ref_name, ref_frame, ref_frame.top or traj.top)
 
     action_datasets, _ = do_action(traj,
                                    command,

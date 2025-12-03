@@ -339,16 +339,8 @@ def gist(traj,
     if solvent_mask:
         command = f"solvent {solvent_mask} " + command
 
-    c_dslist = CpptrajDatasetList()
-    action = c_action.Action_Gist()
-    action.read_input(command, top=traj.top, dslist=c_dslist)
-    action.setup(traj.top)
-
-    for frame in traj:
-        action.compute(frame)
-
-    action.post_process()
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    action_datasets, _ = do_action(traj, command, c_action.Action_Density)
+    return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
 def _grid(traj,
