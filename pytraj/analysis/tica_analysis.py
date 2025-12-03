@@ -136,11 +136,9 @@ def _tica_coordinate_based_cpptraj(traj, mask, lag, n_components, evector_scale,
         subset_traj = traj
 
     # Add trajectory as coordinate dataset
-    # Note: AnalysisRunner always uses '_DEFAULTCRD_' for coordinate datasets
     runner.add_dataset(DatasetType.COORDS, "_DEFAULTCRD_", subset_traj)
 
     # Build TICA command for coordinate-based analysis
-    # The coordinate dataset is automatically named '_DEFAULTCRD_'
     command_parts = [f"crdset _DEFAULTCRD_ mask {mask} lag {lag}"]
 
     if n_components is not None:

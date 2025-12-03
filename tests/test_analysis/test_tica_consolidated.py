@@ -61,16 +61,15 @@ def test_tica_coordinate_based():
     with tempfolder():
         # Get live cpptraj reference
         state = pt.datafiles.load_cpptraj_state(cm).run()
-        cpptraj_results = state.data.to_dict()
 
-        # Find TICA cumvar key
-        cumvar_key = None
-        for key in cpptraj_results.keys():
-            if '[cumvar]' in key:
-                cumvar_key = key
+        # Find TICA cumvar dataset directly (avoid to_dict() segfault)
+        cpptraj_cumvar = None
+        for dataset in state.data:
+            if hasattr(dataset, 'key') and '[cumvar]' in dataset.key:
+                cpptraj_cumvar = dataset.values
                 break
 
-        if cumvar_key is None:
+        if cpptraj_cumvar is None:
             raise ValueError("No cumvar data found in cpptraj coordinate TICA results")
 
         # Run pytraj equivalent
@@ -78,7 +77,7 @@ def test_tica_coordinate_based():
         coord_result = pt.tica(traj, mask='@CA', lag=10)
 
         # Compare results directly to cpptraj
-        aa_eq(coord_result.cumvar, cpptraj_results[cumvar_key][:len(coord_result.cumvar)])
+        aa_eq(coord_result.cumvar, cpptraj_cumvar[:len(coord_result.cumvar)])
 
 
 def test_tica_mixed_datasets():
