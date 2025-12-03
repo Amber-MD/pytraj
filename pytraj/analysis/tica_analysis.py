@@ -122,7 +122,7 @@ def tica(traj=None,
 
 def _tica_coordinate_based_cpptraj(traj, mask, lag, n_components, evector_scale, dtype, top, frame_indices, commute, cumvarout):
     """Coordinate-based TICA using cpptraj Analysis_TICA"""
-    from ..actions.base import AnalysisRunner, DatasetType
+    from ..actions.base import AnalysisRunner, DatasetType, CommandBuilder
     from ..analysis.c_analysis.c_analysis import Analysis_TICA
     from ..utils.get_common_objects import get_data_from_dtype
 
@@ -138,24 +138,17 @@ def _tica_coordinate_based_cpptraj(traj, mask, lag, n_components, evector_scale,
     # Add trajectory as coordinate dataset
     runner.add_dataset(DatasetType.COORDS, "_DEFAULTCRD_", subset_traj)
 
-    # Build TICA command for coordinate-based analysis
-    command_parts = [f"crdset _DEFAULTCRD_ mask {mask} lag {lag}"]
-
-    if n_components is not None:
-        command_parts.append(f"evecs {n_components}")
-
-    if evector_scale != 'none':
-        command_parts.append(f"scale {evector_scale}")
-
-    if commute:
-        command_parts.append("map commute")
-
-    if cumvarout is not None:
-        command_parts.append(f"cumvarout {cumvarout}")
-    else:
-        command_parts.append("out tica_output.dat")
-
-    command = ' '.join(command_parts)
+    # Build TICA command for coordinate-based analysis using CommandBuilder
+    command = (CommandBuilder()
+               .add("crdset", "_DEFAULTCRD_")
+               .add("mask", mask)
+               .add("lag", lag)
+               .add("evecs", n_components, condition=n_components is not None)
+               .add("scale", evector_scale, condition=evector_scale != 'none')
+               .add("map commute", condition=commute)
+               .add("cumvarout", cumvarout, condition=cumvarout is not None)
+               .add("out tica_output.dat", condition=cumvarout is None)
+               .build())
 
     # Run the analysis
     runner.run_analysis(command)
@@ -165,6 +158,7 @@ def _tica_coordinate_based_cpptraj(traj, mask, lag, n_components, evector_scale,
 
 def _tica_dataset_based_cpptraj(data, lag, n_components, evector_scale, dtype, commute, cumvarout):
     """Dataset-based TICA using cpptraj Analysis_TICA"""
+    from ..actions.base import CommandBuilder
     from ..analysis.c_analysis.c_analysis import Analysis_TICA
     from ..utils.get_common_objects import get_data_from_dtype
 
@@ -203,24 +197,16 @@ def _tica_dataset_based_cpptraj(data, lag, n_components, evector_scale, dtype, c
     else:
         raise ValueError("Data must be a list or tuple of arrays for dataset-based TICA")
 
-    # Build TICA command for cpptraj
-    tica_command_parts = [data_refs, f"lag {lag}"]
-
-    if n_components is not None:
-        tica_command_parts.append(f"evecs {n_components}")
-
-    if evector_scale != 'none':
-        tica_command_parts.append(f"scale {evector_scale}")
-
-    if commute:
-        tica_command_parts.append("map commute")
-
-    if cumvarout is not None:
-        tica_command_parts.append(f"cumvarout {cumvarout}")
-    else:
-        tica_command_parts.append("out tica_output.dat")
-
-    tica_command = ' '.join(tica_command_parts)
+    # Build TICA command for cpptraj using CommandBuilder
+    tica_command = (CommandBuilder()
+                    .add(data_refs, condition=True)
+                    .add("lag", lag)
+                    .add("evecs", n_components, condition=n_components is not None)
+                    .add("scale", evector_scale, condition=evector_scale != 'none')
+                    .add("map commute", condition=commute)
+                    .add("cumvarout", cumvarout, condition=cumvarout is not None)
+                    .add("out tica_output.dat", condition=cumvarout is None)
+                    .build())
 
     # Run cpptraj TICA analysis
     act(tica_command, dslist=c_dslist)
