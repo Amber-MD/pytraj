@@ -104,7 +104,8 @@ def velocity_autocorrelation(traj,
                              usecoords=False,
                              dtype='ndarray',
                              top=None,
-                             velocity_arr=None):
+                             velocity_arr=None,
+                             frame_indices=None):
     """
     Parameters
     ----------

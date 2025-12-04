@@ -24,8 +24,8 @@ def in_voxel(voxel_cntr, xyz, delta):
                               xyz[2] <= voxel_cntr[2] + delta)
 
 
-@register_pmap
-def count_in_voxel(traj=None, mask="", voxel_cntr=(0, 0, 0), voxel_size=5, frame_indices=None):
+@super_dispatch()
+def count_in_voxel(traj=None, mask="", voxel_cntr=(0, 0, 0), voxel_size=5, frame_indices=None, top=None):
     """For a voxel with center xyz and size voxel_size, find atoms that match a given mask
     that are contained in that voxel over the course of a trajectory.
 
@@ -54,17 +54,18 @@ def count_in_voxel(traj=None, mask="", voxel_cntr=(0, 0, 0), voxel_size=5, frame
         size of voxel measured from center to edge.
     frame_indices : array-like, optional
         frame indices
+    top : Topology, optional
 
     Returns
     -------
     1D ndarray, one dimensional numpy array containing the counts for each frame.
     """
     lives_in_voxel = []
-    population = traj.top.atom_indices(mask)
+    topology = get_topology(traj, top)
+    population = topology.atom_indices(mask)
     delta = voxel_size / 2
 
-    # Use standard iterframe pattern
-    for frame in traj.iterframe(frame_indices=frame_indices):
+    for frame in traj:
         frame_voxAtoms = []
         for atm in population:
             coord = frame.atom(atm)
