@@ -12,7 +12,9 @@ from .base_setup import (
     get_cpptraj_info, get_ext_modules, get_package_data,
     check_cython, try_updating_libcpptraj, add_openmp_flag,
     setenv_cc_cxx, write_version_py
-)class ExtensionBuilder:
+)
+
+class ExtensionBuilder:
     """Handles building C extensions with cpptraj integration"""
 
     def __init__(self, config, platform):
