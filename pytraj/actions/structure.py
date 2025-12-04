@@ -156,6 +156,9 @@ def surf(traj=None, mask="", dtype='ndarray', frame_indices=None, top=None):
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> data = pt.surf(traj, '@CA')
     """
+    if traj is None:
+        raise ValueError('trajectory is required')
+
     action_datasets, _ = do_action(traj, mask, c_action.Action_Surf)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
@@ -191,16 +194,16 @@ def molsurf(traj=None,
 
 
 @super_dispatch()
-def volume(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None):
+def volume(traj=None, mask="", dtype='ndarray', frame_indices=None, top=None):
     """compute volume
 
     Parameters
     ----------
     traj : Trajectory-like
     mask : str, optional
-    top : Topology, optional
     dtype : str, default 'ndarray'
     frame_indices : array-like, optional
+    top : Topology, optional
 
     Returns
     -------
@@ -213,6 +216,9 @@ def volume(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None):
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> vol = pt.volume(traj, '@CA')
     """
+    if traj is None:
+        raise ValueError('trajectory is required')
+
     action_datasets, _ = do_action(traj, mask, c_action.Action_Volume)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 

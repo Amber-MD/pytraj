@@ -56,8 +56,11 @@ def volmap(traj,
     '''
     dummy_filename = 'dummy_fn.dat'
 
-    assert isinstance(grid_spacing, tuple) and len(
-        grid_spacing) == 3, 'grid_spacing must be a tuple with length=3'
+    if not isinstance(grid_spacing, tuple) or len(grid_spacing) != 3:
+        raise ValueError('grid_spacing must be a tuple with length=3')
+
+    if traj is None:
+        raise ValueError('trajectory is required')
 
     grid_spacing_str = ' '.join([str(x) for x in grid_spacing])
     radscale_str = 'radscale ' + str(radscale)
@@ -66,7 +69,8 @@ def volmap(traj,
     centermask_str = 'centermask ' + centermask
 
     if isinstance(size, tuple):
-        assert len(size) == 3, 'length of size must be 3'
+        if len(size) != 3:
+            raise ValueError('length of size must be 3')
     elif size is not None:
         raise ValueError(
             'size must be None or a tuple. Please check method doc')
@@ -233,6 +237,17 @@ def pairdist(traj,
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> data = pt.pairdist(traj)
     '''
+    if traj is None:
+        raise ValueError('trajectory is required')
+
+    # Convert delta to float if it's a string and validate
+    try:
+        delta_val = float(delta)
+        if delta_val <= 0:
+            raise ValueError('delta must be positive')
+    except (ValueError, TypeError):
+        raise ValueError('delta must be a positive number')
+
     command = (CommandBuilder().add("mask",
                                     mask).add("mask2",
                                               mask2,
