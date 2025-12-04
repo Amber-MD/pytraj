@@ -269,13 +269,14 @@ def xcorr(data0, data1, dtype='ndarray'):
     return get_data_from_dtype(runner.datasets[2:3], dtype=dtype)
 
 
-def wavelet(traj, command):
+def wavelet(traj, command, top=None):
     """wavelet analysis
 
     Parameters
     ----------
     traj : Trajectory-like
     command : str, cpptraj command
+    top : Topology, optional
 
     Returns
     -------

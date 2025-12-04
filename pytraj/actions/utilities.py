@@ -213,7 +213,7 @@ def mean_structure(traj,
 get_average_frame = mean_structure
 
 
-def get_velocity(traj, mask=None, frame_indices=None):
+def get_velocity(traj, mask=None, top=None, frame_indices=None):
     '''get velocity for specify frames with given mask
 
     Parameters
@@ -221,6 +221,7 @@ def get_velocity(traj, mask=None, frame_indices=None):
     traj : Trajectory-like or iterable that produces Frame
     mask : str, default None (use all atoms), optional
         atom mask
+    top : Topology, optional
     frame_indices : iterable that produces integer, default None, optional
         if not None, only get velocity for given frame indices
 
@@ -478,13 +479,14 @@ def grid(traj=None, command="", top=None, dtype='dataset', frame_indices=None):
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
-def transform(traj, by, frame_indices=None):
+def transform(traj, by, top=None, frame_indices=None):
     '''transform pytraj.Trajectory by a series of cpptraj's commands
 
     Parameters
     ----------
     traj : Mutable Trajectory
     by : list of cpptraj commands
+    top : Topology, optional
     frame_indices : {None, array-like}, default None
         if not None, perform tranformation for specific frames.
 
@@ -699,7 +701,7 @@ def hausdorff(matrix, options='', dtype='ndarray'):
     return get_data_from_dtype(runner.datasets, dtype)
 
 
-def permute_dihedrals(traj, filename, options=''):
+def permute_dihedrals(traj, filename, options='', top=None):
     """
     Parameters
     ----------
@@ -798,7 +800,7 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     return out.read()
 
 
-def set_velocity(traj, temperature=298, ig=10, options=''):
+def set_velocity(traj, temperature=298, ig=10, options='', top=None):
     """
 
     Notes

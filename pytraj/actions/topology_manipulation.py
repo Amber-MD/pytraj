@@ -696,7 +696,7 @@ def set_dihedral(traj, resid=0, dihedral_type=None, deg=0, top=None):
     return traj
 
 
-def set_velocity(traj, temperature=298, ig=10, options=''):
+def set_velocity(traj, temperature=298, ig=10, options='', top=None):
     """
 
     Notes
@@ -719,7 +719,7 @@ def set_velocity(traj, temperature=298, ig=10, options=''):
     return traj
 
 
-def fiximagedbonds(traj, mask=''):
+def fiximagedbonds(traj, mask='', top=None):
     """fix imaged bonds
 
     Parameters
@@ -787,7 +787,7 @@ def atom_map(traj, ref, rmsfit=False):
     return (out.read(), get_data_from_dtype(dataset_list, dtype='ndarray'))
 
 
-def check_chirality(traj, mask='', dtype='dict'):
+def check_chirality(traj, mask='', dtype='dict', top=None):
     """check chirality
 
     Parameters

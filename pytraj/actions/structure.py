@@ -194,7 +194,7 @@ def molsurf(traj=None,
 
 
 @super_dispatch()
-def volume(traj=None, mask="", dtype='ndarray', frame_indices=None, top=None):
+def volume(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None):
     """compute volume
 
     Parameters
