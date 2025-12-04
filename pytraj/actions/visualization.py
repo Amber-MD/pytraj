@@ -111,7 +111,8 @@ def rdf(traj=None,
         intramol=True,
         frame_indices=None,
         top=None,
-        raw_rdf=False):
+        raw_rdf=False,
+        dtype='tuple'):
     '''compute radial distribtion function. Doc was adapted lightly from cpptraj doc
 
     Returns
@@ -141,6 +142,9 @@ def rdf(traj=None,
     frame_indices : array-like, default None, optional
     raw_rdf : bool, default False, optional
         if True, return the raw (non-normalized) RDF values
+    dtype : str, default 'tuple'
+        Return data type. 'tuple' returns (bin_centers, values), 'dict' returns
+        {'bin_centers': ..., 'rdf': ...}, other types passed to get_data_from_dtype
 
     Examples
     --------
@@ -189,8 +193,16 @@ def rdf(traj=None,
     # make a copy sine c_dslist[-1].values return view of its data
     # c_dslist will be freed
     values = np.array(c_dslist[-1].values)
-    # return (bin_centers, values)
-    return (np.arange(bin_spacing / 2., maximum, bin_spacing), values)
+    bin_centers = np.arange(bin_spacing / 2., maximum, bin_spacing)
+
+    if dtype == 'tuple':
+        # default behavior - return (bin_centers, values) tuple for backward compatibility
+        return (bin_centers, values)
+    elif dtype == 'dict':
+        return {'bin_centers': bin_centers, 'rdf': values}
+    else:
+        # for 'ndarray', 'dataset', etc.
+        return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
 @super_dispatch()

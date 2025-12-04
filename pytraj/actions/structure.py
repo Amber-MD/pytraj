@@ -124,7 +124,11 @@ def radgyr_tensor(traj=None,
     if dtype == 'dict':
         return {k0: v0, k1: v1}
     elif dtype == 'ndarray':
+        # Return structured ndarray or tuple for backward compatibility
+        # Note: returning tuple for backward compatibility, could be changed in future version
         return v0, v1
+    else:
+        return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
 @super_dispatch()
@@ -213,7 +217,6 @@ def volume(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None):
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
-@super_dispatch()
 @register_pmap
 @register_openmp
 @super_dispatch()
