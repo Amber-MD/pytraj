@@ -6,9 +6,8 @@ import sys
 import subprocess
 import warnings
 
-# For importing from original scripts
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'scripts'))
-from base_setup import is_clang
+# Import from local base_setup module
+from .base_setup import is_clang
 
 class PlatformHandler:
     """Handle platform-specific build configuration"""

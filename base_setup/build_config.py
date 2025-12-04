@@ -5,9 +5,8 @@ import os
 import sys
 import builtins
 
-# For importing from original scripts
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'scripts'))
-from base_setup import get_version_info, CleanCommand
+# Import from local base_setup module
+from .base_setup import get_version_info, CleanCommand
 
 class BuildConfig:
     """Centralized configuration for build process"""
