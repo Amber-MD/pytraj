@@ -175,7 +175,10 @@ def distance(traj=None,
              dtype='ndarray',
              top=None,
              image=False,
-             n_frames=None):
+             n_frames=None,
+             mass=True,
+             ref=None,
+             point=None):
     """compute distance between two maskes
 
     Parameters
@@ -191,6 +194,12 @@ def distance(traj=None,
     image : bool, default False
     n_frames : int, optional, default None
         only need to provide n_frames if ``traj`` does not have this info
+    mass : bool, default True
+        Use mass-weighted center of mass instead of geometric center
+    ref : Frame or Trajectory, optional
+        Reference structure for distance calculations
+    point : array-like of shape (3,), optional
+        Reference point coordinates [x, y, z]
 
     Returns
     -------
@@ -227,6 +236,19 @@ def distance(traj=None,
     >>> dist = pt.distance(traj, [[1, 5], [4, 10]])
     """
     ensure_not_none_or_string(traj)
+
+    # Handle reference point or structure
+    if point is not None:
+        if len(point) != 3:
+            raise ValueError("point must have 3 coordinates [x, y, z]")
+        # For point mode, use _distance_to_ref_or_point
+        return _distance_to_ref_or_point(traj=traj, mask=mask, point=point,
+                                       dtype=dtype, top=top, frame_indices=frame_indices)
+    elif ref is not None:
+        # For reference mode, use _distance_to_ref_or_point
+        return _distance_to_ref_or_point(traj=traj, mask=mask, ref=ref,
+                                       dtype=dtype, top=top, frame_indices=frame_indices)
+
     command = mask
 
     traj = get_fiterator(traj, frame_indices)
@@ -234,6 +256,9 @@ def distance(traj=None,
     noimage_str = 'noimage' if not image or (hasattr(traj, 'crdinfo') and
                                              not traj.crdinfo['has_box'] and
                                              topology.has_box()) else ''
+
+    # Add mass weighting option
+    mass_str = '' if mass else ' geom'
 
     command_array = np.asarray(command)
 
@@ -249,10 +274,15 @@ def distance(traj=None,
             action_list = ActionList()
 
             for command in command_list:
+                # Add mass weighting and imaging options
+                command_parts = [command]
+                if not mass:
+                    command_parts.append('geom')
                 if noimage_str:
-                    command = ' '.join((command, noimage_str))
+                    command_parts.append(noimage_str)
+                final_command = ' '.join(command_parts)
                 action_list.add(c_action.Action_Distance(),
-                                command,
+                                final_command,
                                 topology,
                                 dslist=cpptraj_action_datasets)
 

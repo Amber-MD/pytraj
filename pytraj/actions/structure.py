@@ -78,9 +78,27 @@ def radgyr(traj=None,
            mask="",
            top=None,
            nomax=True,
+           mass=True,
+           tensor=False,
            frame_indices=None,
            dtype='ndarray'):
     '''compute radius of gyration
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, default ""
+        atom selection
+    top : Topology, optional
+    nomax : bool, default True
+        do not calculate tensor eigenvalues maximum
+    mass : bool, default True
+        use mass-weighted calculation
+    tensor : bool, default False
+        calculate radius of gyration tensor
+    frame_indices : array-like, optional
+    dtype : str, default 'ndarray'
+        return data type
 
     Examples
     --------
@@ -89,9 +107,17 @@ def radgyr(traj=None,
     >>> data = pt.radgyr(traj, '@CA')
     >>> data = pt.radgyr(traj, '!:WAT', nomax=False)
     >>> data = pt.radgyr(traj, '@CA', frame_indices=[2, 4, 6])
+    >>> # Mass-weighted with tensor calculation
+    >>> data = pt.radgyr(traj, '@CA', mass=True, tensor=True)
     '''
-    nomax_ = 'nomax' if nomax else ""
-    command = " ".join((mask, nomax_))
+    command_parts = [mask]
+    if nomax:
+        command_parts.append('nomax')
+    if not mass:
+        command_parts.append('geom')  # Use geometric center instead of mass-weighted
+    if tensor:
+        command_parts.append('tensor')
+    command = " ".join(command_parts)
     action_datasets, _ = do_action(traj, command, c_action.Action_Radgyr)
     return get_data_from_dtype(action_datasets, dtype)
 
@@ -102,7 +128,17 @@ def radgyr_tensor(traj=None,
                   top=None,
                   frame_indices=None,
                   dtype='ndarray'):
-    '''compute radius of gyration with tensore
+    '''compute radius of gyration with tensor
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, default ""
+        atom selection
+    top : Topology, optional
+    frame_indices : array-like, optional
+    dtype : str, default 'ndarray'
+        return data type
 
     Examples
     --------

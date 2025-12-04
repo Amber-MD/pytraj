@@ -407,9 +407,13 @@ def native_contacts(traj=None,
                     ref=0,
                     dtype='dataset',
                     distance=7.0,
+                    mindist=None,
+                    maxdist=None,
                     image=True,
                     include_solvent=False,
                     byres=False,
+                    series=False,
+                    first=False,
                     frame_indices=None,
                     options='',
                     top=None):
@@ -417,8 +421,36 @@ def native_contacts(traj=None,
 
     Parameters
     ----------
+    traj : Trajectory-like
+    mask : str, default ""
+        First atom selection
+    mask2 : str, default ""
+        Second atom selection
+    ref : {Frame, int}, default 0
+        Reference frame or index
+    dtype : str, default 'dataset'
+        Return data type
+    distance : float, default 7.0
+        Distance cutoff for contacts (Angstroms)
+    mindist : float, optional
+        Minimum distance cutoff
+    maxdist : float, optional
+        Maximum distance cutoff (overrides distance if set)
+    image : bool, default True
+        Apply periodic boundary conditions
+    include_solvent : bool, default False
+        Include solvent atoms in contact calculation
+    byres : bool, default False
+        Calculate contacts per residue pair
+    series : bool, default False
+        Calculate contact time series for each pair
+    first : bool, default False
+        Use first occurrence for contact identification
+    frame_indices : array-like, optional
+        Frame indices to analyze
     options : str
         Extra cpptraj command(s).
+    top : Topology, optional
 
     Examples
     --------
@@ -433,6 +465,12 @@ def native_contacts(traj=None,
 
     >>> # use integer array for mask
     >>> data = pt.native_contacts(traj, mask=range(100), mask2=[200, 201], ref=ref, distance=8.0)
+
+    >>> # Enhanced parameters: per-residue contacts with distance range
+    >>> data = pt.native_contacts(traj, ref=ref, byres=True, mindist=3.0, maxdist=10.0)
+
+    >>> # Time series analysis with first contact identification
+    >>> data = pt.native_contacts(traj, ref=ref, series=True, first=True)
     """
     ref = get_reference(traj, ref)
     native_contacts_action = c_action.Action_NativeContacts()
@@ -443,11 +481,27 @@ def native_contacts(traj=None,
         mask2 = array_to_cpptraj_atommask(mask2)
     mask_str = ' '.join((mask, mask2))
 
-    command = (CommandBuilder().add("ref myframe").add(mask_str).add(
-        "distance", str(distance)).add("noimage", condition=not image).add(
-            "includesolvent",
-            condition=include_solvent).add("byresidue", condition=byres).add(
-                options, condition=bool(options)).build())
+    # Build command with enhanced parameters
+    cmd_builder = (CommandBuilder().add("ref myframe").add(mask_str))
+
+    # Distance parameters - maxdist overrides distance if set
+    if maxdist is not None:
+        cmd_builder.add("maxdist", str(maxdist))
+    else:
+        cmd_builder.add("distance", str(distance))
+
+    if mindist is not None:
+        cmd_builder.add("mindist", str(mindist))
+
+    # Boolean options
+    cmd_builder.add("noimage", condition=not image)
+    cmd_builder.add("includesolvent", condition=include_solvent)
+    cmd_builder.add("byresidue", condition=byres)
+    cmd_builder.add("series", condition=series)
+    cmd_builder.add("first", condition=first)
+    cmd_builder.add(options, condition=bool(options))
+
+    command = cmd_builder.build()
 
     add_reference_dataset(action_datasets, 'myframe', ref, top)
     native_contacts_action(command, traj, top=top, dslist=action_datasets)
