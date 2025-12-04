@@ -314,6 +314,10 @@ def rmsf(traj=None,
          top=None,
          dtype='ndarray',
          frame_indices=None,
+         byres=False,
+         byatom=True,
+         bymask=False,
+         calcadp=False,
          options=''):
     '''compute atomicfluct (RMSF)
 
@@ -322,7 +326,15 @@ def rmsf(traj=None,
     traj : Trajectory-like
     mask : str or 1D-array
         atom mask. If not given, use all atoms
-    options : str, additional cpptraj options ('byres', 'bymask', 'byatom', 'calcadp')
+    byres : bool, default False
+        Calculate fluctuations per residue
+    byatom : bool, default True
+        Calculate fluctuations per atom (default behavior)
+    bymask : bool, default False
+        Calculate single value for entire mask
+    calcadp : bool, default False
+        Calculate atomic displacement parameters
+    options : str, additional cpptraj options
 
     Examples
     --------
@@ -333,8 +345,30 @@ def rmsf(traj=None,
     array([[  5.        ,   0.61822273],
            [ 16.        ,   0.5627449 ],
            [ 40.        ,   0.53717119]])
+
+    >>> # Enhanced parameters example
+    >>> # Calculate RMSF per residue
+    >>> data_byres = pt.rmsf(traj, ':1-10', byres=True)
+    >>> # Calculate single RMSF value for entire mask
+    >>> data_bymask = pt.rmsf(traj, '@CA', bymask=True)
     '''
-    command = ' '.join((mask, options))
+    # Build command with granularity options
+    command_parts = [mask]
+
+    # Granularity options - mutually exclusive
+    if byres:
+        command_parts.append('byres')
+    elif bymask:
+        command_parts.append('bymask')
+    # byatom is default, no need to add flag
+
+    # Additional options
+    if calcadp:
+        command_parts.append('calcadp')
+    if options:
+        command_parts.append(options)
+
+    command = ' '.join(command_parts)
     action_datasets, _ = do_action(traj, command, c_action.Action_AtomicFluct)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
