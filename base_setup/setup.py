@@ -9,9 +9,9 @@ import sys
 from setuptools import setup, Extension
 
 # Import build configuration and utilities
-from base_setup.build_config import BuildConfig
-from base_setup.platform_utils import PlatformHandler
-from base_setup.extension_builder import ExtensionBuilder
+from build_config import BuildConfig
+from platform_utils import PlatformHandler
+from extension_builder import ExtensionBuilder
 
 def main():
     """Main setup entry point with cleaner flow"""
