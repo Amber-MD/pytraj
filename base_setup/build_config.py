@@ -20,10 +20,12 @@ class BuildConfig:
         self.debug = self._check_flag('-debug')
         self.cythonize_only = self._check_flag('--cythonize')
 
-        # Determine compilation mode
-        self.compile_extensions = self._should_compile()
+        # Detect installation mode first
         self.is_sdist = 'sdist' in sys.argv
         self.use_pip = self._detect_pip_install()
+
+        # Then determine compilation mode
+        self.compile_extensions = self._should_compile()
 
         # OpenMP flag
         self.openmp_flag = '-openmp' if not self.disable_openmp else ''
