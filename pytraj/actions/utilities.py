@@ -25,7 +25,7 @@ def in_voxel(voxel_cntr, xyz, delta):
 
 
 @register_pmap
-def count_in_voxel(traj=None, mask="", voxel_cntr=(0, 0, 0), voxel_size=5):
+def count_in_voxel(traj=None, mask="", voxel_cntr=(0, 0, 0), voxel_size=5, frame_indices=None):
     """For a voxel with center xyz and size voxel_size, find atoms that match a given mask
     that are contained in that voxel over the course of a trajectory.
 
@@ -52,6 +52,8 @@ def count_in_voxel(traj=None, mask="", voxel_cntr=(0, 0, 0), voxel_size=5):
         center of voxel
     voxel_size: int, default 5
         size of voxel measured from center to edge.
+    frame_indices : array-like, optional
+        frame indices
 
     Returns
     -------
@@ -61,7 +63,8 @@ def count_in_voxel(traj=None, mask="", voxel_cntr=(0, 0, 0), voxel_size=5):
     population = traj.top.atom_indices(mask)
     delta = voxel_size / 2
 
-    for frame in traj:
+    # Use standard iterframe pattern
+    for frame in traj.iterframe(frame_indices=frame_indices):
         frame_voxAtoms = []
         for atm in population:
             coord = frame.atom(atm)
@@ -452,7 +455,7 @@ def native_contacts(traj=None,
 
 
 @super_dispatch()
-def grid(traj=None, command="", top=None, dtype='dataset'):
+def grid(traj=None, command="", top=None, dtype='dataset', frame_indices=None):
     """perform grid analysis
 
     Parameters
@@ -463,6 +466,8 @@ def grid(traj=None, command="", top=None, dtype='dataset'):
     top : Topology, optional
     dtype : str, default 'dataset'
         return data type
+    frame_indices : array-like, optional
+        frame indices
 
     Returns
     -------
@@ -559,7 +564,7 @@ def rotdif(matrices, command):
 
 
 @super_dispatch()
-def lipidscd(traj, mask='', options='', dtype='dict', top=None):
+def lipidscd(traj, mask='', options='', dtype='dict', top=None, frame_indices=None):
     """compute lipid order parameters
 
     Parameters
@@ -572,6 +577,8 @@ def lipidscd(traj, mask='', options='', dtype='dict', top=None):
     dtype : str, default 'dict'
         return data type
     top : Topology, optional
+    frame_indices : array-like, optional
+        frame indices
 
     Returns
     -------
@@ -583,7 +590,7 @@ def lipidscd(traj, mask='', options='', dtype='dict', top=None):
 
 
 @super_dispatch()
-def xtalsymm(traj, mask='', options='', ref=None, **kwargs):
+def xtalsymm(traj, mask='', options='', ref=None, frame_indices=None, **kwargs):
     """compute crystal symmetry analysis
 
     Parameters
@@ -595,6 +602,8 @@ def xtalsymm(traj, mask='', options='', ref=None, **kwargs):
         extra options
     ref : Frame, optional
         reference frame
+    frame_indices : array-like, optional
+        frame indices
     **kwargs : additional options
 
     Returns
