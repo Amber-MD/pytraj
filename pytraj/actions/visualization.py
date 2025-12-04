@@ -116,7 +116,12 @@ def rdf(traj=None,
         frame_indices=None,
         top=None,
         raw_rdf=False,
-        dtype='tuple'):
+        dtype='tuple',
+        byres1=False,
+        byres2=False,
+        bymol1=False,
+        bymol2=False,
+        mass=True):
     '''compute radial distribtion function. Doc was adapted lightly from cpptraj doc
 
     Returns

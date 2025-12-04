@@ -239,6 +239,8 @@ def distance(traj=None,
 
     # Handle reference point or structure
     if point is not None:
+        if isinstance(point, bool):
+            raise ValueError("point must be coordinates [x, y, z] or None, not boolean")
         if len(point) != 3:
             raise ValueError("point must have 3 coordinates [x, y, z]")
         # For point mode, use _distance_to_ref_or_point
