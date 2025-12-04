@@ -136,7 +136,9 @@ def align(traj,
           ref_mask='',
           mass=False,
           top=None,
-          frame_indices=None):
+          frame_indices=None,
+          norotate=False,
+          savematrices=False):
     """align (superpose) trajectory to given reference
 
     Parameters
@@ -149,9 +151,13 @@ def align(traj,
         if given, use it
     mass : Bool, default False
         if True, mass-weighted
-        if False, no mas-weighted
+        if False, no mass-weighted
     frame_indices : {None, array-like}, default None
        if given, only compute RMSD for those
+    norotate : bool, default False
+        Perform translation-only alignment (no rotation)
+    savematrices : bool, default False
+        Save rotation/translation matrices
 
     Examples
     --------
@@ -455,7 +461,8 @@ def center(traj=None,
            center='box',
            mass=False,
            top=None,
-           frame_indices=None):
+           frame_indices=None,
+           point=None):
     """Center coordinates in `mask` to specified point.
 
     Parameters
@@ -468,6 +475,8 @@ def center(traj=None,
         if array-like, center on that point
     mass : bool, default: False
         if True, use mass weighted
+    point : array-like, optional
+        Specific point [x, y, z] to center on
     top : Topology, optional, default: None
 
     Examples
@@ -501,7 +510,12 @@ def center(traj=None,
     elif center.lower() not in valid_centers:
         raise ValueError(f'center must be one of {valid_centers}')
 
-    center_option = '' if center == 'box' else center
+    # Handle explicit point parameter
+    if point is not None:
+        center_option = 'point ' + ' '.join(map(str, point))
+    else:
+        center_option = '' if center == 'box' else center
+
     mass_option = 'mass' if mass else ''
     command = ' '.join((mask, center_option, mass_option))
 

@@ -168,7 +168,8 @@ def radgyr_tensor(traj=None,
 
 
 @super_dispatch()
-def surf(traj=None, mask="", dtype='ndarray', frame_indices=None, top=None):
+def surf(traj=None, mask="", dtype='ndarray', frame_indices=None, top=None,
+         offset=1.4, nbrcut=2.5, solutemask=None):
     """calc surf (LCPO method) - compute solvent accessible surface area
 
     Parameters
@@ -180,6 +181,12 @@ def surf(traj=None, mask="", dtype='ndarray', frame_indices=None, top=None):
         return data type
     frame_indices : array-like, optional
     top : Topology, optional
+    offset : float, default 1.4
+        van der Waals offset in Angstroms
+    nbrcut : float, default 2.5
+        Cutoff for determining neighbors in Angstroms
+    solutemask : str, optional
+        Mask to define solute atoms
 
     Returns
     -------
@@ -195,7 +202,16 @@ def surf(traj=None, mask="", dtype='ndarray', frame_indices=None, top=None):
     if traj is None:
         raise ValueError('trajectory is required')
 
-    action_datasets, _ = do_action(traj, mask, c_action.Action_Surf)
+    # Build command with parameters
+    command = mask
+    if offset != 1.4:
+        command += f" offset {offset}"
+    if nbrcut != 2.5:
+        command += f" nbrcut {nbrcut}"
+    if solutemask is not None:
+        command += f" solutemask {solutemask}"
+
+    action_datasets, _ = do_action(traj, command, c_action.Action_Surf)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
 

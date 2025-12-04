@@ -283,7 +283,8 @@ def multidihedral(traj=None,
                   range360=False,
                   dtype='dataset',
                   top=None,
-                  frame_indices=None):
+                  frame_indices=None,
+                  mass=False):
     """perform dihedral search
 
     Parameters
@@ -345,7 +346,8 @@ def multidihedral(traj=None,
             is not None).add(define_new_type_str,
                              condition=define_new_type_str
                              is not None).add("range360",
-                                              condition=range360).build())
+                                              condition=range360).add("mass",
+                                              condition=mass).build())
 
     action_datasets, _ = do_action(traj, command, c_action.Action_MultiDihedral)
     return get_data_from_dtype(action_datasets, dtype=dtype)

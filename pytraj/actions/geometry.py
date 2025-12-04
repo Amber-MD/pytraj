@@ -471,6 +471,7 @@ def angle(traj=None,
           frame_indices=None,
           dtype='ndarray',
           top=None,
+          mass=False,
           *args,
           **kwargs):
     """compute angle between two maskes
@@ -481,6 +482,8 @@ def angle(traj=None,
     mask : str or array
     top : Topology, optional
     dtype : return type, defaul 'ndarray'
+    mass : bool, default False
+        Use center of mass for atoms in each mask
 
     Returns
     -------
@@ -514,6 +517,10 @@ def angle(traj=None,
     """
     ensure_not_none_or_string(traj)
     command = mask
+
+    # Add mass weighting option
+    if mass:
+        command += " mass"
 
     traj = get_fiterator(traj, frame_indices)
     top = get_topology(traj, top)
@@ -549,10 +556,27 @@ def dihedral(traj=None,
              top=None,
              dtype='ndarray',
              frame_indices=None,
+             mass=False,
+             range360=False,
+             dihedral_type=None,
              *args,
              **kwargs):
-    """compute dihedral angle between two maskes
-    ...
+    """compute dihedral angle between atoms in 4 masks
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str or array
+        Four atom masks defining dihedral angle
+    top : Topology, optional
+    dtype : return type, default 'ndarray'
+    frame_indices : array-like, optional
+    mass : bool, default False
+        Use center of mass for atoms in each mask
+    range360 : bool, default False
+        Use 0-360 degree range instead of -180 to 180
+    dihedral_type : str, optional
+        Type of dihedral (phi, psi, chi, etc.)
     """
     ensure_not_none_or_string(traj)
     command = mask
