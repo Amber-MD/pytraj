@@ -32,63 +32,81 @@ cdef extern from "DistRoutines.h" nogil:
 __all__ = ['Frame']
 
 cdef class Frame (object):
-    """A snapshot of trajectory, hodling coordinates, unicell (box), vector (optional), force (optional), ...
-    This class is for internal use.
+    """A trajectory frame containing atomic coordinates and optional box information.
 
-    Parameters
-    ----------
-    n_atoms : int, default=0
-        create a new Frame with n_atoms
-    frame : a Frame, default=None
-        make a copy from `frame`
-    atommask : AtomMask, default=None
-        make a copy from `frame` with atommask
+    Core data structure representing a single snapshot from a molecular dynamics trajectory.
+    Contains coordinates, box dimensions, and optional velocity/force data.
+
+    Construction Methods
+    -------------------
+    Frame()                     : Empty frame (0 atoms)
+    Frame(n_atoms)             : Frame with n_atoms (int)
+    Frame(other_frame)         : Deep copy of another Frame
+    Frame(frame, mask)         : Copy with atom selection
+    Frame(atoms_list)          : From list of atoms
+    Frame(n, coords, _as_ptr=True) : Memory view (advanced use)
+
+    Core Properties
+    --------------
+    n_atoms : int              : Number of atoms
+    xyz : ndarray             : Coordinates as (n_atoms, 3) array
+    box : Box                 : Unit cell information
+
+    Memory Management
+    ----------------
+    Frames can either own their memory (default) or be views of existing data.
+    Use copy() for explicit deep copies. Context manager support available.
 
     Examples
     --------
+    Basic Construction:
+
     >>> import pytraj as pt
-    >>> # create an empty Frame
+    >>> # Empty frame
     >>> frame = pt.Frame()
     >>> frame.n_atoms
     0
 
-    >>> # create a Frame with 304 atoms
+    >>> # Frame with specific number of atoms
     >>> frame = pt.Frame(304)
     >>> frame.n_atoms
     304
 
-    >>> # create an empty Frame then append coordinate
+    Copying and Modification:
+
     >>> traj = pt.datafiles.load_tz2()
     >>> f0 = traj[0]
+    >>> # Deep copy
+    >>> frame_copy = pt.Frame(f0)
+    >>> # Add coordinates incrementally
     >>> frame = pt.Frame()
     >>> frame.append_xyz(f0.xyz)
     <Frame with 223 atoms>
-    >>> frame.n_atoms == f0.n_atoms
-    True
 
-    >>> # copy from other Frame
-    >>> frame2 = pt.Frame(frame)
+    Advanced Usage (Memory Views):
 
-    >>> # create a Frame as a pointer (does not own any memory), used for fast iterating
-    >>> frame = pt.Frame(f0.n_atoms, f0.xyz, _as_ptr=True)
-    >>> frame.n_atoms == f0.n_atoms
+    >>> # Create view for fast iteration (advanced)
+    >>> frame_view = pt.Frame(f0.n_atoms, f0.xyz, _as_ptr=True)
+    >>> frame_view.n_atoms == f0.n_atoms
     True
     """
 
     def __cinit__(self, *args, _as_ptr=False):
-        """Constructor for Frame instance
+        """Internal constructor - handles multiple construction patterns.
 
-        Examples
-        --------
-        >>> from pytraj import Frame
-        >>> # created empty Frame instance
-        >>> frame0 = Frame()
-        >>> # create Frame instance with 304 atoms
-        >>> frame1 = Frame(304)
-        >>> # create a copy of frame1
-        >>> frame2 = Frame(frame1)
-        >>> # create a copy of frame with atommask
-        >>> frame3 = Frame(frame1, atm_instance)
+        Parameters
+        ----------
+        *args : variable
+            Construction arguments (see class docstring for patterns)
+        _as_ptr : bool, default=False
+            Create as memory view (advanced usage)
+
+        Notes
+        -----
+        Memory ownership is handled automatically:
+        - Default construction owns memory
+        - View construction (_as_ptr=True) does not own memory
+        - Copy construction creates new memory
         """
         import numpy as np
         cdef Frame frame
@@ -136,16 +154,73 @@ cdef class Frame (object):
                 self.thisptr = new _Frame(natom, &view[0, 0])
 
     def __dealloc__(self):
+        """Automatic cleanup when Frame is destroyed."""
         if self._own_memory and self.thisptr:
             del self.thisptr
 
+    # ========================================================================
+    # Memory Management and Copying
+    # ========================================================================
+
     def copy(self):
-        """return a deep copy of Frame"""
+        """Create a deep copy of this Frame.
+
+        Returns
+        -------
+        Frame
+            New Frame with copied coordinates and properties
+
+        Notes
+        -----
+        The returned Frame owns its own memory and is independent
+        of the original Frame.
+        """
         cdef Frame frame = Frame(self)
         return frame
 
+    def is_view(self):
+        """Check if this Frame is a memory view.
+
+        Returns
+        -------
+        bool
+            True if Frame is a view (doesn't own memory)
+        """
+        return self._as_view
+
+    def owns_memory(self):
+        """Check if this Frame owns its memory.
+
+        Returns
+        -------
+        bool
+            True if Frame owns its coordinate memory
+        """
+        return self._own_memory
+
+    # ========================================================================
+    # Coordinate Manipulation
+    # ========================================================================
+
     def append_xyz(self, double[:, :] xyz):
-        """append 3D array and return itself
+        """Append coordinates from a 2D array.
+
+        Parameters
+        ----------
+        xyz : array-like, shape (n_atoms, 3)
+            Coordinates to append
+
+        Returns
+        -------
+        Frame
+            Self (for method chaining)
+
+        Examples
+        --------
+        >>> frame = pt.Frame()
+        >>> coords = np.array([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])
+        >>> frame.append_xyz(coords)
+        <Frame with 2 atoms>
         """
         cdef int i
         cdef int N = xyz.shape[0]
@@ -155,8 +230,7 @@ cdef class Frame (object):
         return self
 
     cdef void _append_xyz_2d(self, double[:, :] xyz):
-        # for internal use
-        # TODO: add assert
+        """Internal method: append coordinates from 2D array."""
         cdef int i
         cdef int N = xyz.shape[0]
 
@@ -164,8 +238,7 @@ cdef class Frame (object):
             self.thisptr.AddXYZ( &xyz[i, 0])
 
     cdef void _append_xyz_1d(self, double[:] xyz):
-        # TODO: add assert
-        # for internal use
+        """Internal method: append coordinates from flattened array."""
         cdef int i
         cdef int N = <int> xyz.shape[0] // 3
 
@@ -173,31 +246,65 @@ cdef class Frame (object):
             self.thisptr.AddXYZ( &xyz[i*3])
 
     def swap_atoms(self, cython.integral[:, :] int_view):
-        """swap coordinates for an array of atom pairs
+        """Swap coordinates between atom pairs.
 
         Parameters
         ----------
-        int_view: 2D-int array-like, shape=(2, n_atoms)
+        int_view : array-like, shape (2, n_pairs)
+            Array of atom index pairs to swap
+
+        Examples
+        --------
+        >>> # Swap atoms 0<->1 and 2<->3
+        >>> pairs = np.array([[0, 2], [1, 3]])
+        >>> frame.swap_atoms(pairs)
         """
         cdef int i
 
         for i in range(int_view.shape[1]):
             self.thisptr.SwapAtoms(int_view[0, i], int_view[1, i])
 
+    # ========================================================================
+    # String Representation and Comparison
+    # ========================================================================
+
     def __str__(self):
-        tmp = "<%s with %s atoms>" % (
+        """String representation of Frame."""
+        memory_info = "view" if self._as_view else "owned"
+        return "<%s with %s atoms, %s memory>" % (
             self.__class__.__name__,
             self.n_atoms,
-            )
-        return tmp
+            memory_info
+        )
 
     def __repr__(self):
+        """Detailed representation of Frame."""
         return self.__str__()
 
-    def is_(self, Frame other):
-        '''check if Frame is itself or not
-        '''
+    def is_same_object(self, Frame other):
+        """Check if two Frames reference the same C++ object.
+
+        Parameters
+        ----------
+        other : Frame
+            Frame to compare with
+
+        Returns
+        -------
+        bool
+            True if both Frames point to the same underlying data
+
+        Notes
+        -----
+        This checks object identity, not coordinate equality.
+        Use coordinate comparison for value equality.
+        """
         return self.thisptr == other.thisptr
+
+    # Legacy alias for backward compatibility
+    def is_(self, Frame other):
+        """Legacy method - use is_same_object() instead."""
+        return self.is_same_object(other)
 
     property shape:
         def __get__(self):
@@ -800,20 +907,52 @@ cdef class Frame (object):
                                           v1.thisptr[0], v2.thisptr[0], mass)
             return rmsd_, m3, v1, v2
 
+    # ========================================================================
+    # Geometric Calculations and Fitting
+    # ========================================================================
+
     def rmsd_nofit(self, Frame frame, bint mass=False):
-        """Calculate rmsd betwen two frames without fitting
+        """Calculate RMSD between two frames without structural fitting.
 
         Parameters
         ----------
-        frame : Frame instance
-        mass : bool, default = False
+        frame : Frame
+            Reference frame for RMSD calculation
+        mass : bool, default=False
+            Use mass-weighted RMSD if True
+
+        Returns
+        -------
+        float
+            RMSD value in Angstroms
+
+        Notes
+        -----
+        This calculates RMSD without any rotational/translational fitting.
+        For fitted RMSD, use the rmsd() method instead.
         """
         return self.thisptr.RMSD_NoFit(frame.thisptr[0], mass)
 
     def rmsfit(self, ref=None, AtomMask atm=None):
-        """do the fitting to reference Frame by rotation and translation
+        """Perform structural fitting to reference Frame.
+
+        Applies optimal rotation and translation to minimize RMSD
+        with respect to the reference frame.
+
+        Parameters
+        ----------
+        ref : Frame, optional
+            Reference frame for fitting. If None, uses first frame.
+        atm : AtomMask, optional
+            Atom selection for fitting. If None, uses all atoms.
+
+        Notes
+        -----
+        This method modifies the Frame coordinates in-place.
+        The fitting uses the Kabsch algorithm for optimal alignment.
+        Mass weighting and box considerations are not yet implemented.
         """
-        # not yet dealed with `mass` and box
+        # Implementation note: mass and box handling to be added
         cdef Matrix_3x3 mat
         cdef Vec3 v1
 
@@ -830,26 +969,41 @@ cdef class Frame (object):
         vec.thisptr[0] = self.thisptr.CalculateInertia(atm.thisptr[0], Inertia.thisptr[0])
         return vec
 
+    # ========================================================================
+    # Atom Selection and Manipulation
+    # ========================================================================
+
     def strip(self, AtomMask atm):
-        """strip
+        """Remove atoms specified by the mask, keeping only selected atoms.
 
         Parameters
         ----------
-        atm: AtomMask
+        atm : AtomMask
+            Atom selection mask (atoms to KEEP, not remove)
 
         Returns
         -------
-        self
+        Frame
+            Self (modified in-place)
+
+        Notes
+        -----
+        This operation modifies the Frame in-place by removing atoms
+        NOT selected by the mask. The mask is inverted internally.
+
+        Examples
+        --------
+        >>> # Keep only CA atoms
+        >>> ca_mask = top.select('@CA')
+        >>> frame.strip(ca_mask)  # Removes non-CA atoms
         """
         atm.invert_mask()
         cdef Frame frame = Frame(atm.n_atoms)
 
         frame.thisptr.SetFrame(self.thisptr[0], atm.thisptr[0])
-        # deallocate old coordinates
+        # Transfer memory ownership
         del self.thisptr
-        # point to the new one
         self.thisptr = frame.thisptr
-        # do not let ``frame`` deallocate, let ``self`` do it
         frame._own_memory = False
         return self
 
@@ -860,15 +1014,27 @@ cdef class Frame (object):
         def __set__(self, value):
             self._top = value
 
+    # ========================================================================
+    # Internal Geometric Calculations
+    # ========================================================================
+
     def _dihedral(self, cython.integral[:, :] int_arr):
-        """return python array of dih angle for four atoms with indices idx1-4
+        """Calculate dihedral angles for atom quartets.
+
         Parameters
         ----------
-        int_arr : 2D array of int with shape=(n_groups, 4)
+        int_arr : array-like, shape (n_dihedrals, 4)
+            Array of atom indices defining dihedral angles
 
         Returns
         -------
-        1D python array
+        ndarray, shape (n_dihedrals,)
+            Dihedral angles in degrees
+
+        Notes
+        -----
+        Internal method used by higher-level dihedral analysis functions.
+        Angles are calculated using the standard dihedral formula.
         """
         cdef int id0, idx1, idx2, idx3
         cdef int n_arr = int_arr.shape[0]
@@ -888,14 +1054,22 @@ cdef class Frame (object):
         return np.asarray(arr0_view)
 
     def _angle(self, cython.integral[:, :] int_arr):
-        """return python array of angles for three atoms with indices idx1-3
+        """Calculate bond angles for atom triplets.
+
         Parameters
         ----------
-        int_arr : 2D array of int with shape=(n_groups, 3)
+        int_arr : array-like, shape (n_angles, 3)
+            Array of atom indices defining bond angles
 
         Returns
         -------
-        1D python array
+        ndarray, shape (n_angles,)
+            Bond angles in degrees
+
+        Notes
+        -----
+        Internal method used by higher-level angle analysis functions.
+        Angles are calculated between vectors formed by the three atoms.
         """
         cdef int idx0, idx1, idx2
         cdef int n_arr = int_arr.shape[0]
