@@ -175,7 +175,10 @@ def distance(traj=None,
              dtype='ndarray',
              top=None,
              image=False,
-             n_frames=None):
+             n_frames=None,
+             mass=True,
+             ref=None,
+             point=None):
     """compute distance between two maskes
 
     Parameters
@@ -191,6 +194,12 @@ def distance(traj=None,
     image : bool, default False
     n_frames : int, optional, default None
         only need to provide n_frames if ``traj`` does not have this info
+    mass : bool, default True
+        Use mass-weighted center of mass instead of geometric center
+    ref : Frame or Trajectory, optional
+        Reference structure for distance calculations
+    point : array-like of shape (3,), optional
+        Reference point coordinates [x, y, z]
 
     Returns
     -------
@@ -227,6 +236,21 @@ def distance(traj=None,
     >>> dist = pt.distance(traj, [[1, 5], [4, 10]])
     """
     ensure_not_none_or_string(traj)
+
+    # Handle reference point or structure
+    if point is not None:
+        if isinstance(point, bool):
+            raise ValueError("point must be coordinates [x, y, z] or None, not boolean")
+        if len(point) != 3:
+            raise ValueError("point must have 3 coordinates [x, y, z]")
+        # For point mode, use _distance_to_ref_or_point
+        return _distance_to_ref_or_point(traj=traj, mask=mask, point=point,
+                                       dtype=dtype, top=top, frame_indices=frame_indices)
+    elif ref is not None:
+        # For reference mode, use _distance_to_ref_or_point
+        return _distance_to_ref_or_point(traj=traj, mask=mask, ref=ref,
+                                       dtype=dtype, top=top, frame_indices=frame_indices)
+
     command = mask
 
     traj = get_fiterator(traj, frame_indices)
@@ -234,6 +258,9 @@ def distance(traj=None,
     noimage_str = 'noimage' if not image or (hasattr(traj, 'crdinfo') and
                                              not traj.crdinfo['has_box'] and
                                              topology.has_box()) else ''
+
+    # Add mass weighting option
+    mass_str = '' if mass else ' geom'
 
     command_array = np.asarray(command)
 
@@ -249,10 +276,15 @@ def distance(traj=None,
             action_list = ActionList()
 
             for command in command_list:
+                # Add mass weighting and imaging options
+                command_parts = [command]
+                if not mass:
+                    command_parts.append('geom')
                 if noimage_str:
-                    command = ' '.join((command, noimage_str))
+                    command_parts.append(noimage_str)
+                final_command = ' '.join(command_parts)
                 action_list.add(c_action.Action_Distance(),
-                                command,
+                                final_command,
                                 topology,
                                 dslist=cpptraj_action_datasets)
 
@@ -439,6 +471,7 @@ def angle(traj=None,
           frame_indices=None,
           dtype='ndarray',
           top=None,
+          mass=False,
           *args,
           **kwargs):
     """compute angle between two maskes
@@ -449,6 +482,8 @@ def angle(traj=None,
     mask : str or array
     top : Topology, optional
     dtype : return type, defaul 'ndarray'
+    mass : bool, default False
+        Use center of mass for atoms in each mask
 
     Returns
     -------
@@ -482,6 +517,10 @@ def angle(traj=None,
     """
     ensure_not_none_or_string(traj)
     command = mask
+
+    # Add mass weighting option
+    if mass:
+        command += " mass"
 
     traj = get_fiterator(traj, frame_indices)
     top = get_topology(traj, top)
@@ -517,10 +556,27 @@ def dihedral(traj=None,
              top=None,
              dtype='ndarray',
              frame_indices=None,
+             mass=False,
+             range360=False,
+             dihedral_type=None,
              *args,
              **kwargs):
-    """compute dihedral angle between two maskes
-    ...
+    """compute dihedral angle between atoms in 4 masks
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str or array
+        Four atom masks defining dihedral angle
+    top : Topology, optional
+    dtype : return type, default 'ndarray'
+    frame_indices : array-like, optional
+    mass : bool, default False
+        Use center of mass for atoms in each mask
+    range360 : bool, default False
+        Use 0-360 degree range instead of -180 to 180
+    dihedral_type : str, optional
+        Type of dihedral (phi, psi, chi, etc.)
     """
     ensure_not_none_or_string(traj)
     command = mask

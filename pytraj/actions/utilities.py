@@ -24,8 +24,8 @@ def in_voxel(voxel_cntr, xyz, delta):
                               xyz[2] <= voxel_cntr[2] + delta)
 
 
-@register_pmap
-def count_in_voxel(traj=None, mask="", voxel_cntr=(0, 0, 0), voxel_size=5):
+@super_dispatch()
+def count_in_voxel(traj=None, mask="", voxel_cntr=(0, 0, 0), voxel_size=5, frame_indices=None, top=None):
     """For a voxel with center xyz and size voxel_size, find atoms that match a given mask
     that are contained in that voxel over the course of a trajectory.
 
@@ -52,13 +52,17 @@ def count_in_voxel(traj=None, mask="", voxel_cntr=(0, 0, 0), voxel_size=5):
         center of voxel
     voxel_size: int, default 5
         size of voxel measured from center to edge.
+    frame_indices : array-like, optional
+        frame indices
+    top : Topology, optional
 
     Returns
     -------
     1D ndarray, one dimensional numpy array containing the counts for each frame.
     """
     lives_in_voxel = []
-    population = traj.top.atom_indices(mask)
+    topology = get_topology(traj, top)
+    population = topology.atom_indices(mask)
     delta = voxel_size / 2
 
     for frame in traj:
@@ -209,7 +213,7 @@ def mean_structure(traj,
 get_average_frame = mean_structure
 
 
-def get_velocity(traj, mask=None, frame_indices=None):
+def get_velocity(traj, mask=None, top=None, frame_indices=None):
     '''get velocity for specify frames with given mask
 
     Parameters
@@ -217,6 +221,7 @@ def get_velocity(traj, mask=None, frame_indices=None):
     traj : Trajectory-like or iterable that produces Frame
     mask : str, default None (use all atoms), optional
         atom mask
+    top : Topology, optional
     frame_indices : iterable that produces integer, default None, optional
         if not None, only get velocity for given frame indices
 
@@ -278,7 +283,8 @@ def multidihedral(traj=None,
                   range360=False,
                   dtype='dataset',
                   top=None,
-                  frame_indices=None):
+                  frame_indices=None,
+                  mass=False):
     """perform dihedral search
 
     Parameters
@@ -340,7 +346,8 @@ def multidihedral(traj=None,
             is not None).add(define_new_type_str,
                              condition=define_new_type_str
                              is not None).add("range360",
-                                              condition=range360).build())
+                                              condition=range360).add("mass",
+                                              condition=mass).build())
 
     action_datasets, _ = do_action(traj, command, c_action.Action_MultiDihedral)
     return get_data_from_dtype(action_datasets, dtype=dtype)
@@ -402,9 +409,13 @@ def native_contacts(traj=None,
                     ref=0,
                     dtype='dataset',
                     distance=7.0,
+                    mindist=None,
+                    maxdist=None,
                     image=True,
                     include_solvent=False,
                     byres=False,
+                    series=False,
+                    first=False,
                     frame_indices=None,
                     options='',
                     top=None):
@@ -412,8 +423,36 @@ def native_contacts(traj=None,
 
     Parameters
     ----------
+    traj : Trajectory-like
+    mask : str, default ""
+        First atom selection
+    mask2 : str, default ""
+        Second atom selection
+    ref : {Frame, int}, default 0
+        Reference frame or index
+    dtype : str, default 'dataset'
+        Return data type
+    distance : float, default 7.0
+        Distance cutoff for contacts (Angstroms)
+    mindist : float, optional
+        Minimum distance cutoff
+    maxdist : float, optional
+        Maximum distance cutoff (overrides distance if set)
+    image : bool, default True
+        Apply periodic boundary conditions
+    include_solvent : bool, default False
+        Include solvent atoms in contact calculation
+    byres : bool, default False
+        Calculate contacts per residue pair
+    series : bool, default False
+        Calculate contact time series for each pair
+    first : bool, default False
+        Use first occurrence for contact identification
+    frame_indices : array-like, optional
+        Frame indices to analyze
     options : str
         Extra cpptraj command(s).
+    top : Topology, optional
 
     Examples
     --------
@@ -428,6 +467,12 @@ def native_contacts(traj=None,
 
     >>> # use integer array for mask
     >>> data = pt.native_contacts(traj, mask=range(100), mask2=[200, 201], ref=ref, distance=8.0)
+
+    >>> # Enhanced parameters: per-residue contacts with distance range
+    >>> data = pt.native_contacts(traj, ref=ref, byres=True, mindist=3.0, maxdist=10.0)
+
+    >>> # Time series analysis with first contact identification
+    >>> data = pt.native_contacts(traj, ref=ref, series=True, first=True)
     """
     ref = get_reference(traj, ref)
     native_contacts_action = c_action.Action_NativeContacts()
@@ -438,11 +483,27 @@ def native_contacts(traj=None,
         mask2 = array_to_cpptraj_atommask(mask2)
     mask_str = ' '.join((mask, mask2))
 
-    command = (CommandBuilder().add("ref myframe").add(mask_str).add(
-        "distance", str(distance)).add("noimage", condition=not image).add(
-            "includesolvent",
-            condition=include_solvent).add("byresidue", condition=byres).add(
-                options, condition=bool(options)).build())
+    # Build command with enhanced parameters
+    cmd_builder = (CommandBuilder().add("ref myframe").add(mask_str))
+
+    # Distance parameters - maxdist overrides distance if set
+    if maxdist is not None:
+        cmd_builder.add("maxdist", str(maxdist))
+    else:
+        cmd_builder.add("distance", str(distance))
+
+    if mindist is not None:
+        cmd_builder.add("mindist", str(mindist))
+
+    # Boolean options
+    cmd_builder.add("noimage", condition=not image)
+    cmd_builder.add("includesolvent", condition=include_solvent)
+    cmd_builder.add("byresidue", condition=byres)
+    cmd_builder.add("series", condition=series)
+    cmd_builder.add("first", condition=first)
+    cmd_builder.add(options, condition=bool(options))
+
+    command = cmd_builder.build()
 
     add_reference_dataset(action_datasets, 'myframe', ref, top)
     native_contacts_action(command, traj, top=top, dslist=action_datasets)
@@ -452,7 +513,7 @@ def native_contacts(traj=None,
 
 
 @super_dispatch()
-def grid(traj=None, command="", top=None, dtype='dataset'):
+def grid(traj=None, command="", top=None, dtype='dataset', frame_indices=None):
     """perform grid analysis
 
     Parameters
@@ -463,6 +524,8 @@ def grid(traj=None, command="", top=None, dtype='dataset'):
     top : Topology, optional
     dtype : str, default 'dataset'
         return data type
+    frame_indices : array-like, optional
+        frame indices
 
     Returns
     -------
@@ -472,13 +535,14 @@ def grid(traj=None, command="", top=None, dtype='dataset'):
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
-def transform(traj, by, frame_indices=None):
+def transform(traj, by, top=None, frame_indices=None):
     '''transform pytraj.Trajectory by a series of cpptraj's commands
 
     Parameters
     ----------
     traj : Mutable Trajectory
     by : list of cpptraj commands
+    top : Topology, optional
     frame_indices : {None, array-like}, default None
         if not None, perform tranformation for specific frames.
 
@@ -559,7 +623,7 @@ def rotdif(matrices, command):
 
 
 @super_dispatch()
-def lipidscd(traj, mask='', options='', dtype='dict', top=None):
+def lipidscd(traj, mask='', options='', dtype='dict', top=None, frame_indices=None):
     """compute lipid order parameters
 
     Parameters
@@ -572,6 +636,8 @@ def lipidscd(traj, mask='', options='', dtype='dict', top=None):
     dtype : str, default 'dict'
         return data type
     top : Topology, optional
+    frame_indices : array-like, optional
+        frame indices
 
     Returns
     -------
@@ -583,7 +649,7 @@ def lipidscd(traj, mask='', options='', dtype='dict', top=None):
 
 
 @super_dispatch()
-def xtalsymm(traj, mask='', options='', ref=None, **kwargs):
+def xtalsymm(traj, mask='', options='', ref=None, frame_indices=None, **kwargs):
     """compute crystal symmetry analysis
 
     Parameters
@@ -595,6 +661,8 @@ def xtalsymm(traj, mask='', options='', ref=None, **kwargs):
         extra options
     ref : Frame, optional
         reference frame
+    frame_indices : array-like, optional
+        frame indices
     **kwargs : additional options
 
     Returns
@@ -689,7 +757,7 @@ def hausdorff(matrix, options='', dtype='ndarray'):
     return get_data_from_dtype(runner.datasets, dtype)
 
 
-def permute_dihedrals(traj, filename, options=''):
+def permute_dihedrals(traj, filename, options='', top=None):
     """
     Parameters
     ----------
@@ -788,7 +856,7 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     return out.read()
 
 
-def set_velocity(traj, temperature=298, ig=10, options=''):
+def set_velocity(traj, temperature=298, ig=10, options='', top=None):
     """
 
     Notes

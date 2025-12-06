@@ -56,8 +56,11 @@ def volmap(traj,
     '''
     dummy_filename = 'dummy_fn.dat'
 
-    assert isinstance(grid_spacing, tuple) and len(
-        grid_spacing) == 3, 'grid_spacing must be a tuple with length=3'
+    if not isinstance(grid_spacing, tuple) or len(grid_spacing) != 3:
+        raise ValueError('grid_spacing must be a tuple with length=3')
+
+    if traj is None:
+        raise ValueError('trajectory is required')
 
     grid_spacing_str = ' '.join([str(x) for x in grid_spacing])
     radscale_str = 'radscale ' + str(radscale)
@@ -66,7 +69,8 @@ def volmap(traj,
     centermask_str = 'centermask ' + centermask
 
     if isinstance(size, tuple):
-        assert len(size) == 3, 'length of size must be 3'
+        if len(size) != 3:
+            raise ValueError('length of size must be 3')
     elif size is not None:
         raise ValueError(
             'size must be None or a tuple. Please check method doc')
@@ -111,7 +115,13 @@ def rdf(traj=None,
         intramol=True,
         frame_indices=None,
         top=None,
-        raw_rdf=False):
+        raw_rdf=False,
+        dtype='tuple',
+        byres1=False,
+        byres2=False,
+        bymol1=False,
+        bymol2=False,
+        mass=True):
     '''compute radial distribtion function. Doc was adapted lightly from cpptraj doc
 
     Returns
@@ -138,9 +148,22 @@ def rdf(traj=None,
         if True, calculate RDF from geometric center of atoms in solute_mask to all atoms in solvent_mask
     intramol : bool, default True, optional
         if False, ignore intra-molecular distances
+    byres1 : bool, default False
+        Calculate RDF per residue for first mask (center of mass of residues)
+    byres2 : bool, default False
+        Calculate RDF per residue for second mask (center of mass of residues)
+    bymol1 : bool, default False
+        Calculate RDF per molecule for first mask
+    bymol2 : bool, default False
+        Calculate RDF per molecule for second mask
+    mass : bool, default True
+        Use mass-weighted centers when using byres or center options
     frame_indices : array-like, default None, optional
     raw_rdf : bool, default False, optional
         if True, return the raw (non-normalized) RDF values
+    dtype : str, default 'tuple'
+        Return data type. 'tuple' returns (bin_centers, values), 'dict' returns
+        {'bin_centers': ..., 'rdf': ...}, other types passed to get_data_from_dtype
 
     Examples
     --------
@@ -172,25 +195,48 @@ def rdf(traj=None,
     if not isinstance(solute_mask, str) and solute_mask is not None:
         solute_mask = array_to_cpptraj_atommask(solute_mask)
 
-    # Build command using CommandBuilder
-    command = (CommandBuilder().add("pytraj_tmp_output.agr").add(
+    # Build command using CommandBuilder with enhanced parameters
+    cmd_builder = (CommandBuilder().add("pytraj_tmp_output.agr").add(
         str(bin_spacing)).add(str(maximum)).add(solvent_mask).add(
-            solute_mask, condition=solute_mask
-            is not None).add("noimage", condition=not image).add(
-                "density", str(density), condition=density
-                is not None).add("volume", condition=volume).add(
-                    "center1", condition=center_solvent).add(
-                        "center2", condition=center_solute).add(
-                            "nointramol", condition=not intramol).add(
-                                "rawrdf pytraj_tmp_output_raw.agr",
-                                condition=raw_rdf).build())
+            solute_mask, condition=solute_mask is not None))
+
+    # Imaging and density options
+    cmd_builder.add("noimage", condition=not image)
+    cmd_builder.add("density", str(density), condition=density is not None)
+    cmd_builder.add("volume", condition=volume)
+
+    # Granularity options
+    cmd_builder.add("byres1", condition=byres1)
+    cmd_builder.add("byres2", condition=byres2)
+    cmd_builder.add("bymol1", condition=bymol1)
+    cmd_builder.add("bymol2", condition=bymol2)
+
+    # Center and mass options
+    cmd_builder.add("center1", condition=center_solvent)
+    cmd_builder.add("center2", condition=center_solute)
+    if not mass and (byres1 or byres2 or center_solvent or center_solute):
+        cmd_builder.add("geom")  # Use geometric center instead of mass-weighted
+
+    # Molecular options
+    cmd_builder.add("nointramol", condition=not intramol)
+    cmd_builder.add("rawrdf pytraj_tmp_output_raw.agr", condition=raw_rdf)
+
+    command = cmd_builder.build()
 
     c_dslist, _ = do_action(traj, command, c_action.Action_Radial)
     # make a copy sine c_dslist[-1].values return view of its data
     # c_dslist will be freed
     values = np.array(c_dslist[-1].values)
-    # return (bin_centers, values)
-    return (np.arange(bin_spacing / 2., maximum, bin_spacing), values)
+    bin_centers = np.arange(bin_spacing / 2., maximum, bin_spacing)
+
+    if dtype == 'tuple':
+        # default behavior - return (bin_centers, values) tuple for backward compatibility
+        return (bin_centers, values)
+    elif dtype == 'dict':
+        return {'bin_centers': bin_centers, 'rdf': values}
+    else:
+        # for 'ndarray', 'dataset', etc.
+        return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
 @super_dispatch()
@@ -221,6 +267,17 @@ def pairdist(traj,
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> data = pt.pairdist(traj)
     '''
+    if traj is None:
+        raise ValueError('trajectory is required')
+
+    # Convert delta to float if it's a string and validate
+    try:
+        delta_val = float(delta)
+        if delta_val <= 0:
+            raise ValueError('delta must be positive')
+    except (ValueError, TypeError):
+        raise ValueError('delta must be a positive number')
+
     command = (CommandBuilder().add("mask",
                                     mask).add("mask2",
                                               mask2,
@@ -236,6 +293,10 @@ def density(traj,
             density_type='number',
             delta=0.25,
             direction='z',
+            cutoff=None,
+            center=False,
+            mass=True,
+            restrict=None,
             dtype='dict'):
     """Compute density (number, mass, charge, electron) along a coordinate
 
@@ -252,6 +313,14 @@ def density(traj,
     delta : float, default 0.25
         resolution (Angstrom)
     direction : str, default 'z'
+    cutoff : float, optional
+        Distance cutoff for density calculations
+    center : bool, default False
+        Center coordinates before calculation
+    mass : bool, default True
+        Use mass weighting for calculations (when applicable)
+    restrict : str, optional
+        Restrict density calculation to specified region
     dtype : str, default 'dict'
         return data type. Please always using default value, others are for debugging.
 
@@ -274,6 +343,13 @@ def density(traj,
     ...     density_dict = pt.density(traj, mask=masks, density_type=density_type, delta=delta)
     ...     return density_dict
     >>> density_dict = func() # doctest: +SKIP
+
+    >>> # Enhanced parameters example
+    >>> # Calculate charge density with cutoff and centering
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> data = pt.density(traj, mask=':1-5', density_type='charge',
+    ...                   cutoff=5.0, center=True) # doctest: +SKIP
     """
 
     assert density_type.lower() in {'number', 'mass', 'charge', 'electron'}, \
@@ -286,7 +362,21 @@ def density(traj,
     else:
         raise ValueError("mask must be either string or list/tuple of string")
 
-    command = f'delta {delta} {direction} {density_type} {formatted_mask}'
+    # Build command with enhanced parameters
+    command_parts = [f'delta {delta}', direction, density_type]
+
+    # Add computational options
+    if cutoff is not None:
+        command_parts.append(f'cutoff {cutoff}')
+    if center:
+        command_parts.append('center')
+    if not mass and density_type == 'mass':
+        command_parts.append('geom')  # Use geometric weighting
+    if restrict is not None:
+        command_parts.append(f'restrict {restrict}')
+
+    command_parts.append(formatted_mask)
+    command = ' '.join(command_parts)
     action_datasets, _ = do_action(traj, command, c_action.Action_Density)
 
     result = get_data_from_dtype(action_datasets, dtype=dtype)

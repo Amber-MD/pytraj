@@ -78,9 +78,27 @@ def radgyr(traj=None,
            mask="",
            top=None,
            nomax=True,
+           mass=True,
+           tensor=False,
            frame_indices=None,
            dtype='ndarray'):
     '''compute radius of gyration
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, default ""
+        atom selection
+    top : Topology, optional
+    nomax : bool, default True
+        do not calculate tensor eigenvalues maximum
+    mass : bool, default True
+        use mass-weighted calculation
+    tensor : bool, default False
+        calculate radius of gyration tensor
+    frame_indices : array-like, optional
+    dtype : str, default 'ndarray'
+        return data type
 
     Examples
     --------
@@ -89,9 +107,17 @@ def radgyr(traj=None,
     >>> data = pt.radgyr(traj, '@CA')
     >>> data = pt.radgyr(traj, '!:WAT', nomax=False)
     >>> data = pt.radgyr(traj, '@CA', frame_indices=[2, 4, 6])
+    >>> # Mass-weighted with tensor calculation
+    >>> data = pt.radgyr(traj, '@CA', mass=True, tensor=True)
     '''
-    nomax_ = 'nomax' if nomax else ""
-    command = " ".join((mask, nomax_))
+    command_parts = [mask]
+    if nomax:
+        command_parts.append('nomax')
+    if not mass:
+        command_parts.append('geom')  # Use geometric center instead of mass-weighted
+    if tensor:
+        command_parts.append('tensor')
+    command = " ".join(command_parts)
     action_datasets, _ = do_action(traj, command, c_action.Action_Radgyr)
     return get_data_from_dtype(action_datasets, dtype)
 
@@ -102,7 +128,17 @@ def radgyr_tensor(traj=None,
                   top=None,
                   frame_indices=None,
                   dtype='ndarray'):
-    '''compute radius of gyration with tensore
+    '''compute radius of gyration with tensor
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, default ""
+        atom selection
+    top : Topology, optional
+    frame_indices : array-like, optional
+    dtype : str, default 'ndarray'
+        return data type
 
     Examples
     --------
@@ -124,11 +160,16 @@ def radgyr_tensor(traj=None,
     if dtype == 'dict':
         return {k0: v0, k1: v1}
     elif dtype == 'ndarray':
+        # Return structured ndarray or tuple for backward compatibility
+        # Note: returning tuple for backward compatibility, could be changed in future version
         return v0, v1
+    else:
+        return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
 @super_dispatch()
-def surf(traj=None, mask="", dtype='ndarray', frame_indices=None, top=None):
+def surf(traj=None, mask="", dtype='ndarray', frame_indices=None, top=None,
+         offset=1.4, nbrcut=2.5, solutemask=None):
     """calc surf (LCPO method) - compute solvent accessible surface area
 
     Parameters
@@ -140,6 +181,12 @@ def surf(traj=None, mask="", dtype='ndarray', frame_indices=None, top=None):
         return data type
     frame_indices : array-like, optional
     top : Topology, optional
+    offset : float, default 1.4
+        van der Waals offset in Angstroms
+    nbrcut : float, default 2.5
+        Cutoff for determining neighbors in Angstroms
+    solutemask : str, optional
+        Mask to define solute atoms
 
     Returns
     -------
@@ -152,7 +199,19 @@ def surf(traj=None, mask="", dtype='ndarray', frame_indices=None, top=None):
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> data = pt.surf(traj, '@CA')
     """
-    action_datasets, _ = do_action(traj, mask, c_action.Action_Surf)
+    if traj is None:
+        raise ValueError('trajectory is required')
+
+    # Build command with parameters
+    command = mask
+    if offset != 1.4:
+        command += f" offset {offset}"
+    if nbrcut != 2.5:
+        command += f" nbrcut {nbrcut}"
+    if solutemask is not None:
+        command += f" solutemask {solutemask}"
+
+    action_datasets, _ = do_action(traj, command, c_action.Action_Surf)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
@@ -194,9 +253,9 @@ def volume(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None):
     ----------
     traj : Trajectory-like
     mask : str, optional
-    top : Topology, optional
     dtype : str, default 'ndarray'
     frame_indices : array-like, optional
+    top : Topology, optional
 
     Returns
     -------
@@ -209,11 +268,13 @@ def volume(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None):
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> vol = pt.volume(traj, '@CA')
     """
+    if traj is None:
+        raise ValueError('trajectory is required')
+
     action_datasets, _ = do_action(traj, mask, c_action.Action_Volume)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 
 
-@super_dispatch()
 @register_pmap
 @register_openmp
 @super_dispatch()
@@ -269,6 +330,10 @@ def rmsf(traj=None,
          top=None,
          dtype='ndarray',
          frame_indices=None,
+         byres=False,
+         byatom=True,
+         bymask=False,
+         calcadp=False,
          options=''):
     '''compute atomicfluct (RMSF)
 
@@ -277,7 +342,15 @@ def rmsf(traj=None,
     traj : Trajectory-like
     mask : str or 1D-array
         atom mask. If not given, use all atoms
-    options : str, additional cpptraj options ('byres', 'bymask', 'byatom', 'calcadp')
+    byres : bool, default False
+        Calculate fluctuations per residue
+    byatom : bool, default True
+        Calculate fluctuations per atom (default behavior)
+    bymask : bool, default False
+        Calculate single value for entire mask
+    calcadp : bool, default False
+        Calculate atomic displacement parameters
+    options : str, additional cpptraj options
 
     Examples
     --------
@@ -288,8 +361,30 @@ def rmsf(traj=None,
     array([[  5.        ,   0.61822273],
            [ 16.        ,   0.5627449 ],
            [ 40.        ,   0.53717119]])
+
+    >>> # Enhanced parameters example
+    >>> # Calculate RMSF per residue
+    >>> data_byres = pt.rmsf(traj, ':1-10', byres=True)
+    >>> # Calculate single RMSF value for entire mask
+    >>> data_bymask = pt.rmsf(traj, '@CA', bymask=True)
     '''
-    command = ' '.join((mask, options))
+    # Build command with granularity options
+    command_parts = [mask]
+
+    # Granularity options - mutually exclusive
+    if byres:
+        command_parts.append('byres')
+    elif bymask:
+        command_parts.append('bymask')
+    # byatom is default, no need to add flag
+
+    # Additional options
+    if calcadp:
+        command_parts.append('calcadp')
+    if options:
+        command_parts.append(options)
+
+    command = ' '.join(command_parts)
     action_datasets, _ = do_action(traj, command, c_action.Action_AtomicFluct)
     return get_data_from_dtype(action_datasets, dtype=dtype)
 

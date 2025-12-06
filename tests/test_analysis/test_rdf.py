@@ -132,6 +132,52 @@ class TestRDF(unittest.TestCase):
             aa_eq(data5[0], steps2)
             aa_eq(data6[0], steps2)
 
+    def test_rdf_dtype_options(self):
+        """Test different dtype options for rdf function"""
+        traj = pt.iterload(
+            fn("tz2.truncoct.nc"),
+            fn("tz2.truncoct.parm7"),
+            frame_slice=(0, 5))
+
+        # Test default tuple behavior (backward compatibility)
+        data_tuple = pt.rdf(
+            traj,
+            solvent_mask=':5@CD',
+            solute_mask=':WAT@O',
+            bin_spacing=0.5,
+            maximum=5.0
+        )
+        assert isinstance(data_tuple, tuple)
+        assert len(data_tuple) == 2
+        bin_centers, rdf_values = data_tuple
+
+        # Test explicit tuple dtype
+        data_tuple_explicit = pt.rdf(
+            traj,
+            solvent_mask=':5@CD',
+            solute_mask=':WAT@O',
+            bin_spacing=0.5,
+            maximum=5.0,
+            dtype='tuple'
+        )
+        aa_eq(data_tuple[0], data_tuple_explicit[0])
+        aa_eq(data_tuple[1], data_tuple_explicit[1])
+
+        # Test dict dtype
+        data_dict = pt.rdf(
+            traj,
+            solvent_mask=':5@CD',
+            solute_mask=':WAT@O',
+            bin_spacing=0.5,
+            maximum=5.0,
+            dtype='dict'
+        )
+        assert isinstance(data_dict, dict)
+        assert 'bin_centers' in data_dict
+        assert 'rdf' in data_dict
+        aa_eq(data_tuple[0], data_dict['bin_centers'])
+        aa_eq(data_tuple[1], data_dict['rdf'])
+
 
 if __name__ == "__main__":
     unittest.main()

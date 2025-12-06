@@ -243,6 +243,7 @@ def rmsd(traj=None,
          ref=0,
          ref_mask='',
          nofit=False,
+         norotate=False,
          mass=False,
          update_coordinate=True,
          frame_indices=None,
@@ -263,6 +264,8 @@ def rmsd(traj=None,
         if False, perform fitting (rotation and translation).
         if ``traj`` is mutable, its coordinates will be updated
         if True, not fitting.
+    norotate : bool, default False
+        if True, translate but don't rotate during fitting
     mass : bool, default False
         if True, compute mass-weighted rmsd
     update_coordinate : bool, default True
@@ -306,9 +309,10 @@ def rmsd(traj=None,
     """
 
     nofit_ = 'nofit' if nofit else ''
+    norotate_ = 'norotate' if norotate and not nofit else ''
     mass_ = 'mass' if mass else ''
     nomod_ = 'nomod' if not update_coordinate else ''
-    options = ' '.join((nofit_, mass_, nomod_))
+    options = ' '.join((nofit_, norotate_, mass_, nomod_))
 
     if ref_mask:
         if not mask:
