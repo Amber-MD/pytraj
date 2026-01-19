@@ -1296,6 +1296,11 @@ cdef class Topology:
                 yield dhtype
 
     property bond_indices:
+        def __get__(self):
+            return np.asarray([b.indices for b in self.bonds], dtype=np.int64)
+
+    property angle_indices:
+        def __get__(self):
             return np.asarray([b.indices for b in self.angles], dtype=np.int64)
 
     property dihedral_indices:
