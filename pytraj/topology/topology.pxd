@@ -65,10 +65,10 @@ cdef extern from "Topology.h":
         void PrintBondInfo(const string& a1, int resIdOrNum, const string& a2, int resId2OrNum2, bint printZero) const
         void PrintAngleInfo(const string& a1, int resIdOrNum, const string& a2, int resId2OrNum2, const string& a3, int resId3OrNum3, bint printZero) const
         void PrintDihedralInfo(const string& a1, int resIdOrNum, const string& a2, int resId2OrNum2, const string& a3, int resId3OrNum3, const string& a4, int resId4OrNum4, bint printZero) const
-        bint SetBondArray(_BondParmArray&)
-        bint SetAngleArray(_AngleParmArray&)
-        bint SetDihedralArray(_DihedralParmArray&)
-        void SetNonbondArray(_NonbondArray&)
+        bint SetBondArray(BondParmArray&)
+        bint SetAngleArray(AngleParmArray&)
+        bint SetDihedralArray(DihedralParmArray&)
+        void SetNonbondArray(NonbondArray&)
         bint SetupIntegerMasks(int, int)
         void IntegerMask_CheckParmtop(vector[int]&) const
         void IntegerMask_CheckParmtop2(vector[int]&) const

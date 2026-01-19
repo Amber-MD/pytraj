@@ -8,6 +8,7 @@ ctypedef vector[_AngleParmType] AngleParmArray
 ctypedef vector[_AngleType] AngleArray
 ctypedef vector[_DihedralParmType] DihedralParmArray
 ctypedef vector[_DihedralType] DihedralArray
+ctypedef vector[_NonbondType] NonbondArray
 
 
 cdef extern from "ParameterTypes.h":

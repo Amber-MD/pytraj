@@ -1250,7 +1250,7 @@ cdef class Topology:
     property bonds:
         def __get__(self):
             """return bond iterator"""
-            cdef _BondArray bondarray, bondarray_h
+            cdef BondArray bondarray, bondarray_h
             cdef BondType btype = BondType()
 
             bondarray = self.thisptr.Bonds()
@@ -1269,7 +1269,7 @@ cdef class Topology:
     property angles:
         def __get__(self):
             """return angle iterator"""
-            cdef _AngleArray anglearray, anglearray_h
+            cdef AngleArray anglearray, anglearray_h
             cdef AngleType atype = AngleType()
 
             anglearray = self.thisptr.Angles()
@@ -1288,9 +1288,9 @@ cdef class Topology:
     property dihedrals:
         def __get__(self):
             """return dihedral iterator"""
-            cdef _DihedralArray dharr, dharr_h
+            cdef DihedralArray dharr, dharr_h
             cdef DihedralType dhtype = DihedralType()
-            cdef _DihedralArray.const_iterator it
+            cdef DihedralArray.const_iterator it
 
             dharr = self.thisptr.Dihedrals()
             dharr_h = self.thisptr.DihedralsH()
