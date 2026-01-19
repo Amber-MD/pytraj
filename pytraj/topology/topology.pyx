@@ -1007,7 +1007,6 @@ cdef class Topology:
         -----
         - Information only appears in IPython or Python shell
         - Provides overview of system composition
->>>>>>> origin/master
         It does not appear in Jupyter notebook (due to C++ stdout)
         """
         with capture_stdout() as (out, _):
@@ -1250,58 +1249,60 @@ cdef class Topology:
     property bonds:
         def __get__(self):
             """return bond iterator"""
-            cdef BondArray bondarray, bondarray_h
+            cdef const BondArray* bondarray
+            cdef const BondArray* bondarray_h
             cdef BondType btype = BondType()
 
-            bondarray = self.thisptr.Bonds()
-            bondarray_h = self.thisptr.BondsH()
+            bondarray = &self.thisptr.Bonds()
+            bondarray_h = &self.thisptr.BondsH()
 
             # Iterate through regular bonds first
-            for btype.thisptr[0] in bondarray:
+            for btype.thisptr[0] in bondarray[0]:
                 yield btype
                 btype = BondType()
 
             # Then iterate through hydrogen bonds
-            for btype.thisptr[0] in bondarray_h:
+            for btype.thisptr[0] in bondarray_h[0]:
                 yield btype
                 btype = BondType()
 
     property angles:
         def __get__(self):
             """return angle iterator"""
-            cdef AngleArray anglearray, anglearray_h
+            cdef const AngleArray* anglearray
+            cdef const AngleArray* anglearray_h
             cdef AngleType atype = AngleType()
 
-            anglearray = self.thisptr.Angles()
-            anglearray_h = self.thisptr.AnglesH()
+            anglearray = &self.thisptr.Angles()
+            anglearray_h = &self.thisptr.AnglesH()
 
             # Iterate through regular angles first
-            for atype.thisptr[0] in anglearray:
+            for atype.thisptr[0] in anglearray[0]:
                 yield atype
                 atype = AngleType()
 
             # Then iterate through hydrogen angles
-            for atype.thisptr[0] in anglearray_h:
+            for atype.thisptr[0] in anglearray_h[0]:
                 yield atype
                 atype = AngleType()
 
     property dihedrals:
         def __get__(self):
             """return dihedral iterator"""
-            cdef DihedralArray dharr, dharr_h
+            cdef const DihedralArray* dharr
+            cdef const DihedralArray* dharr_h
             cdef DihedralType dhtype = DihedralType()
-            cdef DihedralArray.const_iterator it
 
-            dharr = self.thisptr.Dihedrals()
-            dharr_h = self.thisptr.DihedralsH()
+            dharr = &self.thisptr.Dihedrals()
+            dharr_h = &self.thisptr.DihedralsH()
 
             # Iterate through regular dihedrals first
-            for dhtype.thisptr[0] in dharr:
+            for dhtype.thisptr[0] in dharr[0]:
                 yield dhtype
                 dhtype = DihedralType()
 
             # Then iterate through hydrogen dihedrals
-            for dhtype.thisptr[0] in dharr_h:
+            for dhtype.thisptr[0] in dharr_h[0]:
                 yield dhtype
                 dhtype = DihedralType()
 
