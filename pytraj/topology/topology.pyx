@@ -1257,6 +1257,13 @@ cdef class Topology:
             for i in range(self.thisptr.BondsH().size()):
                 btype = BondType()
                 btype.thisptr[0] = self.thisptr.BondsH()[i]
+                yield btype
+
+    property angles:
+        def __get__(self):
+            """return angle iterator"""
+            cdef AngleType atype
+            cdef int i
 
             # Get regular angles
             for i in range(self.thisptr.Angles().size()):
@@ -1268,6 +1275,13 @@ cdef class Topology:
             for i in range(self.thisptr.AnglesH().size()):
                 atype = AngleType()
                 atype.thisptr[0] = self.thisptr.AnglesH()[i]
+                yield atype
+
+    property dihedrals:
+        def __get__(self):
+            """return dihedral iterator"""
+            cdef DihedralType dhtype
+            cdef int i
 
             # Get regular dihedrals
             for i in range(self.thisptr.Dihedrals().size()):
@@ -1279,7 +1293,9 @@ cdef class Topology:
             for i in range(self.thisptr.DihedralsH().size()):
                 dhtype = DihedralType()
                 dhtype.thisptr[0] = self.thisptr.DihedralsH()[i]
-        def __get__(self):
+                yield dhtype
+
+    property bond_indices:
             return np.asarray([b.indices for b in self.angles], dtype=np.int64)
 
     property dihedral_indices:
