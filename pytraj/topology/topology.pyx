@@ -1249,60 +1249,54 @@ cdef class Topology:
     property bonds:
         def __get__(self):
             """return bond iterator"""
-            cdef const BondArray* bondarray
-            cdef const BondArray* bondarray_h
             cdef BondType btype = BondType()
-
-            bondarray = &self.thisptr.Bonds()
-            bondarray_h = &self.thisptr.BondsH()
+            cdef _BondType bond_val
 
             # Iterate through regular bonds first
-            for btype.thisptr[0] in bondarray[0]:
+            for bond_val in self.thisptr.Bonds():
+                btype.thisptr[0] = bond_val
                 yield btype
                 btype = BondType()
 
             # Then iterate through hydrogen bonds
-            for btype.thisptr[0] in bondarray_h[0]:
+            for bond_val in self.thisptr.BondsH():
+                btype.thisptr[0] = bond_val
                 yield btype
                 btype = BondType()
 
     property angles:
         def __get__(self):
             """return angle iterator"""
-            cdef const AngleArray* anglearray
-            cdef const AngleArray* anglearray_h
             cdef AngleType atype = AngleType()
-
-            anglearray = &self.thisptr.Angles()
-            anglearray_h = &self.thisptr.AnglesH()
+            cdef _AngleType angle_val
 
             # Iterate through regular angles first
-            for atype.thisptr[0] in anglearray[0]:
+            for angle_val in self.thisptr.Angles():
+                atype.thisptr[0] = angle_val
                 yield atype
                 atype = AngleType()
 
             # Then iterate through hydrogen angles
-            for atype.thisptr[0] in anglearray_h[0]:
+            for angle_val in self.thisptr.AnglesH():
+                atype.thisptr[0] = angle_val
                 yield atype
                 atype = AngleType()
 
     property dihedrals:
         def __get__(self):
             """return dihedral iterator"""
-            cdef const DihedralArray* dharr
-            cdef const DihedralArray* dharr_h
             cdef DihedralType dhtype = DihedralType()
-
-            dharr = &self.thisptr.Dihedrals()
-            dharr_h = &self.thisptr.DihedralsH()
+            cdef _DihedralType dihedral_val
 
             # Iterate through regular dihedrals first
-            for dhtype.thisptr[0] in dharr[0]:
+            for dihedral_val in self.thisptr.Dihedrals():
+                dhtype.thisptr[0] = dihedral_val
                 yield dhtype
                 dhtype = DihedralType()
 
             # Then iterate through hydrogen dihedrals
-            for dhtype.thisptr[0] in dharr_h[0]:
+            for dihedral_val in self.thisptr.DihedralsH():
+                dhtype.thisptr[0] = dihedral_val
                 yield dhtype
                 dhtype = DihedralType()
 
