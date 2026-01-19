@@ -6,6 +6,8 @@ def array_to_cpptraj_range(seq):
     >>> array_to_cpptraj_range([2, 5, 7])
     '3,6,8'
     '''
+    if seq is None:
+        return ""
     # use "i+1" since cpptraj use 1-based index for mask
     return ",".join((str(i + 1) for i in seq))
 

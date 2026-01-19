@@ -43,7 +43,7 @@ cdef extern from "ActionState.h":
         void SetFrame(_Frame * f)
 
 
-cdef extern from "Action.h": 
+cdef extern from "Action.h":
     # Action.h
     ctypedef enum RetType "Action::RetType":
         OK "Action::OK"
@@ -972,3 +972,123 @@ cdef extern from "Action_XtalSymm.h":
 
 cdef class Action_XtalSymm(Action):
     cdef _Action_XtalSymm* thisptr
+
+
+cdef extern from "Action_AddAtom.h":
+    cdef cppclass _Action_AddAtom "Action_AddAtom" (_Action) nogil:
+        _Action_AddAtom()
+        _DispatchObject * Alloc()
+        void Help()
+
+cdef class Action_AddAtom(Action):
+    cdef _Action_AddAtom* thisptr
+
+# Insert after Action_AutoImage and before Action_Average:
+cdef extern from "Action_AvgBox.h":
+    cdef cppclass _Action_AvgBox "Action_AvgBox" (_Action) nogil:
+        _Action_AvgBox()
+        _DispatchObject * Alloc()
+        void Help()
+
+cdef class Action_AvgBox(Action):
+    cdef _Action_AvgBox* thisptr
+
+# Insert after Action_Contacts and before Action_CreateCrd:
+cdef extern from "Action_ConvertToFrac.h":
+    cdef cppclass _Action_ConvertToFrac "Action_ConvertToFrac" (_Action) nogil:
+        _Action_ConvertToFrac()
+        _DispatchObject * Alloc()
+        void Help()
+
+cdef class Action_ConvertToFrac(Action):
+    cdef _Action_ConvertToFrac* thisptr
+
+# Insert after Action_CreateCrd and before Action_DNAionTracker:
+cdef extern from "Action_CreateReservoir.h":
+    cdef cppclass _Action_CreateReservoir "Action_CreateReservoir" (_Action) nogil:
+        _Action_CreateReservoir()
+        _DispatchObject * Alloc()
+        void Help()
+
+cdef class Action_CreateReservoir(Action):
+    cdef _Action_CreateReservoir* thisptr
+
+# Insert after Action_Dihedral and before Action_Dipole:
+cdef extern from "Action_DihedralRMS.h":
+    cdef cppclass _Action_DihedralRMS "Action_DihedralRMS" (_Action) nogil:
+        _Action_DihedralRMS()
+        _DispatchObject * Alloc()
+        void Help()
+
+cdef class Action_DihedralRMS(Action):
+    cdef _Action_DihedralRMS* thisptr
+
+# Insert after Action_Energy and before Action_Esander:
+cdef extern from "Action_EneDecomp.h":
+    cdef cppclass _Action_EneDecomp "Action_EneDecomp" (_Action) nogil:
+        _Action_EneDecomp()
+        _DispatchObject * Alloc()
+        void Help()
+
+cdef class Action_EneDecomp(Action):
+    cdef _Action_EneDecomp* thisptr
+
+# Insert after Action_Image and before Action_Jcoupling:
+cdef extern from "Action_InfraredSpectrum.h":
+    cdef cppclass _Action_InfraredSpectrum "Action_InfraredSpectrum" (_Action) nogil:
+        _Action_InfraredSpectrum()
+        _DispatchObject * Alloc()
+        void Help()
+
+cdef class Action_InfraredSpectrum(Action):
+    cdef _Action_InfraredSpectrum* thisptr
+
+# Insert after Action_Jcoupling and before Action_LESsplit:
+cdef extern from "Action_Keep.h":
+    cdef cppclass _Action_Keep "Action_Keep" (_Action) nogil:
+        _Action_Keep()
+        _DispatchObject * Alloc()
+        void Help()
+
+cdef class Action_Keep(Action):
+    cdef _Action_Keep* thisptr
+
+# Insert after Action_MinImage and before Action_Molsurf:
+cdef extern from "Action_MinMaxDist.h":
+    cdef cppclass _Action_MinMaxDist "Action_MinMaxDist" (_Action) nogil:
+        _Action_MinMaxDist()
+        _DispatchObject * Alloc()
+        void Help()
+
+cdef class Action_MinMaxDist(Action):
+    cdef _Action_MinMaxDist* thisptr
+
+# Insert after Action_MultiDihedral and before Action_MultiVector:
+cdef extern from "Action_MultiPucker.h":
+    cdef cppclass _Action_MultiPucker "Action_MultiPucker" (_Action) nogil:
+        _Action_MultiPucker()
+        _DispatchObject * Alloc()
+        void Help()
+
+cdef class Action_MultiPucker(Action):
+    cdef _Action_MultiPucker* thisptr
+
+# Insert after Action_Temperature and before Action_Translate:
+cdef extern from "Action_Time.h":
+    cdef cppclass _Action_Time "Action_Time" (_Action) nogil:
+        _Action_Time()
+        _DispatchObject * Alloc()
+        void Help()
+
+cdef class Action_Time(Action):
+    cdef _Action_Time* thisptr
+
+# Insert after Action_Temperature and before Action_Translate:
+cdef extern from "Action_ToroidalDiffusion.h":
+    cdef cppclass _Action_ToroidalDiffusion "Action_ToroidalDiffusion" (_Action) nogil:
+        _Action_ToroidalDiffusion()
+        _DispatchObject * Alloc()
+        void Help()
+
+cdef class Action_ToroidalDiffusion(Action):
+    cdef _Action_ToroidalDiffusion* thisptr

@@ -45,6 +45,18 @@ class TestGridAction(unittest.TestCase):
         state = pt.load_cpptraj_state(txt)
         state.run()
 
+    def test_grid_frame_indices(self):
+        """Test that frame_indices parameter works correctly for grid"""
+        from pytraj.all_actions import grid
+        traj = pt.load_sample_data("tz2")[:]
+        traj.autoimage()
+        traj.rmsfit(mask=':1-13')
+
+        # Test frame filtering by comparing single frame vs all frames
+        d_single = grid(traj, " 20 0.5 20 0.5 20 0.5 :WAT@O", frame_indices=[0])
+        d_all = grid(traj, " 20 0.5 20 0.5 20 0.5 :WAT@O")
+        # FIXME: how to test frame_inddices?
+
 
 if __name__ == "__main__":
     unittest.main()

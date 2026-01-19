@@ -2,9 +2,16 @@
 from libcpp.vector cimport vector
 from libcpp.string cimport string
 
+ctypedef vector[_BondParmType] BondParmArray
+ctypedef vector[_BondType] BondArray
+ctypedef vector[_AngleParmType] AngleParmArray
+ctypedef vector[_AngleType] AngleArray
+ctypedef vector[_DihedralParmType] DihedralParmArray
+ctypedef vector[_DihedralType] DihedralArray
+
 
 cdef extern from "ParameterTypes.h":
-    # Classes used in topology.pyx
+    # Basic type classes used in topology.pyx
     cdef cppclass _AngleType "AngleType":
         _AngleType()
         inline int A1() const
@@ -28,45 +35,31 @@ cdef extern from "ParameterTypes.h":
         bint Skip14()
         bint IsImproper()
 
-    # Array classes with iterator support
-    cdef cppclass _BondArray "BondArray":
-        _BondArray()
-        ctypedef _BondType* iterator
-        ctypedef const _BondType* const_iterator
-        iterator begin()
-        iterator end()
-        const_iterator begin() const
-        const_iterator end() const
-        void insert(iterator pos, const_iterator first, const_iterator last)
-
-    cdef cppclass _AngleArray "AngleArray":
-        _AngleArray()
-        ctypedef _AngleType* iterator
-        ctypedef const _AngleType* const_iterator
-        iterator begin()
-        iterator end()
-        const_iterator begin() const
-        const_iterator end() const
-        void insert(iterator pos, const_iterator first, const_iterator last)
-
-    cdef cppclass _DihedralArray "DihedralArray":
-        _DihedralArray()
-        ctypedef _DihedralType* iterator
-        ctypedef const _DihedralType* const_iterator
-        iterator begin()
-        iterator end()
-        const_iterator begin() const
-        const_iterator end() const
-
-    # Minimal classes for completeness but not directly used in topology.pyx
+    # Parameter types
     cdef cppclass _BondParmType "BondParmType":
         _BondParmType()
 
     cdef cppclass _AngleParmType "AngleParmType":
         _AngleParmType()
 
+    cdef cppclass _DihedralParmType "DihedralParmType":
+        _DihedralParmType()
+
+    # Other parameter types for completeness
     cdef cppclass _NonbondType "NonbondType":
         _NonbondType()
+
+    cdef cppclass _NonbondParmType "NonbondParmType":
+        _NonbondParmType()
+
+    cdef cppclass _CapParmType "CapParmType":
+        _CapParmType()
+
+    cdef cppclass _LES_ParmType "LES_ParmType":
+        _LES_ParmType()
+
+    cdef cppclass _ChamberParmType "ChamberParmType":
+        _ChamberParmType()
 
     cdef cppclass _HB_ParmType "HB_ParmType":
         _HB_ParmType()

@@ -22,9 +22,9 @@ if sys.version_info[0] >= 3:
 else:
     import __builtin__ as builtins
 
-MAJOR = 2
+MAJOR = 3
 MINOR = 0
-MICRO = 6
+MICRO = 0
 is_released = False
 VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
@@ -265,6 +265,7 @@ def check_cython(is_released,
             need_cython = True
             cmdclass['build_ext'] = build_ext
             if Cython.__version__ < min_version:
+                print("Cython.__version__", Cython.__version__, Cython)
                 print(message_cython)
                 sys.exit(1)
         except ImportError:

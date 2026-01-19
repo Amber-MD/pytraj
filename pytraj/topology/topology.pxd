@@ -10,6 +10,18 @@ from ..trajectory.frame cimport _Frame, Frame
 from libcpp.string cimport string
 from ..core.c_core cimport _FileName, FileName, _ArgList, ArgList
 
+cdef extern from "Range.h":
+    cdef cppclass _Range "Range" nogil:
+        _Range()
+        _Range(int)
+        bint Empty() const
+        unsigned int Size() const
+        int Back() const
+        int Front() const
+        void Clear()
+        int SetRange(int, int)
+        void AddToRange(int)
+
 
 ctypedef cppvector[_Atom].const_iterator atom_iterator
 ctypedef cppvector[_Residue].const_iterator res_iterator
@@ -38,11 +50,53 @@ cdef extern from "Topology.h":
         int DetermineMolecules()
         void SetDistMaskRef(_Frame)
         _Atom& GetAtomView "SetAtom" (int idx)
+        const string& Tag() const
+        int Ipol() const
+        int Pindex() const
         int Natom() const
         int Nres() const
+        int NatomPerMol() const
         int Nmol() const
         int Nsolvent() const
+        int NoAmberParm() const
+        bint IsBondPresentParm(const _Atom& a1, const _Atom& a2) const
+        bint IsAnglePresentParm(const _Atom& a1, const _Atom& a2, const _Atom& a3) const
+        bint IsDihedralPresentParm(const _Atom& a1, const _Atom& a2, const _Atom& a3, const _Atom& a4) const
+        void PrintBondInfo(const string& a1, int resIdOrNum, const string& a2, int resId2OrNum2, bint printZero) const
+        void PrintAngleInfo(const string& a1, int resIdOrNum, const string& a2, int resId2OrNum2, const string& a3, int resId3OrNum3, bint printZero) const
+        void PrintDihedralInfo(const string& a1, int resIdOrNum, const string& a2, int resId2OrNum2, const string& a3, int resId3OrNum3, const string& a4, int resId4OrNum4, bint printZero) const
+        bint SetBondArray(_BondParmArray&)
+        bint SetAngleArray(_AngleParmArray&)
+        bint SetDihedralArray(_DihedralParmArray&)
+        void SetNonbondArray(_NonbondArray&)
+        bint SetupIntegerMasks(int, int)
+        void IntegerMask_CheckParmtop(vector[int]&) const
+        void IntegerMask_CheckParmtop2(vector[int]&) const
+        int FindBondParameter(_Atom& a1, _Atom& a2) const
+        int FindAngleParameter(_Atom& a1, _Atom& a2, _Atom& a3) const
+        int FindDihedralParameter(_Atom& a1, _Atom& a2, _Atom& a3, _Atom& a4) const
+        void NonbondInfo(int, int, double&, double&)
+        void NonbondInfo2(int, int, int, double&, double&, double&, double&)
+        vector[char] GetParmtopCodes()
+        int Natom0() const
+        int Nres0() const
+        void ComputeLJIndex(vector[int]&, int, int, double&, double&) const
+        int LjTerms() const
+        int LjTerms2() const
+        int HBondTerms() const
+        int GetLjType(int atomIdx) const
+        double GetA(int idx) const
+        double GetB(int idx) const
+        int Nframes() const
+        int NextraPts() const
+        bint HasVelInfo() const
+        int NrepDims "NrepDim"() const
+        const string& ParmName() const
         const _FileName& OriginalFilename() const
+        const string& GBradiiSet() const
+        bint NoRefCoords()
+        int FinalSoluteRes()
+        const char * c_str()
         atom_iterator begin()
         atom_iterator end()
         const _Atom& index_opr "operator[]"(int idx)
@@ -50,27 +104,102 @@ cdef extern from "Topology.h":
         inline res_iterator ResStart()
         inline res_iterator ResEnd()
         const _Residue& Res(int idx)
+        _Residue& SetRes(int idx)
         inline mol_iterator MolStart() const
         inline mol_iterator MolEnd() const
-        const _BondArray& Bonds() const
-        const _BondArray& BondsH() const
+        const _Molecule& Mol(int idx) const
+        void ClearMoleculeInfo()
+        const BondArray& Bonds() const
+        const BondArray& BondsH() const
+        const BondParmArray& BondParm() const
         void AddBond(int, int)
-        const _AngleArray& Angles() const
-        const _AngleArray& AnglesH() const
-        const _DihedralArray& Dihedrals() const
-        const _DihedralArray& DihedralsH() const
+        int SetBondInfo(const BondArray&, const BondArray&, const BondParmArray&)
+        const AngleArray& Angles() const
+        const AngleArray& AnglesH() const
+        const AngleParmArray& AngleParm() const
+        int SetAngleInfo(const AngleArray&, const AngleArray&, const AngleParmArray&)
+        const DihedralArray& Dihedrals() const
+        const DihedralArray& DihedralsH() const
+        const DihedralParmArray& DihedralParm() const
+        int SetDihedralInfo(const DihedralArray&, const DihedralArray&, const DihedralParmArray&)
+        const _NonbondParmType& Nonbond() const
+        int SetNonbondInfo(const _NonbondParmType&)
+        inline const _NonbondType& GetLJparam(int, int) const
+        const _CapParmType& Cap() const
+        void SetCap(const _CapParmType& c)
+        const _LES_ParmType& LES() const
+        void SetLES(const _LES_ParmType& l)
+        const _ChamberParmType& Chamber() const
+        void SetChamber(const _ChamberParmType& c)
+        inline const vector[double]& Solty() const
+        inline const vector[_NameType]& Itree() const
+        inline const vector[int]& Join() const
+        inline const vector[int]& Irotat() const
+        # String formatting methods
+        string TruncResAtomName(int) const
+        string TruncResNameAtomName(int) const
+        string TruncAtomNameNum(int) const
+        string TruncResNameOnumId(int) const
+        string ResNameNumAtomNameNum(int) const
+        string AtomMaskName(int atom) const
+        string TruncResNameNum(int) const
+
+        # Analysis and utility methods
+        unsigned int HeavyAtomCount() const
+        int NatomTypes() const
+        bint HasChargeInfo() const
+        double GetVDWsigma(int) const
+        double GetVDWdepth(int) const
+        bint MaskHasZeroMass(const _AtomMask&) const
+
+        # Residue and molecule operations
+        int NresInMol(int) const
+        _Range SoluteResidues() const
+        int MergeResidues(int, int)
+        int SetSingleMolecule()
+        int SplitResidue(const _AtomMask&, const _NameType&)
+
+        # Mask utilities
+        vector[int] ResnumsSelectedBy(const _AtomMask&) const
+        vector[int] MolnumsSelectedBy(const _AtomMask&) const
+
+        # Existing methods
+        int FindAtomInResidue(int, const _NameType&) const
+        #int FindResidueMaxNatom() const
+        int SoluteAtoms() const
+        int SetSolvent(const string&)
         void Summary() const
+        void Brief(const char *) const
+        void PrintAtomInfo(const string&) const
+        void PrintBondInfo(const string&) const
+        void PrintAngleInfo(const string&) const
+        void PrintDihedralInfo(const string&) const
+        void PrintMoleculeInfo(const string&) const
+        void PrintResidueInfo(const string&) const
+        int PrintChargeMassInfo(const string&, int) const
+        void PrintBonds(const BondArray&, _AtomMask&, int&) const
+        void PrintAngles(const AngleArray&, const _AtomMask&, int&) const
+        void PrintDihedrals(const DihedralArray&, const _AtomMask&, int&) const
         inline const _Box& ParmBox() const
         void SetParmBox(_Box& bIn)
         int AddTopAtom(_Atom&, _Residue&)
         void AddAngle(int, int, int)
         void AddDihedral(int, int, int, int)
+        void StartNewMol()
+        int CommonSetup(bint)
+        int SetAmberExtra(const vector[double]&, const vector[_NameType]&, const vector[int]&, const vector[int]&)
         bint SetupIntegerMask(_AtomMask&) const
+        bint SetupCharMask(_AtomMask&) const
         bint SetupIntegerMask(_AtomMask&, const _Frame&) const
+        bint SetupCharMask(_AtomMask&, const _Frame&) const
+        void ScaleDihedralK(double)
         _Topology* partialModifyStateByMask(const _AtomMask& m) const
         _Topology* modifyStateByMask(const _AtomMask& m) const
+        _Topology* ModifyByMap(const vector[int]& m) const
         int AppendTop(const _Topology &)
-        int SetSolvent(const string&)
+        # add more
+        _CoordinateInfo& ParmCoordInfo() const
+        double GetVDWradius(int) except +
 
 cdef class Topology:
     cdef _Topology* thisptr
@@ -82,11 +211,18 @@ cdef extern from "ParmFile.h":
         pass
         UNKNOWN_PARM "ParmFile::UNKNOWN_PARM"
     cdef cppclass _ParmFile "ParmFile" nogil:
+        @staticmethod
+        void ReadOptions()
+        @staticmethod
+        void WriteOptions()
         _ParmFile()
         int ReadTopology(_Topology&, const string&, const _ArgList&, int)
         int ReadTopology(_Topology& t, const string& n, int d)
+        int WritePrefixTopology(const _Topology&, const string&, ParmFormatType, int)
         int WriteTopology(const _Topology&, const string&, const _ArgList&, ParmFormatType, int)
+        int WriteTopology(const _Topology& t, const string& n, ParmFormatType f, int d)
         const _FileName ParmFilename()
+
 
 cdef class ParmFile:
     cdef _ParmFile* thisptr

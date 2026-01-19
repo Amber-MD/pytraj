@@ -20,7 +20,7 @@ cdef extern from "ActionState.h":
 
 ctypedef _ActionInit _AnalysisSetup
 
-cdef extern from "Analysis.h": 
+cdef extern from "Analysis.h":
     ctypedef enum RetType "Analysis::RetType":
         OKANALYSIS "Analysis::OK"
         ERRANALYSIS "Analysis::ERR"
@@ -33,10 +33,10 @@ cdef extern from "Analysis.h":
 cdef class Analysis:
     cdef _Analysis* baseptr
 
-cdef extern from "Analysis_AmdBias.h": 
+cdef extern from "Analysis_AmdBias.h":
     cdef cppclass _Analysis_AmdBias "Analysis_AmdBias" (_Analysis) nogil:
-        _Analysis_AmdBias() 
-        _DispatchObject * Alloc() 
+        _Analysis_AmdBias()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -45,10 +45,10 @@ cdef class Analysis_AmdBias (Analysis):
 
 
 
-cdef extern from "Analysis_AutoCorr.h": 
+cdef extern from "Analysis_AutoCorr.h":
     cdef cppclass _Analysis_AutoCorr "Analysis_AutoCorr" (_Analysis) nogil:
-        _Analysis_AutoCorr() 
-        _DispatchObject * Alloc() 
+        _Analysis_AutoCorr()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -57,10 +57,10 @@ cdef class Analysis_AutoCorr (Analysis):
 
 
 
-cdef extern from "Analysis_Average.h": 
+cdef extern from "Analysis_Average.h":
     cdef cppclass _Analysis_Average "Analysis_Average" (_Analysis) nogil:
-        _Analysis_Average() 
-        _DispatchObject * Alloc() 
+        _Analysis_Average()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -69,10 +69,10 @@ cdef class Analysis_Average (Analysis):
 
 
 
-cdef extern from "Analysis_Clustering.h": 
+cdef extern from "Analysis_Clustering.h":
     cdef cppclass _Analysis_Clustering "Analysis_Clustering" (_Analysis) nogil:
-        _Analysis_Clustering() 
-        _DispatchObject * Alloc() 
+        _Analysis_Clustering()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -81,10 +81,10 @@ cdef class Analysis_Clustering (Analysis):
 
 
 
-cdef extern from "Analysis_Corr.h": 
+cdef extern from "Analysis_Corr.h":
     cdef cppclass _Analysis_Corr "Analysis_Corr" (_Analysis) nogil:
-        _Analysis_Corr() 
-        _DispatchObject * Alloc() 
+        _Analysis_Corr()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -93,10 +93,10 @@ cdef class Analysis_Corr (Analysis):
 
 
 
-cdef extern from "Analysis_CrankShaft.h": 
+cdef extern from "Analysis_CrankShaft.h":
     cdef cppclass _Analysis_CrankShaft "Analysis_CrankShaft" (_Analysis) nogil:
-        _Analysis_CrankShaft() 
-        _DispatchObject * Alloc() 
+        _Analysis_CrankShaft()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -104,10 +104,10 @@ cdef class Analysis_CrankShaft (Analysis):
     cdef _Analysis_CrankShaft* thisptr
 
 
-cdef extern from "Analysis_CrdFluct.h": 
+cdef extern from "Analysis_CrdFluct.h":
     cdef cppclass _Analysis_CrdFluct "Analysis_CrdFluct" (_Analysis) nogil:
-        _Analysis_CrdFluct() 
-        _DispatchObject * Alloc() 
+        _Analysis_CrdFluct()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -115,10 +115,10 @@ cdef class Analysis_CrdFluct (Analysis):
     cdef _Analysis_CrdFluct* thisptr
 
 
-cdef extern from "Analysis_CrossCorr.h": 
+cdef extern from "Analysis_CrossCorr.h":
     cdef cppclass _Analysis_CrossCorr "Analysis_CrossCorr" (_Analysis) nogil:
-        _Analysis_CrossCorr() 
-        _DispatchObject * Alloc() 
+        _Analysis_CrossCorr()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -126,10 +126,10 @@ cdef class Analysis_CrossCorr (Analysis):
     cdef _Analysis_CrossCorr* thisptr
 
 
-cdef extern from "Analysis_Divergence.h": 
+cdef extern from "Analysis_Divergence.h":
     cdef cppclass _Analysis_Divergence "Analysis_Divergence" (_Analysis) nogil:
-        _Analysis_Divergence() 
-        _DispatchObject * Alloc() 
+        _Analysis_Divergence()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -138,10 +138,10 @@ cdef class Analysis_Divergence (Analysis):
 
 
 
-cdef extern from "Analysis_FFT.h": 
+cdef extern from "Analysis_FFT.h":
     cdef cppclass _Analysis_FFT "Analysis_FFT" (_Analysis) nogil:
-        _Analysis_FFT() 
-        _DispatchObject * Alloc() 
+        _Analysis_FFT()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -150,10 +150,10 @@ cdef class Analysis_FFT (Analysis):
 
 
 
-cdef extern from "Analysis_Hist.h": 
+cdef extern from "Analysis_Hist.h":
     cdef cppclass _Analysis_Hist "Analysis_Hist" (_Analysis) nogil:
-        _Analysis_Hist() 
-        _DispatchObject * Alloc() 
+        _Analysis_Hist()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -162,10 +162,10 @@ cdef class Analysis_Hist (Analysis):
 
 
 
-cdef extern from "Analysis_IRED.h": 
+cdef extern from "Analysis_IRED.h":
     cdef cppclass _Analysis_IRED "Analysis_IRED" (_Analysis) nogil:
-        _Analysis_IRED() 
-        _DispatchObject * Alloc() 
+        _Analysis_IRED()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -174,10 +174,10 @@ cdef class Analysis_IRED (Analysis):
 
 
 
-cdef extern from "Analysis_Integrate.h": 
+cdef extern from "Analysis_Integrate.h":
     cdef cppclass _Analysis_Integrate "Analysis_Integrate" (_Analysis) nogil:
-        _Analysis_Integrate() 
-        _DispatchObject * Alloc() 
+        _Analysis_Integrate()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -186,10 +186,10 @@ cdef class Analysis_Integrate (Analysis):
 
 
 
-cdef extern from "Analysis_KDE.h": 
+cdef extern from "Analysis_KDE.h":
     cdef cppclass _Analysis_KDE "Analysis_KDE" (_Analysis) nogil:
-        _Analysis_KDE() 
-        _DispatchObject * Alloc() 
+        _Analysis_KDE()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -198,10 +198,10 @@ cdef class Analysis_KDE (Analysis):
 
 
 
-cdef extern from "Analysis_Lifetime.h": 
+cdef extern from "Analysis_Lifetime.h":
     cdef cppclass _Analysis_Lifetime "Analysis_Lifetime" (_Analysis) nogil:
-        _Analysis_Lifetime() 
-        _DispatchObject * Alloc() 
+        _Analysis_Lifetime()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -210,10 +210,10 @@ cdef class Analysis_Lifetime (Analysis):
 
 
 
-cdef extern from "Analysis_Matrix.h": 
+cdef extern from "Analysis_Matrix.h":
     cdef cppclass _Analysis_Matrix "Analysis_Matrix" (_Analysis) nogil:
-        _Analysis_Matrix() 
-        _DispatchObject * Alloc() 
+        _Analysis_Matrix()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -222,10 +222,10 @@ cdef class Analysis_Matrix (Analysis):
 
 
 
-cdef extern from "Analysis_MeltCurve.h": 
+cdef extern from "Analysis_MeltCurve.h":
     cdef cppclass _Analysis_MeltCurve "Analysis_MeltCurve" (_Analysis) nogil:
-        _Analysis_MeltCurve() 
-        _DispatchObject * Alloc() 
+        _Analysis_MeltCurve()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -234,10 +234,10 @@ cdef class Analysis_MeltCurve (Analysis):
 
 
 
-cdef extern from "Analysis_Modes.h": 
+cdef extern from "Analysis_Modes.h":
     cdef cppclass _Analysis_Modes "Analysis_Modes" (_Analysis) nogil:
-        _Analysis_Modes() 
-        _DispatchObject * Alloc() 
+        _Analysis_Modes()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -246,10 +246,10 @@ cdef class Analysis_Modes (Analysis):
 
 
 
-cdef extern from "Analysis_MultiHist.h": 
+cdef extern from "Analysis_MultiHist.h":
     cdef cppclass _Analysis_MultiHist "Analysis_MultiHist" (_Analysis) nogil:
-        _Analysis_MultiHist() 
-        _DispatchObject * Alloc() 
+        _Analysis_MultiHist()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -258,10 +258,10 @@ cdef class Analysis_MultiHist (Analysis):
 
 
 
-cdef extern from "Analysis_Overlap.h": 
+cdef extern from "Analysis_Overlap.h":
     cdef cppclass _Analysis_Overlap "Analysis_Overlap" (_Analysis) nogil:
-        _Analysis_Overlap() 
-        _DispatchObject * Alloc() 
+        _Analysis_Overlap()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -270,10 +270,10 @@ cdef class Analysis_Overlap (Analysis):
 
 
 
-cdef extern from "Analysis_Regression.h": 
+cdef extern from "Analysis_Regression.h":
     cdef cppclass _Analysis_Regression "Analysis_Regression" (_Analysis) nogil:
-        _Analysis_Regression() 
-        _DispatchObject * Alloc() 
+        _Analysis_Regression()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -282,10 +282,10 @@ cdef class Analysis_Regression (Analysis):
 
 
 
-cdef extern from "Analysis_RemLog.h": 
+cdef extern from "Analysis_RemLog.h":
     cdef cppclass _Analysis_RemLog "Analysis_RemLog" (_Analysis) nogil:
-        _Analysis_RemLog() 
-        _DispatchObject * Alloc() 
+        _Analysis_RemLog()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -294,10 +294,10 @@ cdef class Analysis_RemLog (Analysis):
 
 
 
-cdef extern from "Analysis_Rms2d.h": 
+cdef extern from "Analysis_Rms2d.h":
     cdef cppclass _Analysis_Rms2d "Analysis_Rms2d" (_Analysis) nogil:
-        _Analysis_Rms2d() 
-        _DispatchObject * Alloc() 
+        _Analysis_Rms2d()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -306,10 +306,10 @@ cdef class Analysis_Rms2d (Analysis):
 
 
 
-cdef extern from "Analysis_RmsAvgCorr.h": 
+cdef extern from "Analysis_RmsAvgCorr.h":
     cdef cppclass _Analysis_RmsAvgCorr "Analysis_RmsAvgCorr" (_Analysis) nogil:
-        _Analysis_RmsAvgCorr() 
-        _DispatchObject * Alloc() 
+        _Analysis_RmsAvgCorr()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -318,10 +318,10 @@ cdef class Analysis_RmsAvgCorr (Analysis):
 
 
 
-cdef extern from "Analysis_RunningAvg.h": 
+cdef extern from "Analysis_RunningAvg.h":
     cdef cppclass _Analysis_RunningAvg "Analysis_RunningAvg" (_Analysis) nogil:
-        _Analysis_RunningAvg() 
-        _DispatchObject * Alloc() 
+        _Analysis_RunningAvg()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -329,10 +329,10 @@ cdef class Analysis_RunningAvg (Analysis):
     cdef _Analysis_RunningAvg* thisptr
 
 
-cdef extern from "Analysis_Spline.h": 
+cdef extern from "Analysis_Spline.h":
     cdef cppclass _Analysis_Spline "Analysis_Spline" (_Analysis) nogil:
-        _Analysis_Spline() 
-        _DispatchObject * Alloc() 
+        _Analysis_Spline()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -341,10 +341,10 @@ cdef class Analysis_Spline (Analysis):
 
 
 
-cdef extern from "Analysis_Statistics.h": 
+cdef extern from "Analysis_Statistics.h":
     cdef cppclass _Analysis_Statistics "Analysis_Statistics" (_Analysis) nogil:
-        _Analysis_Statistics() 
-        _DispatchObject * Alloc() 
+        _Analysis_Statistics()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -352,10 +352,10 @@ cdef class Analysis_Statistics (Analysis):
     cdef _Analysis_Statistics* thisptr
 
 
-cdef extern from "Analysis_Timecorr.h": 
+cdef extern from "Analysis_Timecorr.h":
     cdef cppclass _Analysis_Timecorr "Analysis_Timecorr" (_Analysis) nogil:
-        _Analysis_Timecorr() 
-        _DispatchObject * Alloc() 
+        _Analysis_Timecorr()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -363,10 +363,10 @@ cdef class Analysis_Timecorr (Analysis):
     cdef _Analysis_Timecorr* thisptr
 
 
-cdef extern from "Analysis_VectorMath.h": 
+cdef extern from "Analysis_VectorMath.h":
     cdef cppclass _Analysis_VectorMath "Analysis_VectorMath" (_Analysis) nogil:
-        _Analysis_VectorMath() 
-        _DispatchObject * Alloc() 
+        _Analysis_VectorMath()
+        _DispatchObject * Alloc()
         void Help()
 
 
@@ -374,19 +374,19 @@ cdef class Analysis_VectorMath (Analysis):
     cdef _Analysis_VectorMath* thisptr
 
 
-cdef extern from "Analysis_Rotdif.h": 
+cdef extern from "Analysis_Rotdif.h":
     cdef cppclass _Analysis_Rotdif "Analysis_Rotdif" (_Analysis) nogil:
-        _Analysis_Rotdif() 
-        _DispatchObject * Alloc() 
+        _Analysis_Rotdif()
+        _DispatchObject * Alloc()
         void Help()
 
 cdef class Analysis_Rotdif(Analysis):
     cdef _Analysis_Rotdif* thisptr
 
-cdef extern from "Analysis_LowestCurve.h": 
+cdef extern from "Analysis_LowestCurve.h":
     cdef cppclass _Analysis_LowestCurve  "Analysis_LowestCurve" (_Analysis) nogil:
-        _Analysis_LowestCurve() 
-        _DispatchObject * Alloc() 
+        _Analysis_LowestCurve()
+        _DispatchObject * Alloc()
         void Help()
 
 cdef class Analysis_LowestCurve(Analysis):
@@ -413,6 +413,17 @@ cdef extern from "Analysis_TI.h":
 
 cdef class Analysis_TI (Analysis):
     cdef _Analysis_TI* thisptr
+
+
+cdef extern from "Analysis_TICA.h":
+    cdef cppclass _Analysis_TICA "Analysis_TICA" (_Analysis) nogil:
+        _Analysis_TICA()
+        _DispatchObject * Alloc()
+        void Help()
+
+
+cdef class Analysis_TICA (Analysis):
+    cdef _Analysis_TICA* thisptr
 
 
 cdef extern from "Analysis_Wavelet.h":

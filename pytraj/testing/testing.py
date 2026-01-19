@@ -8,13 +8,14 @@ from pytraj.utils import tempfolder
 from pytraj.utils import duplicate_traj
 from numpy.testing import assert_almost_equal
 from functools import partial
+import numpy as np
 
 aa_eq = partial(assert_almost_equal, decimal=4)
 
 __all__ = [
     'load_sample_data', 'eq', 'aa_eq', 'duplicate_traj', 'Timer', 'tempfolder',
     'amberhome', 'cpptraj_test_dir', 'get_fn', 'get_remd_fn',
-    'assert_equal_topology'
+    'assert_equal_topology', 'assert_equal_dict', 'load_cpptraj_reference_data'
 ]
 
 # find cpptraj test dir
@@ -83,6 +84,20 @@ def assert_equal_topology(top, new_top, traj=None):
         assert res.first_atom_index == res_new.first_atom_index, 'first atom'
         assert res.last_atom_index == res_new.last_atom_index, 'last atom'
 
+def assert_equal_dict(dict1, dict2):
+    """Assert two dict are equal (for testing purpose)
+    Assume the values are numpy arrays
+    """
+    assert dict1.keys() == dict2.keys()
+    for key in dict1.keys():
+        val1 = dict1[key]
+        val2 = dict2[key]
+        if val1.dtype == np.dtype("<U9") or val1.dtype == np.dtype("object"):
+            assert len(val1) == len(val2)
+            assert all(v1 == v2 for v1, v2 in zip(val1, val2))
+        else:
+            aa_eq(val1, val2)
+
 
 def get_fn(txt):
     '''get absolute path for trajectory and topology samples. Legit text = 'ala3', 'tz2',
@@ -108,6 +123,53 @@ def get_remd_fn(txt):
     from pytraj import load_sample_data
     traj = load_sample_data(txt)
     return traj.filelist, traj.top.filename
+
+
+def load_cpptraj_reference_data(test_name, data_file, column=1):
+    """Load reference data from cpptraj test files
+
+    Parameters
+    ----------
+    test_name : str
+        Name of the cpptraj test directory (e.g., 'Test_Distance', 'Test_RMSD')
+    data_file : str
+        Name of the reference data file (e.g., 'dist.dat.save', 'rmsd.dat.save')
+    column : int, optional
+        Column index to extract (0-based), default is 1 (second column)
+
+    Returns
+    -------
+    np.ndarray or None
+        Array of reference values, or None if file not found
+
+    Examples
+    --------
+    >>> # Load distance reference data
+    >>> distances = load_cpptraj_reference_data('Test_Distance', 'dist.dat.save')
+    >>> # Load RMS fluctuations (5th column)
+    >>> fluct = load_cpptraj_reference_data('Test_Analyze_Modes', 'fluct.dat.save', column=4)
+    """
+    if not cpptraj_test_dir:
+        return None
+
+    cpptraj_ref_file = os.path.join(cpptraj_test_dir, test_name, data_file)
+
+    if not os.path.exists(cpptraj_ref_file):
+        return None
+
+    values = []
+    with open(cpptraj_ref_file, 'r') as f:
+        for line in f:
+            if line.startswith('#') or not line.strip():
+                continue
+            parts = line.strip().split()
+            if len(parts) > column:
+                try:
+                    values.append(float(parts[column]))
+                except ValueError:
+                    continue
+
+    return np.array(values) if values else None
 
 
 if __name__ == "__main__":

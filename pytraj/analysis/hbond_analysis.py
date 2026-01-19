@@ -106,9 +106,12 @@ def hbond(traj,
           mask="",
           solvent_donor=None,
           solvent_acceptor=None,
+          donor_mask=None,
+          acceptor_mask=None,
           distance=3.0,
           angle=135.,
           image=False,
+          nointramol=False,
           series=True,
           options='',
           dtype='hbond',
@@ -137,10 +140,16 @@ def hbond(traj,
         if solvent_acceptor and solvent_donor are None, cpptraj only search hbond for
         if solvent_donor and solvent_acceptor are NOT None, cpptraj will search for hbond
         between solute and solvent too.
+    donor_mask : {None, str}, default None
+        Explicit donor mask specification
+    acceptor_mask : {None, str}, default None
+        Explicit acceptor mask specification
     distance : float, default 3.0 (angstrom)
         hbond distance cut off
     angle : float, 135.0 degree
         hbond angle cut off
+    nointramol : bool, default False
+        Exclude intramolecular hydrogen bonds
     dtype : return output's type, default 'hbond'
     image : bool, default False
     series : bool, default True
@@ -208,17 +217,35 @@ def hbond(traj,
     act = c_action.Action_HydrogenBond()
 
     dset_name = 'HB'
-    s_donor = "solventdonor " + str(solvent_donor) if solvent_donor else ""
-    s_acceptor = "solventacceptor " + \
-        str(solvent_acceptor) if solvent_acceptor else ""
-    _dist = 'dist ' + str(distance)
-    _angle = 'angle ' + str(angle)
-    _image = 'image' if image else ''
-    _series = 'series' if series else ''
-    _options = options
+    # Build command components
+    command_parts = [dset_name]
+    if series:
+        command_parts.append('series')
+    command_parts.append(mask)
 
-    command = " ".join((dset_name, _series, mask, s_donor, s_acceptor, _dist,
-                        _angle, _image, _options))
+    # Donor/Acceptor specifications
+    if donor_mask:
+        command_parts.extend(['donormask', str(donor_mask)])
+    if acceptor_mask:
+        command_parts.extend(['acceptormask', str(acceptor_mask)])
+    if solvent_donor:
+        command_parts.extend(['solventdonor', str(solvent_donor)])
+    if solvent_acceptor:
+        command_parts.extend(['solventacceptor', str(solvent_acceptor)])
+
+    # Cutoff parameters
+    command_parts.extend(['dist', str(distance)])
+    command_parts.extend(['angle', str(angle)])
+
+    # Boolean options
+    if image:
+        command_parts.append('image')
+    if nointramol:
+        command_parts.append('nointramol')
+    if options:
+        command_parts.append(options)
+
+    command = " ".join(command_parts)
 
     # need to get correct frame number
     act.read_input(command, top=top, dslist=dslist)
