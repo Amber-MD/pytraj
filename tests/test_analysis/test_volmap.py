@@ -42,9 +42,9 @@ class TestVolmap:
         aa_eq(cpp_data, ds)
 
         # assert
-        with pytest.raises(AssertionError):
+        with pytest.raises(ValueError):
             pt.volmap(traj, mask=':WAT@O', grid_spacing='0.5 0.5 0.5')
-        with pytest.raises(AssertionError):
+        with pytest.raises(ValueError):
             pt.volmap(traj, mask=':WAT@O', grid_spacing=(0.5, 0.5))
         with pytest.raises(ValueError):
             pt.volmap(traj, mask=':WAT@O', grid_spacing=(0.5, 0.5, 0.5), size='20 20 20')

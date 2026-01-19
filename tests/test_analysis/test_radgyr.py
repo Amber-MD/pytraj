@@ -46,9 +46,17 @@ def test_radgyr_tensor():
     key = 'RoG_00000[Tensor]'
     np.testing.assert_almost_equal(d.get(key), expectect_tensor)
 
+    # Test backward compatibility with default ndarray dtype (returns tuple)
     d2 = pt.radgyr_tensor(traj, mask=':1-13')
+    assert isinstance(d2, tuple)
     np.testing.assert_almost_equal(d2[1], expectect_tensor)
     np.testing.assert_almost_equal(d2[0], pt.radgyr(traj, ':1-13'))
+
+    # Test explicit ndarray dtype (should also return tuple for backward compatibility)
+    d3 = pt.radgyr_tensor(traj, mask=':1-13', dtype='ndarray')
+    assert isinstance(d3, tuple)
+    np.testing.assert_almost_equal(d3[1], expectect_tensor)
+    np.testing.assert_almost_equal(d3[0], pt.radgyr(traj, ':1-13'))
 
 
 def test_radgyr_default():

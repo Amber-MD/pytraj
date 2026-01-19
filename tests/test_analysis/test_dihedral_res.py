@@ -3,6 +3,8 @@ import unittest
 import pytraj as pt
 from utils import fn
 from pytraj.testing import aa_eq
+# Import directly from geometry module to avoid circular import
+from pytraj.actions.geometry import _dihedral_res
 
 
 class Test(unittest.TestCase):
@@ -11,7 +13,7 @@ class Test(unittest.TestCase):
         d = pt.calc_delta(traj, resrange='1').values
 
         d1 = pt.dihedral(traj, ":1@C5' :1@C4' :1@C3' :1@O3'")
-        d2 = pt._dihedral_res(traj, ("C5'", "C4'", "C3'", "O3'"))
+        d2 = _dihedral_res(traj, ("C5'", "C4'", "C3'", "O3'"))
 
         aa_eq(d, d1)
         aa_eq(d, d2)

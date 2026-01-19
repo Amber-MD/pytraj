@@ -1,5 +1,6 @@
 import pytraj as pt
 from pytraj.testing import aa_eq
+import numpy as np
 
 # local
 from utils import fn
@@ -24,3 +25,32 @@ def test_lipidscd():
     out = pt.lipidscd(traj, mask)
     for k, v in out.items():
         aa_eq(v, expected_data[k])
+
+
+def test_lipidscd_frame_indices():
+    """Test that frame_indices parameter works correctly for lipidscd"""
+    parm = fn('DOPC.parm7')
+    trajin = fn('DOPC.rst7')
+
+    traj = pt.load(trajin, parm)
+    mask = ':OL,PC'
+
+    # Since this trajectory only has 1 frame, test that frame_indices parameter is accepted
+    # and produces the same result as processing all frames
+    frame_indices = [0] if len(traj) > 0 else []
+
+    # Get results with and without frame_indices
+    result_with_indices = pt.lipidscd(traj, mask, frame_indices=frame_indices)
+    result_all_frames = pt.lipidscd(traj, mask)
+
+    # Verify we get dict results
+    assert isinstance(result_with_indices, dict)
+    assert isinstance(result_all_frames, dict)
+
+    # Both should have same keys
+    assert result_with_indices.keys() == result_all_frames.keys()
+
+    # For single-frame trajectory, results should be identical
+    # (the main test is that frame_indices parameter is accepted without error)
+    for key in result_with_indices.keys():
+        np.testing.assert_array_equal(result_with_indices[key], result_all_frames[key])

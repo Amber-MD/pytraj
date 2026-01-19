@@ -60,3 +60,27 @@ def test_gist_survival_ex():
     ]
 
 
+def test_count_in_voxel_frame_indices():
+    """Test that frame_indices parameter works correctly for count_in_voxel"""
+    tz2_traj = pt.datafiles.load_tz2()
+
+    # Test with specific frame indices
+    frame_indices = [0, 2, 4]
+    voxel_center = (0, 0, 0)
+    voxel_size = 10
+
+    # Get results with frame_indices
+    result_with_indices = pt.count_in_voxel(tz2_traj, '@CA', voxel_center, voxel_size, frame_indices=frame_indices)
+
+    # Get results without frame_indices (all frames)
+    result_all_frames = pt.count_in_voxel(tz2_traj, '@CA', voxel_center, voxel_size)
+
+    # Check that we got the right number of results
+    assert len(result_with_indices) == len(frame_indices), f"Expected {len(frame_indices)} results, got {len(result_with_indices)}"
+    assert len(result_all_frames) == len(tz2_traj), f"Expected {len(tz2_traj)} results, got {len(result_all_frames)}"
+
+    # Check that results for specific frames match
+    for i, frame_idx in enumerate(frame_indices):
+        assert result_with_indices[i] == result_all_frames[frame_idx], f"Frame {frame_idx} results don't match"
+
+

@@ -301,7 +301,13 @@ class super_dispatch(object):
 
             # update mask to args or kwargs
             if has_mask_arg and not isinstance(mask, str):
-                mask = array_to_cpptraj_atommask(mask)
+                # Check if it's a list of strings (atom masks) vs list of integers (atom indices)
+                if isinstance(mask, (list, tuple)) and mask and isinstance(mask[0], str):
+                    # It's a list of string masks, leave as-is since the function can handle it
+                    pass
+                else:
+                    # It's numeric indices, convert to cpptraj atom mask format
+                    mask = array_to_cpptraj_atommask(mask)
             if 'mask' in kwargs:
                 kwargs['mask'] = mask
             else:
