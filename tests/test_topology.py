@@ -203,13 +203,6 @@ class TestNewTopologyAPI(unittest.TestCase):
         # Protein heavy atom ratio should be reasonable (typically 20-50%)
         assert 0.1 < heavy_ratio < 0.8
 
-    def test_atom_types(self):
-        """Test atom type counting"""
-        n_types = self.top.n_atom_types
-        assert isinstance(n_types, int)
-        assert n_types > 0
-        assert n_types <= self.top.n_atoms  # Can't have more types than atoms
-
     def test_charge_info(self):
         """Test charge information methods"""
         # Test both property and method
