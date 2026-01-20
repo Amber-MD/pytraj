@@ -47,3 +47,17 @@ git push origin master
 Further info
 ------------
 [pytraj website](http://amber-md.github.io/pytraj/latest/developer_guide.html)
+
+Debug
+-----
+
+```
+# Install in editable mode without build isolation
+pip install -e . --no-build-isolation
+
+# Install missing netcdf dependencies
+mamba install -c conda-forge netcdf4 libnetcdf -y
+
+# Create symlink for library compatibility
+cd $CONDA_PREFIX/lib && ln -sf libnetcdf.so.22 libnetcdf.so.19
+```
