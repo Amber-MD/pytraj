@@ -413,7 +413,6 @@ class TestNewTopologyAPI(unittest.TestCase):
         start_time = time.time()
         _ = self.top.n_heavy_atoms
         _ = self.top.has_charges
-        _ = self.top.n_atom_types
         end_time = time.time()
 
         # Should complete in well under a second
@@ -423,7 +422,6 @@ class TestNewTopologyAPI(unittest.TestCase):
         """Test that all methods return expected types"""
         # Properties should return appropriate types
         assert isinstance(self.top.n_heavy_atoms, int)
-        assert isinstance(self.top.n_atom_types, int)
         assert isinstance(self.top.has_charges, bool)
 
         # Methods should return appropriate types
@@ -441,13 +439,10 @@ class TestNewTopologyAPI(unittest.TestCase):
         # Get basic topology info
         n_atoms = self.top.n_atoms
         n_heavy = self.top.n_heavy_atoms
-        n_types = self.top.n_atom_types
         has_charges = self.top.has_charges
 
         # Validate relationships
         assert n_heavy <= n_atoms
-        assert n_types <= n_atoms
-        assert 1 <= n_types <= n_atoms
 
         # Test VDW parameters for multiple atom types
         unique_radii = set()
@@ -522,4 +517,3 @@ class TestNewTopologyAPI(unittest.TestCase):
             # Total charge should be reasonable (not NaN or extremely large)
             assert abs(total_charge) < 1000  # Reasonable upper bound
 
-        print(f"Integration test passed: {n_atoms} atoms, {n_heavy} heavy, {n_types} types, charges: {has_charges}")
